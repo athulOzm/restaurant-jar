@@ -7,6 +7,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\User;
+
 
 
 class LoginController extends Controller
@@ -44,22 +47,52 @@ class LoginController extends Controller
 
     public function userlogin(Request $request){
 
+        $validation  =   Validator::make($request->all(), [
+            'memberid'          =>      'required|min:6',
+        ]);
+
+        if($validation->fails()) {
+            return response(['status' => false, 'validation' => $validation->errors()], 401);
+        }
+
+        if(!is_null($user = User::where('memberid', $request->memberid)->first())) {
+
+            if(Auth::loginUsingId($user->id, true)){
+                
+                $user = Auth::user();
+                $token                  =       $user->createToken('token')->accessToken;
+                $success['success']     =       true;
+                $success['message']     =       "Success! you are logged in successfully";
+                $success['token']       =       $token;
+                $success['user']        =       $user;
+    
+                return response(['status' => true, 'data' => $success], 200);
+            } 
+        }
+        else{
+
+            return response(['status' => false, 'validation' => 'Invalid login, Please try again'], 401);
+        }
+ 
+    }
+
+
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if(!is_null($user = User::where('email', $request->email)->first())) {
+
+        }
+
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 
-            $user = Auth::user();
-
-            $token                  =       $user->createToken('token')->accessToken;
-            $success['success']     =       true;
-            $success['message']     =       "Success! you are logged in successfully";
-            $success['token']       =       $token;
-            $success['user']       =        $user;
-
-            return response()->json(['status' => true, 'data' => $success]);
-
-
-        } else{
-            return response()->json(['status' => false, 'validation' => 'Invalid login, Please try again']);
+            return redirect('/home');
         }
+        return back()->withInput($request->only('email', 'remember'));
     }
 
 

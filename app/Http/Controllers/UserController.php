@@ -26,34 +26,26 @@ class UserController extends Controller
         $validation  =   Validator::make($request->all(), [
 
             'name'              =>      'required|min:3',
-            //'email'             =>      'required|email|unique:users',
-            'password'          =>      'required|alpha_num|min:5',
-            'confirm_password'  =>      'required|same:password'
+            'email'             =>      'required|unique:users|email',
+            'phone'             =>      'min:6',
+            'memberid'          =>      'required|min:6',
+
+           // 'password'          =>      'required|alpha_num|min:5',
+           // 'confirm_password'  =>      'required|same:password'
         ]);
 
         if($validation->fails()) {
             return response()->json(['status' => false, 'validation' => $validation->errors()]);
         }
 
-        if(!is_null(User::where('email', $request->email)->first())) {
-
-            $msg = new \stdClass();
-            $msg->email = 'email alreday there!---'.$request->email;
-            
-            return response()->json(['status' => false, 'validation' => $msg]);
-        }
-            
-
-
-
-
         User::create([
             'name'              =>      $request->name,
             'email'             =>      $request->email,
-            'password'          =>      Hash::make($request->password)
+            'phone'             =>      $request->email,
+            'memberid'          =>      $request->memberid
         ]);
 
-        if(!is_null($user = User::where('email', $request->email)->first())) {
+        if(!is_null($user = User::where('memberid', $request->memberid)->first())) {
             if(Auth::loginUsingId($user->id, true)){
                 
                 $user = Auth::user();
