@@ -62,6 +62,7 @@ Route::middleware([Cors::class])->group(function () {
 
     
 
+    
     Route::middleware('auth:userapi')->get('/user', 
         function (Request $request) {
             return $request->user();
