@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ProductManageTest extends TestCase
@@ -33,7 +35,6 @@ class ProductManageTest extends TestCase
     /** @test */
     public function admin_can_store_product(){
 
-        $this->withoutExceptionHandling();
 
         $user = factory(\App\User::class)->create();
 
@@ -43,14 +44,43 @@ class ProductManageTest extends TestCase
         $this->assertEquals(1, Product::all()->count());       
     }
 
+    /** @test */
+    public function can_upload_image()
+    {
+
+        $this->withoutExceptionHandling();
+        Storage::fake('upload');
+
+        $user = factory(\App\User::class)->create();
+
+        $this->actingAs($user)
+            ->post(route('product.store', [
+                'cover' => UploadedFile::fake()->image('photo1.jpg'),
+                'name' => 'product one',
+                'user_id'   => 1,
+                'price' =>  "3.500",
+                'body'  =>  'descritpion... ',
+            ]));
+
+  
+
+        // Assert one or more files were stored...
+        Storage::disk('public')->assertExists('photo1.jpg');
+      
+    }
+
+   
+
     public function data(){
+
+        
 
         return [
             'name' => 'product one',
             'user_id'   => 1,
             'price' =>  "3.500",
             'body'  =>  'descritpion... ',
-            'image' =>  'dummy.jpg'
+            'cover' =>  ''
         ];
     }
 

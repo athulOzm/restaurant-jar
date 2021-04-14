@@ -1,6 +1,6 @@
-@extends('store.layouts.master')
+@extends('admin.layouts.master')
 
-@section('head', 'create deal')
+@section('head', 'create Product')
 
 @section('content')
 
@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Create Deal</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Create Product</h6>
 
 
                     </div>
@@ -31,7 +31,7 @@
 
 
 
-                        <form action="{{ route('store.storedeal') }}" method="post" enctype='multipart/form-data'>
+                        <form action="{{ route('product.store') }}" method="post" enctype='multipart/form-data'>
 
                         <input type="hidden"  value="1000" name="coupons">
                             @csrf
@@ -46,7 +46,7 @@
                                     <select id="inputState" class="form-control @error('category') is-invalid @enderror"
                                         name="category">
                                         <option selected value="0">Choose...</option>
-                                        @foreach(resolve('storebind')['categories'] as $category)
+                                        @foreach(resolve('categories') as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
@@ -86,68 +86,7 @@
                                 
                             </div>
 
-                            <div class="row">
-
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">If any Offer Price (%) </label>
-                                    <input type="text" class="form-control @error('deal') is-invalid @enderror"
-                                        value="{{@old('deal')}}" name="deal">
-                                    @error('deal')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Offer Price (eg:15.50)%</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                
-
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Any Other Offer </label>
-                                    <input type="text" class="form-control" name="deal2">
-                                </div>
-                             
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Product Brand </label>
-                                    <a href="/store/brands" style="float:right;font-size: 11px;line-height: 28px;">(Create Brand)</a>
-                                    <select id="inputState" class="form-control" name="brand">
-                                        <option selected value="">Choose...</option>
-                                        @foreach(resolve('storebind')['brands'] as $brand)
-                                        <option value="{{$brand->id}}">{{$brand->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <!-- <div class="form-group col-md-4">
-                                    <label for="inputCity">Start Date *</label>
-                                    <input type="text"
-                                        class="form-control datepicker @error('date_from') is-invalid @enderror"
-                                        name="date_from" 
-                                        autocomplete="off"
-                                        value="{{@old('date_from')}}">
-                                    @error('date_from')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">End Date *</label>
-                                    <input 
-                                        type="text"
-                                        class="form-control datepicker  @error('date_to') is-invalid @enderror"
-                                        name="date_to" 
-                                        autocomplete="off"
-                                        value="{{@old('date_to')}}">
-                                    @error('date_to')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div> -->
-
-
-                            </div>
+                       
 
 
                             <div class="row">
@@ -182,23 +121,7 @@
                             </div>
 
 
-                            <!-- <div class="row">
-
-                                <div class="form-group col-md-2">
-                                    <label for="inputCity">Title Color</label>
-                                    <input type="color" value="#000" id="colorPicker" name="title">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="inputCity">Button Color</label>
-                                    <input type="color" value="#514095"  name="button">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="inputCity">Sub Title</label>
-                                    <input type="color" value="#514095"  name="title2">
-                                </div>
-
-                            </div> -->
-
+                      
                          
 
                             <div class="form-group">
@@ -206,12 +129,7 @@
 
                                 <textarea class="summernote" name="body" rows="3">{{@old('body')}}</textarea>
                             </div>
-
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Terms & Condition</label>
-
-                                <textarea class="summernote" name="tc" rows="3">{{@old('tc')}}</textarea>
-                            </div>
+ 
 
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
