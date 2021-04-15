@@ -20,7 +20,7 @@ Route::delete('product', 'ProductController@destroy')->name('product.destroy');
 
 //category 
 Route::get('/categories', 'CategoryController@index')->name('category.index');
-Route::post('/category', 'CategoryController@index@store')->name('category.store');
+Route::post('/category', 'CategoryController@store')->name('category.store');
 Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
 
 

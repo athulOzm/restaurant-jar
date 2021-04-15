@@ -20,7 +20,7 @@ class CategoryController extends Controller
         Category::create([
             'name'  =>  $request->name,
             'parant_id' =>  $request->parant,
-            'slug'  =>  Str::slug($request->name),
+            //'slug'  =>  Str::slug($request->name),
             'order'  =>   $request->order
         ]);
 
