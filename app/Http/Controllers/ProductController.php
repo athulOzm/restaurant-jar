@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Image;
+use App\Media;
 
 class ProductController extends Controller
 {
@@ -14,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('product.index', ['products' => Product::get()]);
     }
 
     /**
@@ -35,9 +38,45 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validateReq($request);
+
+        // if($request->hasFile('cover')):
+        //     $fname = 
+        //     $request->cover->storeAs('cover', $fname);
+        // endif;
+
+        if($request->hasfile('cover')):
+
+            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+            $img = Image::make($request->cover->path());
+            $img->resize(400, 300)->save(storage_path('app/public/cover').'/'.$fname);
+        endif;
  
 
-        Product::create($this->validateReq($request));
+        $product = Product::create([
+            'name' => $request->name,
+            'user_id'   => auth()->user()->id,
+            'price' =>  $request->price,
+            'body'  =>  $request->body,
+            'cover' =>  @$fname ? $fname : null
+        ]);
+
+        $product->categories()->attach($request->cat);
+
+        if($request->hasfile('images')){
+            foreach($request->file('images') as $image){
+                $imgName2 = Str::slug($request->name, '-').rand(1, 1000).'.'.$image->extension();
+                $img = Image::make($image->path());
+                $img->resize(600, null, function ($constraint) {$constraint->aspectRatio();})->save(storage_path('app/public/cover').'/'.$imgName2);
+
+                Media::create([
+                    'product_id'    => $product->id,
+                    'name'  =>  $imgName2
+                ]);
+            }
+        }
+
         return redirect(route('product.index'));
     }
 
@@ -91,10 +130,11 @@ class ProductController extends Controller
 
         return $request->validate([
             'name' => 'required',
-            'user_id'   => 'required',
+           // 'user_id'   => 'required',
             'price' =>  'required',
             'body'  =>  'nullable',
-            'cover' =>  'image|file|nullable'
+            'image' =>  'image|mimes:jpeg,png,jpg,svg|max:2048',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     }
 }

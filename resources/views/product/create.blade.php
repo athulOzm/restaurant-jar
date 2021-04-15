@@ -1,3 +1,8 @@
+
+<?php
+$categories = resolve('allCategories');
+?>
+
 @extends('admin.layouts.master')
 
 @section('head', 'create Product')
@@ -40,23 +45,7 @@
 
                             <div class="row">
 
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Category *  </label>
-                                    <a href="/store/categories" style="float:right;font-size: 11px;line-height: 28px;">(Create new Category)</a>
-                                    <select id="inputState" class="form-control @error('category') is-invalid @enderror"
-                                        name="category">
-                                        <option selected value="0">Choose...</option>
-                                        @foreach(resolve('categories') as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('category')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Please choose the Category</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                                
 
 
                                 <div class="form-group col-md-4">
@@ -96,9 +85,9 @@
 
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Cover Image *</label>
-                                    <input type="file" class="form-control-file  @error('image') is-invalid @enderror"
-                                        id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="image" value="{{@old('image')}}">
-                                    @error('image')
+                                    <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                                        id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                                    @error('cover')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{$message}}</strong>
                                     </span>
@@ -114,6 +103,22 @@
                                         <strong>{{$message}}</strong>
                                     </span>
                                     @enderror
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Category *  </label>
+                                     
+                                    <label class="flex flex-col items-center mt-3">
+
+                                        @foreach($categories as $cat)
+                                        <div>
+                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$cat->id}}" name="cat[]">
+                                            <span class="ml-2 text-gray-700">{{$cat->name}}</span>
+                                        </div>
+                                        @endforeach
+
+                                        
+                                    </label>
                                 </div>
 
                                 

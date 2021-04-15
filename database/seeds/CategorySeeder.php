@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Category;
+use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
@@ -12,8 +12,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        factory(Category::class, 3)
-            //->count(3)
-            ->create();
+        factory(Category::class, 3)->create();
+
     }
 }

@@ -27,20 +27,12 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Product Name (Deal)</th>
-                                        <!-- <th>Store Name</th>
-
-                                        <th>Deal Start</th>
-                                        <th>Deal End</th>
-
-                                        <th  width="30">Coupons</th>
-                                        <th  width="30">Obtained</th>
-
-                                        <th  width="30">Used</th> -->
+                                        <th>Name</th>
+                                      
 
 
 
-                                        <th width="30">Update</th>
+                                    <th width="30">Update</th>
                                     <th width="30">Delete</th>
                                     </tr>
                                 </thead>
@@ -49,18 +41,12 @@
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->name}}</td>
-                                        <!-- <td>{{$product->store->name}}</td>
-
-                                        <td>{{ $product->carbondate($product->deal_start)}}</td>
-                                        <td>{{ $product->carbondate($product->deal_end)}}</td>
-                                        <td>{{$product->coupons}}</td>
-                                        <td>{{$product->genCoupons()}}</td>
-                                        <td>{{$product->usedcoupons()}}</td> -->
-                                        <th><a href="{{route('store.product.update', $product->id)}}" class="btn btn-info  btn-circle btn-sm "> <i
+                                        <th><a href="{{route('product.edit', $product->id)}}" class="btn btn-info  btn-circle btn-sm "> <i
                                             class="fas fa-pencil-alt"></i></a></th>
+                                        
                                 <th>
                                     <a onclick="deleteCon('delfrm{{$product->slug}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
-                                    <form id="delfrm{{$product->slug}}" action="{{route('store.product.delete')}}" method="post">
+                                    <form id="delfrm{{$product->slug}}" action="{{route('product.destroy')}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="id" value="{{$product->id}}">

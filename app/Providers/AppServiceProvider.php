@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->bind('categories', function(){
+        app()->bind('allCategories', function(){
 
             return Category::all();
         });

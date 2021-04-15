@@ -12,4 +12,13 @@ class Category extends Model
 
         return $this->belongsToMany(Product::class);
     }
+
+    public function parant(){
+
+        return $this->belongsTo(Category::class, 'parant_id');
+    }
+    public function childs(){
+
+        return $this->hasMany(Category::class, 'parant_id');
+    }
 }
