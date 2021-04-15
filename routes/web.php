@@ -9,6 +9,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::middleware(['auth'])->group(function () {
 
 //products
+Route::get('product/images/{product}', 'ProductController@productImages');
+Route::delete('product/images/{image}', 'ProductController@imageDelete');
 Route::get('products', 'ProductController@index')->name('product.index');
 Route::get('products/create', 'ProductController@create')->name('product.create');
 Route::post('product', 'ProductController@store')->name('product.store');
@@ -26,3 +28,4 @@ Route::delete('/category/drop', 'CategoryController@delete')->name('category.del
 
 });
 
+ 

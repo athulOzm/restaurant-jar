@@ -97,9 +97,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $product = Product::with('categories')->find($product->id);
+
+       return view('product.update', ['product' => $product]);
     }
 
     /**
@@ -109,9 +111,44 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validateReq($request);
+
+        if($request->hasfile('cover')):
+
+            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+            $img = Image::make($request->cover->path());
+            $img->resize(400, 300)->save(storage_path('app/public/cover').'/'.$fname);
+        endif;
+
+
+        Product::find($request->id)->update([
+
+            'name' => $request->name,
+            'price' =>  $request->price,
+            'body'  =>  $request->body,
+            'cover' =>  @$fname ? $fname : $request->curimage
+
+        ]);
+
+        Product::find($request->id)->categories()->sync($request->cat);
+
+
+        if($request->hasfile('images')){
+            foreach($request->file('images') as $image){
+                $imgName2 = Str::slug($request->name, '-').rand(1, 1000).'.'.$image->extension();
+                $img = Image::make($image->path());
+                $img->resize(600, null, function ($constraint) {$constraint->aspectRatio();})->save(storage_path('app/public/cover').'/'.$imgName2);
+
+                Media::create([
+                    'product_id'    => $request->id,
+                    'name'  =>  $imgName2
+                ]);
+            }
+        }
+
+        return back();
     }
 
     /**
@@ -120,9 +157,24 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Product::find($request->id)->delete();
+        return redirect(route('product.index'));
+    }
+
+    public function productImages($product){
+
+        return  response()->json(Media::where('product_id', $product)->get());
+    }
+
+    public function imageDelete($image){
+
+        Media::find($image)->delete();
+
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
     }
 
 
@@ -131,10 +183,12 @@ class ProductController extends Controller
         return $request->validate([
             'name' => 'required',
            // 'user_id'   => 'required',
-            'price' =>  'required',
+            'price' =>  'required|numeric|between:0,9999.999',
             'body'  =>  'nullable',
             'image' =>  'image|mimes:jpeg,png,jpg,svg|max:2048',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     }
+
+
 }

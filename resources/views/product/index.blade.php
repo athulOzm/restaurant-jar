@@ -27,6 +27,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>image</th>
                                         <th>Name</th>
                                       
 
@@ -41,12 +42,19 @@
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->name}}</td>
+                                        <td> 
+                                            @if ($product->cover != null)
+                                            <img class="img-thumbnail " width="80" src="{{env('IMAGE_PATH')}}{{ $product->cover}}" />
+                                            @endif
+                                            
+                                        
+                                        </td>
                                         <th><a href="{{route('product.edit', $product->id)}}" class="btn btn-info  btn-circle btn-sm "> <i
                                             class="fas fa-pencil-alt"></i></a></th>
                                         
                                 <th>
-                                    <a onclick="deleteCon('delfrm{{$product->slug}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
-                                    <form id="delfrm{{$product->slug}}" action="{{route('product.destroy')}}" method="post">
+                                    <a onclick="deleteCon('delfrm{{$product->id}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                    <form id="delfrm{{$product->id}}" action="{{route('product.destroy')}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="id" value="{{$product->id}}">

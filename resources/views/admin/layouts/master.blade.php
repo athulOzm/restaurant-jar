@@ -60,6 +60,8 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+      
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages33">
@@ -77,6 +79,24 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Order</span>
+        </a>
+        <div id="collapsePages15" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+       
+            <a class="collapse-item" href="">Requested</a>
+            <a class="collapse-item" href="">Delivered</a>
+            <a class="collapse-item" href="">All Orders</a>
+
+
+    
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages33" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>
           <span>Categories</span>
@@ -86,6 +106,21 @@
        
             <a class="collapse-item" href="{{route('category.index')}}">All Categories</a>
             <a class="collapse-item" href="{{route('category.index')}}">Add New</a>
+    
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages33" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>POS</span>
+        </a>
+        <div id="collapsePages33" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+       
+            {{-- <a class="collapse-item" href="{{route('category.index')}}">All Categories</a>
+            <a class="collapse-item" href="{{route('category.index')}}">Add New</a> --}}
     
           </div>
         </div>
