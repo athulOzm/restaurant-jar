@@ -26,6 +26,12 @@ Route::post('/category', 'CategoryController@store')->name('category.store');
 Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
 
 
+//order
+// Route::get('orders/new', 'OrderController@new')->name('order.new');
+// Route::get('orders', 'OrderController@all')->name('order.all');
+
+
+
 });
 
  
