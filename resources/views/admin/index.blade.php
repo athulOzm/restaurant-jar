@@ -12,8 +12,8 @@
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pending Request</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800"> </div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Member Registered </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"> 46</div>
                 </div>
                 <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -28,8 +28,8 @@
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Recent Delivered</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800"> </div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Order Delivered</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">300 </div>
                 </div>
                 <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>

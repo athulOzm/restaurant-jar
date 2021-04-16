@@ -27,8 +27,10 @@ Route::delete('/category/drop', 'CategoryController@delete')->name('category.del
 
 
 //order
-// Route::get('orders/new', 'OrderController@new')->name('order.new');
-// Route::get('orders', 'OrderController@all')->name('order.all');
+Route::get('orders/active', 'OrderController@active')->name('order.active');
+Route::get('orders/delivered', 'OrderController@delivered')->name('order.delivered');
+Route::get('orders/all', 'OrderController@all')->name('order.all');
+
 
 
 

@@ -81,14 +81,14 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Order</span>
+          <span>KDS</span>
         </a>
         <div id="collapsePages15" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
        
-            <a class="collapse-item" href="">Requested</a>
-            <a class="collapse-item" href="">Delivered</a>
-            <a class="collapse-item" href="">All Orders</a>
+            <a class="collapse-item" href="{{route('order.active')}}">Pending</a>
+            <a class="collapse-item" href="{{route('order.delivered')}}">Delivered</a>
+            <a class="collapse-item" href="{{route('order.all')}}">All Orders</a>
 
 
     
@@ -112,11 +112,11 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages33" aria-expanded="true" aria-controls="collapsePages33">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>
           <span>POS</span>
         </a>
-        <div id="collapsePages33" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePages15" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
        
             {{-- <a class="collapse-item" href="{{route('category.index')}}">All Categories</a>

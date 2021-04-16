@@ -20,8 +20,8 @@ class CreateOrdersTable extends Migration
                 ->on('users')
                 ->references('id')
                 ->onDelete(null);
-            $table->string('status')->nullable();
-            $table->string('payment_method')->default('1');
+            $table->integer('status')->default(1);
+            $table->integer('payment_method')->default(1);
             $table->boolean('payment_status')->default(false);
             $table->timestamps();
         });

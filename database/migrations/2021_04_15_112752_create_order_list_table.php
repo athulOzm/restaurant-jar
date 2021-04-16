@@ -15,14 +15,14 @@ class CreateOrderListTable extends Migration
     {
         Schema::create('order_product', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('order_id');
+            $table->unsignedBigInteger('order_id');
 
             $table->foreign('order_id')
                 ->on('orders')
                 ->references('id')
                 ->onDelete('cascade');
 
-            $table->string('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')
                 ->on('products')
                 ->references('id')

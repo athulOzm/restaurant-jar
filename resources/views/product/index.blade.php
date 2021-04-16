@@ -27,7 +27,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>image</th>
+                                        <th style="width: 65px">image</th>
                                         <th>Name</th>
                                       
 
@@ -41,14 +41,15 @@
                                 <tbody>
                                 @foreach($products as $product)
                                     <tr>
-                                        <td>{{$product->name}}</td>
                                         <td> 
                                             @if ($product->cover != null)
-                                            <img class="img-thumbnail " width="80" src="{{env('IMAGE_PATH')}}{{ $product->cover}}" />
+                                            <img class="img-thumbnail " width="60" src="{{env('IMAGE_PATH')}}{{ $product->cover}}" />
                                             @endif
                                             
                                         
                                         </td>
+                                        <td>{{$product->name}}</td>
+                                        
                                         <th><a href="{{route('product.edit', $product->id)}}" class="btn btn-info  btn-circle btn-sm "> <i
                                             class="fas fa-pencil-alt"></i></a></th>
                                         
