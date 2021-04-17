@@ -1,6 +1,8 @@
 
 <?php
-$categories = resolve('allCategories');
+$mcategories = resolve('mcategories');
+$menutypes = resolve('menutypes');
+
 ?>
 
 @extends('admin.layouts.master')
@@ -59,7 +61,7 @@ $categories = resolve('allCategories');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label for="inputCity">Price </label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{@old('price')}}" name="price">
@@ -68,6 +70,32 @@ $categories = resolve('allCategories');
                                         <strong>Enter Price eg(55.60)</strong>
                                     </span>
                                     @enderror
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="parant" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                        Category
+                                    </label>
+                                    <select  required class="form-control w-full border-gray-400" name="parant">
+                               
+                                        @foreach ($mcategories as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="parant" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                        Sub Category
+                                    </label>
+                                    <select  required class="form-control w-full border-gray-400" name="parant">
+                               
+                                       
+                                        <option >select </option>
+                                      
+                                        
+                                    </select>
                                 </div>
 
                                 
@@ -106,14 +134,14 @@ $categories = resolve('allCategories');
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">Category *  </label>
+                                    <label for="inputCity">Menu Type  </label>
                                      
                                     <label class="flex flex-col items-center mt-3">
 
-                                        @foreach($categories as $cat)
+                                        @foreach($menutypes as $type)
                                         <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$cat->id}}" name="cat[]">
-                                            <span class="ml-2 text-gray-700">{{$cat->name}}</span>
+                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="cat[]">
+                                            <span class="ml-2 text-gray-700">{{$type->name}}</span>
                                         </div>
                                         @endforeach
 

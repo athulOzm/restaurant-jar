@@ -20,7 +20,6 @@ class CategoryController extends Controller
         Category::create([
             'name'  =>  $request->name,
             'parant_id' =>  $request->parant,
-            //'slug'  =>  Str::slug($request->name),
             'order'  =>   $request->order
         ]);
 
@@ -50,5 +49,23 @@ class CategoryController extends Controller
         endif;
 
         
+    }
+
+    public function edit(Category $category)
+    {
+        return view('category.Edit', compact('category'));
+    }
+
+    public function update(Request $request)
+    {
+
+        Category::find($request->id)
+            ->update([
+                'name'  =>  $request->name,
+                'parant_id' =>  $request->parant,
+                'order'  =>   $request->order
+            ]);
+        
+        return redirect()->route('category.index');
     }
 }

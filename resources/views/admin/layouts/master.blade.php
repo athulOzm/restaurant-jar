@@ -66,19 +66,19 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Products</span>
+          <span>Menus</span>
         </a>
         <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
        
-            <a class="collapse-item" href="{{route('product.index')}}">All Products</a>
+            <a class="collapse-item" href="{{route('product.index')}}">All Menus</a>
             <a class="collapse-item" href="{{route('product.create')}}">Add New</a>
     
           </div>
         </div>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>
           <span>KDS</span>
@@ -91,6 +91,21 @@
             <a class="collapse-item" href="{{route('order.all')}}">All Orders</a>
 
 
+    
+          </div>
+        </div>
+      </li> --}}
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Menu Type</span>
+        </a>
+        <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+       
+            <a class="collapse-item" href="{{route('menutype.index')}}">Menu types</a>
+            <a class="collapse-item" href="{{route('menutype.index')}}">Add New</a>
     
           </div>
         </div>
