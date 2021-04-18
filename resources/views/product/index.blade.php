@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('head', 'Products')
+@section('head', 'Menus')
 
 @section('content')
 
@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">All Products <a  href="{{ route('product.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a></h6> 
+                        <h6 class="m-0 font-weight-bold text-primary">All Menus <a  href="{{ route('product.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a></h6> 
                         
 
                     </div>

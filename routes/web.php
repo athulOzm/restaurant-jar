@@ -8,46 +8,45 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function () {
 
-//menutype
-Route::get('menutypes', 'MenutypeController@index')->name('menutype.index');
-Route::post('menutype', 'MenutypeController@store')->name('menutype.store');
-Route::delete('menutype/drop', 'MenutypeController@destroy')->name('menutype.delete');
-Route::get('menutype/{menutype}', 'MenutypeController@edit')->name('menutype.edit');
-Route::patch('menutype', 'MenutypeController@update')->name('menutype.update');
+    //menutype
+    Route::get('menutypes', 'MenutypeController@index')->name('menutype.index');
+    Route::post('menutype', 'MenutypeController@store')->name('menutype.store');
+    Route::delete('menutype/drop', 'MenutypeController@destroy')->name('menutype.delete');
+    Route::get('menutype/{menutype}', 'MenutypeController@edit')->name('menutype.edit');
+    Route::patch('menutype', 'MenutypeController@update')->name('menutype.update');
+
+    //category 
+    Route::get('/categories', 'CategoryController@index')->name('category.index');
+    Route::post('/category', 'CategoryController@store')->name('category.store');
+    Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
+    Route::get('category/{category}', 'CategoryController@edit')->name('category.edit');
+    Route::patch('category', 'CategoryController@update')->name('category.update');
+
+    //members
+    Route::get('/members', 'UserController@index')->name('member.index');
+    Route::post('/member', 'UserController@storeWeb')->name('member.store');
+    Route::delete('/member/drop', 'UserController@destroy')->name('member.delete');
+    Route::get('member/{member}', 'UserController@edit')->name('member.edit');
+    Route::patch('member', 'UserController@update')->name('member.update');
+    Route::get('member/create', 'UserController@create')->name('member.create');
 
 
-//category 
-Route::get('/categories', 'CategoryController@index')->name('category.index');
-Route::post('/category', 'CategoryController@store')->name('category.store');
-Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
-Route::get('category/{category}', 'CategoryController@edit')->name('category.edit');
-Route::patch('category', 'CategoryController@update')->name('category.update');
 
-//members
-Route::get('/members', 'UserController@index')->name('member.index');
-Route::post('/member', 'UserController@storeWeb')->name('member.store');
-Route::delete('/member/drop', 'UserController@destroy')->name('member.delete');
-Route::get('member/{member}', 'UserController@edit')->name('member.edit');
-Route::patch('member', 'UserController@update')->name('member.update');
-Route::get('member/create', 'UserController@create')->name('member.create');
+    //products
+    Route::get('menu/images/{product}', 'ProductController@productImages');
+    Route::delete('menu/images/{image}', 'ProductController@imageDelete');
+    Route::get('menus', 'ProductController@index')->name('product.index');
+    Route::get('menus/create', 'ProductController@create')->name('product.create');
+    Route::post('menu', 'ProductController@store')->name('product.store');
+    Route::get('menus/{product}', 'ProductController@edit')->name('product.edit');
+    Route::patch('menu', 'ProductController@update')->name('product.update');
+    Route::delete('menu', 'ProductController@destroy')->name('product.destroy');
 
 
-
-//products
-Route::get('product/images/{product}', 'ProductController@productImages');
-Route::delete('product/images/{image}', 'ProductController@imageDelete');
-Route::get('products', 'ProductController@index')->name('product.index');
-Route::get('products/create', 'ProductController@create')->name('product.create');
-Route::post('product', 'ProductController@store')->name('product.store');
-Route::get('products/{product}', 'ProductController@edit')->name('product.edit');
-Route::patch('product', 'ProductController@update')->name('product.update');
-Route::delete('product', 'ProductController@destroy')->name('product.destroy');
-
-
-//order
-Route::get('orders/active', 'OrderController@active')->name('order.active');
-Route::get('orders/delivered', 'OrderController@delivered')->name('order.delivered');
-Route::get('orders/all', 'OrderController@all')->name('order.all');
+    //order
+    Route::get('orders/active', 'OrderController@active')->name('order.active');
+    Route::get('orders/delivered', 'OrderController@delivered')->name('order.delivered');
+    Route::get('orders/all', 'OrderController@all')->name('order.all');
 
 
 

@@ -3,7 +3,7 @@ $categories = resolve('allCategories');
 ?>
 @extends('admin.layouts.master')
 
-@section('head', 'Products')
+@section('head', 'Categories')
 
 @section('content')
 

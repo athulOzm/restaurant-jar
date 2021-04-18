@@ -7,7 +7,7 @@ $menutypes = resolve('menutypes');
 
 @extends('admin.layouts.master')
 
-@section('head', 'create Product')
+@section('head', 'Add Menu')
 
 @section('content')
 
@@ -28,7 +28,7 @@ $menutypes = resolve('menutypes');
             <div class="col-md-12">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Create Product</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Add Menu</h6>
 
 
                     </div>
@@ -61,18 +61,7 @@ $menutypes = resolve('menutypes');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-2">
-                                    <label for="inputCity">Price </label>
-                                    <input type="text" class="form-control @error('price') is-invalid @enderror"
-                                        value="{{@old('price')}}" name="price">
-                                    @error('price')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Enter Price eg(55.60)</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="parant" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                         Category
                                     </label>
@@ -85,7 +74,7 @@ $menutypes = resolve('menutypes');
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="parant" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                         Sub Category
                                     </label>
@@ -101,12 +90,69 @@ $menutypes = resolve('menutypes');
                                 
 
                                 
+
+                                
+
+                                
                             </div>
 
                        
 
 
                             <div class="row">
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Price </label>
+                                    <input type="text" class="form-control @error('price') is-invalid @enderror"
+                                        value="{{@old('price')}}" name="price">
+                                    @error('price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Enter Price eg(55.60)</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Menu Type  </label>
+                                     
+                                    <label class="flex flex-col items-center mt-3">
+
+                                        @foreach($menutypes as $type)
+                                        <div>
+                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="cat[]">
+                                            <span class="ml-2 text-gray-700">{{$type->name}}</span>
+                                        </div>
+                                        @endforeach
+
+                                        
+                                    </label>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Status  </label>
+                                     
+                                    <label class="flex flex-row items-center mt-3">
+
+                                     
+                                        <div>
+                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" checked name="status[]">
+                                            <span class="ml-2 text-gray-700">Enabled</span>
+                                        </div>
+
+                                        <div>
+                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" name="status[]">
+                                            <span class="ml-2 text-gray-700">Desabled</span>
+                                        </div>
+                                  
+
+                                        
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                
 
 
                                 
@@ -133,21 +179,7 @@ $menutypes = resolve('menutypes');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Menu Type  </label>
-                                     
-                                    <label class="flex flex-col items-center mt-3">
-
-                                        @foreach($menutypes as $type)
-                                        <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="cat[]">
-                                            <span class="ml-2 text-gray-700">{{$type->name}}</span>
-                                        </div>
-                                        @endforeach
-
-                                        
-                                    </label>
-                                </div>
+                             
 
                                 
 
