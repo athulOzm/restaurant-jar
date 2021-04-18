@@ -19,6 +19,75 @@ use Image;
 
 class UserController extends Controller
 {
+
+
+    //web ---------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
+
+    public function index(){
+
+        return view('member.Index', ['members' => User::where('type', 3)->get()]);
+    }
+
+    public function create(){
+
+        return view('member.Create');
+    }
+
+    public function destroy(Request $request){
+
+        User::find($request->id)->delete();
+        return redirect()->route('member.index');
+    }
+    
+    
+    public function edit(){
+
+        return view('member.Create');
+    }
+
+
+
+
+    public function storeWeb(Request $request){
+
+        User::create($this->validateReq($request));
+        return redirect()->route('member.index');
+    }
+
+
+    public function validateReq($request){
+
+        return $request->validate([
+            'name'              =>      'required|min:3',
+            'email'             =>      'required|unique:users|email',
+            'phone'             =>      'min:6|unique:users',
+            'memberid'          =>      'required|min:5|unique:users',
+            'position'          =>      'max:200'
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //api---------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
+
     public function store(Request $request){
 
         //return response()->json($request);
@@ -96,6 +165,8 @@ class UserController extends Controller
       
         return response()->json(['data' => $success], 200);
     }
+
+
 
 
     

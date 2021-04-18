@@ -16,9 +16,20 @@ Route::get('menutype/{menutype}', 'MenutypeController@edit')->name('menutype.edi
 Route::patch('menutype', 'MenutypeController@update')->name('menutype.update');
 
 
+//category 
+Route::get('/categories', 'CategoryController@index')->name('category.index');
+Route::post('/category', 'CategoryController@store')->name('category.store');
+Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
+Route::get('category/{category}', 'CategoryController@edit')->name('category.edit');
+Route::patch('category', 'CategoryController@update')->name('category.update');
 
-
-
+//members
+Route::get('/members', 'UserController@index')->name('member.index');
+Route::post('/member', 'UserController@storeWeb')->name('member.store');
+Route::delete('/member/drop', 'UserController@destroy')->name('member.delete');
+Route::get('member/{member}', 'UserController@edit')->name('member.edit');
+Route::patch('member', 'UserController@update')->name('member.update');
+Route::get('member/create', 'UserController@create')->name('member.create');
 
 
 
@@ -31,15 +42,6 @@ Route::post('product', 'ProductController@store')->name('product.store');
 Route::get('products/{product}', 'ProductController@edit')->name('product.edit');
 Route::patch('product', 'ProductController@update')->name('product.update');
 Route::delete('product', 'ProductController@destroy')->name('product.destroy');
-
-
-
-//category 
-Route::get('/categories', 'CategoryController@index')->name('category.index');
-Route::post('/category', 'CategoryController@store')->name('category.store');
-Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
-Route::get('category/{category}', 'CategoryController@edit')->name('category.edit');
-Route::patch('category', 'CategoryController@update')->name('category.update');
 
 
 //order

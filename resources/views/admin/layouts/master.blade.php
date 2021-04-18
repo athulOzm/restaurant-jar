@@ -127,6 +127,21 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages7" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Members</span>
+        </a>
+        <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+       
+            <a class="collapse-item" href="{{route('member.index')}}">All Members</a>
+            <a class="collapse-item" href="{{route('member.create')}}">Add New</a>
+    
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>
           <span>POS</span>
