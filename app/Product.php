@@ -9,8 +9,13 @@ class Product extends Model
     protected $guarded = [];
 
 
-    public function categories(){
+    public function types(){
 
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Menutype::class);
+    }
+
+    public function category(){
+
+        return $this->belongsTo(Category::class);
     }
 }

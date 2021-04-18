@@ -1,6 +1,8 @@
 
 <?php
-$categories = resolve('allCategories');
+$mcategories = resolve('mcategories');
+$menutypes = resolve('menutypes');
+
 ?>
 @extends('admin.layouts.master')
 
@@ -66,7 +68,8 @@ $categories = resolve('allCategories');
 
                             <div class="row">
 
-                               
+                                
+
 
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Product Name *</label>
@@ -80,15 +83,39 @@ $categories = resolve('allCategories');
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">Price </label>
-                                    <input type="text" class="form-control @error('price') is-invalid @enderror"
-                                        value="{{$product->price}}" name="price">
-                                    @error('price')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Enter Price eg(55.600)</strong>
-                                    </span>
-                                    @enderror
+                                    <label for="parant" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                        Category
+                                    </label>
+                                    <select  
+                                        required 
+                                        class="form-control w-full border-gray-400" 
+                                        name="cat"
+                                        id="category"
+                                    >
+                               
+                                        @foreach ($mcategories as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                        
+                                    </select>
                                 </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="parant" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                        Sub Category
+                                    </label>
+                                    <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
+                               
+                                       
+                                        <option value="">Sub Category </option>
+                                      
+                                        
+                                    </select>
+                                </div>
+
+                                
+
+                                
 
                                 
 
@@ -97,10 +124,61 @@ $categories = resolve('allCategories');
 
                        
 
-                            
-
 
                             <div class="row">
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Price </label>
+                                    <input type="text" class="form-control @error('price') is-invalid @enderror"
+                                        value="{{$product->price}}" name="price">
+                                    @error('price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Enter Price eg(55.60)</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Menu Type  </label>
+                                     
+                                    <label class="flex flex-col items-center mt-3">
+
+                                        @foreach($menutypes as $type)
+                                        <div>
+                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="type[]">
+                                            <span class="ml-2 text-gray-700">{{$type->name}}</span>
+                                        </div>
+                                        @endforeach
+
+                                        
+                                    </label>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputCity">Status  </label>
+                                     
+                                    <label class="flex flex-row items-center mt-3">
+
+                                     
+                                        <div>
+                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" @if($product->status) checked @endif  name="status">
+                                            <span class="ml-2 text-gray-700">Enabled</span>
+                                        </div>
+
+                                        <div>
+                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" @if(!$product->status) checked @endif name="status">
+                                            <span class="ml-2 text-gray-700">Desabled</span>
+                                        </div>
+                                  
+
+                                        
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                
 
 
                                 
@@ -116,7 +194,6 @@ $categories = resolve('allCategories');
                                     @enderror
                                 </div>
 
-
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Gallery Images</label>
                                     <input type="file" class="form-control-file  @error('images') is-invalid @enderror"
@@ -128,35 +205,11 @@ $categories = resolve('allCategories');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Category *  </label>
-                                     
-                                    <label class="flex flex-col items-center mt-3">
-
-                                        @foreach($categories as $cat)
-                                        <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"   value="{{$cat->id}}" name="cat[]">
-                                            <span class="ml-2 text-gray-700">{{$cat->name}}</span>
-                                        </div>
-                                        @endforeach
-
-                                        @foreach($product->categories as $cat)
-                                        <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked value="{{$cat->id}}" name="cat[]">
-                                            <span class="ml-2 text-gray-700">{{$cat->name}}</span>
-                                        </div>
-                                        @endforeach
-
-                                        
-                                    </label>
-                                </div>
- 
+                             
 
                                 
 
                             </div>
-
- 
 
                             <div class="form-group">
                                 <div class="row">
@@ -182,14 +235,14 @@ $categories = resolve('allCategories');
 
                             </div>
 
+
+                      
                          
 
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Description</label>
 
-                                <textarea class="summernote" name="body" rows="3">
-                                {{$product->body}}
-                                </textarea>
+                                <textarea class="summernote" name="body" rows="3">{{@old('body')}}</textarea>
                             </div>
  
 
@@ -293,7 +346,30 @@ const removeImg = (img) => {
     });
 }
 
-
+//get subcat
+$('#category').change(function() {
+    var category = this.value;
+    if (this.value) {
+        $.ajax({
+            type: 'GET',
+            url: "/getsubcategory/" + category,
+            success: function(res) {
+                if (res.length == 0) {
+                    
+                    $('#subcat').empty();
+                    $('#subcat').append('<option value="">No Sub category found</option>')
+                } else {
+                    $('#subcat').empty();
+                    res.map(subcat => {
+                        //console.log(subcat);
+                        
+                        $('#subcat').append('<option value="' + subcat.id + '">' + subcat.name + '</option>')
+                    })
+                }
+            }
+        })
+    }
+});
 
 
 </script>

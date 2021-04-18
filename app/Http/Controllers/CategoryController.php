@@ -68,4 +68,9 @@ class CategoryController extends Controller
         
         return redirect()->route('category.index');
     }
+
+    public function getSubCategory(Category $category){
+
+        return response($category->childs, 201);
+    }
 }

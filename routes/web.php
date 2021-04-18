@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/category/drop', 'CategoryController@delete')->name('category.delete');
     Route::get('category/{category}', 'CategoryController@edit')->name('category.edit');
     Route::patch('category', 'CategoryController@update')->name('category.update');
+    Route::get('getsubcategory/{category}', 'CategoryController@getSubCategory');
 
     //members
     Route::get('/members', 'UserController@index')->name('member.index');

@@ -17,13 +17,16 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
+            $table->unsignedBigInteger('subcategory_id')->nullable();
+            $table->foreign('subcategory_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->decimal('price', 8, 3)->nullable();
             $table->longText('body')->nullable();

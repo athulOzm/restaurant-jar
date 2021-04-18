@@ -11,7 +11,15 @@ $menutypes = resolve('menutypes');
 
 @section('content')
 
-
+<style>
+    label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 13px;
+    color: #000;
+}
+</style>
 
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
@@ -62,10 +70,15 @@ $menutypes = resolve('menutypes');
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="parant" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                    <label for="parant" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                                         Category
                                     </label>
-                                    <select  required class="form-control w-full border-gray-400" name="parant">
+                                    <select  
+                                        required 
+                                        class="form-control w-full border-gray-400" 
+                                        name="cat"
+                                        id="category"
+                                    >
                                
                                         @foreach ($mcategories as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
@@ -75,13 +88,13 @@ $menutypes = resolve('menutypes');
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="parant" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                    <label for="parant" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                                         Sub Category
                                     </label>
-                                    <select  required class="form-control w-full border-gray-400" name="parant">
+                                    <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
                                
                                        
-                                        <option >select </option>
+                                        <option value="">Sub Category </option>
                                       
                                         
                                     </select>
@@ -119,7 +132,7 @@ $menutypes = resolve('menutypes');
 
                                         @foreach($menutypes as $type)
                                         <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="cat[]">
+                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="type[]">
                                             <span class="ml-2 text-gray-700">{{$type->name}}</span>
                                         </div>
                                         @endforeach
@@ -134,12 +147,12 @@ $menutypes = resolve('menutypes');
 
                                      
                                         <div>
-                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" checked name="status[]">
+                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" checked name="status">
                                             <span class="ml-2 text-gray-700">Enabled</span>
                                         </div>
 
                                         <div>
-                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" name="status[]">
+                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" name="status">
                                             <span class="ml-2 text-gray-700">Desabled</span>
                                         </div>
                                   
@@ -220,38 +233,38 @@ $menutypes = resolve('menutypes');
 @section('script')
 
 <script type="text/javascript">
-
-
-
-//datepicker
-$(".datepicker").datepicker({
-    minDate: 0,
-});
-
 //text editor
 $('.summernote').summernote({
     tabsize: 2,
     height: 200
 });
 
-
-
-
-
-//color picker
-document.querySelectorAll('input[type=color]').forEach(function(picker) {
-
-    var targetLabel = document.querySelector('label[for="' + picker.id + '"]');
-    codeArea = document.createElement('span');
-
-    codeArea.innerHTML = picker.value;
-    targetLabel.appendChild(codeArea);
-
-    picker.addEventListener('change', function() {
-        codeArea.innerHTML = picker.value;
-        targetLabel.appendChild(codeArea);
-    });
+//get subcat
+$('#category').change(function() {
+    var category = this.value;
+    if (this.value) {
+        $.ajax({
+            type: 'GET',
+            url: "/getsubcategory/" + category,
+            success: function(res) {
+                if (res.length == 0) {
+                    
+                    $('#subcat').empty();
+                    $('#subcat').append('<option value="">No Sub category found</option>')
+                } else {
+                    $('#subcat').empty();
+                    res.map(subcat => {
+                        //console.log(subcat);
+                        
+                        $('#subcat').append('<option value="' + subcat.id + '">' + subcat.name + '</option>')
+                    })
+                }
+            }
+        })
+    }
 });
+
+ 
 </script>
 
 @endsection

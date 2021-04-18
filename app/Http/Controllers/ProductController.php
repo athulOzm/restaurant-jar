@@ -41,17 +41,14 @@ class ProductController extends Controller
 
         $this->validateReq($request);
 
-        // if($request->hasFile('cover')):
-        //     $fname = 
-        //     $request->cover->storeAs('cover', $fname);
-        // endif;
-
         if($request->hasfile('cover')):
 
             $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
             $img = Image::make($request->cover->path());
             $img->resize(400, 300)->save(storage_path('app/public/cover').'/'.$fname);
         endif;
+
+
  
 
         $product = Product::create([
@@ -59,10 +56,14 @@ class ProductController extends Controller
             'user_id'   => auth()->user()->id,
             'price' =>  $request->price,
             'body'  =>  $request->body,
-            'cover' =>  @$fname ? $fname : null
+            'cover' =>  @$fname ? $fname : null,
+            'category_id'   =>  $request->cat,
+            'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
+            'status'    => $request->status
+
         ]);
 
-        $product->categories()->attach($request->cat);
+        $product->types()->attach($request->type);
 
         if($request->hasfile('images')){
             foreach($request->file('images') as $image){
@@ -99,7 +100,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product = Product::with('categories')->find($product->id);
+        $product = Product::with('types')->find($product->id);
 
        return view('product.update', ['product' => $product]);
     }
@@ -128,11 +129,14 @@ class ProductController extends Controller
             'name' => $request->name,
             'price' =>  $request->price,
             'body'  =>  $request->body,
-            'cover' =>  @$fname ? $fname : $request->curimage
+            'cover' =>  @$fname ? $fname : $request->curimage,
+            'category_id'   =>  $request->cat,
+            'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
+            'status'    => $request->status
 
         ]);
 
-        Product::find($request->id)->categories()->sync($request->cat);
+        Product::find($request->id)->types()->sync($request->cat);
 
 
         if($request->hasfile('images')){
@@ -148,7 +152,7 @@ class ProductController extends Controller
             }
         }
 
-        return back();
+        return redirect()->route('product.index');
     }
 
     /**
