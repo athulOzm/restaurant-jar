@@ -84,14 +84,22 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        if(!is_null($user = User::where('email', $request->email)->first())) {
+        // if(!is_null($user = User::where('email', $request->email)->first())) {
 
-        }
+        // }
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 
-            return redirect()->route('home');
+            if(auth()->user()->type == 1):
+
+                return redirect()->route('home');
+
+            elseif(auth()->user()->type == 2):
+
+                return redirect()->route('kitchen');
+            endif;
         }
+
         return back()->withInput($request->only('email', 'remember'));
     }
 

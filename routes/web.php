@@ -50,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('orders/all', 'OrderController@all')->name('order.all');
 
 
+    //kitchen
+    Route::get('kitchen', 'KitchenController@index')->name('kitchen');
+
+
 
 
 });
