@@ -204,7 +204,12 @@ class ProductController extends Controller
 
         $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
         $mt = Menutype::get();
-        $cmt = Menutype::where('from', '<', $tn)->where('to', '>', $tn)->first();
+        if($cmtt = Menutype::where('from', '<', $tn)->where('to', '>', $tn)->first()){
+            $cmt = $cmtt;
+        } else {
+            $cmt = Menutype::first();
+        }
+        
         $menus= $cmt->products()->where('status', 1)->get();
 
         return response([
