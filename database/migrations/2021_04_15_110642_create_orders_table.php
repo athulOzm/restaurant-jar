@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->onDelete(null);
             $table->integer('status')->default(1);
+            $table->time('dtime')->nullable();
             $table->integer('payment_method')->default(1);
             $table->boolean('payment_status')->default(false);
             $table->timestamps();

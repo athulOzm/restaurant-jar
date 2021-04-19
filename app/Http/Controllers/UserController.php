@@ -9,6 +9,7 @@ use App\User;
 use App\Card;
 
 use App\Http\Controllers\Controller;
+use App\Order;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -164,6 +165,34 @@ class UserController extends Controller
 
       
         return response()->json(['data' => $success], 200);
+    }
+
+    public function checkout(Request $request){
+
+        $member = 1;
+
+        //$menues = $request->menus;
+        $etime = '10:15';
+        $pm = 'swipe card';
+
+        $products = [
+            [
+                'product_id' => 1, 'quantity'    =>  3
+            ],
+            [
+                'product_id' => 2, 'quantity'    =>  6
+            ]
+        ];
+
+        $order = Order::create([
+            'user_id' => 1,
+            'payment_method'    =>  1,
+            'dtime' =>  '10:00'
+        ]);
+
+        $order->products()->attach($products);
+
+
     }
 
 

@@ -40,6 +40,9 @@ Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
     
     // Route::get("/fetchsocialmedia/{card}", 'SocialmediaController@socialmedia');
     // Route::post('/card/updsocialmedia', 'SocialmediaController@updsocialmedia');
+
+
+
     
     
 });
@@ -62,6 +65,9 @@ Route::middleware([Cors::class])->group(function () {
 
     Route::get('/init', 'ProductController@getInit');
     Route::get('/menu/{menutype}', 'ProductController@getByMenutype');
+
+
+    Route::post('checkout', 'UserController@checkout');
 
 
     
