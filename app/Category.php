@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Product;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -17,5 +19,10 @@ class Category extends Model
     public function childs(){
 
         return $this->hasMany(Category::class, 'parant_id');
+    }
+
+    public function products(){
+
+        return $this->hasMany(Product::class);
     }
 }

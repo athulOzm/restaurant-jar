@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use App\Media;
+use App\Menutype;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -192,6 +195,52 @@ class ProductController extends Controller
             'image' =>  'image|mimes:jpeg,png,jpg,svg|max:2048',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+    }
+
+
+    //api-----------------------------------------------------------------
+
+    public function getInit(){
+
+        $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
+        $mt = Menutype::get();
+        $cmt = Menutype::where('from', '<', $tn)->where('to', '>', $tn)->first();
+        $menus= $cmt->products()->where('status', 1)->get();
+
+        return response([
+            'status'=>true, 
+            'data' => [
+                'cur_menu_type' => $cmt,
+                'menu_type' => $mt,
+                'menus' => $menus,
+                'categories' => Category::has('products')->with('childs')->get()
+                ]
+        ], 201);
+    }
+
+
+    public function getByMenutype(Menutype $menutype){
+
+        $menus= $menutype->products()->where('status', 1)->with('category')->get();
+
+        $cats =array();
+        $cats[] = 'sdsdff';
+        $cats[] = 'sdf';
+
+        Product::all()->each(function($menu, $key) use($cats){
+            echo  'aaa';
+            $cats[] = 'sdsdddddff';
+        });
+
+        var_dump($cats);
+
+        // return response([
+        //     'status'=>true, 
+        //     'data' => [
+        //         'menus' => $menus,
+        //         'categories' => $cats
+        //         ]
+        // ], 201);
     }
 
 
