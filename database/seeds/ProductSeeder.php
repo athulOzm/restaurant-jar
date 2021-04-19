@@ -1,6 +1,7 @@
 <?php
 
 use App\Category;
+use App\Menutype;
 use App\Product;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,7 @@ class ProductSeeder extends Seeder
         factory(Product::class, 6)
             ->create()
             ->each(function ($product) {
-                $product->categories()->attach(Category::all()->random());
+                $product->types()->attach(Menutype::all()->random());
             });;
     }
 }

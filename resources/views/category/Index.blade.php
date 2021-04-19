@@ -36,6 +36,7 @@ $categories = resolve('allCategories');
                                     <thead>
                                         <tr>
                                             <th class="text-left text-blue-900">SO</th>
+                                        <th style="width: 65px">image</th>
                                             <th class="text-left text-blue-900">Name</th>
                                             <th class="text-left text-blue-900">Parant</th>
                                             <th class="text-left text-blue-900" width="30">Update</th>
@@ -48,6 +49,11 @@ $categories = resolve('allCategories');
                                         @forelse ($categories as $category)
                                         <tr>
                                             <td>{{$category->order}}</td>
+                                            <td> 
+                                                @if ($category->cover != null)
+                                                <img class="img-thumbnail " width="60" src="{{env('IMAGE_PATH')}}{{ $category->cover}}" />
+                                                @endif
+                                            </td>
                                             <td>{{$category->name}}</td>
                                             <td>
                                                 @if ($category->parant()->exists())
@@ -98,7 +104,7 @@ $categories = resolve('allCategories');
                         <div class="card-body">
                             <div class="table-responsive">
 
-                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('category.store') }}">
+                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('category.store') }}"  enctype='multipart/form-data'>
                                     @csrf
                 
                                     <div class="form-group">
@@ -142,6 +148,17 @@ $categories = resolve('allCategories');
                                             class="form-control w-full border-gray-400 @error('name') border-red-500 @enderror" name="order"
                                             value="0" required  autofocus>
                  
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputCity">Cover Image *</label>
+                                        <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                                            id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                                        @error('cover')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{$message}}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
     
                                     

@@ -60,6 +60,8 @@ Route::middleware([Cors::class])->group(function () {
 
     // Route::get('/card/{card}', 'CardController@show');
 
+    Route::get('/menus', 'CardController@all');
+
     
 
     

@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Category::class, function (Faker $faker) {
     return [
-        'name'  =>  $faker->randomElement(['brakefast', 'dinner', 'lunch'])
+        'name'  =>  $faker->randomElement(['Snacks', 'Soups', 'Vegitables', 'Bread'])
     ];
 });

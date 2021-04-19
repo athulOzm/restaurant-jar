@@ -12,7 +12,12 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        factory(Category::class, 3)->create();
-
+        factory(Category::class)->create(['name'  =>  'Bread']);
+        factory(Category::class)->create(['name'  =>  'Snacks']);
+        factory(Category::class)->create(['name'  =>  'Soups']);
+        factory(Category::class)->create(['name'  =>  'Vegitables']);
     }
 }
+
+
+ 

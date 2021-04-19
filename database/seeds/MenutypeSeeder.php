@@ -13,6 +13,18 @@ class MenutypeSeeder extends Seeder
     public function run()
     {
         factory(Menutype::class)->create();
+        factory(Menutype::class)->create([
+            'name'  =>  'Lunch',
+            'from'  =>  '12:00',
+            'to'    =>  '16:00'
+        ]);
+        factory(Menutype::class)->create([
+            'name'  =>  'Dinner',
+            'from'  =>  '16:00',
+            'to'    =>  '21:00'
+        ]);
         
     }
 }
+
+

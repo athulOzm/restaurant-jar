@@ -6,6 +6,8 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Product;
+use Image;
+
 
 class CategoryController extends Controller
 {
@@ -16,11 +18,20 @@ class CategoryController extends Controller
 
     public function store(Request $request){
 
+
+        if($request->hasfile('cover')):
+
+            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+            $img = Image::make($request->cover->path());
+            $img->resize(100, 100)->save(storage_path('app/public/cover').'/'.$fname);
+        endif;
+
          
         Category::create([
             'name'  =>  $request->name,
             'parant_id' =>  $request->parant,
-            'order'  =>   $request->order
+            'order'  =>   $request->order,
+            'cover' =>  @$fname ? $fname : null
         ]);
 
         return redirect(route('category.index'));
@@ -59,11 +70,19 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
 
+        if($request->hasfile('cover')):
+
+            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+            $img = Image::make($request->cover->path());
+            $img->resize(100, 100)->save(storage_path('app/public/cover').'/'.$fname);
+        endif;
+
         Category::find($request->id)
             ->update([
                 'name'  =>  $request->name,
                 'parant_id' =>  $request->parant,
-                'order'  =>   $request->order
+                'order'  =>   $request->order,
+                'cover' =>  @$fname ? $fname : $request->curimage
             ]);
         
         return redirect()->route('category.index');

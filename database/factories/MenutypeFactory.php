@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Menutype::class, function (Faker $faker) {
     return [
-        'name'  =>  'Lunch',
-        'from'  =>  '11:40',
-        'to'    =>  '15:30'
+        'name'  =>  'Breakfast',
+        'from'  =>  '5:00',
+        'to'    =>  '11:00'
     ];
 });

@@ -36,10 +36,11 @@ $categories = resolve('allCategories');
                         <div class="card-body">
                             <div class="table-responsive">
 
-                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('category.update') }}">
+                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('category.update') }}"  enctype='multipart/form-data'>
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" value="{{$category->id}}" name="id">
+                            <input type="hidden" value="{{$category->cover}}" name="curimage">
                 
                                     <div class="form-group">
                                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
@@ -91,6 +92,28 @@ $categories = resolve('allCategories');
                                             class="form-control w-full border-gray-400 @error('order') border-red-500 @enderror" name="order"
                                             value="0" required  autofocus>
                  
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCity">Cover Image *</label>
+                                        <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                                            id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                                        @error('cover')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{$message}}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="inputCity">Cover Image</label>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        @if ($category->cover != null)
+                                    <img class="img-thumbnail " src="{{env('IMAGE_PATH')}}{{ $category->cover}}" />
+                                    @endif
+                                    </div>
+                                </div>
                                     </div>
     
                                     

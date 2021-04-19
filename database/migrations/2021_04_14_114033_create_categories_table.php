@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('parant_id')->nullable();
             $table->string('name');
+            $table->string('cover')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();
 
