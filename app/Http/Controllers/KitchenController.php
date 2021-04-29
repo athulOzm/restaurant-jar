@@ -30,4 +30,9 @@ class KitchenController extends Controller
         $orders = Order::with(['products', 'user'])->where('status', 2)->get();
         return  response()->json($orders);
     }
+
+    public function pos(){
+
+        return view('pos.index');
+    }
 }

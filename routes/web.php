@@ -56,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('kitchen/orderready/{order}', 'KitchenController@orderReady')->name('kitchen.ready');
 
 
+    //pos
+    Route::get('pos', 'KitchenController@pos')->name('pos');
+
+
+
 
 
 

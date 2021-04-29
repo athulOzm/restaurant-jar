@@ -135,7 +135,7 @@
         <div id="collapsePages15" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
        
-            <a class="collapse-item" href="">POS</a>
+            <a class="collapse-item" href="{{route('pos')}}">POS</a>
             <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
     
           </div>
