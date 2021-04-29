@@ -68,6 +68,7 @@ Route::middleware([Cors::class])->group(function () {
 
 
     Route::post('checkout', 'UserController@checkout');
+    Route::post('addtocart', 'UserController@addToCart');
 
 
     
@@ -80,6 +81,9 @@ Route::middleware([Cors::class])->group(function () {
     );
 });
 
+
+Route::get('kitchen/getorders', 'KitchenController@getOrders')->name('kitchen.orders');
+Route::patch('kitchen/orderready/{order}', 'KitchenController@orderReady')->name('kitchen.ready');
 
 
 

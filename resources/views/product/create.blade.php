@@ -114,11 +114,22 @@ $menutypes = resolve('menutypes');
 
                             <div class="row">
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label for="inputCity">Price </label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{@old('price')}}" name="price">
                                     @error('price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Enter Price eg(55.60)</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="inputCity">Quantity </label>
+                                    <input type="text" class="form-control @error('qty') is-invalid @enderror"
+                                        value="{{@old('qty')}}" name="qty">
+                                    @error('qty')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Enter Price eg(55.60)</strong>
                                     </span>

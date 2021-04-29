@@ -52,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
 
     //kitchen
     Route::get('kitchen', 'KitchenController@index')->name('kitchen');
+    Route::get('kitchen/getorders', 'KitchenController@getOrders')->name('kitchen.orders');
+    Route::patch('kitchen/orderready/{order}', 'KitchenController@orderReady')->name('kitchen.ready');
+
 
 
 

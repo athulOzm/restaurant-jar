@@ -58,6 +58,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'user_id'   => auth()->user()->id,
             'price' =>  $request->price,
+            'qty' =>  $request->qty,
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : null,
             'category_id'   =>  $request->cat,
@@ -131,6 +132,7 @@ class ProductController extends Controller
 
             'name' => $request->name,
             'price' =>  $request->price,
+            'qty' =>  $request->qty,
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : $request->curimage,
             'category_id'   =>  $request->cat,

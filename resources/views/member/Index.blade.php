@@ -37,6 +37,7 @@
                                             <th class="text-left text-blue-900">Email</th>
                                             <th class="text-left text-blue-900">Phone</th>
                                             <th class="text-left text-blue-900">Position</th>
+                                            <th class="text-left text-blue-900">Order Limit</th>
                                             <th class="text-left text-blue-900" width="30">Update</th>
                                             <th class="text-left text-blue-900" width="30">Delete</th>
     
@@ -51,6 +52,7 @@
                                             <td>{{$member->email}}</td>
                                             <td>{{$member->phone}}</td>
                                             <td>{{$member->position}}</td>
+                                            <td>{{$member->limit}}</td>
                                          
 
                                                 <th><a href="" class="btn btn-info  btn-circle btn-sm "> <i

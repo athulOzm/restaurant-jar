@@ -52,10 +52,10 @@
 
                                        
                                         <th><a href="{{route('product.edit', $order->id)}}" class="btn btn-info    "> <i
-                                            class="fas fa-pencil-alt"></i> View List</a></th>
+                                            class="fas fa-pencil-alt"></i> Menu list</a></th>
                                         
                                 <th>
-                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i> Pay Now</a>
+                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                     <form id="delfrm{{$order->id}}" action="{{route('product.destroy')}}" method="post">
                                         @csrf
                                         @method('DELETE')

@@ -29,6 +29,8 @@
                                     <tr>
                                         <th style="width: 65px">image</th>
                                         <th>Name</th>
+                                        <th>Qty Available</th>
+
                                         <th width="80">Status</th>
                                         <th>Category</th>
                                         <th>Price</th>
@@ -54,9 +56,12 @@
                                         </td>
 
                                         <td>{{$product->name}}</td>
+                                        <td>{{$product->getAvailableQty()}} </td>
+
                                         <td> @if ($product->status) Active @else Desabled @endif </td>
                                         <td>{{$product->category->name}} </td>
                                         <td>{{$product->price}} </td>
+
                                         <td>@foreach ($product->types as $type)
                                             {{$type->name}}, 
                                         @endforeach </td>

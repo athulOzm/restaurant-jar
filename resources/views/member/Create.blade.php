@@ -35,8 +35,10 @@
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.store') }}">
                     @csrf
 
-                    <div class="form-group">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                    <div class="row">
+
+                    <div class="form-group col-md-6">
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 col-md-6">
                             Name:
                         </label>
                         <input id="name" type="text"
@@ -50,7 +52,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Email:
                         </label>
@@ -65,7 +67,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label for="phone" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Phone:
                         </label>
@@ -80,7 +82,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label for="memberid" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Military ID:
                         </label>
@@ -95,7 +97,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label for="position" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Position:
                         </label>
@@ -109,6 +111,23 @@
                             </p>
                             @enderror
                     </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="limit" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                            Limit:
+                        </label>
+                        <input id="limit" type="text"
+                            class="form-control w-full border-gray-400 @error('limit') border-red-500 @enderror" name="limit"
+                            value="{{ old('limit') }}"   autofocus>
+
+                            @error('limit')
+                            <p class="text-red-500 text-xs italic mt-4">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                    </div>
+
+                </div>
 
                     
                     <button type="submit"  

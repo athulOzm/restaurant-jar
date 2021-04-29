@@ -64,7 +64,8 @@ class UserController extends Controller
             'email'             =>      'required|unique:users|email',
             'phone'             =>      'min:6|unique:users',
             'memberid'          =>      'required|min:5|unique:users',
-            'position'          =>      'max:200'
+            'position'          =>      'max:200',
+            'limit'             =>      'required'
         ]);
     }
 
@@ -166,6 +167,34 @@ class UserController extends Controller
       
         return response()->json(['data' => $success], 200);
     }
+
+
+    public function addToCart(Request $request){
+
+        //dd($request->qty);
+
+
+     
+
+        $order = Order::firstOrCreate(
+            ['user_id' => $request->user, 'status'   =>  1],
+            ['status'   =>  1]
+        );
+
+        $product = [
+            'product_id' => $request->product, 'quantity'    =>  $request->qty
+        ];
+
+        $order->products()->attach([$product]);
+
+        return response(['message' => 'product added successfully'], 201);
+       
+    }
+
+
+
+
+
 
     public function checkout(Request $request){
 

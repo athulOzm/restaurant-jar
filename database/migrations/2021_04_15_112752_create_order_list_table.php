@@ -15,7 +15,11 @@ class CreateOrderListTable extends Migration
     {
         Schema::create('order_product', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unique(['order_id', 'product_id']);
+
+
             $table->unsignedBigInteger('order_id');
+
 
             $table->foreign('order_id')
                 ->on('orders')

@@ -139,6 +139,17 @@ $menutypes = resolve('menutypes');
                                 </div>
 
                                 <div class="form-group col-md-4">
+                                    <label for="inputCity">Quantity </label>
+                                    <input type="text" class="form-control @error('qty') is-invalid @enderror"
+                                        value="{{$product->getAvailableQty()}}" name="qty">
+                                    @error('qty')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Enter Price eg(55.60)</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Menu Type  </label>
                                      
                                     <label class="flex flex-col items-center mt-3">
