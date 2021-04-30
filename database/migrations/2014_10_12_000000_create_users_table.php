@@ -35,12 +35,12 @@ class CreateUsersTable extends Migration
             $table->foreign('rank_id')
                 ->on('ranks')
                 ->references('id')
-                ->onDelete(null);
+                ->onDelete('set null');
 
             $table->foreign('payment_type_id')
                 ->on('payment_types')
                 ->references('id')
-                ->onDelete(null);
+                ->onDelete('set null');
         });
     }
 

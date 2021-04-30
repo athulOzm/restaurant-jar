@@ -22,7 +22,7 @@
   
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">All Members <a  href="{{ route('member.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a></h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">All Members <a  href="{{ route('member.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a>  <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-3"  style="float:right; "><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Upload Excel File</a></h6> 
                             
     
                         </div>
@@ -51,7 +51,11 @@
                                             <td>{{$member->name}}</td>
                                             <td>{{$member->email}}</td>
                                             <td>{{$member->phone}}</td>
-                                            <td>{{$member->getrank()->name}}</td>
+                                            <td>
+                                                @if ($member->rank_id != null)
+                                                {{$member->getrank()->name}}
+                                                @endif
+                                                </td>
                                             <td>{{$member->limit}}</td>
                                          
 

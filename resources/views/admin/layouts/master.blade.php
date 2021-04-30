@@ -98,7 +98,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
        
             <a class="collapse-item" href="{{route('member.index')}}">All Members</a>
-            <a class="collapse-item" href="{{route('member.create')}}">Add New</a>
+            <a class="collapse-item" href="{{route('member.create')}}">Add New Member</a>
             <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
     
           </div>
