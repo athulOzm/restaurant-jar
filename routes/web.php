@@ -27,9 +27,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/members', 'UserController@index')->name('member.index');
     Route::post('/member', 'UserController@storeWeb')->name('member.store');
     Route::delete('/member/drop', 'UserController@destroy')->name('member.delete');
-    Route::get('member/{member}', 'UserController@edit')->name('member.edit');
+    Route::get('member/edit/{member}', 'UserController@edit')->name('member.edit');
     Route::patch('member', 'UserController@update')->name('member.update');
     Route::get('member/create', 'UserController@create')->name('member.create');
+
+    //ranks
+    Route::get('member/ranks', 'RankController@index')->name('member.rank.index');
+    Route::post('member/rank', 'RankController@store')->name('member.rank.store');
+    Route::delete('member/rank/drop', 'RankController@destroy')->name('member.rank.delete');
+    Route::get('member/rank/{rank}', 'RankController@edit')->name('member.rank.edit');
+    Route::patch('member/rank', 'RankController@update')->name('member.rank.update');
+
 
 
 

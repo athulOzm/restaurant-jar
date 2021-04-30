@@ -99,6 +99,7 @@
        
             <a class="collapse-item" href="{{route('member.index')}}">All Members</a>
             <a class="collapse-item" href="{{route('member.create')}}">Add New</a>
+            <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
     
           </div>
         </div>
