@@ -17,9 +17,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'accesstoken', 'provider', 'domain', 'phone', 'memberid', 'position', 'limit'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -38,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    
+
+    public function getrank(){
+
+        return Rank::where('id', $this->rank_id)->first();
+        //$this->belongsTo(Rank::class, 'rank_id', 'id');
+    }
 }

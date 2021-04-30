@@ -10,7 +10,9 @@ use App\Card;
 
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\PaymentType;
 use App\Providers\RouteServiceProvider;
+use App\Rank;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,8 +33,9 @@ class UserController extends Controller
     }
 
     public function create(){
-
-        return view('member.Create');
+        $ranks = Rank::all();
+        $paymenttypes = PaymentType::all();
+        return view('member.Create', compact('ranks', 'paymenttypes'));
     }
 
     public function destroy(Request $request){
@@ -42,9 +45,13 @@ class UserController extends Controller
     }
     
     
-    public function edit(){
+    public function edit(User $user){
+        $ranks = Rank::all();
+        $paymenttypes = PaymentType::all();
 
-        return view('member.Create');
+       // dd($user);
+
+        return view('member.Edit', compact('user', 'ranks', 'paymenttypes'));
     }
 
 
@@ -52,7 +59,19 @@ class UserController extends Controller
 
     public function storeWeb(Request $request){
 
+        //dd($this->validateReq($request));
+
         User::create($this->validateReq($request));
+
+        return redirect()->route('member.index');
+    }
+
+    public function updateWeb(Request $request){
+
+        //dd($this->validateReq($request));
+
+        User::find($request->id)->update($this->validateReqUpd($request));
+
         return redirect()->route('member.index');
     }
 
@@ -60,12 +79,34 @@ class UserController extends Controller
     public function validateReq($request){
 
         return $request->validate([
-            'name'              =>      'required|min:3',
+            'name'              =>      'required',
             'email'             =>      'required|unique:users|email',
             'phone'             =>      'min:6|unique:users',
             'memberid'          =>      'required|min:5|unique:users',
-            'position'          =>      'max:200',
-            'limit'             =>      'required'
+            'rank_id'           =>      'required',
+            'limit'             =>      'nullable',
+            'item_limit'        =>      'nullable',
+            'payment_type_id'   =>      'required',
+            'room_address'      =>      'nullable',
+            'location'          =>      'nullable'
+        ]);
+    }
+
+    
+
+    public function validateReqUpd($request){
+
+        return $request->validate([
+            'name'              =>      'required',
+            'email'             =>      'required',
+            'phone'             =>      "required",
+            'memberid'          =>      'required',
+            'rank_id'           =>      'required',
+            'limit'             =>      'nullable',
+            'item_limit'        =>      'nullable',
+            'payment_type_id'   =>      'required',
+            'room_address'      =>      'nullable',
+            'location'          =>      'nullable'
         ]);
     }
 

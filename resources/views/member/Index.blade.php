@@ -1,4 +1,4 @@
- 
+
 @extends('admin.layouts.master')
 
 @section('head', 'Members')
@@ -36,14 +36,14 @@
                                             <th class="text-left text-blue-900">Full Name</th>
                                             <th class="text-left text-blue-900">Email</th>
                                             <th class="text-left text-blue-900">Phone Number</th>
-                                            <th class="text-left text-blue-900">Position</th>
+                                            <th class="text-left text-blue-900">Rank</th>
                                             <th class="text-left text-blue-900">Order Limit</th>
                                             <th class="text-left text-blue-900" width="60">Action</th>
                                         
     
                                         </tr>
                                     </thead>
-    
+   
                                     <tbody>
                                         @forelse ($members as $member)
                                         <tr>
@@ -51,11 +51,11 @@
                                             <td>{{$member->name}}</td>
                                             <td>{{$member->email}}</td>
                                             <td>{{$member->phone}}</td>
-                                            <td>{{$member->position}}</td>
+                                            <td>{{$member->getrank()->name}}</td>
                                             <td>{{$member->limit}}</td>
                                          
 
-                                                <th><a href="" class="btn btn-secondary  btn-circle btn-sm "> <i
+                                                <th><a href="{{route('member.edit', $member)}}" class="btn btn-secondary  btn-circle btn-sm "> <i
                                                     class="fas fa-pencil-alt"></i></a> 
                                             
                                             <button style="margin-left: 10px"  onclick="deleteCon('delfrm{{$member->id}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 

@@ -22,7 +22,7 @@
                 <div class="col-md-6">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">All Ranks</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">All Payment Types</h6> 
                             
     
                         </div>
@@ -33,7 +33,7 @@
                                     <thead>
                                         <tr>
                                            
-                                            <th class="text-left text-blue-900">S/L</th>
+                                            <th class="text-left text-blue-900">ID</th>
                                             <th class="text-left text-blue-900">Name</th>
                                           
                                             <th class="text-left text-blue-900"  width="60">Action</th>
@@ -44,20 +44,20 @@
                                     </thead>
     
                                     <tbody>
-                                        @forelse ($ranks as $rank)
+                                        @forelse ($paymenttypes as $paymenttype)
                                         <tr>
                                            
-                                            <td>{{$rank->id}}</td>
-                                            <td>{{$rank->name}}</td>
+                                            <td>{{$paymenttype->id}}</td>
+                                            <td>{{$paymenttype->name}}</td>
                                         
-                                            <th><a href="{{route('member.rank.edit', $rank->id)}}" class="btn btn-secondary  btn-circle btn-sm "> <i
+                                            <th><a href="{{route('pos.paymenttype.edit', $paymenttype->id)}}" class="btn btn-secondary  btn-circle btn-sm "> <i
                                                 class="fas fa-pencil-alt"></i></a> 
 
-                                            <button style="margin-left: 10px" onclick="deleteCon('delfrm{{$rank->id}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
-                                                <form id="delfrm{{$rank->id}}" method="POST" action="{{ route('member.rank.delete') }}">
+                                            <button style="margin-left: 10px" onclick="deleteCon('delfrm{{$paymenttype->id}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
+                                                <form id="delfrm{{$paymenttype->id}}" method="POST" action="{{ route('pos.paymenttype.delete') }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="hidden" name="id" value="{{$rank->id}}">
+                                                    <input type="hidden" name="id" value="{{$paymenttype->id}}">
                                                 </form>
                                             </td>
                                         </tr>
@@ -83,14 +83,14 @@
                 <div class="col-md-4">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Add New Rank</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Add New paymenttype</h6> 
                             
     
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
 
-                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.rank.store') }}">
+                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('pos.paymenttype.store') }}">
                                     @csrf
                 
                                     <div class="form-group">

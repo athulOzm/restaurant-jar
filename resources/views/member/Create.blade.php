@@ -7,8 +7,7 @@
 
 
 
-
-
+ 
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -37,7 +36,7 @@
 
                     <div class="row">
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">Full Name:</label>
                         <input id="name" type="text"
                             class="form-control w-full border-gray-400 @error('name') border-red-500 @enderror" name="name"
@@ -50,7 +49,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Email:
                         </label>
@@ -65,7 +64,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="phone" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Phone Number:
                         </label>
@@ -80,7 +79,7 @@
                             @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="memberid" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Military ID:
                         </label>
@@ -95,22 +94,53 @@
                             @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="position" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Rank:
                         </label>
-                        <input id="position" type="text"
-                            class="form-control w-full border-gray-400 @error('position') border-red-500 @enderror" name="position"
-                            value="{{ old('position') }}"   autofocus>
+                        <select  
+                            required 
+                            class="form-control w-full border-gray-400" 
+                            name="rank_id"
+                            id="rank_id">
+               
+                            @foreach ($ranks as $rank)
+                                <option value="{{$rank->id}}">{{$rank->name}}</option>
+                            @endforeach
 
-                            @error('position')
+                            @error('rank')
                             <p class="text-red-500 text-xs italic mt-4">
                                 {{ $message }}
                             </p>
                             @enderror
+                        
+                        </select>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
+                        <label for="position" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                            Payment Type:
+                        </label>
+                        <select  
+                            required 
+                            class="form-control w-full border-gray-400" 
+                            name="payment_type_id"
+                            id="paymenttype">
+               
+                            @foreach ($paymenttypes as $paymenttype)
+                                <option value="{{$paymenttype->id}}">{{$paymenttype->name}}</option>
+                            @endforeach
+
+                            @error('paymenttype')
+                            <p class="text-red-500 text-xs italic mt-4">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
                         <label for="limit" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                             Order Limit:
                         </label>
@@ -123,6 +153,41 @@
                                 {{ $message }}
                             </p>
                             @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="item_limit" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                            Item Limit Per Order:
+                        </label>
+                        <input id="item_limit" type="text"
+                            class="form-control w-full border-gray-400 @error('item_limit') border-red-500 @enderror" name="item_limit"
+                            value="5"   autofocus>
+
+                            @error('item_limit')
+                            <p class="text-red-500 text-xs italic mt-4">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="location" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                            Room Number:
+                        </label>
+                        <input id="room_address" type="text"
+                            class="form-control w-full border-gray-400 @error('room_address') border-red-500 @enderror" name="room_address"
+                            value=""   autofocus>
+ 
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <label for="location" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                            Location:
+                        </label>
+                        <input id="location" type="text"
+                            class="form-control w-full border-gray-400 @error('location') border-red-500 @enderror" name="location"
+                            value=""   autofocus>
+ 
                     </div>
 
                 </div>

@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Rank;
+use App\PaymentType;
 use Faker\Generator as Faker;
 
-$factory->define(Rank::class, function (Faker $faker) {
+$factory->define(PaymentType::class, function (Faker $faker) {
     return [
-        'name'  =>  $faker->jobTitle
+        'name' => 'payment default'
     ];
 });

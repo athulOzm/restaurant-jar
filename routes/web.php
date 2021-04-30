@@ -27,8 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/members', 'UserController@index')->name('member.index');
     Route::post('/member', 'UserController@storeWeb')->name('member.store');
     Route::delete('/member/drop', 'UserController@destroy')->name('member.delete');
-    Route::get('member/edit/{member}', 'UserController@edit')->name('member.edit');
-    Route::patch('member', 'UserController@update')->name('member.update');
+    Route::get('member/edit/{user}', 'UserController@edit')->name('member.edit');
+    Route::patch('member', 'UserController@updateweb')->name('member.update');
     Route::get('member/create', 'UserController@create')->name('member.create');
 
     //ranks
@@ -37,6 +37,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('member/rank/drop', 'RankController@destroy')->name('member.rank.delete');
     Route::get('member/rank/{rank}', 'RankController@edit')->name('member.rank.edit');
     Route::patch('member/rank', 'RankController@update')->name('member.rank.update');
+
+    //payment type
+    Route::get('pos/paymenttypes', 'PaymentTypeController@index')->name('pos.paymenttype.index');
+    Route::post('pos/paymenttype', 'PaymentTypeController@store')->name('pos.paymenttype.store');
+    Route::delete('pos/paymenttype/drop', 'PaymentTypeController@destroy')->name('pos.paymenttype.delete');
+    Route::get('pos/paymenttype/{paymenttype}', 'PaymentTypeController@edit')->name('pos.paymenttype.edit');
+    Route::patch('pos/paymenttype', 'PaymentTypeController@update')->name('pos.paymenttype.update');
 
 
 

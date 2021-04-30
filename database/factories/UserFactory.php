@@ -24,6 +24,8 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => '$2y$12$/FXElhbvw8X0f434WjXRZuAxwlqbtet8wFrPX24isHu7IbtzypHSy', // admin123
         'remember_token' => Str::random(10),
-        'type'  =>  1
+        'type'  =>  1,
+      
+        'item_limit' => 5
     ];
 });

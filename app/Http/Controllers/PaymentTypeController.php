@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Rank;
+use App\PaymentType;
 use Illuminate\Http\Request;
 
-class RankController extends Controller
+class PaymentTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,8 @@ class RankController extends Controller
      */
     public function index()
     {
-        return view('member.rank.Index', ['ranks' => Rank::all()]);
-
-      
+        return view('pos.paymenttype.Index', ['paymenttypes' => PaymentType::all()]);
     }
-
-    
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +36,7 @@ class RankController extends Controller
     public function store(Request $request)
     {
         
-        Rank::create($this->validateReq($request));
+        PaymentType::create($this->validateReq($request));
         return back();
     }
 
@@ -61,9 +57,10 @@ class RankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rank $rank)
+    public function edit(PaymentType $paymenttype)
     {
-        return view('member.rank.Edit', compact('rank'));
+        
+        return view('pos.paymenttype.Edit', compact('paymenttype'));
     }
 
     /**
@@ -76,10 +73,10 @@ class RankController extends Controller
     public function update(Request $request)
     {
 
-        Rank::find($request->id)
+        PaymentType::find($request->id)
             ->update($this->validateReq($request));
         
-        return redirect()->route('member.rank.index');
+        return redirect()->route('pos.paymenttype.index');
     }
 
     /**
@@ -90,14 +87,15 @@ class RankController extends Controller
      */
     public function destroy(Request $request)
     {
-        Rank::find($request->id)->delete();
+        PaymentType::find($request->id)->delete();
         return back();
     }
 
     public function validateReq($request){
 
         return $request->validate([
-            'name'  =>  'required'
+            'name'  =>  'required',
+         
         ]);
     }
 }
