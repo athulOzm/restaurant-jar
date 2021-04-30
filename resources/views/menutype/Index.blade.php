@@ -36,8 +36,8 @@
                                             <th class="text-left text-blue-900">Name</th>
                                             <th class="text-left text-blue-900">Time From</th>
                                             <th class="text-left text-blue-900">Time To</th>
-                                            <th class="text-left text-blue-900"  width="30">Update</th>
-                                            <th class="text-left text-blue-900" width="30">drop</th>
+                                            <th class="text-left text-blue-900"  width="60">Action</th>
+                                         
 
     
                                         </tr>
@@ -50,10 +50,11 @@
                                             <td>{{$menutype->name}}</td>
                                             <td>{{ \Carbon\Carbon::parse($menutype->from)->format('g:i A') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($menutype->to)->format('g:i A') }}</td>
-                                            <th><a href="{{route('menutype.edit', $menutype->id)}}" class="btn btn-info  btn-circle btn-sm "> <i
-                                                class="fas fa-pencil-alt"></i></a></th>
-                                            <td> <button onclick="document.getElementById({{$menutype->id}}).submit();" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
-                                                <form id="{{$menutype->id}}" method="POST" action="{{ route('menutype.delete') }}">
+                                            <th><a href="{{route('menutype.edit', $menutype->id)}}" class="btn btn-secondary  btn-circle btn-sm "> <i
+                                                class="fas fa-pencil-alt"></i></a> 
+
+                                            <button style="margin-left: 10px" onclick="deleteCon('delfrm{{$menutype->id}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
+                                                <form id="delfrm{{$menutype->id}}" method="POST" action="{{ route('menutype.delete') }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{$menutype->id}}">
@@ -81,7 +82,7 @@
                 <div class="col-md-4">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Add New</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Add New Menu type</h6> 
                             
     
                         </div>
@@ -122,10 +123,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="from" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                        <label for="to" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                             Time To:
                                         </label>
-                                        <input id="from" type="time"
+                                        <input id="to" type="time"
                                             class="form-control w-full border-gray-400 @error('to') border-red-500 @enderror" name="to"
                                             value="{{ old('to') }}" required  autofocus>
                 

@@ -43,7 +43,7 @@ $categories = resolve('allCategories');
                 
                                     <div class="form-group">
                                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
-                                            Name:
+                                           Full Name:
                                         </label>
                                         <input id="name" type="name" value="{{$category->name}}"
                                             class="form-control w-full border-gray-400 @error('name') border-red-500 @enderror" name="name"

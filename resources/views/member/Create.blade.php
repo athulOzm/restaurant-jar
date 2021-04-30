@@ -38,9 +38,7 @@
                     <div class="row">
 
                     <div class="form-group col-md-6">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 col-md-6">
-                            Name:
-                        </label>
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">Full Name:</label>
                         <input id="name" type="text"
                             class="form-control w-full border-gray-400 @error('name') border-red-500 @enderror" name="name"
                             value="{{ old('name') }}" required  autofocus>
@@ -69,7 +67,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="phone" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
-                            Phone:
+                            Phone Number:
                         </label>
                         <input id="phone" type="text"
                             class="form-control w-full border-gray-400 @error('phone') border-red-500 @enderror" name="phone"
@@ -99,7 +97,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="position" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
-                            Position:
+                            Rank:
                         </label>
                         <input id="position" type="text"
                             class="form-control w-full border-gray-400 @error('position') border-red-500 @enderror" name="position"
@@ -114,7 +112,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="limit" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
-                            Limit:
+                            Order Limit:
                         </label>
                         <input id="limit" type="text"
                             class="form-control w-full border-gray-400 @error('limit') border-red-500 @enderror" name="limit"

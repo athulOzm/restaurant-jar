@@ -74,43 +74,20 @@
           <div class="bg-white py-2 collapse-inner rounded">
        
             <a class="collapse-item" href="{{route('product.index')}}">All Menus</a>
-            <a class="collapse-item" href="{{route('product.create')}}">Add New</a>
-    
-          </div>
-        </div>
-      </li>
+            <a class="collapse-item" href="{{route('product.create')}}">Add Menu</a>
+            <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a>
+            {{-- <a class="collapse-item" href="{{route('menutype.index')}}">Add Type</a> --}}
 
-      
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Menu Type</span>
-        </a>
-        <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
        
-            <a class="collapse-item" href="{{route('menutype.index')}}">Menu types</a>
-            <a class="collapse-item" href="{{route('menutype.index')}}">Add New</a>
     
           </div>
         </div>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages33" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Categories</span>
-        </a>
-        <div id="collapsePages33" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+     
+
        
-            <a class="collapse-item" href="{{route('category.index')}}">All Categories</a>
-            <a class="collapse-item" href="{{route('category.index')}}">Add New</a>
-    
-          </div>
-        </div>
-      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages7" aria-expanded="true" aria-controls="collapsePages33">

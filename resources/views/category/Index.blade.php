@@ -39,8 +39,8 @@ $categories = resolve('allCategories');
                                         <th style="width: 65px">image</th>
                                             <th class="text-left text-blue-900">Name</th>
                                             <th class="text-left text-blue-900">Parant</th>
-                                            <th class="text-left text-blue-900" width="30">Update</th>
-                                            <th class="text-left text-blue-900" width="30">Delete</th>
+                                            <th class="text-left text-blue-900" width="60">Action</th>
+                                            
     
                                         </tr>
                                     </thead>
@@ -63,11 +63,11 @@ $categories = resolve('allCategories');
                                                 @endif
                                                 </td>
 
-                                                <th><a href="{{route('category.edit', $category->id)}}" class="btn btn-info  btn-circle btn-sm "> <i
-                                                    class="fas fa-pencil-alt"></i></a></th>
+                                                <th><a href="{{route('category.edit', $category->id)}}" class="btn btn-secondary  btn-circle btn-sm "> <i
+                                                    class="fas fa-pencil-alt"></i></a>
                                             
-                                            <td> <button onclick="document.getElementById({{$category->id}}).submit();" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
-                                                <form id="{{$category->id}}" method="POST" action="{{ route('category.delete') }}">
+                                             <button style="margin-left: 10px" onclick="deleteCon('delfrm{{$category->id}}', 'Deleting category will remove all Menus under this category');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
+                                                <form id="delfrm{{$category->id}}" method="POST" action="{{ route('category.delete') }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{$category->id}}">
@@ -97,7 +97,7 @@ $categories = resolve('allCategories');
                 <div class="col-md-4">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Add Categories</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Add New Category</h6> 
                             
     
                         </div>

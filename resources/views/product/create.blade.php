@@ -126,7 +126,7 @@ $menutypes = resolve('menutypes');
                                 </div>
 
                                 <div class="form-group col-md-2">
-                                    <label for="inputCity">Quantity </label>
+                                    <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
                                         value="{{@old('qty')}}" name="qty">
                                     @error('qty')

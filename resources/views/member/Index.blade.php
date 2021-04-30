@@ -33,13 +33,13 @@
                                     <thead>
                                         <tr>
                                             <th class="text-left text-blue-900">Military ID</th>
-                                            <th class="text-left text-blue-900">Name</th>
+                                            <th class="text-left text-blue-900">Full Name</th>
                                             <th class="text-left text-blue-900">Email</th>
-                                            <th class="text-left text-blue-900">Phone</th>
+                                            <th class="text-left text-blue-900">Phone Number</th>
                                             <th class="text-left text-blue-900">Position</th>
                                             <th class="text-left text-blue-900">Order Limit</th>
-                                            <th class="text-left text-blue-900" width="30">Update</th>
-                                            <th class="text-left text-blue-900" width="30">Delete</th>
+                                            <th class="text-left text-blue-900" width="60">Action</th>
+                                        
     
                                         </tr>
                                     </thead>
@@ -55,11 +55,11 @@
                                             <td>{{$member->limit}}</td>
                                          
 
-                                                <th><a href="" class="btn btn-info  btn-circle btn-sm "> <i
-                                                    class="fas fa-pencil-alt"></i></a></th>
+                                                <th><a href="" class="btn btn-secondary  btn-circle btn-sm "> <i
+                                                    class="fas fa-pencil-alt"></i></a> 
                                             
-                                            <td> <button onclick="document.getElementById({{$member->id}}).submit();" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
-                                                <form id="{{$member->id}}" method="POST" action="{{ route('member.delete') }}">
+                                            <button style="margin-left: 10px"  onclick="deleteCon('delfrm{{$member->id}}');" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button> 
+                                                <form id="delfrm{{$member->id}}" method="POST" action="{{ route('member.delete') }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{$member->id}}">
