@@ -45,6 +45,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pos/paymenttype/{paymenttype}', 'PaymentTypeController@edit')->name('pos.paymenttype.edit');
     Route::patch('pos/paymenttype', 'PaymentTypeController@update')->name('pos.paymenttype.update');
 
+    //table
+    Route::get('pos/tables', 'TableController@index')->name('pos.table.index');
+    Route::post('pos/table', 'TableController@store')->name('pos.table.store');
+    Route::delete('pos/table/drop', 'TableController@destroy')->name('pos.table.delete');
+    Route::get('pos/table/{table}', 'TableController@edit')->name('pos.table.edit');
+    Route::patch('pos/table', 'TableController@update')->name('pos.table.update');
+
 
 
 

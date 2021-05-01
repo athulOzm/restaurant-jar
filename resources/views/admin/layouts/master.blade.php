@@ -117,6 +117,7 @@
             <a class="collapse-item" href="{{route('pos')}}">POS</a>
             <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
             <a class="collapse-item" href="{{route('pos.paymenttype.index')}}">Payment Type</a>
+            <a class="collapse-item" href="{{route('pos.table.index')}}">Tables</a>
     
           </div>
         </div>
