@@ -24,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
 
             return Menutype::all();
         });
+        app()->bind('menutypesforpos', function(){
+
+            return Menutype::whereHas('products', function($q){
+                $q->where('status', '=', 1);
+            })->get();
+        });
         app()->bind('mcategories', function(){
 
             return Category::where('parant_id', null)->get();

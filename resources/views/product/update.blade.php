@@ -161,6 +161,8 @@ $menutypes = resolve('menutypes');
                                         </div>
                                         @endforeach
 
+                                      
+
                                         
                                     </label>
                                 </div>
