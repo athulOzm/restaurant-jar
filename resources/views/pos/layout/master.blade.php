@@ -136,12 +136,40 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #fff;
     margin: 0;
 }
-
+.lab1{
+    font-size: 14px;
+    color: #444; font-weight: 600; width: 100%
+}
+.lab2{
+    font-size: 14px;
+    color: #444; font-weight: 600; width: 100%; display: block
+}
 .itembox img {
     width: 100%;
     height: 90px;
 }
-          
+.btnc1{width: 100%;height: 24vh;border-top-left-radius: 0;border-bottom-left-radius: 0;background: #3f6cb1;}
+.p10{padding: 3px 10px}
+#pt input{font-size: 22px}
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+	.autocomplete-selected { background: #F0F0F0; }
+	.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+	.autocomplete-group { padding: 2px 5px; }
+	.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.tablepic {
+    background: #3f6cb1;
+    text-align: center;
+    padding: 3px;
+    color: #fff;
+}
+.tablepic h5{padding-top: 5px; font-size: 20px}
+.tablepic p{
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
       </style>
    </head>
    <body id="page-top">

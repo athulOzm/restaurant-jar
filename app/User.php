@@ -44,4 +44,9 @@ class User extends Authenticatable
         return Rank::where('id', $this->rank_id)->first();
         //$this->belongsTo(Rank::class, 'rank_id', 'id');
     }
+
+    public function paymenttypes(){
+
+        return $this->belongsTo(PaymentType::class, 'payment_type_id', 'id');
+    }
 }

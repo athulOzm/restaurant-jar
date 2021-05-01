@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Deliverylocation;
 use App\Order;
+use App\Table;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -100,6 +103,27 @@ class KitchenController extends Controller
     public function getcart(){
 
         return response(Order::with('products')->where('status', 1)->first(), 200);
+    }
+
+
+    public function getmembers(){
+
+        return response(User::where('type', 3)->get(), 200);
+    }
+
+    public function getpaymenttypes($memberid){
+
+        return response(User::where('memberid', $memberid)->first()->paymenttypes, 200);
+    }
+
+    public function gettables(){
+
+        return response(Table::all(), 200);
+    }
+
+    public function getlocations(){
+        
+        return response(Deliverylocation::all(), 200);
     }
 
 

@@ -53,6 +53,14 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('pos/table', 'TableController@update')->name('pos.table.update');
 
 
+    //delivery locations
+    Route::get('pos/deliverylocations', 'DeliverylocationController@index')->name('pos.deliverylocation.index');
+    Route::post('pos/deliverylocation', 'DeliverylocationController@store')->name('pos.deliverylocation.store');
+    Route::delete('pos/deliverylocation/drop', 'DeliverylocationController@destroy')->name('pos.deliverylocation.delete');
+    Route::get('pos/deliverylocation/{deliverylocation}', 'DeliverylocationController@edit')->name('pos.deliverylocation.edit');
+    Route::patch('pos/deliverylocation', 'DeliverylocationController@update')->name('pos.deliverylocation.update');
+
+
 
 
     //products
@@ -85,6 +93,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('pos/removecart', 'KitchenController@removecart')->name('pos.removecart');
 
     Route::get('pos/getcart', 'KitchenController@getcart')->name('pos.getcart');
+    Route::get('pos/getmembers', 'KitchenController@getmembers')->name('pos.getmembers');
+    Route::get('/pos/{memberid}/getpaymenttype', 'KitchenController@getpaymenttypes');
+    Route::get('/pos/gettables', 'KitchenController@gettables');
+    Route::get('/pos/locations', 'KitchenController@getlocations');
+
+
 
 
 

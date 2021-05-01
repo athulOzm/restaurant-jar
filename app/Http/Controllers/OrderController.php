@@ -19,7 +19,7 @@ class OrderController extends Controller
     }
     public function all(){
 
-        return view('order.all', ['orders' => Order::get()]);
+        return view('order.all', ['orders' => Order::where('status', '!=', 1)->get()]);
         
     }
 }
