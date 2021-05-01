@@ -212,11 +212,6 @@ class UserController extends Controller
 
     public function addToCart(Request $request){
 
-        //dd($request->qty);
-
-
-     
-
         $order = Order::firstOrCreate(
             ['user_id' => $request->user, 'status'   =>  1],
             ['status'   =>  1]

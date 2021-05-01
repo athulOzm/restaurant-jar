@@ -39,23 +39,23 @@
     border-top: 1px solid #e7e7e7;
 }
 
-         #customers {
+         .cart {
           font-family: Arial, Helvetica, sans-serif;
           border-collapse: collapse;
           width: 100%;
           }
-          #customers td, #customers th {
-          padding: 12px 8px
+          .cart td, .cart th {
+          padding: 9px 8px
           }
-          #customers tr:nth-child(even){background-color:#fafafa}
-          #customers tr:hover {background-color: #efe7e7;}
-          #customers th {
+          .cart tr:nth-child(even){background-color:#fafafa}
+          .cart tr:hover {background-color: #efe7e7;}
+          .cart th {
             padding: 15px 8px;
           text-align: left;
           background-color: #fff;
-          color: black; font-weight: 400; font-size: 14px
+          color: black; font-weight: 600; font-size: 14px
           }
-          #customers td {   color: black; font-weight: 400; font-size: 14px}
+          .cart td {   color:#444; font-weight: 600; font-size: 12px}
           .pc1 {
           margin: 0;
           font-size: 14px;
@@ -189,84 +189,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script> --}}
       <!-- Core plugin JavaScript-->
       {{-- <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
-      <script type="text/javascript">
-         //display Images
-         $(document).ready(() => {
-            // getOrders();
-         });
-         
-         
-         const getOrders = () => {
-                 $.ajax({
-                 type: 'GET',
-                 url: '/kitchen/getorders',
-                 success: function(res){
-         
-                     console.log(res)
-                     
-                     if(res == 0){
-         
-                         $('#displayorders').empty();
-                     }
-                     else{
-                         $('#displayorders').empty();
-                         //const imgPath = '{{env('IMAGE_PATH')}}';
-                         res.map(order => {
-                             $('#displayorders').append()
-                         })
-                     }
-                 }
-             });
-         };
-         
-         const orderReady = (order) => {
-         
-             var token = $("meta[name='csrf-token']").attr("content");
-             $.ajax({
-                 type: 'PATCH',
-                 url: `/kitchen/orderready/${order}`,
-                 data: {
-                     "id": 'hgfd',
-                     "_token": token,
-                 },
-                 success: function(){
-                     getOrders();
-                 }
-             });
-         }
-         
-         //get subcat
-         $('#category').change(function() {
-             var category = this.value;
-             if (this.value) {
-                 $.ajax({
-                     type: 'GET',
-                     url: "/getsubcategory/" + category,
-                     success: function(res) {
-                         if (res.length == 0) {
-                             
-                             $('#subcat').empty();
-                             $('#subcat').append('<option value="">No Sub category found</option>')
-                         } else {
-                             $('#subcat').empty();
-                             res.map(subcat => {
-                                 //console.log(subcat);
-                                 
-                                 $('#subcat').append('<option value="' + subcat.id + '">' + subcat.name + '</option>')
-                             })
-                         }
-                     }
-                 })
-             }
-         });
-         
-         
-         
-         
-         
-         
-         
-      </script>
+      @yield('script')
      
       <!-- Custom scripts for all pages-->
       {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> --}}

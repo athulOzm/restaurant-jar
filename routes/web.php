@@ -73,6 +73,13 @@ Route::middleware(['auth'])->group(function () {
 
     //pos
     Route::get('pos', 'KitchenController@pos')->name('pos');
+    Route::post('pos/addtocart', 'KitchenController@addtocart')->name('pos.addtocart');
+    Route::post('pos/downcart', 'KitchenController@downcart')->name('pos.downcart');
+    Route::post('pos/removecart', 'KitchenController@removecart')->name('pos.removecart');
+
+    Route::get('pos/getcart', 'KitchenController@getcart')->name('pos.getcart');
+
+
 
 
 
