@@ -20,7 +20,7 @@ class KitchenController extends Controller
 
     public function getOrders(){
 
-        $orders = Order::with(['products', 'user'])->where('status', 2)->get();
+        $orders = Order::with(['products', 'user', 'table', 'location'])->where('status', 2)->get();
         return  response()->json($orders);
     }
 
@@ -31,7 +31,7 @@ class KitchenController extends Controller
             'status' => 3
         ]);
 
-        $orders = Order::with(['products', 'user'])->where('status', 2)->get();
+        $orders = Order::with(['products', 'user', 'table', 'location'])->where('status', 2)->get();
         return  response()->json($orders);
     }
 

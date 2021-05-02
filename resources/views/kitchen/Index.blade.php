@@ -103,6 +103,8 @@ footer.sticky-footer {
                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-search fa-fw"></i>
                 </a>
+
+                
                 <!-- Dropdown - Messages -->
                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                   <form class="form-inline mr-auto w-100 navbar-search">
@@ -119,10 +121,13 @@ footer.sticky-footer {
               </li>
 
 
-   
+              <button onclick="orderReady()" class="btn btn-primary">Refresh</button>
               <div class="topbar-divider d-none d-sm-block"></div>
   
               <!-- Nav Item - User Information -->
+
+              
+
               <a class="nav-link  " href="/"  role="button"   aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dashboard</span>
                 
@@ -241,6 +246,30 @@ footer.sticky-footer {
                     $('#displayorders').empty();
                     //const imgPath = '{{env('IMAGE_PATH')}}';
                     res.map(order => {
+
+                      if(order.delivery_type == "Dining"){
+                     
+                        var loc = 'Table : ' + order.table.name;
+                      }
+
+                      if(order.delivery_type == "Delivery"){
+
+                        if(order.location == null){
+
+                          var loc = `Room No ${order.user.room_address}, ${order.user.location}`;
+                        } else {
+                          var loc = order.location.name;
+                        }
+                      }
+
+                      switch (order.delivery_type) {
+                        case "Take away":
+                          var loc = 'Take Away'
+                        default:
+                          break;
+                      }
+
+
                         $('#displayorders').append(`
 
 
@@ -250,12 +279,12 @@ footer.sticky-footer {
     <div class="card shadow mb-4">
         <div class="card-header py-1">
             <div class="row">
-                <div class="col-sm-8">
-                    <h6 class="m-0 mt-2 font-weight-bold text-primary">Name : ${order.user.name}</h6>
-                    <p class="pc1">Mob: ${order.user.phone}</p>
+                <div class="col-sm-7">
+                    <h6 class="m-0 mt-2 font-weight-normal text-primary">Member ID : <b>${order.user.memberid}</b></h6>
+                    <p class="pc1">Name: <span style="color:#000; font-weight:bold">${order.user.name}</span></p>
                     
                 </div>
-                <div class="col-sm-4"> <button onClick="orderReady(${order.id})" class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
+                <div class="col-sm-5"> <button onClick="orderReady(${order.id})" class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
                 
             </div>
           
@@ -263,20 +292,20 @@ footer.sticky-footer {
         <div class="card-body" style="padding: 15px; padding-top:5px" id="ele${order.id}">
 
           <div class="row flex-row py-2 m-0" >
-            <div class="col-sm-6">
-              <h6 class="pc1">Order Type: Lunch</h6>
-              <h6 class="pc1">Delivery Place: Room</h6>
+           
+              <h6 class="pc1">Order Time: <b>${order.updated_at}</b></h6>
+              <h6 class="pc1">Delivery Time: <b>${order.delivery_time}</b></h6>
+              <h6 class="pc1" style="padding-top:10px">Delivery Place: <b>${loc}</b></h6>
               
-            </div>
+            
 
-            <div class="col-sm-6" style="text-align: right">
-              <b style="text-align: right; color:black; font-weight:700">OMR 44.600</b>
-              <h6 class="pc1">Payment Type: <b>Card</b></h6>
-            </div>
+             
+              
+            
           </div>
-          <div class="row bg-primary py-2 m-1 mb-0" style="color: white; font-weight:700">
-            <div class="col-sm-6">Order Token: ${order.id}</div>
-            <div class="col-sm-6" style="text-align: right">Order At : 11:11 </div>
+          <div class="row bg-primary py-2 m-1 mb-0" style="color: white; font-weight:400">
+            <div class="col-sm-6">Order Token: <b>#${order.id}</b></div>
+            <div class="col-sm-6" style="text-align: right"> </div>
           </div>
 
           <div class="row m-1 " style="margin-top: -4px!important">
@@ -285,15 +314,15 @@ footer.sticky-footer {
                   <th>P.ID</th>
                   <th>Items</th>
                   <th width="30">Qty</th>
-                  <th width="40"><input type="checkbox"></th>
+                 
                 </tr>
                 ${
                   order.products.map(product => {
                     return `<tr>
                     <td>${product.id}</td>
                     <td>${product.name}</td>
-                    <td><input type="text" value="${product.pivot.quantity}" style="width:40px; padding:1px"></td>
-                    <td><input checked type="checkbox"></td>
+                    <td>${product.pivot.quantity}</td>
+                  
                   </tr>`;
                   })
                 }
