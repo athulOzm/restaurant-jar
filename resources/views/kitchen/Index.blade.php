@@ -284,7 +284,7 @@ footer.sticky-footer {
                     <p class="pc1">Name: <span style="color:#000; font-weight:bold">${order.user.name}</span></p>
                     
                 </div>
-                <div class="col-sm-5"> <button onClick="orderReady(${order.id})" class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
+                <div class="col-sm-5"> <button onClick="orderReady('${order.id}')" class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
                 
             </div>
           

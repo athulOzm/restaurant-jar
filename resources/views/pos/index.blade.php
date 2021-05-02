@@ -167,9 +167,9 @@ $menutypes = resolve('menutypesforpos');
 
 				$('#delivery').empty();
         $('#delivery').append(`
-        <input type="radio" required name="del" value="Take away" onClick="getPaymenttype(${member.value}); takeaway()"> <b class="lab1">Take away</b>
-        <input type="radio" required name="del" value="Dining" onClick="getTables(${member.value})"> <b class="lab1">Dining</b>
-        <input type="radio" required name="del" value="Delivery" onClick="ShowDelType(${member.value})"> <b class="lab1">Delivery</b>`);
+        <input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.value}'); takeaway()"> <b class="lab1">Take away</b>
+        <input type="radio" required name="del" value="Dining" onClick="getTables('${member.value}')"> <b class="lab1">Dining</b>
+        <input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.value}')"> <b class="lab1">Delivery</b>`);
 			}
 		});
 	}
@@ -195,8 +195,8 @@ $('#locations').empty();
 
 
 
-    $('#dt').append(`<input type="radio"  required onClick="getPaymenttype(${memberid});hideloc()" name="dl" value="1"> <b class="lab1">Room Services</b>
-                     <input type="radio" required name="dl" value="2" onClick="getDeliverylocations(${memberid})"> <b class="lab1">Locations</b>`);
+    $('#dt').append(`<input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1">Room Services</b>
+                     <input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1">Locations</b>`);
   }
 
 
@@ -257,7 +257,7 @@ const getTables = (memberid) => {
               <div class="col-md-2" style="padding:2px;"  >
 
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="${item.id}" name="table" onClick="getPaymenttype(${memberid})" required id="flexRadioDefault2">
+                  <input class="form-check-input" type="radio" value="${item.id}" name="table" onClick="getPaymenttype('${memberid}')" required id="flexRadioDefault2">
                 </div>
 
                 <div class="tablepic" style="background:#216d40">
@@ -313,15 +313,15 @@ const getTables = (memberid) => {
                       <td>
                         <div style="display: flex">
                           
-                          <button  onclick="addtocart(${item.id});" class="btn btn-circle btn-sm">
+                          <button  onclick="addtocart('${item.id}');" class="btn btn-circle btn-sm">
                             <i class="fas fa-plus btnc"></i>
                           </button>
           
-                          <button  onclick="downcart(${item.id});" class="btn  btn-circle btn-sm">
+                          <button  onclick="downcart('${item.id}');" class="btn  btn-circle btn-sm">
                             <i class="fas fa-minus btnc"></i>
                           </button>
           
-                          <button style="margin-left: 2px" onclick="removecart(${item.id});" class="btn  btn-circle btn-sm">
+                          <button style="margin-left: 2px" onclick="removecart('${item.id}');" class="btn  btn-circle btn-sm">
                             <i class="fas fa-trash btnc"></i>
                           </button>
                         </div>
@@ -399,7 +399,7 @@ const getDeliverylocations = (memberid) => {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<select onChange="getPaymenttype(${memberid})" class="form-control w-full border-gray-400" name="location" required><option>Select Locations</option>`)
+          $('#locations').append(`<select onChange="getPaymenttype('${memberid}')" class="form-control w-full border-gray-400" name="location" required><option>Select Locations</option>`)
 
 
           res.map(locations => {
