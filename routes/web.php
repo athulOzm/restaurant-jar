@@ -97,6 +97,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/{memberid}/getpaymenttype', 'KitchenController@getpaymenttypes');
     Route::get('/pos/gettables', 'KitchenController@gettables');
     Route::get('/pos/locations', 'KitchenController@getlocations');
+    Route::post('/pos/checkout', 'KitchenController@checkout')->name('pos.checkout');
+
 
 
 

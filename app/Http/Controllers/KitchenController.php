@@ -127,5 +127,41 @@ class KitchenController extends Controller
     }
 
 
+    //checkout pos
+    public function checkout(Request $request) {
+
+        $memberid = $request->memberid;
+        $delivery_type = $request->del;
+        $payment_type = $request->pt;
+        $delivery_time = $request->dtime;
+
+        if(isset($request->table)){
+            $table = $request->table;
+            Table::find($table)->update(['status' => false]);
+        } else {
+            $table = null;
+        }
+
+        if(isset($request->location)){
+            $location = $request->location;
+        } else {
+            $location = null;
+        }
+
+       Order::where('status', 1)->where('req', 0)->first()->update([
+           'status' =>  2,
+           'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+           'delivery_type' => $delivery_type,
+           'payment_type_id'    =>  $payment_type,
+           'delivery_time'  =>  $delivery_time,
+           'deliverylocation_id'  =>  $location,
+           'payment_status' =>  true,
+           'table_id'  =>  $table
+       ]);
+       
+       return redirect()->route('pos');
+    }
+
+
 
 }

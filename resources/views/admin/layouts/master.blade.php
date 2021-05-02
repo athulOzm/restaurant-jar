@@ -124,6 +124,20 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages16" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>KITCHEN DISPLAY</span>
+        </a>
+        <div id="collapsePages16" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+       
+            <a class="collapse-item" href="{{route('kitchen')}}">Kitchen Display</a>
+    
+          </div>
+        </div>
+      </li>
+
 
       {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">

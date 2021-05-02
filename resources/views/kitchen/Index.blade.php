@@ -143,7 +143,7 @@ footer.sticky-footer {
           <!-- End of Topbar -->
 
           <style>
-              <style>
+            
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -176,111 +176,16 @@ footer.sticky-footer {
     line-height: 22px;
 }
 </style>
-          </style>
+           
   
-          <!-- Begin Page Content -->
-          <div class="container-fluid">
-  
-            
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
 
-
-
-<div class="row" id="displayorders">
-
-
-
-@forelse ($orders as $order)
-  
-
-
-<div class="col-md-4">
-    <div class="card shadow mb-4">
-        <div class="card-header py-1">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h6 class="m-0 mt-2 font-weight-bold text-primary">Name : {{$order->user->name}}</h6>
-                    <p class="pc1">Mob: {{$order->user->phone}}</p>
-                    
-                </div>
-                <div class="col-sm-4"> <button class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
-                <div class="col-sm-2"> <button class="btn btn-primary btn-sm right" style="float: right; margin-top:10px">PRINT</button> </div>
-            </div>
-          
-        </div>
-        <div class="card-body" style="padding: 15px; padding-top:5px">
-
-          <div class="row flex-row py-2 m-0" >
-            <div class="col-sm-6">
-              <h6 class="pc1">Order Type: Lunch</h6>
-              <h6 class="pc1">Delivery Place: Room</h6>
-              
-            </div>
-
-            <div class="col-sm-6" style="text-align: right">
-              <b style="text-align: right; color:black; font-weight:700">OMR 44.600</b>
-              <h6 class="pc1">Payment Type: <b>Card</b></h6>
-            </div>
-          </div>
-          <div class="row bg-primary py-2 m-1 mb-0" style="color: white; font-weight:700">
-            <div class="col-sm-6">Order Token: {{$order->id}}</div>
-            <div class="col-sm-6" style="text-align: right">Order At : {{ \Carbon\Carbon::parse($order->updated_at)->format('h:i A')  }} </div>
-          </div>
-
-          <div class="row m-1 " style="margin-top: -4px!important">
-
-
-          <table id="customers" style="width:100%">
-                <tr>
-                  <th>P.ID</th>
-                  <th>Items</th>
-                  <th>Qty</th>
-                  <th><input type="checkbox"></th>
-          
-                </tr>
-
-                @forelse ($order->products as $product)
-                  <tr>
-                    <td>{{$product->id}}</td>
-                    <td>{{$product->name}}</td>
-                    <td>{{$product->quantity}}</td>
-                    <td><input type="checkbox"></td>
-                  </tr>
-                @empty
-                  <p>No item found</p>
-                @endforelse
-                
-                
-              
-              </table>
-              
-        </div>
-      </div>
-      </div>
+    <div class="row" id="displayorders"></div>
+    
+  </div>
+ 
 </div>
-
-       
-
-
-
-
-@empty
-
-<p>No pending orders.</p>
-  
-@endforelse
-
-
-
-
-
-
-
-        </div>
-  
-          </div>
-          <!-- /.container-fluid -->
-  
-        </div>
         <!-- End of Main Content -->
   
         <!-- Footer -->
@@ -345,13 +250,13 @@ footer.sticky-footer {
     <div class="card shadow mb-4">
         <div class="card-header py-1">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <h6 class="m-0 mt-2 font-weight-bold text-primary">Name : ${order.user.name}</h6>
                     <p class="pc1">Mob: ${order.user.phone}</p>
                     
                 </div>
                 <div class="col-sm-4"> <button onClick="orderReady(${order.id})" class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
-                <div class="col-sm-2"> <button  onclick="jQuery.print('#ele${order.id}')" class="btn btn-primary btn-sm right" style="float: right; margin-top:10px">PRINT</button> </div>
+                
             </div>
           
         </div>

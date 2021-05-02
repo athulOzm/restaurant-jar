@@ -10,7 +10,7 @@
 
 
 <div class="col-xl-3 col-md-3 mb-6">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary  h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
@@ -26,7 +26,7 @@
 </div>
 
 <div class="col-xl-3 col-md-3 mb-6">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary  h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
@@ -42,7 +42,7 @@
 </div>
 
 <div class="col-xl-3 col-md-3 mb-6">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary  h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
@@ -58,7 +58,7 @@
 </div>
 
 <div class="col-xl-3 col-md-3 mb-6">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary  h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
@@ -74,7 +74,7 @@
 </div>
 
 <div class="col-xl-3 col-md-3 mt6" style="margin-top: 30px">
-    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card border-left-primary  h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">

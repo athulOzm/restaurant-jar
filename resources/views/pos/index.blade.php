@@ -32,8 +32,9 @@ $menutypes = resolve('menutypesforpos');
 
 
     <div class="card  shadow-xs mt-2" id="frm1" style="height: 24vh">
-      <form action="">
-        <input type="hidden" name="member">
+      <form action="{{route('pos.checkout')}}" method="POST">
+        @csrf
+
         <div class="row">
           <div class="col-sm-10">
             <div class="p10">
@@ -91,7 +92,14 @@ $menutypes = resolve('menutypesforpos');
                 @forelse ($menutype->products as $product)
                   <div class="card itembox" onclick="addtocart({{$product->id}});">
                     <h5><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
+                    @if ($product->cover != null)
+                  
+                    <img width="100%" src="{{env('IMAGE_PATH')}}{{ $product->cover}}">
+
+                    @else
                     <img width="100%" src="{{asset('img/dummy_img.jpg')}}">
+                    @endif
+
                     <h6>{{$product->name}}</h6>
                   </div>
                 @empty
@@ -159,9 +167,9 @@ $menutypes = resolve('menutypesforpos');
 
 				$('#delivery').empty();
         $('#delivery').append(`
-        <input type="radio" required name="del" value="1" onClick="getPaymenttype(${member.value}); takeaway()"> <b class="lab1">Take away</b>
-        <input type="radio" required name="del" value="2" onClick="getTables(${member.value})"> <b class="lab1">Dining</b>
-        <input type="radio" required name="del" value="3" onClick="ShowDelType(${member.value})"> <b class="lab1">Delivery</b>`);
+        <input type="radio" required name="del" value="Take away" onClick="getPaymenttype(${member.value}); takeaway()"> <b class="lab1">Take away</b>
+        <input type="radio" required name="del" value="Dining" onClick="getTables(${member.value})"> <b class="lab1">Dining</b>
+        <input type="radio" required name="del" value="Delivery" onClick="ShowDelType(${member.value})"> <b class="lab1">Delivery</b>`);
 			}
 		});
 	}
@@ -249,7 +257,7 @@ const getTables = (memberid) => {
               <div class="col-md-2" style="padding:2px;"  >
 
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="table" onClick="getPaymenttype(${memberid})" required id="flexRadioDefault2">
+                  <input class="form-check-input" type="radio" value="${item.id}" name="table" onClick="getPaymenttype(${memberid})" required id="flexRadioDefault2">
                 </div>
 
                 <div class="tablepic" style="background:#216d40">
@@ -411,9 +419,9 @@ const getDelTime = () => {
 
   //alert('da');
     $('#dtime').empty();
-    $('#dtime').append(`<b class="lab1">Delivery Time</b><input id="ctime" type="datetime-local" class="form-control w-full border-gray-400">`);
+    $('#dtime').append(`<b class="lab1">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control w-full border-gray-400">`);
 
-    $("#ctime").val(new Date().toJSON().slice(0,19));
+    //$("#ctime").val(new Date().toJSON().slice(0,19));
 
 }
  
