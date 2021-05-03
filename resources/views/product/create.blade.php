@@ -79,9 +79,18 @@ $menutypes = resolve('menutypes');
                                         name="cat"
                                         id="category"
                                     >
+
+                                    <option value="">Select Category</option>
+
                                
                                         @foreach ($mcategories as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        <option 
+                                        
+                                        @if (old('cat') == $item->id)
+                                            selected
+                                        @endif
+                                        
+                                        value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
                                         
                                     </select>
@@ -115,12 +124,12 @@ $menutypes = resolve('menutypes');
                             <div class="row">
 
                                 <div class="form-group col-md-2">
-                                    <label for="inputCity">Price </label>
+                                    <label for="inputCity">Price (RO)</label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{@old('price')}}" name="price">
                                     @error('price')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Enter Price eg(55.60)</strong>
+                                        <strong>Enter Price eg(5.600)</strong>
                                     </span>
                                     @enderror
                                 </div>
@@ -131,7 +140,7 @@ $menutypes = resolve('menutypes');
                                         value="{{@old('qty')}}" name="qty">
                                     @error('qty')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Enter Price eg(55.60)</strong>
+                                        <strong>Enter Stock Available</strong>
                                     </span>
                                     @enderror
                                 </div>
@@ -264,6 +273,7 @@ $('#category').change(function() {
                     $('#subcat').append('<option value="">No Sub category found</option>')
                 } else {
                     $('#subcat').empty();
+                    $('#subcat').append('<option value="">Select Sub Category</option>')
                     res.map(subcat => {
                         //console.log(subcat);
                         

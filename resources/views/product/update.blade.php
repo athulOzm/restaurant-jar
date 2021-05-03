@@ -6,7 +6,7 @@ $menutypes = resolve('menutypes');
 ?>
 @extends('admin.layouts.master')
 
-@section('head', 'create deal')
+@section('head', 'Update menu')
 
 @section('content')
 
@@ -33,6 +33,9 @@ $menutypes = resolve('menutypes');
     float: right;
     position: relative;
     z-index: 1;}
+
+
+
 </style>
 <div class="container" style="height: 90vh;">
     <div class="card-body p-0">
@@ -43,7 +46,7 @@ $menutypes = resolve('menutypes');
             <div class="col-md-12">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Update Product</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Update Menu</h6>
  
                         
                     </div>
@@ -94,7 +97,14 @@ $menutypes = resolve('menutypes');
                                     >
                                
                                         @foreach ($mcategories as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        <option 
+
+                                        @if ($product->category_id == $item->id)
+                                            selected
+                                        @endif
+                                        
+                                        
+                                        value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
                                         
                                     </select>
@@ -105,6 +115,11 @@ $menutypes = resolve('menutypes');
                                         Sub Category
                                     </label>
                                     <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
+
+                                        @if ($product->subcategory_id != null)
+                                            <option value="{{$product->subcategory_id}}">Sub Category </option>
+                                            
+                                        @endif
                                
                                        
                                         <option value="">Sub Category </option>
@@ -127,7 +142,7 @@ $menutypes = resolve('menutypes');
 
                             <div class="row">
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label for="inputCity">Price </label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{$product->price}}" name="price">
@@ -138,7 +153,7 @@ $menutypes = resolve('menutypes');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
                                         value="{{$product->getAvailableQty()}}" name="qty">
@@ -373,6 +388,7 @@ $('#category').change(function() {
                     $('#subcat').append('<option value="">No Sub category found</option>')
                 } else {
                     $('#subcat').empty();
+                    $('#subcat').append('<option value="">Select sub category </option>')
                     res.map(subcat => {
                         //console.log(subcat);
                         

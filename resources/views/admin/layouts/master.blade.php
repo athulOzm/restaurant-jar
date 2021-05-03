@@ -27,7 +27,16 @@
 
   <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
 
-
+<style>
+      label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 13px;
+    color: #000!important;
+}
+ 
+</style>
 </head>
 
 <body id="page-top">

@@ -194,6 +194,7 @@ class ProductController extends Controller
            // 'user_id'   => 'required',
             'price' =>  'required|numeric|between:0,9999.999',
             'body'  =>  'nullable',
+            'qty'  =>  'required|numeric',
             'image' =>  'image|mimes:jpeg,png,jpg,svg|max:2048',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

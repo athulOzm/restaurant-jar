@@ -81,8 +81,8 @@ class UserController extends Controller
         return $request->validate([
             'name'              =>      'required',
             'email'             =>      'required|unique:users|email',
-            'phone'             =>      'min:6|unique:users',
-            'memberid'          =>      'required|min:5|unique:users',
+            'phone'             =>      'min:8|unique:users',
+            'memberid'          =>      'required|min:3|unique:users',
             'rank_id'           =>      'required',
             'limit'             =>      'nullable',
             'item_limit'        =>      'nullable',
@@ -98,9 +98,9 @@ class UserController extends Controller
 
         return $request->validate([
             'name'              =>      'required',
-            'email'             =>      'required',
-            'phone'             =>      "required",
-            'memberid'          =>      'required',
+            'email'             =>      'required|email',
+            'phone'             =>      'min:8',
+            'memberid'          =>      'required|min:3',
             'rank_id'           =>      'required',
             'limit'             =>      'nullable',
             'item_limit'        =>      'nullable',
@@ -139,8 +139,8 @@ class UserController extends Controller
 
             'name'              =>      'required|min:3',
             'email'             =>      'required|unique:users|email',
-            'phone'             =>      'min:6',
-            'memberid'          =>      'required|min:6',
+            'phone'             =>      'min:8',
+            'memberid'          =>      'required|min:3',
 
            // 'password'          =>      'required|alpha_num|min:5',
            // 'confirm_password'  =>      'required|same:password'
