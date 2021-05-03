@@ -116,13 +116,18 @@ $menutypes = resolve('menutypes');
                                     </label>
                                     <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
 
+                                        @if ($product->subcategory_id != '')
+                                            <option value="{{$product->subcategory->id}}" selected>{{$product->subcategory->name}}</option>
+                                        @endif
+
+
                                         @if ($product->subcategory_id != null)
                                             <option value="{{$product->subcategory_id}}">Sub Category </option>
                                             
                                         @endif
                                
                                        
-                                        <option value="">Sub Category </option>
+                                        
                                       
                                         
                                     </select>
@@ -171,10 +176,20 @@ $menutypes = resolve('menutypes');
 
                                         @foreach($menutypes as $type)
                                         <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" value="{{$type->id}}" name="type[]">
+                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"
+                                            
+                                            @if ($product->types()->where('name', $type->name)->exists())
+                                                checked 
+                                            @endif
+                                            
+                                            value="{{$type->id}}" name="type[]">
                                             <span class="ml-2 text-gray-700">{{$type->name}}</span>
                                         </div>
                                         @endforeach
+
+                                        
+
+                                      
 
                                       
 

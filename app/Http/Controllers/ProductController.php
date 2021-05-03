@@ -104,7 +104,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product = Product::with('types')->find($product->id);
+        $product = Product::with('types', 'subcategory')->find($product->id);
 
        return view('product.update', ['product' => $product]);
     }
@@ -141,7 +141,9 @@ class ProductController extends Controller
 
         ]);
 
-        Product::find($request->id)->types()->sync($request->cat);
+  
+
+        Product::find($request->id)->types()->sync($request->type);
 
 
         if($request->hasfile('images')){

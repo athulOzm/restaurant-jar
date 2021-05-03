@@ -98,9 +98,9 @@ class UserController extends Controller
 
         return $request->validate([
             'name'              =>      'required',
-            'email'             =>      'required|email',
-            'phone'             =>      'min:8',
-            'memberid'          =>      'required|min:3',
+            'email'             =>      'required|email|unique:users,email,'.$request->id,
+            'phone'             =>      'min:8|unique:users,phone,'.$request->id,
+            'memberid'          =>      'required|min:3|unique:users,memberid,'.$request->id,
             'rank_id'           =>      'required',
             'limit'             =>      'nullable',
             'item_limit'        =>      'nullable',

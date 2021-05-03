@@ -9,27 +9,21 @@
 
  
 
-<!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container" style="height: 90vh;">
+    <div class="card-body p-0">
+        <div class="row">
 
 
-    <div class="pull-right" style="height: 70vh;">
-        <div class="card-body p-0">
-            <div class="row">
-    
-         
-     
 
-
- 
-    <div class="card shadow mb-12" style="width:100%">
-        <div class="card-header py-3">
+            <div class="col-md-12">
+                <div class="card shadow mb-12">
+                    <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Add Members</h6> 
             
 
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+ 
 
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.store') }}">
                     @csrf
@@ -219,7 +213,7 @@
                     
                 </form>
 
-            </div>
+             
         </div>
     </div>
  
