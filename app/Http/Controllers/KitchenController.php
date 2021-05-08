@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Deliverylocation;
+use App\Events\Checkout;
 use App\Order;
 use App\Table;
 use App\User;
@@ -148,7 +149,7 @@ class KitchenController extends Controller
             $location = null;
         }
 
-       Order::where('status', 1)->where('req', 0)->first()->update([
+       $id = Order::where('status', 1)->where('req', 0)->first()->update([
            'status' =>  2,
            'user_id'    =>  User::where('memberid', $memberid)->first()->id,
            'delivery_type' => $delivery_type,
@@ -158,6 +159,8 @@ class KitchenController extends Controller
            'payment_status' =>  true,
            'table_id'  =>  $table
        ]);
+
+       Checkout::dispatch($id);
        
        return redirect()->route('pos');
     }

@@ -46,9 +46,13 @@ footer.sticky-footer {
 }
       </style>
 
+
+
+
 </head>
 
 <body id="page-top">
+  <audio id="xyz" src="/s.mp3" preload="auto" allow="autoplay"></audio>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -428,7 +432,28 @@ footer.sticky-footer {
 
 
 
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script>
 
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('bc1abadba15b9f19bac2', {
+      cluster: 'ap2'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('App\\Events\\Checkout', function(data) {
+      
+      
+        document.getElementById('xyz').play();
+        getOrders();
+
+
+
+      
+    });
+  </script>
 
 
 
