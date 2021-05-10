@@ -1,6 +1,4 @@
-<x-Layoutpos>
-    
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="utf-8">
@@ -240,4 +238,4 @@
       <!-- Custom scripts for all pages-->
       {{-- <script src="{{asset('dashboard/js/sb-admin-2.min.js')}}"></script> --}}
    </body>
-</html> </x-Layoutpos>
+</html>

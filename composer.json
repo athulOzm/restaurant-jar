@@ -15,7 +15,8 @@
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
-        "nesbot/carbon": "^2.46"
+        "nesbot/carbon": "^2.46",
+        "pusher/pusher-php-server": "^4.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
