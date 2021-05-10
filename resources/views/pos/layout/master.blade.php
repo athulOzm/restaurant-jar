@@ -17,9 +17,9 @@
       <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
       
       <style>
-          body{height: 100vh; background: #ededed}
+          body{height: 100vh; background: #f4f5fa}
          #wrapper #content-wrapper {
-         background-color: #ededed; min-height: 100vh
+         background-color: #f4f5fa; min-height: 100vh
          }
          .topbar .nav-item .nav-link {
          height: 2.375rem;
@@ -73,27 +73,32 @@ font-weight: 700;
 font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}
 
 .nav-tabs {
-    border-bottom: 1px solid #e7e7e7;
-    background: #f5f5f5;
+    border-bottom: 0px solid #e7e7e7;
+ 
+    border-radius: 6px; background: #e5e9f1
 }
 
-#exTab2 ul li a{color: #444; padding: 20px 30px;
-    line-height: 50px; text-decoration: none}
+#exTab2 ul li a {
+    color: #696767;
+    padding: 10px 20px;
+    line-height: 25px;
+    text-decoration: none;
+    font-weight: 400;
+}
 #exTab2 ul li.active a {
-    color: #3f6cb1;
+    color: #000;
 }
 
-.tab-content>.active{border-left: 1px solid #e7e7e7; padding: 20px}
+.tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
 
-
+#exTab2 ul li {
+     padding: 10px; border-radius: 3px; margin: 10px
+  
+    
+}
 #exTab2 ul li.active {
-    background: #ffffff;
-    margin-bottom: -1px;
-    border: 1px solid #e7e7e7;
-    border-bottom: 1px solid #fff;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    padding: 0px 2px 1px;
+    background: #ffffff;box-shadow: 0 .10rem 0.45rem 0 rgba(58,59,69,.15)!important
+  
     
 }
 
@@ -115,9 +120,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   padding : 5px 15px;
 }
 
-.btnc{font-size: 15px; font-weight: bold; color: #3f6cb1;}
+.btnc {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8790a5;
+}
 
-.itembox{width: 140px; margin:5px;border: 1px solid #b9bdc3; cursor: pointer;
+.itembox{width: 170px; margin:5px;border: 1px solid #b9bdc3; cursor: pointer;
     border-top: none; overflow: hidden; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" }
 .itembox h6{font-weight: 600;
     color: #000;
@@ -131,24 +140,72 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     .itembox h5 {
     font-size: 15px;
     font-weight: 400;
-    background: #3f6cb1;
+    background: #00000091;
     padding: 3px 8px;
     color: #fff;
     margin: 0;
+    position: absolute;
+    border-bottom-right-radius: 6px;
 }
-.lab1{
-    font-size: 14px;
-    color: #444; font-weight: 600; width: 100%
+.lab1 {
+    font-size: 22px;
+    color: #f4f5fa;
+    font-weight: 200;
 }
 .lab2{
     font-size: 14px;
     color: #444; font-weight: 600; width: 100%; display: block
 }
+.lab3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6f788e;
+}
+.item{line-height: 27px; margin: 15px 0; padding-right: 20px}
+.item h3 {
+    font-size: 15px;
+    color: #e6ebf3;
+}
+.btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {
+    font-size: 15px;
+    margin: 0 2px;
+    background: #363e54;
+    border-radius: 4px;
+}
+.item .price {
+    font-size: 15px;
+    color: #bac2d6;
+}
+.item .qty {
+    font-size: 14px;
+    color: #abb6c7;
+    background: #1b1f32;
+    padding: 0px 10px;
+    border-radius: 6px;
+    
+}
+.item .ttl {
+    font-size: 14px;
+    color: #e6ebf3; font-weight: 600
+}
+.txtb {
+    background: #475067;
+    border: 0;
+    border-radius: 3px;
+    color: #a0b3d0;
+}
 .itembox img {
     width: 100%;
     height: 90px;
 }
-.btnc1{width: 100%;height: 24vh;border-top-left-radius: 0;border-bottom-left-radius: 0;background: #3f6cb1;}
+.btnc1 {
+    height: auto;
+    background: #e65776;
+    border-color: #e65776;
+    float: right;
+    margin: 10px;
+    padding: 8px 50px;
+}
 .p10{padding: 3px 10px}
 #pt input{font-size: 22px}
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
@@ -170,6 +227,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin: 0;
     font-size: 12px;
 }
+.card{background: none; border: 0}
+.cart th{background: none}
+.cart tr:nth-child(even){background: none}  
+.bgh {
+    background: #1a1f32;
+    padding: 15px 30px;
+}
       </style>
    </head>
    <body id="page-top">
@@ -178,12 +242,12 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
          <!-- Content Wrapper -->
          <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
-            <div id="content" style="min-height: 93vh">
+            <div id="content" style="min-height: 95vh">
                <!-- Topbar -->
                @include('pos.layout.nav')
               
                <!-- Begin Page Content -->
-               <div class="container-fluid">
+               <div class="container-fluid" style="padding-left:0 ">
                 
 
                     @yield('content')
@@ -198,12 +262,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 
 
-
-
-
-            <!-- Footer -->
-            @include('pos.layout.footer')
-            <!-- End of Footer -->
+ 
          </div>
          <!-- End of Content Wrapper -->
       </div>
