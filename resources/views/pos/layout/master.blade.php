@@ -152,6 +152,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #f4f5fa;
     font-weight: 200;
 }
+.lab1a {
+    font-size: 18px;
+    color: #f4f5fa;
+    font-weight: 200;
+}
 .lab2{
     font-size: 14px;
     color: #444; font-weight: 600; width: 100%; display: block
@@ -234,13 +239,127 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #1a1f32;
     padding: 15px 30px;
 }
+
+.bgh2 {
+    background: #2c3346;
+    padding: 15px 30px;
+}
+
+/*
+ *  STYLE 4
+ */
+
+ .scro::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+  background-color: #2c3346;
+}
+
+.scro::-webkit-scrollbar
+{
+  width: 10px;
+  background-color: #2c3346;
+}
+
+.scro::-webkit-scrollbar-thumb
+{
+  background-color: #000000;
+  border: 0px solid #555555;
+}
+
+
+
+.scro2::-webkit-scrollbar-track
+{
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+  background-color: #f4f5fa;
+}
+
+.scro2::-webkit-scrollbar
+{
+  width: 5px;
+  background-color: #f4f5fa;
+}
+
+.scro2::-webkit-scrollbar-thumb
+{
+  background-color: #e7e7e7;
+  border: 0px solid #555555;
+}
+
+.scro3::-webkit-scrollbar-track
+{
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+  background-color: #f4f5fa;
+}
+
+.scro3::-webkit-scrollbar
+{
+  width: 5px;
+  background-color: #f4f5fa;
+}
+
+.scro3::-webkit-scrollbar-thumb
+{
+  background-color: #000000;
+  border: 0px solid #555555;
+}
+
+
+
+
+
+
+.backDrop{
+  background-color: #000;
+  display: none;
+  filter: alpha(opacity=0);
+  height: 100%;
+  left: 0px;
+  opacity: .0;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 50;
+}
+
+.box{
+ border: 2px solid #e7e7e7;
+  
+  display: none;
+  min-height: 400px;
+  left: 50%;
+  margin-left: -400px;
+  opacity: 0;
+  position: fixed;
+  top: 10%;
+  z-index: 51; width: 800px;
+  
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; background: #1a1f32
+}
+
+.close{
+  color: white;
+  cursor: pointer;
+  float: left;
+  font-size: 32px;
+  margin: 10px;
+  position: absolute;
+}
+
+.clear{
+  clear: both;
+}
+
       </style>
    </head>
-   <body id="page-top">
+   <body id="page-top" class=" scro3">
       <!-- Page Wrapper -->
       <div id="wrapper">
          <!-- Content Wrapper -->
-         <div id="content-wrapper" class="d-flex flex-column">
+         <div id="content-wrapper" class="d-flex flex-column scro3">
             <!-- Main Content -->
             <div id="content" style="min-height: 95vh">
                <!-- Topbar -->

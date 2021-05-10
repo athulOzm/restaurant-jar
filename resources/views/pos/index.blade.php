@@ -26,7 +26,7 @@ $menutypes = resolve('menutypesforpos');
 
 
 
-      <div id="itembox" style="height: 44vh; margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+      <div id="itembox" class="scro" style="height: 44vh; margin-top:10px; overflow:hidden;  overflow-y: scroll;">
         <div class="cart"  style="width:100%" id="cart">
         </div>
       </div>
@@ -51,25 +51,47 @@ $menutypes = resolve('menutypesforpos');
       </div>
 
       <div class="col-sm-12">
+
+  <div class="backDrop"></div>
+  
+  <div class="box">
+   
+
+
+    <div class="p0">
+      {{-- <div class="p10">
+        <b class="lab1">Member ID</b>
+        <input type="text" name="memberid" required id="autocomplete" class="form-control w-full border-gray-400">
+      </div> --}}
+      <div class="bgh2" id="delivery"></div>
+      <div class="bgh" id="pt"></div>
+      <div class="bgh flex" style="display: flex;flex-wrap: wrap;" id="tables"></div>
+      <div class="bgh2" id="dt"></div>
+      <div class="bgh" id="locations"></div>
+      
+      <div class="bgh" id="dtime"></div>
+
+      <button class="btn btn-primary btnc1"   type="submit" style="
+      position: absolute;
+      bottom: 0;
+      right: 0;
+  ">Submit Order <i class="fas fa-arrow-right"></i></button>
+
+    </div>
+    
+    
+
+
+
+  </div>
      
         
-        <button class="btn btn-primary btnc1" id="pay" type="submit">PAY NOW <i class="fas fa-arrow-right"></i></button>
+        <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
         
       </div>
 
 
-      <div class="p10">
-        {{-- <div class="p10">
-          <b class="lab1">Member ID</b>
-          <input type="text" name="memberid" required id="autocomplete" class="form-control w-full border-gray-400">
-        </div> --}}
-        <div class="p10" id="delivery"></div>
-        <div class="p10 flex" style="display: flex;flex-wrap: wrap;" id="tables"></div>
-        <div class="p10" id="dt"></div>
-        <div class="p10" id="locations"></div>
-        <div class="p10" id="pt"></div>
-        <div class="p10" id="dtime"></div>
-      </div>
+     
 
       
 
@@ -99,7 +121,7 @@ $menutypes = resolve('menutypesforpos');
   
 
   <div class="col-sm-8 mt-4">
-    <div class="card  shadow-xs mt-1" style="height: 85vh; max-height:85vh; overflow-y:scroll">
+    <div class="card  shadow-xs mt-1" >
       <div id="exTab2"  >	
         <ul class="nav nav-tabs">
 
@@ -114,7 +136,7 @@ $menutypes = resolve('menutypesforpos');
           @endforeach
         </ul>
         
-        <div class="tab-content ">
+        <div class="tab-content scro2" style="height: 80vh; max-height:80vh; overflow-y:scroll">
 
           @foreach ($menutypes as $menutype)
             <div class="tab-pane @if ($loop->first) active @endif flex" id="{{$menutype->id}}" >
@@ -157,6 +179,24 @@ $menutypes = resolve('menutypesforpos');
 
   $(document).ready(() => {
       getOrders();
+
+      $("#pay").on("click", function(){
+        $(".backDrop").animate({"opacity": ".80"}, 300);
+        $(".box").animate({"opacity": "1.0"}, 300);
+        $(".backDrop, .box").css("display", "block");
+      });
+
+      $(".close, .backDrop").on("click", function(){
+        closeBox();
+      });
+
+      function closeBox(){
+        $(".backDrop, .box").animate({"opacity": "0"}, 300, function(){
+        $(".backDrop, .box").css("display", "none");
+        });
+      }
+
+
   });
 
 
@@ -186,9 +226,9 @@ $menutypes = resolve('menutypesforpos');
 			lookup: options,
 			onSelect: function (member) {
 
-        $('#itembox').css({ height: '20vh', overflow:'scroll' });
-        $('#leftpanel').css({ height: '30vh' });
-        $('#frm1').css({ height: '54vh' });
+        // $('#itembox').css({ height: '20vh', overflow:'scroll' });
+        // $('#leftpanel').css({ height: '30vh' });
+        // $('#frm1').css({ height: '54vh' });
       
 
 
@@ -196,9 +236,9 @@ $menutypes = resolve('menutypesforpos');
 
 				$('#delivery').empty();
         $('#delivery').append(`
-        <input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.value}'); takeaway()"> <b class="lab1">Take away</b>
-        <input type="radio" required name="del" value="Dining" onClick="getTables('${member.value}')"> <b class="lab1">Dining</b>
-        <input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.value}')"> <b class="lab1">Delivery</b>`);
+        <input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.value}'); takeaway()"> <b class="lab1a">Take away</b>
+        <input type="radio" required name="del" value="Dining" onClick="getTables('${member.value}')"> <b class="lab1a">Dining</b>
+        <input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.value}')"> <b class="lab1a">Delivery</b>`);
 			}
 		});
 	}
@@ -224,8 +264,8 @@ $('#locations').empty();
 
 
 
-    $('#dt').append(`<input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1">Room Services</b>
-                     <input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1">Locations</b>`);
+    $('#dt').append(`<input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b>
+                     <input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b>`);
   }
 
 
@@ -243,18 +283,18 @@ $('#locations').empty();
              switch (res.id) {
               case 1:
                 $('#pt').empty();
-                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1">Cash</b>`);
+                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b>`);
                  break;
 
               case 2:
                 $('#pt').empty();
-                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1">Card</b>`);
+                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b>`);
                  break;
              
                default:
                 $('#pt').empty();
-                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1">Cash</b>
-                <input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1">Card</b>`);
+                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b>
+                <input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b>`);
                  break;
              }
 
@@ -441,7 +481,7 @@ const getDelTime = () => {
 
   //alert('da');
     $('#dtime').empty();
-    $('#dtime').append(`<b class="lab1">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control w-full border-gray-400">`);
+    $('#dtime').append(`<b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control w-full border-gray-400">`);
 
     //$("#ctime").val(new Date().toJSON().slice(0,19));
 
