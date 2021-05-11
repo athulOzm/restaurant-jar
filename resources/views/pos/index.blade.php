@@ -176,24 +176,44 @@ $menutypes = resolve('menutypesforpos');
 
 <script type="text/javascript">
 
+//calculate discount
+const caltotal = (id, qty, pri) => {
+
+  var dis = $(`#itemd${id}`).val();
+
+  var pri = qty*pri;
+  var total = pri-dis;
+  var total = total.toFixed(3);
+  $(`#itempt${id}`).empty();
+  $(`#itempt${id}`).append(total);
+}
+
+
+
+
+
   $(document).ready(() => {
+
+      //items
       getOrders();
 
+      //lightbox 
       $("#pay").on("click", function(){
         $(".backDrop").animate({"opacity": ".80"}, 300);
         $(".box").animate({"opacity": "1.0"}, 300);
         $(".backDrop, .box").css("display", "block");
       });
-
       $(".close, .backDrop").on("click", function(){
         closeBox();
       });
-
       function closeBox(){
         $(".backDrop, .box").animate({"opacity": "0"}, 300, function(){
         $(".backDrop, .box").css("display", "none");
         });
       }
+
+      
+
 
 
   });
@@ -412,8 +432,8 @@ const getTables = (memberid) => {
             <div class="col-sm-1 p0"><label class="qty">${item.pivot.quantity}</label></div>
             <div class="col-sm-2 price p0">${item.price}</div>
 
-            <div class="col-sm-1 p0"><input class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl">${item.price * item.pivot.quantity}</div>
+            <div class="col-sm-1 p0"><input onChange="caltotal('${item.id}', '${item.pivot.quantity}', '${item.price}');" id="itemd${item.id}" class="itemdis" type="text"></div>
+            <div class="col-sm-2 ttl" id="itempt${item.id}">${item.price * item.pivot.quantity}</div>
             <div class="col-sm-2 act p0">
               <div style="display: flex">
                           
@@ -438,7 +458,8 @@ const getTables = (memberid) => {
               });
 
               $('.total').empty();
-              $('.total').append(sum); 
+              var tot = sum.toFixed(3);
+              $('.total').append(tot); 
           }
       });
   };
