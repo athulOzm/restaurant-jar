@@ -11,13 +11,10 @@ $menutypes = resolve('menutypesforpos');
 
 
 
-  <div class="col-sm-4 p0" style="background: #2c3346; padding:0; height: 94vh;">
+  <div class="col-sm-6 p0" style="background: #2c3346; padding:0; height: 94vh;">
     <form action="{{route('pos.checkout')}}" method="POST">
       @csrf
-    <div class="bgh">
-      <b class="lab1">Member ID</b>
-      <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
-    </div>
+    
 
 
     <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:32px; padding-right:10px">
@@ -26,7 +23,7 @@ $menutypes = resolve('menutypesforpos');
 
 
 
-      <div id="itembox" class="scro" style="height: 44vh; margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+      <div id="itembox" class="scro" style="height: 54vh; margin-top:10px; overflow:hidden;  overflow-y: scroll;">
         <div class="cart"  style="width:100%" id="cart">
         </div>
       </div>
@@ -54,27 +51,31 @@ $menutypes = resolve('menutypesforpos');
 
   <div class="backDrop"></div>
   
-  <div class="box">
+  <div class="box scro" style="max-height: 90vh">
    
 
 
     <div class="p0">
-      {{-- <div class="p10">
-        <b class="lab1">Member ID</b>
-        <input type="text" name="memberid" required id="autocomplete" class="form-control w-full border-gray-400">
-      </div> --}}
-      <div class="bgh2" id="delivery"></div>
-      <div class="bgh" id="pt"></div>
-      <div class="bgh flex" style="display: flex;flex-wrap: wrap;" id="tables"></div>
-      <div class="bgh2" id="dt"></div>
-      <div class="bgh" id="locations"></div>
       
-      <div class="bgh" id="dtime"></div>
+
+      <div class="bgh">
+        <b class="lab1a">Member ID</b>
+        <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+      </div>
+
+
+      <div id="delivery"></div>
+      
+      <div id="tables"></div>
+      <div id="dt"></div>
+      <div id="locations"></div>
+      <div id="pt"></div>
+      
+      
+      <div id="dtime"></div>
 
       <button class="btn btn-primary btnc1"   type="submit" style="
-      position: absolute;
-      bottom: 0;
-      right: 0;
+      position: relative; float:right; 
   ">Submit Order <i class="fas fa-arrow-right"></i></button>
 
     </div>
@@ -120,7 +121,7 @@ $menutypes = resolve('menutypesforpos');
 
   
 
-  <div class="col-sm-8 mt-4">
+  <div class="col-sm-6 mt-4">
     <div class="card  shadow-xs mt-1" >
       <div id="exTab2"  >	
         <ul class="nav nav-tabs">
@@ -144,14 +145,12 @@ $menutypes = resolve('menutypesforpos');
                 @forelse ($menutype->products as $product)
                   <div class="card itembox" onclick="addtocart({{$product->id}});" 
                   style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                  min-height:170px;
+                  min-height:140px;
     background-size: 100% 100%;">
                     <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
                      
 
-                    <h6 style="background: #00000069;
-                    border-radius: 6px;
-                    margin: 10px;margin-top:130px; color:white">{{$product->name}}</h6>
+                    <h6 class="itemtitle">{{$product->name}}</h6>
                   </div>
                 @empty
                   No menu found!
@@ -236,9 +235,11 @@ $menutypes = resolve('menutypesforpos');
 
 				$('#delivery').empty();
         $('#delivery').append(`
-        <input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.value}'); takeaway()"> <b class="lab1a">Take away</b>
-        <input type="radio" required name="del" value="Dining" onClick="getTables('${member.value}')"> <b class="lab1a">Dining</b>
-        <input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.value}')"> <b class="lab1a">Delivery</b>`);
+        <div class="bgh2 flex">
+        <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.value}'); takeaway()"> <b class="lab1a">Take away</b></div>
+        <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.value}')"> <b class="lab1a">Dining</b></div>
+        <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.value}')"> <b class="lab1a">Delivery</b></div>
+        </div>`);
 			}
 		});
 	}
@@ -247,6 +248,9 @@ $menutypes = resolve('menutypesforpos');
   const takeaway = () => {
     $('#tables').empty();
     $('#dtime').empty();
+    $('#locations').empty();
+    $('#dt').empty();
+
 
   }
 
@@ -264,8 +268,10 @@ $('#locations').empty();
 
 
 
-    $('#dt').append(`<input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b>
-                     <input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b>`);
+    $('#dt').append(`<div class="bgh flex">
+    <div class="box2"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
+    <div class="box2"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
+                     </div>`);
   }
 
 
@@ -283,18 +289,24 @@ $('#locations').empty();
              switch (res.id) {
               case 1:
                 $('#pt').empty();
-                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b>`);
+                $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
+                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
+                </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
-                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b>`);
+                $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
+                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
-                $('#pt').append(`<b class="lab2">Payment Type</b><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b>
-                <input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b>`);
+                $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
+                  <div class="flex">
+                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
+                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b></div>
+                  </div></div>`);
                  break;
              }
 
@@ -316,14 +328,16 @@ const getTables = (memberid) => {
       url: `/pos/gettables`,
       success: function(res){
         $('#tables').empty();
+        $('#locations').empty();
 
-        $('#tables').append(`<b class="lab1">Choose Table</b>`)
+
+        $('#tables').append(`<div class="bgh flex" style="flex-wrap: wrap;" id="tdd">`)
 
         res.map(item => {
           if(item.status == 1){
           
-            $('#tables').append(`
-              <div class="col-md-2" style="padding:2px;"  >
+            $('#tdd').append(`
+              <div class="col-md-1" style="padding:2px;"  >
 
                 <div class="form-check">
                   <input class="form-check-input" type="radio" value="${item.id}" name="table" onClick="getPaymenttype('${memberid}')" required id="flexRadioDefault2">
@@ -331,24 +345,29 @@ const getTables = (memberid) => {
 
                 <div class="tablepic" style="background:#216d40">
                 <h5>${item.name}</h5>
-                <p>Chair: ${item.chair}</p>
+                <p>Seat: ${item.chair}</p>
                 
                 </div>
               </div>`);
-          
-          
           } else{ 
-          $('#tables').append(`
-              <div class="col-md-2" style="padding:2px;">
-                <div class="tablepic" style="background:#9a291e">
-                <h5>${item.name}</h5>
-                <p>Chair: ${item.chair}</p>
-                </div>
-              </div>`);}
+            $('#tdd').append(`
+                <div class="col-md-1" style="padding:2px;">
+                  <div class="tablepic" style="background:#9a291e">
+                  <h5>${item.name}</h5>
+                  <p>Seat: ${item.chair}</p>
+                  </div>
+                </div>`)
+          }
 
-          
         })
+
+      
+
       }
+
+      
+
+
   });
 }
   
@@ -359,6 +378,25 @@ const getTables = (memberid) => {
           url: '/pos/getcart',
           success: function(res){
               $('#cart').empty();
+
+              $('#cart').append(`<div class="row" style="
+    color: #e65776;
+    font-size: 12px;
+    text-align: left;
+    font-weight: 600;
+">
+              <div class="col-sm-1 p0">S.N</div>
+              <div class="col-sm-3 p0">Item</div>
+              <div class="col-sm-1 p0">Qty</div>
+              <div class="col-sm-2 p0">U.Price</div>
+              <div class="col-sm-1 p0">Dis</div>
+              <div class="col-sm-2 p0">Total</div>
+              <div class="col-sm-2 p0">Action</div>
+              
+             
+            </div>
+              `)
+
               var sum = null;
               res.products.map(item => {
 
@@ -367,12 +405,16 @@ const getTables = (memberid) => {
                   $('#cart').append(
                     `
                     <div class="item">
-          <h3>${item.name}</h3>
+          
           <div class="row">
-            <div class="col-sm-4 price">${item.price}</div>
-            <div class="col-sm-2"><label class="qty">${item.pivot.quantity}</label></div>
-            <div class="col-sm-3 ttl">${item.price * item.pivot.quantity}</div>
-            <div class="col-sm-3 act">
+            <div class="col-sm-1 price ">${item.id}</div>
+            <div class="col-sm-3 price p0">${item.name}</div>
+            <div class="col-sm-1 p0"><label class="qty">${item.pivot.quantity}</label></div>
+            <div class="col-sm-2 price p0">${item.price}</div>
+
+            <div class="col-sm-1 p0"><input class="itemdis" type="text"></div>
+            <div class="col-sm-2 ttl">${item.price * item.pivot.quantity}</div>
+            <div class="col-sm-2 act p0">
               <div style="display: flex">
                           
                 <button  onclick="addtocart('${item.id}');" class="btn btn-circle btn-sm">
@@ -386,8 +428,11 @@ const getTables = (memberid) => {
                 <button style="margin-left: 2px" onclick="removecart('${item.id}');" class="btn  btn-circle btn-sm">
                   <i class="fas fa-trash btnc"></i>
                 </button>
+
+                
               </div>
             </div>
+           
           </div>
         </div>`);
               });
@@ -397,6 +442,10 @@ const getTables = (memberid) => {
           }
       });
   };
+
+  // <button  onclick="" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
+  //                 <i class="fas fa-plus btnc"></i>
+  //               </button>
   
   const addtocart = (item) => {
   
@@ -461,7 +510,8 @@ const getDeliverylocations = (memberid) => {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<select onChange="getPaymenttype('${memberid}')" class="form-control w-full border-gray-400" name="location" required><option>Select Locations</option>`)
+          $('#locations').append(`<div class="bgh2"><b class="lab1a">Location</b>
+          <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
 
 
           res.map(locations => {
@@ -469,7 +519,7 @@ const getDeliverylocations = (memberid) => {
               
               $('#locations select').append('<option value="' + locations.id + '">' + locations.name + '</option>')
           })
-          $('#locations').append('</select>')
+          $('#locations').append('</select></div>')
 
             
         }
@@ -481,7 +531,7 @@ const getDelTime = () => {
 
   //alert('da');
     $('#dtime').empty();
-    $('#dtime').append(`<b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control w-full border-gray-400">`);
+    $('#dtime').append(`<div class="bgh2"><b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb"></div>`);
 
     //$("#ctime").val(new Date().toJSON().slice(0,19));
 
