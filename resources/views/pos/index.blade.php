@@ -33,17 +33,19 @@ $menutypes = resolve('menutypesforpos');
       <div class="bgh" style="padding-bottom: 3px;padding-top: 14px;">
         <div class="row">
           <div class="col-sm-7">Sub Total:</div>
-          <div class="col-sm-5" ><label class="total" style="font-weight: 600;"></label></div>
-          <div class="col-sm-7">Tax:</div>
-          <div class="col-sm-5" ><label style="font-weight: 600;">0.000</label></div>
+          <div class="col-sm-5" ><label id="st"  style="font-weight: 600;"></label></div>
+          <div class="col-sm-7">VAT:</div>
+          <div class="col-sm-5" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
+          <div class="col-sm-7">Discount:</div>
+          <div class="col-sm-5" ><label id="discount" style="font-weight: 600;">0.000</label></div>
         </div>
         
       </div>
 
       <div class="bgh" style="border-top:1px solid #2c3346; padding:15px 20px 10px">
         <div class="row">
-          <div class="col-sm-7"><b class="lab1">Total:</b></div>
-          <div class="col-sm-5" style="color: #ef6380; line-height:20px">OMR <label class="total" style="font-weight: 600;font-size: 30px;"></label></div>
+          <div class="col-sm-7"><b class="lab1">Total Amount:</b></div>
+          <div class="col-sm-5" style="color: #ef6380; line-height:20px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
         </div>
       </div>
 
@@ -58,9 +60,19 @@ $menutypes = resolve('menutypesforpos');
     <div class="p0">
       
 
-      <div class="bgh">
-        <b class="lab1a">Member ID</b>
-        <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+      <div class="bgh" style="display: flex">
+        <div class="col-sm-8">
+          <b class="lab1a">Member ID</b>
+          <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+        </div>
+        <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
+          <label id="subtotal2" style="
+          float: right;
+          font-size: 33px;
+          color: #e65776;
+      "></label>
+        </div>
+        
       </div>
 
 
@@ -175,22 +187,6 @@ $menutypes = resolve('menutypesforpos');
 @section('script')
 
 <script type="text/javascript">
-
-//calculate discount
-const caltotal = (id, qty, pri) => {
-
-  var dis = $(`#itemd${id}`).val();
-
-  var pri = qty*pri;
-  var total = pri-dis;
-  var total = total.toFixed(3);
-  $(`#itempt${id}`).empty();
-  $(`#itempt${id}`).append(total);
-}
-
-
-
-
 
   $(document).ready(() => {
 
@@ -406,9 +402,10 @@ const getTables = (memberid) => {
     font-weight: 600;
 ">
               <div class="col-sm-1 p0">S.N</div>
-              <div class="col-sm-3 p0">Item</div>
+              <div class="col-sm-2 p0">Item</div>
               <div class="col-sm-1 p0">Qty</div>
               <div class="col-sm-2 p0">U.Price</div>
+              <div class="col-sm-1 p0">VAT</div>
               <div class="col-sm-1 p0">Dis</div>
               <div class="col-sm-2 p0">Total</div>
               <div class="col-sm-2 p0">Action</div>
@@ -417,10 +414,18 @@ const getTables = (memberid) => {
             </div>
               `)
 
-              var sum = null;
+              var subt = [];
               res.products.map(item => {
 
-                sum += item.price * item.pivot.quantity;
+                
+//console.log(item);
+
+let totalprice = (item.price * item.pivot.quantity).toFixed(3);
+let totalprice_with_discount = (totalprice - item.pivot.discount).toFixed(3);
+subt.push(totalprice_with_discount);
+
+
+
 
                   $('#cart').append(
                     `
@@ -428,12 +433,13 @@ const getTables = (memberid) => {
           
           <div class="row">
             <div class="col-sm-1 price ">${item.id}</div>
-            <div class="col-sm-3 price p0">${item.name}</div>
+            <div class="col-sm-2 price p0">${item.name}</div>
             <div class="col-sm-1 p0"><label class="qty">${item.pivot.quantity}</label></div>
             <div class="col-sm-2 price p0">${item.price}</div>
-
-            <div class="col-sm-1 p0"><input onChange="caltotal('${item.id}', '${item.pivot.quantity}', '${item.price}');" id="itemd${item.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl" id="itempt${item.id}">${item.price * item.pivot.quantity}</div>
+            <div class="col-sm-1 ttl" >0</div>
+            <div class="col-sm-1 p0"><input value="${item.pivot.discount}" style="font-size:12px" onChange="adddiscount('${item.pivot.id}', '${item.id}');" id="itemd${item.id}" class="itemdis" type="text"></div>
+            <div class="col-sm-2 ttl" >${totalprice_with_discount}</div>
+            
             <div class="col-sm-2 act p0">
               <div style="display: flex">
                           
@@ -449,24 +455,48 @@ const getTables = (memberid) => {
                   <i class="fas fa-trash btnc"></i>
                 </button>
 
+                <button  onclick="" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
+                  <i class="fas fa-plus btnc"></i>
+                </button>
                 
               </div>
             </div>
            
           </div>
         </div>`);
-              });
+          });
 
-              $('.total').empty();
-              var tot = sum.toFixed(3);
-              $('.total').append(tot); 
+
+          //get total price
+          gettotprice()
           }
       });
   };
 
-  // <button  onclick="" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
-  //                 <i class="fas fa-plus btnc"></i>
-  //               </button>
+  const gettotprice = async () => {
+
+    $.ajax({
+        type: 'GET',
+        url: "/pos/totalprice",
+        success: function(res) {
+          console.log(res);
+
+          $('#st').empty();
+          $('#subtotal').empty();
+          $('#discount').empty();
+          $('#subtotal2').empty();
+          $('#st').append(res.price);
+          $('#subtotal').append(res.subtotal);
+          $('#subtotal2').append(res.subtotal);
+          $('#discount').append(res.discount);
+ 
+
+            
+        }
+    })
+  }
+
+
   
   const addtocart = (item) => {
   
@@ -512,6 +542,28 @@ var token = $("meta[name='csrf-token']").attr("content");
       url: `/pos/downcart`,
       data: {
           "id": item,
+          "_token": token,
+      },
+      success: function(){
+        getOrders();
+      }
+  });
+}
+
+
+//discount
+const adddiscount = (item, id) => {
+
+var dis = $(`#itemd${id}`).val();
+
+
+var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/adddiscount`,
+      data: {
+          "id": item,
+          "dis": dis,
           "_token": token,
       },
       success: function(){

@@ -327,7 +327,8 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 
 
-
+.btn-group-sm>.btn, .btn-sm {
+    padding: .25rem .2rem;}
 
 
 

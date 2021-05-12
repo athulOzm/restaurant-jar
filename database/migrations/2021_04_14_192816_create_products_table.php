@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
             $table->foreign('subcategory_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->decimal('price', 8, 3)->nullable();
+            $table->decimal('vat', 8, 2)->default(0);
             $table->integer('qty')->default(0);
             $table->longText('body')->nullable();
             $table->string('cover')->nullable();

@@ -91,6 +91,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('pos/addtocart', 'KitchenController@addtocart')->name('pos.addtocart');
     Route::post('pos/downcart', 'KitchenController@downcart')->name('pos.downcart');
     Route::post('pos/removecart', 'KitchenController@removecart')->name('pos.removecart');
+    Route::post('pos/adddiscount', 'KitchenController@discount')->name('pos.discount');
+    Route::get('pos/totalprice', 'KitchenController@totalprice');
 
     Route::get('pos/getcart', 'KitchenController@getcart')->name('pos.getcart');
     Route::get('pos/getmembers', 'KitchenController@getmembers')->name('pos.getmembers');

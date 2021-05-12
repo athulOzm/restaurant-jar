@@ -100,10 +100,29 @@ class KitchenController extends Controller
        ->decrement('quantity');
     }
 
+    //add discount
+    public function discount(Request $request){
+
+    //     DB::table('order_product')
+    //    ->find('id', $request->id)
+    //    ->update('quantity');
+
+       DB::update('update order_product set discount = '.$request->dis.'where id = ?', [$request->id]);
+    }
+
     //pos get cart
     public function getcart(){
 
         return response(Order::with('products')->where('status', 1)->first(), 200);
+    }
+
+    //pos get tot price
+    public function totalprice(){
+
+        $token = Order::with('products')->where('status', 1)->first();
+        
+
+        return response($token->gettotalprice(), 200);
     }
 
 
