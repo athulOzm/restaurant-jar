@@ -313,7 +313,7 @@ $('#locations').empty();
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b></div></div></div>`);
+                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
@@ -321,7 +321,7 @@ $('#locations').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
                   <div class="flex">
                   <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
-                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Card</b></div>
+                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </div></div>`);
                  break;
              }
