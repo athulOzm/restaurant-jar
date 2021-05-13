@@ -133,7 +133,7 @@ class KitchenController extends Controller
 
     public function getpaymenttypes($memberid){
 
-        return response(User::where('memberid', $memberid)->first()->paymenttypes, 200);
+        return response(User::find($memberid)->paymenttypes, 200);
     }
 
     public function gettables(){
@@ -150,7 +150,9 @@ class KitchenController extends Controller
     //checkout pos
     public function checkout(Request $request) {
 
-        $memberid = $request->memberid;
+        $id = explode('-', $request->memberid);
+
+        $memberid = $id[0];
         $delivery_type = $request->del;
         $payment_type = $request->pt;
         $delivery_time = $request->dtime;

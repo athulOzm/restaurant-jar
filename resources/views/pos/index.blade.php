@@ -62,7 +62,7 @@ $menutypes = resolve('menutypesforpos');
 
       <div class="bgh" style="display: flex">
         <div class="col-sm-8">
-          <b class="lab1a">Member ID</b>
+          <b class="lab1a">Member ID / Phone / Name</b>
           <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
         </div>
         <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
@@ -226,7 +226,7 @@ $menutypes = resolve('menutypesforpos');
       //console.log(data);
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
-				arrayReturn.push({'value' : data[i].memberid, 'data' : id});
+				arrayReturn.push({'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 'data' : id});
 			}
 		 
 			//send parse data to autocomplete function
@@ -252,9 +252,9 @@ $menutypes = resolve('menutypesforpos');
 				$('#delivery').empty();
         $('#delivery').append(`
         <div class="bgh2 flex">
-        <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.value}'); takeaway()"> <b class="lab1a">Take away</b></div>
-        <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.value}')"> <b class="lab1a">Dining</b></div>
-        <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.value}')"> <b class="lab1a">Delivery</b></div>
+        <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
+        <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.data}')"> <b class="lab1a">Dining</b></div>
+        <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
         </div>`);
 			}
 		});
@@ -437,7 +437,7 @@ subt.push(totalprice_with_discount);
             <div class="col-sm-1 p0"><label class="qty">${item.pivot.quantity}</label></div>
             <div class="col-sm-2 price p0">${item.price}</div>
             <div class="col-sm-1 ttl" >0</div>
-            <div class="col-sm-1 p0"><input value="${item.pivot.discount}" style="font-size:12px" onChange="adddiscount('${item.pivot.id}', '${item.id}');" id="itemd${item.id}" class="itemdis" type="text"></div>
+            <div class="col-sm-1 p0"><input value="${item.pivot.discount}" style="font-size:15px" onChange="adddiscount('${item.pivot.id}', '${item.id}');" id="itemd${item.id}" class="itemdis" type="text"></div>
             <div class="col-sm-2 ttl" >${totalprice_with_discount}</div>
             
             <div class="col-sm-2 act p0">
