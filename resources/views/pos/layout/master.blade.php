@@ -361,6 +361,23 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   -webkit-border-radius: 2px;
   border-radius: 2px; background: #1a1f32; padding-bottom: 20px;overflow-y: scroll;
 }
+
+.box2{
+ border: 2px solid #e7e7e7;
+  padding: 0;
+  display: none;
+   
+  left: 50%;
+  margin-left: -400px;
+  opacity: 0;
+  position: fixed;
+  top: 4%;
+  z-index: 51; width: 800px;
+  
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; background: #1a1f32; padding-bottom: 0px;overflow-y: scroll;
+}
 .p0{padding: 0!important}
 .close{
   color: white;

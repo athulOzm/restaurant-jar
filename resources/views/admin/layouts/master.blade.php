@@ -86,7 +86,7 @@
             <a class="collapse-item" href="{{route('product.index')}}">All Menus</a>
             <a class="collapse-item" href="{{route('product.create')}}">Add Menu</a>
             <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a>
-            {{-- <a class="collapse-item" href="{{route('menutype.index')}}">Add Type</a> --}}
+            <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
 
             <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
        

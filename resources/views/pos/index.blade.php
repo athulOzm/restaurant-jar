@@ -2,7 +2,10 @@
 
 <?php 
 $menutypes = resolve('menutypesforpos');
+$addons = resolve('addons');
 ?>
+
+ 
 
 @section('content')
 <div class="row">
@@ -51,64 +54,81 @@ $menutypes = resolve('menutypesforpos');
 
       <div class="col-sm-12">
 
-  <div class="backDrop"></div>
-  
-  <div class="box scro" style="max-height: 90vh">
-   
+        <div class="backDrop"></div>
+          <div class="box scro" style="max-height: 90vh">
+            <div class="p0">
+              <div class="bgh" style="display: flex">
+                <div class="col-sm-8">
+                  <b class="lab1a">Member ID / Phone / Name</b>
+                  <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+                </div>
+                <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
+                  <label id="subtotal2" style="
+                      float: right;
+                      font-size: 33px;
+                      color: #e65776;
+                  "></label>
+                </div>
+              </div>
+              <div id="delivery"></div>
+              <div id="tables"></div>
+              <div id="dt"></div>
+              <div id="locations"></div>
+              <div id="pt"></div>
+              <div id="dtime"></div>
 
+              <button class="btn btn-primary btnc1"   type="submit" style="
+                  position: relative; float:right; 
+              ">Submit Order <i class="fas fa-arrow-right"></i></button>
+          </div>
 
-    <div class="p0">
-      
-
-      <div class="bgh" style="display: flex">
-        <div class="col-sm-8">
-          <b class="lab1a">Member ID / Phone / Name</b>
-          <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
-        </div>
-        <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
-          <label id="subtotal2" style="
-          float: right;
-          font-size: 33px;
-          color: #e65776;
-      "></label>
-        </div>
-        
       </div>
-
-
-      <div id="delivery"></div>
-      
-      <div id="tables"></div>
-      <div id="dt"></div>
-      <div id="locations"></div>
-      <div id="pt"></div>
-      
-      
-      <div id="dtime"></div>
-
-      <button class="btn btn-primary btnc1"   type="submit" style="
-      position: relative; float:right; 
-  ">Submit Order <i class="fas fa-arrow-right"></i></button>
-
-    </div>
-    
-    
-
-
-
+    <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
   </div>
+
+
+  <div class="box2 scro " style="max-height: 90vh; overflow-x:hidden">
+    <div class="row">
+    <div class="col-sm-6">
+       
+        <div class="bgh" style="display: flex">
+          <b class="lab1a">Items</b>
+        </div>
+  
+        <div class="bgh2">
+          <div class="row " style="
+                color: #e65776;
+                font-size: 12px;
+                text-align: left;
+                font-weight: 600;
+            ">
+            <div class="col-sm-1 p0">S.N</div>
+            <div class="col-sm-4 p0">Item</div>
+            <div class="col-sm-2 p0">Qty</div>
+            <div class="col-sm-2 p0">U.Price</div>
+            <div class="col-sm-3 p0">Action</div>  
+          </div>
+  
+          <div id="addoncart"></div>
+        </div>
+  
+      </div>
      
-        
-        <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
-        
+    <div class="col-sm-6">
+      <div class="bgh2" style="display: flex">
+        <b class="lab1a">Add On</b>
       </div>
 
-
-     
-
-      
+      <div id="addonwrap" class="row"></div> <br>
 
     </div>
+  </div>
+
+    
+  </div>
+
+
+</div>
 
 
  
@@ -203,16 +223,86 @@ $menutypes = resolve('menutypesforpos');
         closeBox();
       });
       function closeBox(){
-        $(".backDrop, .box").animate({"opacity": "0"}, 300, function(){
-        $(".backDrop, .box").css("display", "none");
+        $(".backDrop, .box, .box2").animate({"opacity": "0"}, 300, function(){
+        $(".backDrop, .box, .box2").css("display", "none");
         });
       }
-
-      
-
-
-
   });
+
+
+  //lightbox addon
+  const showaddon = (pitem)=>{
+
+    $('#addonwrap').empty();
+
+    @foreach ($addons as $item)
+      $('#addonwrap').append(`<div class="col-md-6"  onclick="addtocartaddon('{{$item->id}}', '${pitem}');" >
+        <div style="
+            color: #fff;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 600;
+            padding: 10px 0 5px;
+            border: 1px solid #363e54;
+            margin-top: 5px; cursor:pointer
+        ">
+          {{$item->name}}
+        </div></div>`);
+    @endforeach
+
+    getaddon(pitem);
+
+    $(".backDrop").animate({"opacity": ".80"}, 300);
+    $(".box2").animate({"opacity": "1.0"}, 300);
+    $(".backDrop, .box2").css("display", "block");
+  }
+
+  //get addon items
+  const getaddon = (id) => {
+    $.ajax({
+      url: `/pos/getaddon/${id}`,
+      async: true,
+      dataType: 'json',
+      success: function (data) {
+        //console.log(data);
+        $('#addoncart').empty();
+        data.map(item => {
+          $('#addoncart').append(`
+          <div class="row" style="
+              color: #fff;
+              font-size: 15px;
+              text-align: left;
+              font-weight: 600;
+              padding: 10px 0 5px;
+              border-top: 1px solid #363e54;
+              margin-top: 5px;
+          ">
+            <div class="col-sm-1 p0">${item.id}</div>
+            <div class="col-sm-4 p0">${item.name}</div>
+            <div class="col-sm-2 p0">${item.pivot.quantity}</div>
+            <div class="col-sm-2 p0"></div>
+            <div class="col-sm-3 p0">
+              <div style="display: flex"> 
+                <button type="button" onclick="addtocartaddon('${item.id}', '${id}')" class="btn btn-circle btn-sm">
+                  <i class="fas fa-plus btnc"></i>
+                </button>
+                <button type="button" onclick="downcartaddon('${item.id}', '${id}');" class="btn  btn-circle btn-sm">
+                  <i class="fas fa-minus btnc"></i>
+                </button>
+                <button type="button" style="margin-left: 2px" onclick="removecartaddon('${item.id}', '${id}');" class="btn  btn-circle btn-sm">
+                  <i class="fas fa-trash btnc"></i>
+                </button>
+              </div>
+            </div>  
+          </div>`);
+        })
+        
+      }
+    });
+
+  }
+
+ 
 
 
   $(document).ready(function(){	
@@ -240,15 +330,10 @@ $menutypes = resolve('menutypesforpos');
 		$('#autocomplete').autocomplete({
 			lookup: options,
 			onSelect: function (member) {
-
         // $('#itembox').css({ height: '20vh', overflow:'scroll' });
         // $('#leftpanel').css({ height: '30vh' });
         // $('#frm1').css({ height: '54vh' });
-      
-
-
-
-
+    
 				$('#delivery').empty();
         $('#delivery').append(`
         <div class="bgh2 flex">
@@ -266,13 +351,10 @@ $menutypes = resolve('menutypesforpos');
     $('#dtime').empty();
     $('#locations').empty();
     $('#dt').empty();
-
-
   }
 
   const hideloc = () =>  {
-
-$('#locations').empty();
+    $('#locations').empty();
   }
 
   const ShowDelType = (memberid) =>  {
@@ -282,8 +364,6 @@ $('#locations').empty();
     $('#pt').empty();
     $('#dtime').empty();
 
-
-
     $('#dt').append(`<div class="bgh flex">
     <div class="box2"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
     <div class="box2"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
@@ -292,9 +372,7 @@ $('#locations').empty();
 
 
   const getPaymenttype = (memberid) => {
-  $('#pt').empty();
- 
-
+    $('#pt').empty();
 
         $.ajax({
             type: 'GET',
@@ -336,8 +414,6 @@ const getTables = (memberid) => {
   $('#pt').empty();
   $('#dtime').empty();
   $('#dt').empty();
-
-
 
   $.ajax({
       type: 'GET',
@@ -443,19 +519,19 @@ subt.push(totalprice_with_discount);
             <div class="col-sm-2 act p0">
               <div style="display: flex">
                           
-                <button  onclick="addtocart('${item.id}');" class="btn btn-circle btn-sm">
+                <button type="button" onclick="addtocart('${item.id}');" class="btn btn-circle btn-sm">
                   <i class="fas fa-plus btnc"></i>
                 </button>
 
-                <button  onclick="downcart('${item.id}');" class="btn  btn-circle btn-sm">
+                <button  type="button" onclick="downcart('${item.id}');" class="btn  btn-circle btn-sm">
                   <i class="fas fa-minus btnc"></i>
                 </button>
 
-                <button style="margin-left: 2px" onclick="removecart('${item.id}');" class="btn  btn-circle btn-sm">
+                <button type="button" style="margin-left: 2px" onclick="removecart('${item.id}');" class="btn  btn-circle btn-sm">
                   <i class="fas fa-trash btnc"></i>
                 </button>
 
-                <button  onclick="" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
+                <button type="button"  onclick="showaddon('${item.pivot.id}')" value="${item.id}" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
                   <i class="fas fa-plus btnc"></i>
                 </button>
                 
@@ -479,7 +555,7 @@ subt.push(totalprice_with_discount);
         type: 'GET',
         url: "/pos/totalprice",
         success: function(res) {
-          console.log(res);
+          //console.log(res);
 
           $('#st').empty();
           $('#subtotal').empty();
@@ -497,7 +573,7 @@ subt.push(totalprice_with_discount);
   }
 
 
-  
+  // addtocart main items
   const addtocart = (item) => {
   
       var token = $("meta[name='csrf-token']").attr("content");
@@ -513,6 +589,26 @@ subt.push(totalprice_with_discount);
             getOrders();
           }
       });
+  }
+
+
+  // addtocart addon items
+  const addtocartaddon = (item, pitem) => {
+  
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        type: 'POST',
+        url: `/pos/addtocartaddon`,
+        data: {
+            "id": item,
+            "pid": pitem,
+            "_token": token,
+        },
+        success: function(res){
+         console.log(res);
+          getaddon(pitem);
+        }
+    });
   }
 
 
@@ -532,6 +628,23 @@ var token = $("meta[name='csrf-token']").attr("content");
   });
 }
 
+//remove item from addon
+const removecartaddon = (item, pid) => {
+var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/removecartaddon`,
+      data: {
+          "id": item,
+          "pid": pid,
+          "_token": token,
+      },
+      success: function(){
+        getaddon(pid);
+      }
+  });
+}
+
  
 
 //remove item from cart
@@ -546,6 +659,24 @@ var token = $("meta[name='csrf-token']").attr("content");
       },
       success: function(){
         getOrders();
+      }
+  });
+}
+
+
+//remove item from addon
+const downcartaddon = (item, pid) => {
+var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/downcartaddon`,
+      data: {
+          "id": item,
+          "pid": pid,
+          "_token": token,
+      },
+      success: function(){
+        getaddon(pid);
       }
   });
 }

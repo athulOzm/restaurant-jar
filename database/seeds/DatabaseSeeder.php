@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Seeder;
  
 
@@ -19,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentTypeSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(TableSeeder::class);
+        $this->call(AddonSeeder::class);
 
 
 

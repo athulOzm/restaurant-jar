@@ -73,6 +73,13 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('menu', 'ProductController@update')->name('product.update');
     Route::delete('menu', 'ProductController@destroy')->name('product.destroy');
 
+    //addon
+    Route::get('addons', 'AddonController@index')->name('addon.index');
+    Route::post('addon', 'AddonController@store')->name('addon.store');
+    Route::delete('addon/drop', 'AddonController@destroy')->name('addon.delete');
+    Route::get('addon/{addon}', 'AddonController@edit')->name('addon.edit');
+    Route::patch('addon', 'AddonController@update')->name('addon.update');
+
 
     //order
     Route::get('orders/active', 'OrderController@active')->name('order.active');
@@ -87,19 +94,24 @@ Route::middleware(['auth'])->group(function () {
 
 
     //pos
-    Route::get('pos', 'KitchenController@pos')->name('pos');
-    Route::post('pos/addtocart', 'KitchenController@addtocart')->name('pos.addtocart');
-    Route::post('pos/downcart', 'KitchenController@downcart')->name('pos.downcart');
-    Route::post('pos/removecart', 'KitchenController@removecart')->name('pos.removecart');
-    Route::post('pos/adddiscount', 'KitchenController@discount')->name('pos.discount');
-    Route::get('pos/totalprice', 'KitchenController@totalprice');
+    Route::get('pos', 'PosController@pos')->name('pos');
+    Route::post('pos/addtocart', 'PosController@addtocart')->name('pos.addtocart');
+    Route::post('pos/downcart', 'PosController@downcart')->name('pos.downcart');
+    Route::post('pos/removecart', 'PosController@removecart')->name('pos.removecart');
+    Route::post('pos/adddiscount', 'PosController@discount')->name('pos.discount');
+    Route::get('pos/totalprice', 'PosController@totalprice');
+    Route::get('pos/getcart', 'PosController@getcart')->name('pos.getcart');
+    Route::get('pos/getmembers', 'PosController@getmembers')->name('pos.getmembers');
+    Route::get('/pos/{memberid}/getpaymenttype', 'PosController@getpaymenttypes');
+    Route::get('/pos/gettables', 'PosController@gettables');
+    Route::get('/pos/locations', 'PosController@getlocations');
+    Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
 
-    Route::get('pos/getcart', 'KitchenController@getcart')->name('pos.getcart');
-    Route::get('pos/getmembers', 'KitchenController@getmembers')->name('pos.getmembers');
-    Route::get('/pos/{memberid}/getpaymenttype', 'KitchenController@getpaymenttypes');
-    Route::get('/pos/gettables', 'KitchenController@gettables');
-    Route::get('/pos/locations', 'KitchenController@getlocations');
-    Route::post('/pos/checkout', 'KitchenController@checkout')->name('pos.checkout');
+        //addon
+    Route::post('pos/addtocartaddon', 'PosController@addtocartaddon');
+    Route::get('pos/getaddon/{id}', 'PosController@getaddon');
+    Route::post('pos/downcartaddon', 'PosController@downcartaddon');
+    Route::post('pos/removecartaddon', 'PosController@removecartaddon');
 
 
 
