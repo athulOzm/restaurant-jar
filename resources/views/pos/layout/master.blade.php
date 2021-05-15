@@ -78,7 +78,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 #exTab2 ul li a {
     color: #696767;
-    padding: 10px 20px;
+    padding: 10px 15px;
     line-height: 25px;
     text-decoration: none;
     font-weight: 400;
@@ -409,6 +409,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 .cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
+.catwraper {
+    margin: 10px 0;
+    background: #e5e9f1;
+    border: 1px solid #ccc;
+    padding: 10px 10px 0;
+    border-radius: 6px;
+}
       </style>
    </head>
    <body id="page-top">

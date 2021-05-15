@@ -79,7 +79,7 @@ class Order extends Model
          
 
         return [
-            'price' => number_format(array_sum($tprice), 3), 
+            'price' => number_format(array_sum($tprice) + array_sum($price_addon), 3), 
             'discount' => number_format(array_sum($dis), 3),
             'subtotal' => $st_with_addon
         ];
