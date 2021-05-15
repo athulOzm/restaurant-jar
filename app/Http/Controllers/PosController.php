@@ -138,7 +138,7 @@ class PosController extends Controller
     //pos get cart
     public function getcart(){
 
-        return response(Order::with('products')->where('status', 1)->first(), 200);
+        return response(Order::with('orderproducts')->where('status', 1)->first(), 200);
     }
 
     //pos get tot price

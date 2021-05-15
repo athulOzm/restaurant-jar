@@ -14,144 +14,115 @@ $addons = resolve('addons');
 
 
 
-  <div class="col-sm-6 p0" style="background: #2c3346; padding:0; height: 94vh;">
+  <div class="col-sm-6 p0" style="background: #2c3346; ">
     <form action="{{route('pos.checkout')}}" method="POST">
       @csrf
     
 
 
-    <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:32px; padding-right:10px">
-      <b class="lab1">Order List</b>
-      <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
+      <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:32px; padding-right:10px">
+        <b class="lab1">Order List</b>
+        <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
 
 
 
-      <div id="itembox" class="scro" style="height: 54vh; margin-top:10px; overflow:hidden;  overflow-y: scroll;">
-        <div class="cart"  style="width:100%" id="cart">
-        </div>
-      </div>
-    </div>
-
-    <div style="height: 22vh"> 
-      <div class="bgh" style="padding-bottom: 3px;padding-top: 14px;">
-        <div class="row">
-          <div class="col-sm-7">Sub Total:</div>
-          <div class="col-sm-5" ><label id="st"  style="font-weight: 600;"></label></div>
-          <div class="col-sm-7">VAT:</div>
-          <div class="col-sm-5" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
-          <div class="col-sm-7">Discount:</div>
-          <div class="col-sm-5" ><label id="discount" style="font-weight: 600;">0.000</label></div>
-        </div>
-        
-      </div>
-
-      <div class="bgh" style="border-top:1px solid #2c3346; padding:15px 20px 10px">
-        <div class="row">
-          <div class="col-sm-7"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-5" style="color: #ef6380; line-height:20px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
-        </div>
-      </div>
-
-      <div class="col-sm-12">
-
-        <div class="backDrop"></div>
-          <div class="box scro" style="max-height: 90vh">
-            <div class="p0">
-              <div class="bgh" style="display: flex">
-                <div class="col-sm-8">
-                  <b class="lab1a">Member ID / Phone / Name</b>
-                  <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
-                </div>
-                <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
-                  <label id="subtotal2" style="
-                      float: right;
-                      font-size: 33px;
-                      color: #e65776;
-                  "></label>
-                </div>
-              </div>
-              <div id="delivery"></div>
-              <div id="tables"></div>
-              <div id="dt"></div>
-              <div id="locations"></div>
-              <div id="pt"></div>
-              <div id="dtime"></div>
-
-              <button class="btn btn-primary btnc1"   type="submit" style="
-                  position: relative; float:right; 
-              ">Submit Order <i class="fas fa-arrow-right"></i></button>
+        <div id="itembox" class="scro" style="height:calc(100vh - 373px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+          <div class="cart"  style="width:100%" id="cart">
           </div>
-
-      </div>
-    <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
-  </div>
-
-
-  <div class="box2 scro " style="max-height: 90vh; overflow-x:hidden">
-    <div class="row">
-    <div class="col-sm-6">
-       
-        <div class="bgh" style="display: flex">
-          <b class="lab1a">Items</b>
         </div>
-  
-        <div class="bgh2">
-          <div class="row " style="
-                color: #e65776;
-                font-size: 12px;
-                text-align: left;
-                font-weight: 600;
-            ">
-            <div class="col-sm-1 p0">S.N</div>
-            <div class="col-sm-4 p0">Item</div>
-            <div class="col-sm-2 p0">Qty</div>
-            <div class="col-sm-2 p0">U.Price</div>
-            <div class="col-sm-3 p0">Action</div>  
-          </div>
-  
-          <div id="addoncart"></div>
-        </div>
-  
       </div>
-     
-    <div class="col-sm-6">
-      <div class="bgh2" style="display: flex">
-        <b class="lab1a">Add On</b>
-      </div>
-
-      <div id="addonwrap" class="row"></div> <br>
-
-    </div>
-  </div>
 
     
-  </div>
+      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 14px;min-height:230px">
+        <div class="row">
+          <div class="col-sm-5">Sub Total:</div>
+          <div class="col-sm-7" ><label id="st"  style="font-weight: 600;"></label></div>
+          <div class="col-sm-5">VAT:</div>
+          <div class="col-sm-7" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
+          <div class="col-sm-5">Discount:</div>
+          <div class="col-sm-7" ><label id="discount" style="font-weight: 600;">0.000</label></div>
+        </div>
+        
+        <div class="row totalamd tar">
+          <div class="col-sm-5"><b class="lab1">Total Amount:</b></div>
+          <div class="col-sm-7" style="color: #ef6380; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
+        </div>
 
+        <div class="row">
+          <div class="col-sm-5">
+            <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
+          </div>
+          <div class="col-sm-7">
+            <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+    
 
-</div>
+      </div>
 
+      <div class="backDrop"></div>
+        <div class="box scro" style="max-height: 90vh">
+          <div class="p0">
+            <div class="bgh" style="display: flex">
+              <div class="col-sm-8">
+                <b class="lab1a">Member ID / Phone / Name</b>
+                <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+              </div>
+              <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
+                <label id="subtotal2" style="
+                    float: right;
+                    font-size: 33px;
+                    color: #e65776;
+                "></label>
+              </div>
+            </div>
+            <div id="delivery"></div>
+            <div id="tables"></div>
+            <div id="dt"></div>
+            <div id="locations"></div>
+            <div id="pt"></div>
+            <div id="dtime"></div>
 
- 
- 
-
-  </form>
-
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <button class="btn btn-primary btnc1"   type="submit" style="
+                position: relative; float:right; 
+            ">Submit Order <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
 
   
+      <div class="box2 scro " style="max-height: 90vh; overflow-x:hidden">
+        <div class="row">
+          <div class="bgh2 col-sm-6">
+            <div style="display: flex"><b class="lab1a">Items</b></div>
+            <div class="pt-4 pl-2">
+              <div class="row " style="
+                    color: #e65776;
+                    font-size: 12px;
+                    text-align: left;
+                    font-weight: 600;
+                ">
+                <div class="col-sm-1 p0">S.N</div>
+                <div class="col-sm-4 p0">Item</div>
+                <div class="col-sm-2 p0">Qty</div>
+                <div class="col-sm-2 p0">U.Price</div>
+                <div class="col-sm-3 p0">Action</div>  
+              </div>
+      
+              <div id="addoncart"></div>
+            </div>
+          </div>
+        
+          <div class="col-sm-6">
+            <div class="bgh" style="display: flex"> <b class="lab1a">Add On</b></div>
+            <div id="addonwrap" class="row"></div><br>
+          </div>
+        </div>
+      </div>
+    
+    </form>
+  </div>
+
+
 
   <div class="col-sm-6 mt-4">
     <div class="card  shadow-xs mt-1" >
@@ -169,7 +140,7 @@ $addons = resolve('addons');
           @endforeach
         </ul>
         
-        <div class="tab-content scro2" style="height: 80vh; max-height:80vh; overflow-y:scroll">
+        <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
 
           @foreach ($menutypes as $menutype)
             <div class="tab-pane @if ($loop->first) active @endif flex" id="{{$menutype->id}}" >
@@ -270,7 +241,7 @@ $addons = resolve('addons');
           $('#addoncart').append(`
           <div class="row" style="
               color: #fff;
-              font-size: 15px;
+              font-size: 13px;
               text-align: left;
               font-weight: 600;
               padding: 10px 0 5px;
@@ -280,7 +251,7 @@ $addons = resolve('addons');
             <div class="col-sm-1 p0">${item.id}</div>
             <div class="col-sm-4 p0">${item.name}</div>
             <div class="col-sm-2 p0">${item.pivot.quantity}</div>
-            <div class="col-sm-2 p0"></div>
+            <div class="col-sm-2 p0">${item.price}</div>
             <div class="col-sm-3 p0">
               <div style="display: flex"> 
                 <button type="button" onclick="addtocartaddon('${item.id}', '${id}')" class="btn btn-circle btn-sm">
@@ -299,7 +270,6 @@ $addons = resolve('addons');
         
       }
     });
-
   }
 
  
@@ -469,38 +439,40 @@ const getTables = (memberid) => {
           type: 'GET',
           url: '/pos/getcart',
           success: function(res){
+
+            //console.log(res);
               $('#cart').empty();
 
               $('#cart').append(`<div class="row" style="
-    color: #e65776;
-    font-size: 12px;
-    text-align: left;
-    font-weight: 600;
-">
-              <div class="col-sm-1 p0">S.N</div>
-              <div class="col-sm-2 p0">Item</div>
-              <div class="col-sm-1 p0">Qty</div>
-              <div class="col-sm-2 p0">U.Price</div>
-              <div class="col-sm-1 p0">VAT</div>
-              <div class="col-sm-1 p0">Dis</div>
-              <div class="col-sm-2 p0">Total</div>
-              <div class="col-sm-2 p0">Action</div>
-              
-             
-            </div>
+                  color: #e65776;
+                  font-size: 12px;
+                  text-align: left;
+                  font-weight: 600;
+              ">
+                <div class="col-sm-1 p0">S.N</div>
+                <div class="col-sm-2 p0">Item</div>
+                <div class="col-sm-1 p0">Qty</div>
+                <div class="col-sm-2 p0">U.Price</div>
+                <div class="col-sm-1 p0">VAT</div>
+                <div class="col-sm-1 p0">Dis</div>
+                <div class="col-sm-2 p0">Total</div>
+                <div class="col-sm-2 p0">Action</div>
+              </div>
               `)
 
               var subt = [];
-              res.products.map(item => {
+              res.orderproducts.map(item => {
 
-                
-//console.log(item);
+              let totalprice = (item.product.price * item.quantity).toFixed(3);
+              let totalprice_with_discount = (totalprice - item.discount).toFixed(3);
+              //let totalprice_with_discount_and_addon = totalprice_with_discount + item.addon_total;
+              //subt.push(totalprice_with_discount);
 
-let totalprice = (item.price * item.pivot.quantity).toFixed(3);
-let totalprice_with_discount = (totalprice - item.pivot.discount).toFixed(3);
-subt.push(totalprice_with_discount);
-
-
+              if(item.addon_total == '0.000'){
+                var addont = ''
+              } else {
+                var addont = ' + ' + item.addon_total;
+              }
 
 
                   $('#cart').append(
@@ -509,29 +481,29 @@ subt.push(totalprice_with_discount);
           
           <div class="row">
             <div class="col-sm-1 price ">${item.id}</div>
-            <div class="col-sm-2 price p0">${item.name}</div>
-            <div class="col-sm-1 p0"><label class="qty">${item.pivot.quantity}</label></div>
-            <div class="col-sm-2 price p0">${item.price}</div>
+            <div class="col-sm-2 price p0">${item.product.name}</div>
+            <div class="col-sm-1 p0"><label class="qty">${item.quantity}</label></div>
+            <div class="col-sm-2 price p0">${item.product.price}</div>
             <div class="col-sm-1 ttl" >0</div>
-            <div class="col-sm-1 p0"><input value="${item.pivot.discount}" style="font-size:15px" onChange="adddiscount('${item.pivot.id}', '${item.id}');" id="itemd${item.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl" >${totalprice_with_discount}</div>
+            <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:15px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
+            <div class="col-sm-2 ttl" >${totalprice_with_discount}${addont}</div>
             
             <div class="col-sm-2 act p0">
               <div style="display: flex">
                           
-                <button type="button" onclick="addtocart('${item.id}');" class="btn btn-circle btn-sm">
+                <button type="button" onclick="addtocart('${item.product.id}');" class="btn btn-circle btn-sm">
                   <i class="fas fa-plus btnc"></i>
                 </button>
 
-                <button  type="button" onclick="downcart('${item.id}');" class="btn  btn-circle btn-sm">
+                <button  type="button" onclick="downcart('${item.product.id}');" class="btn  btn-circle btn-sm">
                   <i class="fas fa-minus btnc"></i>
                 </button>
 
-                <button type="button" style="margin-left: 2px" onclick="removecart('${item.id}');" class="btn  btn-circle btn-sm">
+                <button type="button" style="margin-left: 2px" onclick="removecart('${item.product.id}');" class="btn  btn-circle btn-sm">
                   <i class="fas fa-trash btnc"></i>
                 </button>
 
-                <button type="button"  onclick="showaddon('${item.pivot.id}')" value="${item.id}" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
+                <button type="button"  onclick="showaddon('${item.id}')" value="${item.product.id}" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
                   <i class="fas fa-plus btnc"></i>
                 </button>
                 
@@ -607,6 +579,8 @@ subt.push(totalprice_with_discount);
         success: function(res){
          console.log(res);
           getaddon(pitem);
+          getOrders();
+
         }
     });
   }
@@ -641,6 +615,7 @@ var token = $("meta[name='csrf-token']").attr("content");
       },
       success: function(){
         getaddon(pid);
+        getOrders();
       }
   });
 }
@@ -677,6 +652,7 @@ var token = $("meta[name='csrf-token']").attr("content");
       },
       success: function(){
         getaddon(pid);
+        getOrders();
       }
   });
 }

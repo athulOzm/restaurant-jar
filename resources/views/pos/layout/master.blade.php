@@ -17,16 +17,14 @@
       <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
       
       <style>
-          body{height: 100vh; background: #f4f5fa}
-         #wrapper #content-wrapper {
-         background-color: #f4f5fa; min-height: 100vh
-         }
+          body{flex:1; background: #f4f5fa; overflow: hidden;}
+       
          .topbar .nav-item .nav-link {
          height: 2.375rem;
          padding: 0 .75rem;
          }
          .topbar {
-         height: 3.375rem;
+         height: 50px;
          }
          .text-gray-600 {
          color: #242425!important;
@@ -228,10 +226,19 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     height: auto;
     background: #e65776;
     border-color: #e65776;
-    float: right;
-    margin: 10px;
-    padding: 8px 50px;
+    margin: 10px 0;
+    padding: 8px 40px;
+    
 }
+.btnc2 {
+    height: auto;
+    background: #b6bece;
+    border-color: #b6bece;
+    margin: 10px 0;
+    padding: 8px 30px;color: #333
+    
+}
+.tar{text-align: right}
 .p10{padding: 3px 10px}
 #pt input{font-size: 22px}
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
@@ -363,7 +370,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 
 .box2{
- border: 2px solid #e7e7e7;
+ border: 1px solid #656f9e;
   padding: 0;
   display: none;
    
@@ -400,21 +407,22 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .clear{
   clear: both;
 }
-
+.cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
+.totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
       </style>
    </head>
-   <body id="page-top" class=" scro3">
+   <body id="page-top">
       <!-- Page Wrapper -->
       <div id="wrapper">
          <!-- Content Wrapper -->
          <div id="content-wrapper" class="d-flex flex-column scro3">
             <!-- Main Content -->
-            <div id="content" style="min-height: 95vh">
+            <div id="content">
                <!-- Topbar -->
                @include('pos.layout.nav')
               
                <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding-left:0 ">
+               <div class="container-fluid cf">
                 
 
                     @yield('content')
