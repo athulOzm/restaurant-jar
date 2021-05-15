@@ -177,7 +177,14 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 600;
     color: #6f788e;
 }
-.item{line-height: 27px; margin: 15px 0; padding-right: 15px}
+.item {
+    line-height: 25px;
+    margin: 0px 0;
+    padding-right: 15px;
+    padding: 8px 0 ;
+    border: 1px solid #343c52; border-top: none; background: #2a3042
+}
+.item label{margin-bottom: 0}
 .item h3 {
     font-size: 15px;
     color: #e6ebf3;
@@ -409,6 +416,15 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 .cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
+.itemtitlebar {
+    color: #e65776;
+    font-size: 12px;
+    text-align: left;
+    font-weight: 600;
+    background: #1a1f32;
+    padding: 5px 0;
+    border-top: 1px solid #363e54;
+}
       </style>
    </head>
    <body id="page-top">

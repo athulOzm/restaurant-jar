@@ -95,6 +95,7 @@ class AddonController extends Controller
         return $request->validate([
             'name'  =>  'required',
             'price'  =>  'required',
+            'vat'  =>  'required',
             'qty'  =>  'required'
         ]);
     }

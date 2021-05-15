@@ -35,6 +35,7 @@
                                            
                                             <th class="text-left text-blue-900">Name</th>
                                             <th class="text-left text-blue-900">Price</th>
+                                            <th class="text-left text-blue-900">Vat</th>
                                             <th class="text-left text-blue-900">Stock Available</th>
                                             <th class="text-left text-blue-900"  width="60">Action</th>
                                          
@@ -49,6 +50,7 @@
                                            
                                             <td>{{$addon->name}}</td>
                                             <td>{{$addon->price}}</td>
+                                            <td>{{$addon->vat}}%</td>
                                             <td>{{$addon->qty}}</td>
                                             
                                             <th><a href="{{route('addon.edit', $addon->id)}}" class="btn btn-secondary  btn-circle btn-sm "> <i
@@ -117,6 +119,21 @@
                                             value="{{ old('price') }}" required  autofocus>
                 
                                             @error('price')
+                                            <p class="text-red-500 text-xs italic mt-4">
+                                                {{ $message }}
+                                            </p>
+                                            @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="vat" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                            VAT (%):
+                                        </label>
+                                        <input id="vat" type="text" value="0"
+                                            class="form-control w-full border-gray-400 @error('vat') border-red-500 @enderror" name="vat"
+                                            value="{{ old('vat') }}" required  autofocus>
+                
+                                            @error('vat')
                                             <p class="text-red-500 text-xs italic mt-4">
                                                 {{ $message }}
                                             </p>
