@@ -8,6 +8,16 @@ $addons = resolve('addons');
  
 
 @section('content')
+
+<style>
+  .catwraper {
+    margin: 10px 0;
+    background: #e5e9f1;
+    border: 1px solid #ccc;
+    padding: 10px 10px 0;
+    border-radius: 6px;
+}
+</style>
 <div class="row">
 
  
@@ -129,6 +139,12 @@ $addons = resolve('addons');
       <div id="exTab2"  >	
         <ul class="nav nav-tabs">
 
+
+<li style="margin: 0; padding:15px 10px">
+    <input type="text" class="form-control" placeholder="Search Menu" style="width: 240px"/>
+  </li>
+
+
           @foreach ($menutypes as $menutype)
           <?php $nub = 1; ?>
             <li class="@if ($loop->first) active   @endif">
@@ -141,7 +157,70 @@ $addons = resolve('addons');
         </ul>
         
         <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
+ <div class="catwraper" style="display: flex">
 
+    <div class="cat" style="
+      width: 60px;
+      overflow: hidden;
+      height: auto; margin-right:10px
+    ">
+      <img src="/img/dummy_img.jpg" width="100%" style="
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-bottom: 5px;
+  ">
+      <h6 style="
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+  ">Category</h6>
+    </div>
+
+
+    <div class="cat" style="
+      width: 60px;
+      overflow: hidden;
+      height: auto;margin-right:10px
+    ">
+      <img src="/img/dummy_img.jpg" width="100%" style="
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-bottom: 5px;
+  ">
+      <h6 style="
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+  ">Two</h6>
+    </div>
+
+    <div class="cat" style="
+      width: 60px;
+      overflow: hidden;
+      height: auto;margin-right:10px
+    ">
+      <img src="/img/dummy_img.jpg" width="100%" style="
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-bottom: 5px;
+  ">
+      <h6 style="
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+  ">Cat Three</h6>
+    </div>
+
+
+
+
+  </div>
           @foreach ($menutypes as $menutype)
             <div class="tab-pane @if ($loop->first) active @endif flex" id="{{$menutype->id}}" >
               <div style="display: flex;flex-wrap: wrap;">
