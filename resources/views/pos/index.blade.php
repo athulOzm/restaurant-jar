@@ -358,11 +358,8 @@ $addons = resolve('addons');
 				var id = (data[i].id).toString();
 				arrayReturn.push({'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 'data' : id});
 			}
-		 
 			//send parse data to autocomplete function
 			loadSuggestions(arrayReturn);
-			// console.log(countries);
-			// console.log(arrayReturn);
 		}
 	});
 
@@ -370,17 +367,42 @@ $addons = resolve('addons');
 		$('#autocomplete').autocomplete({
 			lookup: options,
 			onSelect: function (member) {
-        // $('#itembox').css({ height: '20vh', overflow:'scroll' });
-        // $('#leftpanel').css({ height: '30vh' });
-        // $('#frm1').css({ height: '54vh' });
-    
-				$('#delivery').empty();
-        $('#delivery').append(`
-        <div class="bgh2 flex">
-        <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
-        <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.data}')"> <b class="lab1a">Dining</b></div>
-        <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
-        </div>`);
+
+        //console.log(member);
+
+        $.ajax({
+            type: 'GET',
+            url: `/pos/creditstatus/${member.data}`,
+            success: function(res){
+              //console.log(res.msg);
+
+              if(res.msg == 'ok'){
+                $('#delivery').empty();
+                $('#delivery').append(`
+                <div class="bgh2 flex">
+                <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.data}')"> <b class="lab1a">Dining</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
+                </div>`);
+              }
+              else{
+
+                $('#delivery').empty();
+                $('#dt').empty();
+    $('#tables').empty();
+    $('#pt').empty();
+    $('#dtime').empty();
+                $('#delivery').append(`
+                <div class="bgh2 flex">${res.msg}</div>`);
+              }
+
+            }
+        });
+
+
+				
+
+
 			}
 		});
 	}
@@ -405,8 +427,8 @@ $addons = resolve('addons');
     $('#dtime').empty();
 
     $('#dt').append(`<div class="bgh flex">
-    <div class="box2"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
-    <div class="box2"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
+    <div class="box3"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
+    <div class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
                      </div>`);
   }
 
@@ -424,22 +446,22 @@ $addons = resolve('addons');
               case 1:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
+                  <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                  <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
                   <div class="flex">
-                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
-                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
+                  <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </div></div>`);
                  break;
              }
@@ -513,13 +535,8 @@ const getTables = (memberid) => {
             //console.log(res);
               $('#cart').empty();
 
-              $('#cart').append(`<div class="row" style="
-                  color: #e65776;
-                  font-size: 12px;
-                  text-align: left;
-                  font-weight: 600;
-              ">
-                <div class="col-sm-1 p0">S.N</div>
+              $('#cart').append(`<div class="row itemtitlebar">
+                <div class="col-sm-1 " style="padding-left:25px">S.N</div>
                 <div class="col-sm-2 p0">Item</div>
                 <div class="col-sm-1 p0">Qty</div>
                 <div class="col-sm-2 p0">U.Price</div>
@@ -533,30 +550,22 @@ const getTables = (memberid) => {
               var subt = [];
               res.orderproducts.map(item => {
 
-              let totalprice = (item.product.price * item.quantity).toFixed(3);
-              let totalprice_with_discount = (totalprice - item.discount).toFixed(3);
-              //let totalprice_with_discount_and_addon = totalprice_with_discount + item.addon_total;
-              //subt.push(totalprice_with_discount);
-
               if(item.addon_total == '0.000'){
                 var addont = ''
               } else {
                 var addont = ' + ' + item.addon_total;
               }
 
-
                   $('#cart').append(
-                    `
-                    <div class="item">
-          
+                    `<div class="item">
           <div class="row">
-            <div class="col-sm-1 price ">${item.id}</div>
-            <div class="col-sm-2 price p0">${item.product.name}</div>
+            <div class="col-sm-1 price " style="padding-left:25px">${item.id}</div>
+            <div class="col-sm-2 price p0">${item.product.name} </div>
             <div class="col-sm-1 p0"><label class="qty">${item.quantity}</label></div>
             <div class="col-sm-2 price p0">${item.product.price}</div>
-            <div class="col-sm-1 ttl" >0</div>
+            <div class="col-sm-1 ttl p0" >${item.tax}</div>
             <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:15px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl" >${totalprice_with_discount}${addont}</div>
+            <div class="col-sm-2 ttl" >${item.price_total_with_tax}${addont}</div>
             
             <div class="col-sm-2 act p0">
               <div style="display: flex">
@@ -600,16 +609,17 @@ const getTables = (memberid) => {
           //console.log(res);
 
           $('#st').empty();
+          $('#vat').empty();
           $('#subtotal').empty();
           $('#discount').empty();
           $('#subtotal2').empty();
+
           $('#st').append(res.price);
+          $('#vat').append(res.tax);
           $('#subtotal').append(res.subtotal);
           $('#subtotal2').append(res.subtotal);
           $('#discount').append(res.discount);
  
-
-            
         }
     })
   }

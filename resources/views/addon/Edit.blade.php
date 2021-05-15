@@ -71,6 +71,21 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="vat" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                            VAT (%):
+                                        </label>
+                                        <input id="vat" type="text" value="{{$addon->vat}}"
+                                            class="form-control w-full border-gray-400 @error('vat') border-red-500 @enderror" name="vat"
+                                            value="{{ old('vat') }}" required  autofocus>
+                
+                                            @error('vat')
+                                            <p class="text-red-500 text-xs italic mt-4">
+                                                {{ $message }}
+                                            </p>
+                                            @enderror
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="qty" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                             Stock Available:
                                         </label>

@@ -155,6 +155,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #2c3346;
     margin-right: 20px; margin-top: 4px
 }
+.box3 {
+    padding: 7px 20px;
+    background: #2c3346;
+    margin-right: 20px; margin-top: 4px
+}
 .box1 input[type=radio]{ margin-right: 10px}
 
 .flex{display: flex}
@@ -177,7 +182,14 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 600;
     color: #6f788e;
 }
-.item{line-height: 27px; margin: 15px 0; padding-right: 15px}
+.item {
+    line-height: 25px;
+    margin: 0px 0;
+    padding-right: 15px;
+    padding: 8px 0 ;
+    border: 1px solid #343c52; border-top: none; background: #2a3042
+}
+.item label{margin-bottom: 0}
 .item h3 {
     font-size: 15px;
     color: #e6ebf3;
@@ -409,12 +421,23 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 .cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
+<<<<<<< HEAD
 .catwraper {
     margin: 10px 0;
     background: #e5e9f1;
     border: 1px solid #ccc;
     padding: 10px 10px 0;
     border-radius: 6px;
+=======
+.itemtitlebar {
+    color: #e65776;
+    font-size: 12px;
+    text-align: left;
+    font-weight: 600;
+    background: #1a1f32;
+    padding: 5px 0;
+    border-top: 1px solid #363e54;
+>>>>>>> 2adbd25b2407145b5a3f711c2b35242392736a02
 }
       </style>
    </head>

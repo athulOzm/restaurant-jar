@@ -158,6 +158,21 @@ $menutypes = resolve('menutypes');
                                     @enderror
                                 </div>
 
+                                <div class="form-group  col-md-2">
+                                    <label for="vat" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                        VAT (%):
+                                    </label>
+                                    <input id="vat" type="text" value="{{$product->vat}}"
+                                        class="form-control w-full border-gray-400 @error('vat') border-red-500 @enderror" name="vat"
+                                        value="{{ old('vat') }}" required  autofocus>
+            
+                                        @error('vat')
+                                        <p class="text-red-500 text-xs italic mt-4">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
+                                </div>
+
                                 <div class="form-group col-md-2">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
@@ -169,7 +184,7 @@ $menutypes = resolve('menutypes');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="inputCity">Menu Type  </label>
                                      
                                     <label class="flex flex-col items-center mt-3">
@@ -196,7 +211,7 @@ $menutypes = resolve('menutypes');
                                         
                                     </label>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="inputCity">Status  </label>
                                      
                                     <label class="flex flex-row items-center mt-3">
