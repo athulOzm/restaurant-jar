@@ -155,6 +155,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #2c3346;
     margin-right: 20px; margin-top: 4px
 }
+.box3 {
+    padding: 7px 20px;
+    background: #2c3346;
+    margin-right: 20px; margin-top: 4px
+}
 .box1 input[type=radio]{ margin-right: 10px}
 
 .flex{display: flex}

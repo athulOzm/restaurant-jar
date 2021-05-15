@@ -288,11 +288,8 @@ $addons = resolve('addons');
 				var id = (data[i].id).toString();
 				arrayReturn.push({'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 'data' : id});
 			}
-		 
 			//send parse data to autocomplete function
 			loadSuggestions(arrayReturn);
-			// console.log(countries);
-			// console.log(arrayReturn);
 		}
 	});
 
@@ -300,17 +297,42 @@ $addons = resolve('addons');
 		$('#autocomplete').autocomplete({
 			lookup: options,
 			onSelect: function (member) {
-        // $('#itembox').css({ height: '20vh', overflow:'scroll' });
-        // $('#leftpanel').css({ height: '30vh' });
-        // $('#frm1').css({ height: '54vh' });
-    
-				$('#delivery').empty();
-        $('#delivery').append(`
-        <div class="bgh2 flex">
-        <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
-        <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.data}')"> <b class="lab1a">Dining</b></div>
-        <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
-        </div>`);
+
+        //console.log(member);
+
+        $.ajax({
+            type: 'GET',
+            url: `/pos/creditstatus/${member.data}`,
+            success: function(res){
+              //console.log(res.msg);
+
+              if(res.msg == 'ok'){
+                $('#delivery').empty();
+                $('#delivery').append(`
+                <div class="bgh2 flex">
+                <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.data}')"> <b class="lab1a">Dining</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
+                </div>`);
+              }
+              else{
+
+                $('#delivery').empty();
+                $('#dt').empty();
+    $('#tables').empty();
+    $('#pt').empty();
+    $('#dtime').empty();
+                $('#delivery').append(`
+                <div class="bgh2 flex">${res.msg}</div>`);
+              }
+
+            }
+        });
+
+
+				
+
+
 			}
 		});
 	}
@@ -335,8 +357,8 @@ $addons = resolve('addons');
     $('#dtime').empty();
 
     $('#dt').append(`<div class="bgh flex">
-    <div class="box2"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
-    <div class="box2"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
+    <div class="box3"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
+    <div class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
                      </div>`);
   }
 
@@ -354,22 +376,22 @@ $addons = resolve('addons');
               case 1:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
+                  <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                  <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
                   <div class="flex">
-                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
-                  <div class="box2"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
+                  <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </div></div>`);
                  break;
              }
@@ -514,7 +536,7 @@ const getTables = (memberid) => {
         type: 'GET',
         url: "/pos/totalprice",
         success: function(res) {
-          console.log(res);
+          //console.log(res);
 
           $('#st').empty();
           $('#vat').empty();

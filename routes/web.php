@@ -106,8 +106,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/gettables', 'PosController@gettables');
     Route::get('/pos/locations', 'PosController@getlocations');
     Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
+    Route::get('/pos/creditstatus/{user}', 'PosController@memberstatus');
 
-        //addon
+
+        //addon 
     Route::post('pos/addtocartaddon', 'PosController@addtocartaddon');
     Route::get('pos/getaddon/{id}', 'PosController@getaddon');
     Route::post('pos/downcartaddon', 'PosController@downcartaddon');
