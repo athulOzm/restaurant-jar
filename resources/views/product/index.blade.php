@@ -60,7 +60,7 @@
                                             @endif
                                         </td>
 
-                                        <td>{{$product->name}}</td>
+                                        <td>{{$product->name}} <span style="text-align: right; float:right"> {{$product->name_ar}}</span></td>
                                         <td>{{$product->category->name}} 
                                         @if ($product->subcategory_id != null)
                                         <i class="fas fa-angle-right"></i>  {{$product->subcategory->name}} 

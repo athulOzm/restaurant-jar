@@ -8,6 +8,16 @@ $addons = resolve('addons');
  
 
 @section('content')
+
+<style>
+  .catwraper {
+    margin: 10px 0;
+    background: #e5e9f1;
+    border: 1px solid #ccc;
+    padding: 10px 10px 0;
+    border-radius: 6px;
+}
+</style>
 <div class="row">
 
  
@@ -20,7 +30,7 @@ $addons = resolve('addons');
     
 
 
-      <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:32px; padding-right:10px">
+      <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:20px; padding-right:3px">
         <b class="lab1">Order List</b>
         <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
 
@@ -129,9 +139,11 @@ $addons = resolve('addons');
       <div id="exTab2"  >	
         <ul class="nav nav-tabs">
 
-          <li style="margin: 0; padding:15px 10px">
-            <input type="text" class="form-control" placeholder="Search Menu" style="width: 240px"/>
-          </li>
+
+<li style="margin: 0; padding:15px 10px">
+    <input type="text" class="form-control" placeholder="Search Menu" style="width: 240px"/>
+  </li>
+
 
           @foreach ($menutypes as $menutype)
           <?php $nub = 1; ?>
@@ -145,75 +157,72 @@ $addons = resolve('addons');
         </ul>
         
         <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
+ <div class="catwraper" style="display: flex">
 
-          <div class="catwraper" style="display: flex">
-
-            <div class="cat" style="
-              width: 60px;
-              overflow: hidden;
-              height: auto; margin-right:10px
-            ">
-              <img src="http://restoapp.link/img/dummy_img.jpg" width="100%" style="
-              border-radius: 50%;
-              border: 2px solid #fff;
-              overflow: hidden;
-              margin-bottom: 5px;
-          ">
-              <h6 style="
-              text-align: center;
-              font-size: 12px;
-              font-weight: 600;
-              color: #333;
-          ">Category</h6>
-            </div>
-
-
-            <div class="cat" style="
-              width: 60px;
-              overflow: hidden;
-              height: auto;margin-right:10px
-            ">
-              <img src="http://restoapp.link/img/dummy_img.jpg" width="100%" style="
-              border-radius: 50%;
-              border: 2px solid #fff;
-              overflow: hidden;
-              margin-bottom: 5px;
-          ">
-              <h6 style="
-              text-align: center;
-              font-size: 12px;
-              font-weight: 600;
-              color: #333;
-          ">Two</h6>
-            </div>
-
-            <div class="cat" style="
-              width: 60px;
-              overflow: hidden;
-              height: auto;margin-right:10px
-            ">
-              <img src="http://restoapp.link/img/dummy_img.jpg" width="100%" style="
-              border-radius: 50%;
-              border: 2px solid #fff;
-              overflow: hidden;
-              margin-bottom: 5px;
-          ">
-              <h6 style="
-              text-align: center;
-              font-size: 12px;
-              font-weight: 600;
-              color: #333;
-          ">Cat Three</h6>
-            </div>
+    <div class="cat" style="
+      width: 60px;
+      overflow: hidden;
+      height: auto; margin-right:10px
+    ">
+      <img src="/img/dummy_img.jpg" width="100%" style="
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-bottom: 5px;
+  ">
+      <h6 style="
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+  ">Category</h6>
+    </div>
 
 
- 
+    <div class="cat" style="
+      width: 60px;
+      overflow: hidden;
+      height: auto;margin-right:10px
+    ">
+      <img src="/img/dummy_img.jpg" width="100%" style="
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-bottom: 5px;
+  ">
+      <h6 style="
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+  ">Two</h6>
+    </div>
 
-          </div>
+    <div class="cat" style="
+      width: 60px;
+      overflow: hidden;
+      height: auto;margin-right:10px
+    ">
+      <img src="/img/dummy_img.jpg" width="100%" style="
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      margin-bottom: 5px;
+  ">
+      <h6 style="
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+  ">Cat Three</h6>
+    </div>
 
+
+
+
+  </div>
           @foreach ($menutypes as $menutype)
             <div class="tab-pane @if ($loop->first) active @endif flex" id="{{$menutype->id}}" >
-
               <div style="display: flex;flex-wrap: wrap;">
                 @forelse ($menutype->products as $product)
                   <div class="card itembox" onclick="addtocart({{$product->id}});" 
@@ -536,7 +545,7 @@ const getTables = (memberid) => {
               $('#cart').empty();
 
               $('#cart').append(`<div class="row itemtitlebar">
-                <div class="col-sm-1 " style="padding-left:25px">S.N</div>
+                <div class="col-sm-1 " style="padding-left:25px">N</div>
                 <div class="col-sm-2 p0">Item</div>
                 <div class="col-sm-1 p0">Qty</div>
                 <div class="col-sm-2 p0">U.Price</div>

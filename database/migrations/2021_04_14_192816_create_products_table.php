@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
+            $table->string('name_ar')->nullable();
             $table->boolean('status')->default(true);
 
             $table->unsignedBigInteger('user_id');

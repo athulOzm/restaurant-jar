@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Addon;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
@@ -42,7 +43,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $this->validateReq($request);
+        
+
 
         if($request->hasfile('cover')):
 
@@ -51,11 +53,12 @@ class ProductController extends Controller
             $img->resize(400, 300)->save(storage_path('app/public/cover').'/'.$fname);
         endif;
 
-
- 
+        $pic = $request->addon;
+        
 
         $product = Product::create([
             'name' => $request->name,
+            'name_ar' => $request->name_ar,
             'user_id'   => auth()->user()->id,
             'price' =>  $request->price,
             'vat' =>  $request->vat,
@@ -68,20 +71,31 @@ class ProductController extends Controller
 
         ]);
 
-        $product->types()->attach($request->type);
-
-        if($request->hasfile('images')){
-            foreach($request->file('images') as $image){
-                $imgName2 = Str::slug($request->name, '-').rand(1, 1000).'.'.$image->extension();
-                $img = Image::make($image->path());
-                $img->resize(600, null, function ($constraint) {$constraint->aspectRatio();})->save(storage_path('app/public/cover').'/'.$imgName2);
-
-                Media::create([
-                    'product_id'    => $product->id,
-                    'name'  =>  $imgName2
-                ]);
-            }
+        if($pic != ''){
+            $addonitems = Addon::all()->filter(function ($addon) use(&$pic){
+                if (in_array($addon->name, $pic)) {
+                    return $addon->id;
+                }
+            });
+            $product->addons()->attach($addonitems);
         }
+
+
+        $product->types()->attach($request->type);
+        
+
+        // if($request->hasfile('images')){
+        //     foreach($request->file('images') as $image){
+        //         $imgName2 = Str::slug($request->name, '-').rand(1, 1000).'.'.$image->extension();
+        //         $img = Image::make($image->path());
+        //         $img->resize(600, null, function ($constraint) {$constraint->aspectRatio();})->save(storage_path('app/public/cover').'/'.$imgName2);
+
+        //         Media::create([
+        //             'product_id'    => $product->id,
+        //             'name'  =>  $imgName2
+        //         ]);
+        //     }
+        // }
 
         return redirect(route('product.index'));
     }
@@ -105,7 +119,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product = Product::with('types', 'subcategory')->find($product->id);
+        $product = Product::with('types', 'subcategory', 'addons')->find($product->id);
 
        return view('product.update', ['product' => $product]);
     }
@@ -132,6 +146,7 @@ class ProductController extends Controller
         Product::find($request->id)->update([
 
             'name' => $request->name,
+            'name_ar' => $request->name_ar,
             'price' =>  $request->price,
             'vat' =>  $request->vat,
             'qty' =>  $request->qty,
@@ -143,9 +158,22 @@ class ProductController extends Controller
 
         ]);
 
-  
+        $pic = $request->addon;
 
+        if($pic != ''){
+            $addonitems = Addon::all()->filter(function ($addon) use(&$pic){
+                if (in_array($addon->name, $pic)) {
+                    return $addon->id;
+                }
+            });
+        } else{
+            $addonitems = [];
+        }
+
+        Product::find($request->id)->addons()->sync($addonitems);
         Product::find($request->id)->types()->sync($request->type);
+       
+
 
 
         if($request->hasfile('images')){

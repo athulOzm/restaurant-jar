@@ -12,7 +12,8 @@
     
       <!-- Custom fonts for this template-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"   />
-      <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,500,600,900" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
       <!-- Custom styles for this template-->
       <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
       
@@ -78,7 +79,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 #exTab2 ul li a {
     color: #696767;
-    padding: 10px 15px;
+    padding: 10px 20px;
     line-height: 25px;
     text-decoration: none;
     font-weight: 400;
@@ -297,7 +298,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .scro::-webkit-scrollbar
 {
-  width: 10px;
+  width: 6px;
   background-color: #2c3346;
 }
 
@@ -421,14 +422,6 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 .cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
-<<<<<<< HEAD
-.catwraper {
-    margin: 10px 0;
-    background: #e5e9f1;
-    border: 1px solid #ccc;
-    padding: 10px 10px 0;
-    border-radius: 6px;
-=======
 .itemtitlebar {
     color: #e65776;
     font-size: 12px;
@@ -437,7 +430,12 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #1a1f32;
     padding: 5px 0;
     border-top: 1px solid #363e54;
->>>>>>> 2adbd25b2407145b5a3f711c2b35242392736a02
+}
+
+.btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {
+   
+    width: 1.4rem;
+   
 }
       </style>
    </head>

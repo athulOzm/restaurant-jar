@@ -35,4 +35,9 @@ class Product extends Model
             ->withPivot('product_id', 'quantity', 'discount')
             ->withTimestamps();
     }
+
+    public function addons(){
+
+        return $this->belongsToMany(Addon::class);
+    }
 }

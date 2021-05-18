@@ -15,12 +15,14 @@
 
   <!-- Custom fonts for this template-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"   />
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+ 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
 
   <link href="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="{{asset('dashboard/css/sb-admin-2.css')}}" rel="stylesheet">
+  <link href="{{asset('dashboard/css/admin-2.css')}}" rel="stylesheet">
 
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -28,14 +30,17 @@
   <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
 
 <style>
-      label {
+.sidebar label {
     display: inline-block;
     margin-bottom: 0.5rem;
     font-weight: 700;
     font-size: 13px;
     color: #000!important;
 }
- 
+.sidebar-dark .nav-item .nav-link i {
+    color: rgba(255, 255, 255, 1);
+    font-size: 17px;
+}
 </style>
 </head>
 
@@ -52,7 +57,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav sidebar sidebar-light accordion"  id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex " href="{{ route('home')}}">
@@ -60,31 +65,30 @@
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      {{-- <hr class="sidebar-divider my-0"> --}}
 
-      <!-- Nav Item - Dashboard 
+     
       <li class="nav-item active">
         <a class="nav-link" href="{{ route('home') }}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Admin Dashboard</span></a>
-      </li>-->
+          <i class="fas fa-fw fa-home"></i>
+          <span>Home</span></a>
+      </li>
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
+      {{-- <hr class="sidebar-divider"> --}}
 
       
 
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-calendar-minus"></i>
           <span>Menus</span>
         </a>
         <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-primary py-2 collapse-inner ">
        
-            <a class="collapse-item" href="{{route('product.index')}}">All Menus</a>
-            <a class="collapse-item" href="{{route('product.create')}}">Add Menu</a>
+            <a class="collapse-item" href="{{route('product.index')}}">Menus</a>
             <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a>
             <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
 
@@ -101,11 +105,11 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages7" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-user-friends"></i>
           <span>Members</span>
         </a>
         <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('member.index')}}">All Members</a>
             <a class="collapse-item" href="{{route('member.create')}}">Add New Member</a>
@@ -117,11 +121,11 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-shopping-cart"></i>
           <span>POS</span>
         </a>
         <div id="collapsePages15" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('pos')}}">POS</a>
             <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
@@ -135,13 +139,29 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages16" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>KITCHEN DISPLAY</span>
+          <i class="fas fa-fw fa-utensils"></i>
+          <span>Kitchen Display</span>
         </a>
         <div id="collapsePages16" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('kitchen')}}">Kitchen Display</a>
+    
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages8" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Settings</span>
+        </a>
+        <div id="collapsePages8" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner ">
+       
+            <a class="collapse-item" href="">Tax</a>
+            <a class="collapse-item" href="">Language</a>
+            <a class="collapse-item" href="">User Management</a>
     
           </div>
         </div>
@@ -154,7 +174,7 @@
           <span>KDS</span>
         </a>
         <div id="collapsePages15" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('order.active')}}">Pending</a>
             <a class="collapse-item" href="{{route('order.delivered')}}">Delivered</a>
@@ -207,7 +227,7 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top">
 
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -265,7 +285,7 @@
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            {{-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -279,31 +299,37 @@
           
                 
               </div>
-            </li>
+            </li> --}}
 
             
 
-            <div class="topbar-divider d-none d-sm-block"></div>
+            {{-- <div class="topbar-divider d-none d-sm-block"></div> --}}
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                <i class="fas fa-user"></i>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                <i class="fas fa-user" style="
+                  font-size: 22px;
+                  color: #4e72df;
+              "></i>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <!-- <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="#">
+                {{-- <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
-                </a>
-              -->
+                </a> --}}
+             
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
+                 
+                  
+                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>{{ __('Logout') }} </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
               
               </div>
@@ -387,7 +413,7 @@
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
+  <a class="scroll-to-top " href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
 

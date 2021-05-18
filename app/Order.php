@@ -101,16 +101,10 @@ class Order extends Model
          
 
         return [
-<<<<<<< HEAD
-            'price' => number_format(array_sum($tprice) + array_sum($price_addon), 3), 
-            'discount' => number_format(array_sum($dis), 3),
-            'subtotal' => $st_with_addon
-=======
             'price' => $price,
             'tax' => $tax,
             'discount' => $dis,
             'subtotal' => number_format($st - $dis, 3),
->>>>>>> 2adbd25b2407145b5a3f711c2b35242392736a02
         ];
 
     }
