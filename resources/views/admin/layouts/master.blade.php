@@ -159,7 +159,7 @@
         <div id="collapsePages8" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
-            <a class="collapse-item" href="">Tax</a>
+            <a class="collapse-item" href="{{route('settings.vat')}}">Tax</a>
             <a class="collapse-item" href="">Language</a>
             <a class="collapse-item" href="">User Management</a>
     

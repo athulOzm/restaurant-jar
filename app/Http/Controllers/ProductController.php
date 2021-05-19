@@ -50,7 +50,7 @@ class ProductController extends Controller
 
             $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
             $img = Image::make($request->cover->path());
-            $img->resize(400, 300)->save(storage_path('app/public/cover').'/'.$fname);
+            $img->resize(250, 300)->save(storage_path('app/public/cover').'/'.$fname);
         endif;
 
         $pic = $request->addon;
@@ -139,7 +139,7 @@ class ProductController extends Controller
 
             $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
             $img = Image::make($request->cover->path());
-            $img->resize(400, 300)->save(storage_path('app/public/cover').'/'.$fname);
+            $img->resize(250, 300)->save(storage_path('app/public/cover').'/'.$fname);
         endif;
 
 

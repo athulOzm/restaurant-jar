@@ -108,6 +108,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
     Route::get('/pos/creditstatus/{user}', 'PosController@memberstatus');
     Route::get('pos/getmenus', 'PosController@getmenus');
+    
+
+    Route::get('setting/vat', 'SettingController@vat')->name('settings.vat');
+
 
 
 
