@@ -107,11 +107,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/locations', 'PosController@getlocations');
     Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
     Route::get('/pos/creditstatus/{user}', 'PosController@memberstatus');
+    Route::get('pos/getmenus', 'PosController@getmenus');
+
 
 
         //addon 
     Route::post('pos/addtocartaddon', 'PosController@addtocartaddon');
     Route::get('pos/getaddon/{id}', 'PosController@getaddon');
+    Route::get('pos/getaddonava/{product}', 'PosController@getaddonava');
     Route::post('pos/downcartaddon', 'PosController@downcartaddon');
     Route::post('pos/removecartaddon', 'PosController@removecartaddon');
 

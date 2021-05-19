@@ -14,6 +14,8 @@ class Product extends Model
         return $this->belongsToMany(Menutype::class);
     }
 
+    
+
     public function category(){
 
         return $this->belongsTo(Category::class);

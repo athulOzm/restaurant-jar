@@ -8,6 +8,7 @@ use App\Deliverylocation;
 use App\Events\Checkout;
 use App\Order;
 use App\OrderProduct;
+use App\Product;
 use App\Table;
 use App\User;
 use Illuminate\Support\Facades\DB;
@@ -154,6 +155,11 @@ class PosController extends Controller
         return response(User::where('type', 3)->get(), 200);
     }
 
+    public function getmenus(){
+
+        return response(Product::all(), 200);
+    }
+
     public function getpaymenttypes($memberid){
 
         return response(User::find($memberid)->paymenttypes, 200);
@@ -214,6 +220,12 @@ class PosController extends Controller
     public function getaddon($id){
 
         return response(OrderProduct::find($id)->items, 200);
+    }
+
+    //get addon by item
+    public function getaddonava(Product $product){
+
+        return response($product->addons, 200);
     }
 
     //get member credit status

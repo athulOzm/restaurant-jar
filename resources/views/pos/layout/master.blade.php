@@ -139,7 +139,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     .itembox h5 {
     font-size: 15px;
     font-weight: 400;
-    background: #ee6280;
+    background: #4e72df;
     padding: 3px 8px;
     color: #fff;
     margin: 0;
@@ -237,8 +237,8 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 .btnc1 {
     height: auto;
-    background: #e65776;
-    border-color: #e65776;
+    background: #4e72df;
+    border-color: #4e72df;
     margin: 10px 0;
     padding: 8px 40px;
     
@@ -423,7 +423,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
 .itemtitlebar {
-    color: #e65776;
+    color: #4e72df;
     font-size: 12px;
     text-align: left;
     font-weight: 600;
@@ -436,6 +436,16 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
    
     width: 1.4rem;
    
+}
+
+.orderser {
+    width: 99%;
+    border: 1px solid #1b1f32;
+    border-radius: 3px;
+    font-weight: 300;
+    color: #000;
+    font-size: 14px;
+    background: #b6bece;
 }
       </style>
    </head>

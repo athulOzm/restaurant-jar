@@ -2,7 +2,7 @@
 
 <?php 
 $menutypes = resolve('menutypesforpos');
-$addons = resolve('addons');
+//$addons = resolve('addons');
 ?>
 
  
@@ -34,9 +34,11 @@ $addons = resolve('addons');
         <b class="lab1">Order List</b>
         <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
 
+        <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu">
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 373px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+
+        <div id="itembox" class="scro" style="height:calc(100vh - 405px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:100%" id="cart">
           </div>
         </div>
@@ -55,7 +57,7 @@ $addons = resolve('addons');
         
         <div class="row totalamd tar">
           <div class="col-sm-5"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-7" style="color: #ef6380; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
+          <div class="col-sm-7" style="color:#4e72df; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
         </div>
 
         <div class="row">
@@ -140,9 +142,7 @@ $addons = resolve('addons');
         <ul class="nav nav-tabs">
 
 
-<li style="margin: 0; padding:15px 10px">
-    <input type="text" class="form-control" placeholder="Search Menu" style="width: 240px"/>
-  </li>
+ 
 
 
           @foreach ($menutypes as $menutype)
@@ -281,31 +281,55 @@ $addons = resolve('addons');
 
 
   //lightbox addon
-  const showaddon = (pitem)=>{
+  const showaddon = (pitem, pid)=>{
 
-    $('#addonwrap').empty();
-
-    @foreach ($addons as $item)
-      $('#addonwrap').append(`<div class="col-md-6"  onclick="addtocartaddon('{{$item->id}}', '${pitem}');" >
-        <div style="
-            color: #fff;
-            font-size: 13px;
-            text-align: center;
-            font-weight: 600;
-            padding: 10px 0 5px;
-            border: 1px solid #363e54;
-            margin-top: 5px; cursor:pointer
-        ">
-          {{$item->name}}
-        </div></div>`);
-    @endforeach
 
     getaddon(pitem);
+    getaddonavailable(pid, pitem);
 
     $(".backDrop").animate({"opacity": ".80"}, 300);
     $(".box2").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .box2").css("display", "block");
   }
+
+
+
+
+    //get addon items
+    const getaddonavailable = (id, pitem) => {
+    $.ajax({
+      url: `/pos/getaddonava/${id}`,
+      async: true,
+      dataType: 'json',
+      success: function (data) {
+        //console.log(data);
+        $('#addonwrap').empty();
+        data.map(item => {
+
+
+          $('#addonwrap').append(`<div class="col-md-6"  onclick="addtocartaddon('${item.id}', '${pitem}');" >
+          <div style="
+              color: #fff;
+              font-size: 13px;
+              text-align: center;
+              font-weight: 600;
+              padding: 10px 0 5px;
+              border: 1px solid #363e54;
+              margin-top: 5px; cursor:pointer
+          ">
+            ${item.name}
+          </div></div>`);
+
+
+          
+        })
+        
+      }
+    });
+  }
+
+
+
 
   //get addon items
   const getaddon = (id) => {
@@ -355,7 +379,9 @@ $addons = resolve('addons');
 
 
   $(document).ready(function(){	
-	var arrayReturn = [];
+
+
+	var members = [];
 	$.ajax({
 		url: "/pos/getmembers",
    // /pos/getmember
@@ -365,12 +391,55 @@ $addons = resolve('addons');
       //console.log(data);
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
-				arrayReturn.push({'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 'data' : id});
+				members.push({'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 'data' : id});
 			}
 			//send parse data to autocomplete function
-			loadSuggestions(arrayReturn);
+			loadSuggestions(members);
 		}
 	});
+
+  var menus = [];
+	$.ajax({
+		url: "/pos/getmenus",
+		async: true,
+		dataType: 'json',
+		success: function (data) {
+      //console.log(data);
+			for (var i = 0, len = data.length; i < len; i++) {
+				var id = (data[i].id).toString();
+    
+        if(data[i].name_ar === 'null'){
+          menus.push({'value' : data[i].name, 'data' : id});
+
+				
+        } else{menus.push({'value' : data[i].name +  ` | ` + data[i].name_ar, 'data' : id});}
+
+			}
+			//send parse data to autocomplete function
+			loadmenuss(menus);
+		}
+	});
+
+  function loadmenuss(options) {
+		$('#sermenus').autocomplete({
+			lookup: options,
+			onSelect: function (menu) {
+
+        //console.log(menu);
+        addtocart(menu.data);
+        $('#sermenus').val('');
+
+      }
+  });
+
+  }
+
+
+
+
+
+
+
 
 	function loadSuggestions(options) {
 		$('#autocomplete').autocomplete({
@@ -408,8 +477,6 @@ $addons = resolve('addons');
             }
         });
 
-
-				
 
 
 			}
@@ -559,10 +626,22 @@ const getTables = (memberid) => {
               var subt = [];
               res.orderproducts.map(item => {
 
+                //console.log(item);
+
               if(item.addon_total == '0.000'){
                 var addont = ''
               } else {
                 var addont = ' + ' + item.addon_total;
+              }
+
+
+              if(item.available_addons != ''){
+                var btn = `<button type="button"  onclick="showaddon('${item.id}', '${item.product.id}')" value="${item.product.id}" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
+                  <i class="fas fa-plus btnc"></i>
+                </button>`
+              }
+              else {
+                var btn = ''
               }
 
                   $('#cart').append(
@@ -591,9 +670,9 @@ const getTables = (memberid) => {
                   <i class="fas fa-trash btnc"></i>
                 </button>
 
-                <button type="button"  onclick="showaddon('${item.id}')" value="${item.product.id}" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
-                  <i class="fas fa-plus btnc"></i>
-                </button>
+                ${btn}
+
+                
                 
               </div>
             </div>

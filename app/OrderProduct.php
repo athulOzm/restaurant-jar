@@ -11,7 +11,7 @@ class OrderProduct extends Model
 
     public $itemtotal = 10.000;
 
-    protected $appends = ['addon_total', 'addon_tax', 'addon_total_without_tax', 'price_total', 'price_total_without_dis', 'price_total_with_tax', 'tax'];
+    protected $appends = ['addon_total', 'addon_tax', 'addon_total_without_tax', 'price_total', 'price_total_without_dis', 'price_total_with_tax', 'tax', 'available_addons'];
 
 
    
@@ -24,6 +24,11 @@ class OrderProduct extends Model
         return $this->belongsToMany(Addon::class)
             ->withPivot('quantity', 'discount', 'id')
             ->withTimestamps();
+    }
+
+    public function getAvailableAddonsAttribute(){
+
+        return $this->product->addons;
     }
 
     public function product(){
