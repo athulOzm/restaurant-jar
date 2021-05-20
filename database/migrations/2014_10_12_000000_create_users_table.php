@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->integer('item_limit')->default(5)->nullable();
             $table->string('room_address')->nullable();
             $table->string('location')->nullable();
+            $table->boolean('status')->default(true);
+
 
             $table->rememberToken();
             $table->timestamps();

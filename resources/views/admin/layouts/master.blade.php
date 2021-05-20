@@ -111,8 +111,8 @@
         <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
-            <a class="collapse-item" href="{{route('member.index')}}">All Members</a>
-            <a class="collapse-item" href="{{route('member.create')}}">Add New Member</a>
+            <a class="collapse-item" href="{{route('member.index')}}">Members</a>
+            {{-- <a class="collapse-item" href="{{route('member.create')}}">Add New Member</a> --}}
             <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
     
           </div>

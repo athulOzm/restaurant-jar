@@ -22,7 +22,7 @@
   
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">All Members <a  href="{{ route('member.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a>  <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-3"  style="float:right; "><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Upload Excel File</a></h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Members <a  href="{{ route('member.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a>  <a  href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-3"  style="float:right; "><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Upload Excel File</a></h6> 
                             
     
                         </div>
@@ -37,7 +37,8 @@
                                             <th class="text-left text-blue-900">Email</th>
                                             <th class="text-left text-blue-900">Phone Number</th>
                                             <th class="text-left text-blue-900">Rank</th>
-                                            <th class="text-left text-blue-900">Order Limit</th>
+                                            <th class="text-left text-blue-900">Item Limit</th>
+                                            <th class="text-left text-blue-900">Status</th>
                                             <th class="text-left text-blue-900" width="60">Action</th>
                                         
     
@@ -56,7 +57,10 @@
                                                 {{$member->getrank()->name}}
                                                 @endif
                                                 </td>
-                                            <td>{{$member->limit}}</td>
+                                            <td>{{$member->item_limit}}</td>
+
+                                        <td> @if ($member->status) <span style="color: green"> Active</span> @else Desabled @endif </td>
+
                                          
 
                                                 <th><a href="{{route('member.edit', $member)}}" class="btn btn-secondary  btn-circle btn-sm "> <i

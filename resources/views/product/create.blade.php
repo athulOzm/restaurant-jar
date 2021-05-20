@@ -370,23 +370,16 @@ select[data-multi-select-plugin] {
                                     </label>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label for="inputCity">Status  </label>
-                                     
+                                    <label for="inputCity">Status</label>
                                     <label class="flex flex-row items-center mt-3">
-
-                                     
                                         <div>
                                             <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" checked name="status">
                                             <span class="ml-2 text-gray-700">Enabled</span>
                                         </div>
-
                                         <div>
                                             <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" name="status">
                                             <span class="ml-2 text-gray-700">Desabled</span>
                                         </div>
-                                  
-
-                                        
                                     </label>
                                 </div>
 

@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="card shadow mb-12">
                     <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Members</h6> 
+            <h6 class="m-0 font-weight-bold text-primary">Edit Member</h6> 
             
 
         </div>
@@ -146,7 +146,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-4">
+                    {{-- <div class="form-group col-md-4">
                         <label for="limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                             Order Limit:
                         </label>
@@ -159,7 +159,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                    </div>
+                    </div> --}}
+
+                    <input type="hidden" name="limit" value="0">
 
                     <div class="form-group col-md-4">
                         <label for="item_limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
@@ -186,9 +188,30 @@
  
                     </div>
 
+                    <div class="form-group col-md-3">
+                        <label for="inputCity">Status  </label>
+                         
+                        <label class="flex flex-row items-center mt-3">
+
+                         
+                            <div>
+                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" @if($user->status) checked @endif  name="status">
+                                <span class="ml-2 text-gray-700">Enabled</span>
+                            </div>
+
+                            <div>
+                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" @if(!$user->status) checked @endif name="status">
+                                <span class="ml-2 text-gray-700">Desabled</span>
+                            </div>
+                      
+
+                            
+                        </label>
+                    </div>
+
                     <div class="form-group col-md-8">
                         <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Location:
+                            Address:
                         </label>
                         <input id="location" type="text"
                             class="form-control @error('location') is-invalid @enderror" name="location"

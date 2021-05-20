@@ -88,7 +88,8 @@ class UserController extends Controller
             'item_limit'        =>      'nullable',
             'payment_type_id'   =>      'required',
             'room_address'      =>      'nullable',
-            'location'          =>      'nullable'
+            'location'          =>      'nullable',
+            'status'            =>      'nullable'
         ]);
     }
 
@@ -106,7 +107,8 @@ class UserController extends Controller
             'item_limit'        =>      'nullable',
             'payment_type_id'   =>      'required',
             'room_address'      =>      'nullable',
-            'location'          =>      'nullable'
+            'location'          =>      'nullable',
+            'status'            =>      'nullable'
         ]);
     }
 

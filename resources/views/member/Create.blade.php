@@ -149,7 +149,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-4">
+                    {{-- <div class="form-group col-md-4">
                         <label for="limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                             Order Limit:
                         </label>
@@ -162,7 +162,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                    </div>
+                    </div> --}}
+
+                    <input type="hidden" name="limit" value="0">
 
                     <div class="form-group col-md-4">
                         <label for="item_limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
@@ -189,9 +191,23 @@
  
                     </div>
 
+                    <div class="form-group col-md-3">
+                        <label for="inputCity">Status</label>
+                        <label class="flex flex-row items-center mt-3">
+                            <div>
+                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" checked name="status">
+                                <span class="ml-2 text-gray-700">Active</span>
+                            </div>
+                            <div>
+                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" name="status">
+                                <span class="ml-2 text-gray-700">Desable</span>
+                            </div>
+                        </label>
+                    </div>
+
                     <div class="form-group col-md-8">
                         <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Location:
+                        Address:
                         </label>
                         <input id="location" type="text"
                             class="form-control @error('location') is-invalid @enderror" name="location"
