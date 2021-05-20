@@ -3,6 +3,7 @@
 $mcategories = resolve('mcategories');
 $menutypes = resolve('menutypes');
 $addons = resolve('addons');
+$settings = resolve('settings');
 
 ?>
 
@@ -313,11 +314,11 @@ select[data-multi-select-plugin] {
 
                                 <div class="form-group  col-md-3">
                                     <label for="inputCity">
-                                        VAT (%):
+                                        VAT (%)
                                     </label>
-                                    <input id="vat" type="text" value="0"
+                                    <input id="vat" type="text"
                                         class="form-control w-full border-gray-400 @error('vat') border-red-500 @enderror" name="vat"
-                                        value="{{ old('vat') }}" required  autofocus>
+                                        value="{{ $settings->vat }}" required  autofocus>
             
                                         @error('vat')
                                         <p class="text-red-500 text-xs italic mt-4">

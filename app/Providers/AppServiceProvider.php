@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Addon;
 use App\Category;
 use App\Menutype;
+use App\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
                 $q->where('status', '=', 1);
             })->get();
         });
+
         app()->bind('mcategories', function(){
 
             return Category::where('parant_id', null)->get();
@@ -39,6 +41,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('addons', function(){
 
             return Addon::where('status', true)->get();
+        });
+
+        app()->bind('settings', function(){
+
+            return Setting::find(1);
         });
     }
 

@@ -111,6 +111,7 @@ Route::middleware(['auth'])->group(function () {
     
 
     Route::get('setting/vat', 'SettingController@vat')->name('settings.vat');
+    Route::patch('setting/vat', 'SettingController@vatupdate')->name('vat.update');
 
 
 

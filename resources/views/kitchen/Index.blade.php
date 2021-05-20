@@ -63,7 +63,7 @@ footer.sticky-footer {
       <div id="content-wrapper" class="d-flex flex-column">
   
         <!-- Main Content -->
-        <div id="content" style="min-height: 93vh">
+        <div id="content" style="min-height: 100vh">
   
           <!-- Topbar -->
           <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -125,8 +125,8 @@ footer.sticky-footer {
               </li>
 
 
-              <button onclick="getOrders()" class="btn btn-primary">Refresh</button>
-              <div class="topbar-divider d-none d-sm-block"></div>
+              {{-- <button onclick="getOrders()" class="btn btn-primary">Refresh</button>
+              <div class="topbar-divider d-none d-sm-block"></div> --}}
   
               <!-- Nav Item - User Information -->
 
@@ -198,13 +198,13 @@ footer.sticky-footer {
         <!-- End of Main Content -->
   
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
+        {{-- <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
               <span>Copyright &copy; 2021</span>
             </div>
           </div>
-        </footer>
+        </footer> --}}
         <!-- End of Footer -->
   
       </div>

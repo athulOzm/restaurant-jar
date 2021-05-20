@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
 
-                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="">
+                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{route('vat.update')}}">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="id" value="1">
@@ -59,7 +59,7 @@
                                     
                                     <button type="submit"  
                                     class="btn1 btn-primary btn">
-                                        Submit
+                                        Update
                                     </button>
                 
                                     
