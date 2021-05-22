@@ -11,19 +11,29 @@ use App\OrderProduct;
 use App\Product;
 use App\Table;
 use App\User;
+ 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PosController extends Controller
 {
 
     public function pos(){
 
-        $token = Order::firstOrCreate(
-            ['status'   =>  1, 'req' => 0],
-            ['status'   =>  1, 'req' => 0]
-        );
+        if (Session::exists('token')) {
 
-        return view('pos.index', compact('token'));
+            $ct = Order::find(Session::get('token')->id);
+            if($ct->status != 1){
+                $ct = Order::create(['status'   =>  1, 'req' => 0]);
+            }
+        }
+        else{
+            $ct = Order::create(['status'   =>  1, 'req' => 0]);
+        }
+
+        Session::forget('token');
+        Session::put('token', $ct);
+        return view('pos.index');
     }
 
 
@@ -33,7 +43,7 @@ class PosController extends Controller
 
        $pid = $request->id;
 
-       $token = Order::where('status', 1)->first();
+       $token = Order::find(Session::get('token')->id);
 
        $status = Order::whereHas('products', function($q) use($pid){
                         $q->where('product_id', $pid);
@@ -88,7 +98,7 @@ class PosController extends Controller
     //remove cart pos
     public function removecart(Request $request){
 
-        Order::where('status', 1)->first()->products()->detach(['product_id' => $request->id]);
+        Order::find(Session::get('token')->id)->products()->detach(['product_id' => $request->id]);
     }
 
     //remove cart addon
@@ -99,12 +109,12 @@ class PosController extends Controller
 
     //minus item cart pos
     public function downcart(Request $request){
-       $token = Order::where('status', 1)->first();
+       $token = Order::find(Session::get('token')->id);
 
        if(DB::table('order_product')
        ->where('order_id', $token->id)
        ->where('product_id', $request->id)->first()->quantity == 1){
-        Order::where('status', 1)->first()->products()->detach(['product_id' => $request->id]);
+        Order::find(Session::get('token')->id)->products()->detach(['product_id' => $request->id]);
        }
 
        DB::table('order_product')
@@ -139,13 +149,13 @@ class PosController extends Controller
     //pos get cart
     public function getcart(){
 
-        return response(Order::with('orderproducts')->where('status', 1)->first(), 200);
+        return response(Order::with('orderproducts')->find(Session::get('token')->id), 200);
     }
 
     //pos get tot price
     public function totalprice(){
 
-        $token = Order::with('products')->where('status', 1)->first();
+        $token = Order::with('products')->find(Session::get('token')->id);
         return response($token->gettotalprice(), 200);
     }
 
@@ -199,7 +209,7 @@ class PosController extends Controller
             $location = null;
         }
 
-       $id = Order::where('status', 1)->where('req', 0)->first()->update([
+       $id = Order::find(Session::get('token')->id)->update([
            'status' =>  2,
            'user_id'    =>  User::where('memberid', $memberid)->first()->id,
            'delivery_type' => $delivery_type,
@@ -210,6 +220,7 @@ class PosController extends Controller
            'table_id'  =>  $table
        ]);
 
+       Session::forget('token');
        Checkout::dispatch($id);
        
        return redirect()->route('pos');
@@ -231,7 +242,7 @@ class PosController extends Controller
     //get member credit status
     public function memberstatus(User $user){
 
-        $token = Order::with('products')->where('status', 1)->first();
+        $token = Order::with('products')->find(Session::get('token')->id);
         $nub = $token->products()->count();
         
         if($user->item_limit < $nub){

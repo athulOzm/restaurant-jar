@@ -27,11 +27,12 @@ $menutypes = resolve('menutypesforpos');
   <div class="col-sm-6 p0" style="background: #2c3346; ">
     <form action="{{route('pos.checkout')}}" method="POST">
       @csrf
-    
+ 
+
 
 
       <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:20px; padding-right:3px">
-        <b class="lab1">Order List</b>
+        <b class="lab1">Token: {{ Session::get('token')->id}}</b>
         <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
 
         <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu">
