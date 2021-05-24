@@ -37,7 +37,14 @@
     background: #fff;
     border-top: 1px solid #e7e7e7;
 }
-
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    
+    background-color: #e65776;color: #fff!important;
+}
+.nav-pills .nav-link {
+    border-radius: 3px;
+    font-size: 13px;color: #1b1f32
+}
          .cart {
           font-family: Arial, Helvetica, sans-serif;
           border-collapse: collapse;
@@ -71,7 +78,7 @@
 font-weight: 700; 
 font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}
 
-.nav-tabs {
+.nav-pills{
     border-bottom: 0px solid #e7e7e7;
  
     border-radius: 6px; background: #e5e9f1
@@ -82,7 +89,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     padding: 10px 13px;
     line-height: 35px;
     text-decoration: none;
-    font-weight: 400;
+    font-weight: 400;color: #1b1f32
 }
 #exTab2 ul li.active a {
     color: #000;
@@ -91,7 +98,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
 
 #exTab2 ul li {
-     padding: 10px; border-radius: 3px
+      border-radius: 3px; padding: 3px
   
     
 }
@@ -183,7 +190,7 @@ input[type=checkbox], input[type=radio] {
 }
 .lab1a b{
     font-size: 14px;
-    color: #e5e9f1;
+    color: #7c8498;
     font-weight: 500!important; display: inline-block
 }
 .lab2{
@@ -242,7 +249,7 @@ input[type=checkbox], input[type=radio] {
     background: #1b1f32;
     border: 0;
     border-radius: 3px;
-    color: #a0b3d0;
+    color:#e65776; font-size: 14px
 }
 .itembox img {
     width: 100%;
@@ -250,8 +257,8 @@ input[type=checkbox], input[type=radio] {
 }
 .btnc1 {
     height: auto;
-    background: #4e72df;
-    border-color: #4e72df;
+    background: #e65776;
+    border-color: #e65776;
     margin: 10px 0;
     padding: 8px 40px;
     
@@ -473,7 +480,7 @@ input[type=checkbox], input[type=radio] {
     color: #4e72df;
     font-size: 12px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 400;
     background: #1a1f32;
     padding: 5px 0;
     border-top: 1px solid #363e54;
@@ -534,14 +541,14 @@ input[type=checkbox], input[type=radio] {
     
 
       {{-- <script src="{{asset('dashboard/js/jQuery.print.js')}}"></script> --}}
-      {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script> --}}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
       <!-- Core plugin JavaScript-->
       {{-- <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
       @yield('script')
      
       <!-- Custom scripts for all pages-->
       {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> --}}
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      {{-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> --}}
 
     
       

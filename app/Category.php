@@ -25,4 +25,10 @@ class Category extends Model
 
         return $this->hasMany(Product::class);
     }
+
+    public function productsbytype($pt){
+
+        return Menutype::find($pt)->products()->where('category_id', $this->id)->get();
+
+    }
 }

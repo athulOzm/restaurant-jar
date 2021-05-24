@@ -47,7 +47,7 @@ $menutypes = resolve('menutypesforpos');
         <div class="row">
 
           <div class="col-md-6 my-2">
-            <p class="lab1a" >Order Code: <b style="font-size: 18px; color:#bf782c">{{ Session::get('token')->id}}</b></p>
+            <p class="lab1a" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
           <div class="col-md-6 my-2">
@@ -116,7 +116,7 @@ $menutypes = resolve('menutypesforpos');
         
         <div class="row totalamd tar">
           <div class="col-sm-5"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-7" style="color:#4e72df; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
+          <div class="col-sm-7" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
         </div>
 
         <div class="row">
@@ -124,9 +124,9 @@ $menutypes = resolve('menutypesforpos');
             <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
           </div>
           <div class="col-sm-3">
-            <button class="btn btn-secondary btnc2" onclick="actcancel({{ Session::get('token')->id}})" type="button" style="
-    background: #bf792c;
-    border: 1px solid #f39631;"><i class="fas fa-retweet"></i> Cancel</button>
+            <button class="btn btn-primary btnc2" style="
+            background: #6e89e4;
+            border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
           </div>
           <div class="col-sm-6">
             <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
@@ -200,119 +200,130 @@ $menutypes = resolve('menutypesforpos');
 
   <div class="col-sm-6 mt-4">
     <div class="card  shadow-xs mt-1" >
-      <div id="exTab2"  >	
-        <ul class="nav nav-tabs">
 
-
+      
  
-          <li style="width: 50%"><input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu"></li>
 
 
+
+
+
+      <div id="exTab2">
+        
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+          <li class="nav-item" style="width: 50%">
+            <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu" style="margin: 7px 3px;
+            width: 96%;
+            font-size: 14px;
+            padding: 20px 15px;">
+          </li>
           @foreach ($menutypes as $menutype)
-    
           <?php $nub = 1; ?>
-            <li class="@if ($loop->first) active   @endif">
-              <a  href="#{{$menutype->id}}" data-toggle="tab">{{$menutype->name}}</a>
+            <li class="nav-item">
+              <a class="nav-link @if ($loop->first) active   @endif" id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
             </li>
             <?php 
             $nub = 2;
             ?>
           @endforeach
         </ul>
-        
+
+
         <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
- <div class="catwraper" style="display: flex">
-
-    {{-- <div class="cat" style="
-      width: 60px;
-      overflow: hidden;
-      height: auto; margin-right:10px
-    ">
-      <img src="/img/dummy_img.jpg" width="100%" style="
-      border-radius: 50%;
-      border: 2px solid #fff;
-      overflow: hidden;
-      margin-bottom: 5px;
-  ">
-      <h6 style="
-      text-align: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: #333;
-  ">Category</h6>
-    </div>
 
 
-    <div class="cat" style="
-      width: 60px;
-      overflow: hidden;
-      height: auto;margin-right:10px
-    ">
-      <img src="/img/dummy_img.jpg" width="100%" style="
-      border-radius: 50%;
-      border: 2px solid #fff;
-      overflow: hidden;
-      margin-bottom: 5px;
-  ">
-      <h6 style="
-      text-align: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: #333;
-  ">Two</h6>
-    </div>
-
-    <div class="cat" style="
-      width: 60px;
-      overflow: hidden;
-      height: auto;margin-right:10px
-    ">
-      <img src="/img/dummy_img.jpg" width="100%" style="
-      border-radius: 50%;
-      border: 2px solid #fff;
-      overflow: hidden;
-      margin-bottom: 5px;
-  ">
-      <h6 style="
-      text-align: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: #333;
-  ">Cat Three</h6>
-    </div>  --}}
-
-
-
-
-
-
-  </div>
+        <div class="tab-content" id="pills-tabContent">
           @foreach ($menutypes as $menutype)
-            <div class="tab-pane @if ($loop->first) active @endif flex" id="{{$menutype->id}}" >
+            
+            <div class="tab-pane fade @if ($loop->first) show active @endif" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
 
 
+              <div class="row">
 
+                <div class="col-10 p0">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                      
+                      <div style="display: flex;flex-wrap: wrap;">
+                        @forelse ($menutype->products as $product)
+                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
+                          min-height:140px;
+              background-size: 100% 100%;">
+                            <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
+                            
 
+                            <h6 class="itemtitle">{{$product->name}}</h6>
+                          </div>
+                        @empty
+                          No menu found!
+                        @endforelse
+                      </div> 
 
+                    </div>
 
+                    @foreach ($menutype->categories() as $cat)
 
-              <div style="display: flex;flex-wrap: wrap;">
-                @forelse ($menutype->products as $product)
-                  <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                  style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                  min-height:140px;
-    background-size: 100% 100%;">
-                    <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
-                     
+                      <div class="tab-pane fade" id="v-pills-{{$cat->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}">
+                        <div style="display: flex;flex-wrap: wrap;">
+                        @forelse ($cat->productsbytype($menutype->id) as $product)
+                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
+                          min-height:140px;
+              background-size: 100% 100%;">
+                            <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
+                            
 
-                    <h6 class="itemtitle">{{$product->name}}</h6>
+                            <h6 class="itemtitle">{{$product->name}}</h6>
+                          </div>
+                        @empty
+                          No menu found!
+                        @endforelse
+                      </div>
+                      </div>
+                    @endforeach
+
+                 
                   </div>
-                @empty
-                  No menu found!
-                @endforelse
+                </div>
+
+
+                <div class="col-2 p0">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
+
+                    @foreach ($menutype->categories() as $cat)
+                    
+                    <a class="nav-link" id="v-pills-profile-tab{{$cat->id}}" data-toggle="pill" href="#v-pills-{{$cat->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
+
+                  @endforeach
+
+                  
+                  </div>
+                </div>
+                
               </div>
+            
+
             </div>
           @endforeach
+        </div>
+
+
+ 
+
+
+
+
+
+        
+
+
+
+
+
+
+
 
         </div>
 
@@ -703,18 +714,11 @@ const getTables = (memberid) => {
 
               var subt = [];
               res.orderproducts.map(item => {
-
-                //console.log(item);
-
-              if(item.addon_total == '0.000'){
-                var addont = ''
-              } else {
-                var addont = ' + ' + item.addon_total;
-              }
+ 
 
 
               if(item.available_addons != ''){
-                var btn = `<button type="button"  onclick="showaddon('${item.id}', '${item.product.id}')" value="${item.product.id}" style="background:#2f5f35;float:right;width: 50px;color: #fff;margin-right:10px; font-size:11px" class="btn btn-circle btn-sm">
+                var btn = `<button type="button"  onclick="showaddon('${item.id}', '${item.product.id}')" value="${item.product.id}" style="background:#3f59ad;float:right;width: 50px;color: #fff;margin-right:15px; font-size:11px" class="btn btn-circle btn-sm">
                    Addon
                 </button>`
               }
