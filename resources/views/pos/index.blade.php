@@ -35,11 +35,10 @@ $menutypes = resolve('menutypesforpos');
         <b class="lab1">Token: {{ Session::get('token')->id}}</b>
         <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
 
-        <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu">
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 405px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 375px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:100%" id="cart">
           </div>
         </div>
@@ -62,10 +61,15 @@ $menutypes = resolve('menutypesforpos');
         </div>
 
         <div class="row">
-          <div class="col-sm-5">
+          <div class="col-sm-3">
             <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
           </div>
-          <div class="col-sm-7">
+          <div class="col-sm-3">
+            <button class="btn btn-secondary btnc2" onclick="actcancel({{ Session::get('token')->id}})" type="button" style="
+    background: #bf792c;
+    border: 1px solid #f39631;"><i class="fas fa-retweet"></i> Cancel</button>
+          </div>
+          <div class="col-sm-6">
             <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
@@ -147,6 +151,7 @@ $menutypes = resolve('menutypesforpos');
 
 
           @foreach ($menutypes as $menutype)
+        
           <?php $nub = 1; ?>
             <li class="@if ($loop->first) active   @endif">
               <a  href="#{{$menutype->id}}" data-toggle="tab">{{$menutype->name}}</a>
@@ -157,7 +162,7 @@ $menutypes = resolve('menutypesforpos');
           @endforeach
         </ul>
         
-        <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
+        {{-- <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
  <div class="catwraper" style="display: flex">
 
     <div class="cat" style="
@@ -216,7 +221,10 @@ $menutypes = resolve('menutypesforpos');
       font-weight: 600;
       color: #333;
   ">Cat Three</h6>
-    </div>
+    </div> --}}
+
+
+    <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu">
 
 
 
@@ -460,7 +468,7 @@ $menutypes = resolve('menutypesforpos');
                 $('#delivery').append(`
                 <div class="bgh2 flex">
                 <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
-                <div class="box1"><input type="radio" required name="del" value="Dining" onClick="getTables('${member.data}')"> <b class="lab1a">Dining</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Dinein" onClick="getTables('${member.data}')"> <b class="lab1a">Dinein</b></div>
                 <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
                 </div>`);
               }
@@ -712,6 +720,32 @@ const getTables = (memberid) => {
         }
     })
   }
+
+  //cancel
+  const actcancel = (id) => {
+  
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/cancel`,
+      data: {
+          "token": id,
+          "_token": token,
+      },
+      success: function(res){
+       // console.log(res);
+
+      //  $('#pt').empty();
+      //   $('#dtime').empty();
+      //   $('#dt').empty();
+      //   $('#memberid').val('');
+        getOrders();
+        
+      }
+  });
+}
+
+
 
 
   // addtocart main items

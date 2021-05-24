@@ -112,7 +112,7 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('member.index')}}">Members</a>
-            {{-- <a class="collapse-item" href="{{route('member.create')}}">Add New Member</a> --}}
+            <a class="collapse-item" href="{{route('member.ledger')}}">Ledger</a>
             <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
     
           </div>
@@ -150,6 +150,23 @@
           </div>
         </div>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages88" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-user-friends"></i>
+          <span>Users</span>
+        </a>
+        <div id="collapsePages88" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner ">
+       
+            <a class="collapse-item" href="{{route('user.index')}}">Users</a>
+            <a class="collapse-item" href="{{route('waiter.index')}}">Waiters</a>
+            <a class="collapse-item" href="{{route('member.index')}}">Members</a>
+    
+          </div>
+        </div>
+      </li>
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages8" aria-expanded="true" aria-controls="collapsePages33">

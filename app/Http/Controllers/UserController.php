@@ -263,6 +263,96 @@ class UserController extends Controller
     }
 
 
+    public function ledger(){
+
+        return view('member.Ledger', ['members' => User::where('type', 3)->get()]);
+    }
+
+
+
+
+
+
+
+
+
+    //waiter -----------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------
+
+    public function waiterindex(){
+
+        return view('waiter.Index', ['waiters' => User::where('type', 4)->get()]);
+    }
+
+    public function waitercreate(){
+        return view('waiter.Create');
+    }
+
+    public function waiterdestroy(Request $request){
+
+        User::find($request->id)->delete();
+        return redirect()->route('waiter.index');
+    }
+    
+    
+    public function waiteredit(User $user){
+        $ranks = Rank::all();
+        $paymenttypes = PaymentType::all();
+        return view('waiter.Edit', compact('user', 'ranks', 'paymenttypes'));
+    }
+
+    public function waiterstoreWeb(Request $request){
+
+        User::create([
+            'name'              =>      $request->name,
+            'email'             =>      $request->email,
+            'phone'             =>      $request->phone,
+            'type'              =>      4
+        ]);
+
+        return redirect()->route('waiter.index');
+    }
+
+
+
+    //waiter -----------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------
+
+    public function userindex(){
+
+        return view('user.Index', ['users' => User::where('type', 5)->get()]);
+    }
+
+    public function usercreate(){
+        return view('user.Create');
+    }
+
+    public function userdestroy(Request $request){
+
+        User::find($request->id)->delete();
+        return redirect()->route('user.index');
+    }
+    
+    
+    public function useredit(User $user){
+        $ranks = Rank::all();
+        $paymenttypes = PaymentType::all();
+        return view('user.Edit', compact('user', 'ranks', 'paymenttypes'));
+    }
+
+    public function userstoreWeb(Request $request){
+
+        User::create([
+            'name'              =>      $request->name,
+            'email'             =>      $request->email,
+            'password'          =>  Hash::make($request->password),
+            'type'              =>      5
+        ]);
+
+        return redirect()->route('user.index');
+    }
+
+
 
 
     

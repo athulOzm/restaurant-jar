@@ -11,7 +11,7 @@ use App\OrderProduct;
 use App\Product;
 use App\Table;
 use App\User;
- 
+use Defuse\Crypto\Encoding;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -162,7 +162,7 @@ class PosController extends Controller
 
     public function getmembers(){
 
-        return response(User::where('type', 3)->get(), 200);
+        return response(User::where('type', 3)->where('status', true)->get(), 200);
     }
 
     public function getmenus(){
@@ -258,4 +258,19 @@ class PosController extends Controller
         }
 
     }
+
+    public function cancel(Request $request){
+
+        Order::find($request->token)->products()->detach();
+        Order::find($request->token)->update([
+            'delivery_type' =>  null,
+            'payment_type_id'   =>  null,
+            'user_id'   =>  null,
+            'delivery_type' =>  null,
+            'delivery_time' =>  null
+        ]);
+
+        return response(['msg' => 'ok'] , 200);
+    }
 }
+ 

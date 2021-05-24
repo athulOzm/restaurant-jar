@@ -49,4 +49,25 @@ class User extends Authenticatable
 
         return $this->belongsTo(PaymentType::class, 'payment_type_id', 'id');
     }
+
+    public function orders(){
+
+        return $this->hasMany(Order::class);
+    }
+
+    public function getCreditAmount(){
+
+        $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+
+        $credit_total = [];
+
+        $credit_orders->each(function($item) use(&$credit_total){
+
+            $credit_total[] = $item->gettotalprice()['subtotal'];
+        });
+
+        return number_format(array_sum($credit_total), 3);
+
+        //return 45.500;
+    }
 }

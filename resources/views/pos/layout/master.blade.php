@@ -439,13 +439,14 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 
 .orderser {
-    width: 99%;
-    border: 1px solid #1b1f32;
+    width: 100%;
+    border: 1px solid #9ba5b7;
     border-radius: 3px;
     font-weight: 300;
     color: #000;
     font-size: 14px;
-    background: #b6bece;
+    background: #ffffff;
+    margin: 10px 0;
 }
       </style>
    </head>

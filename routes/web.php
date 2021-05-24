@@ -30,6 +30,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('member/edit/{user}', 'UserController@edit')->name('member.edit');
     Route::patch('member', 'UserController@updateweb')->name('member.update');
     Route::get('member/create', 'UserController@create')->name('member.create');
+    Route::get('/members/ledger', 'UserController@ledger')->name('member.ledger');
+
+    //waiter
+    Route::get('/waiters', 'UserController@waiterindex')->name('waiter.index');
+    Route::post('/waiter', 'UserController@waiterstoreWeb')->name('waiter.store');
+    Route::delete('/waiter/drop', 'UserController@waiterdestroy')->name('waiter.delete');
+    Route::get('waiter/edit/{user}', 'UserController@waiteredit')->name('waiter.edit');
+    Route::patch('waiter', 'UserController@waiterupdateweb')->name('waiter.update');
+    Route::get('waiter/create', 'UserController@waitercreate')->name('waiter.create');
+
+    //user
+    Route::get('/users', 'UserController@userindex')->name('user.index');
+    Route::post('/user', 'UserController@userstoreWeb')->name('user.store');
+    Route::delete('/user/drop', 'UserController@userdestroy')->name('user.delete');
+    Route::get('user/edit/{user}', 'UserController@useredit')->name('user.edit');
+    Route::patch('user', 'UserController@userupdateweb')->name('user.update');
+    Route::get('user/create', 'UserController@usercreate')->name('user.create');
+
 
     //ranks
     Route::get('member/ranks', 'RankController@index')->name('member.rank.index');
@@ -113,10 +131,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('setting/vat', 'SettingController@vat')->name('settings.vat');
     Route::patch('setting/vat', 'SettingController@vatupdate')->name('vat.update');
 
+    Route::post('pos/cancel', 'PosController@cancel');
 
 
 
-        //addon 
+
+
+    //addon 
     Route::post('pos/addtocartaddon', 'PosController@addtocartaddon');
     Route::get('pos/getaddon/{id}', 'PosController@getaddon');
     Route::get('pos/getaddonava/{product}', 'PosController@getaddonava');

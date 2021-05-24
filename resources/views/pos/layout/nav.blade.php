@@ -38,9 +38,10 @@
        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dashboard</span>
        </a>
        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link  " href="/logout" role="button"  aria-expanded="false">
+          <a class="nav-link  " href="#"  onclick="document.getElementById('logout-form').submit();" role="button"  aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logout</span>
           </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
        </li>
     </ul>
  </nav>

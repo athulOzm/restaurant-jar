@@ -97,6 +97,10 @@ class LoginController extends Controller
             elseif(auth()->user()->type == 2):
 
                 return redirect()->route('kitchen');
+    
+            elseif(auth()->user()->type == 5):
+
+                return redirect()->route('pos');
             endif;
         }
 
