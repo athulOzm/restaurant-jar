@@ -18,86 +18,27 @@ $menutypes = resolve('menutypesforpos');
     border-radius: 6px;
 }
 </style>
-
-<form action="{{route('pos.checkout')}}" method="POST">
-  @csrf
-
- 
-
-
 <div class="row">
 
  
 
 
 
-  <div class="col-sm-6 p0" style="background: #2c3346;">
-    
-
-
-      
+  <div class="col-sm-6 p0" style="background: #2c3346; ">
+    <form action="{{route('pos.checkout')}}" method="POST">
+      @csrf
  
 
 
 
-      <div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 10px 0 20px">
-        
-
-
-        <div class="row">
-
-          <div class="col-md-6 my-2">
-            <p class="lab1a" >Order Code: <b style="font-size: 18px; color:#bf782c">{{ Session::get('token')->id}}</b></p>
-          </div>
-
-          <div class="col-md-6 my-2">
-            <p class="lab1a">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
-          </div>
-          
-    
-          <div class="col-md-6">
-            <p class="lab1a">MISS ID</p>
-            <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
-          </div>
-    
-          <div class="col-md-6">
-            <p class="lab1a">Member Name</p>
-            <input type="text" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb">
-          </div>
-
-          <div class="col-md-6 my-2">
-            <div id="dtime">
-              <p class="lab1a">Delivery Time</p>
-              <input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb">
-            </div>
-          </div>
-    
-          <div class="col-md-6 my-1">
-         
-              <div id="delivery">
-                <div class=" flex">
-                <div class="box1a"><input type="radio" required="" name="del" value="Take away" onclick="getPaymenttype('9'); takeaway()"> <b class="lab1a">Take away</b></div>
-                <div class="box1a"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></div>
-                <div class="box1a"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></div>
-                </div>
-              </div>
-          
-          </div>
-
-       
-
-          <div class="col-md-6">
-            
-          </div>
-
-          
-
-        </div>
+      <div class="card  shadow-xs my-1" id="leftpanel" style="padding:10px; padding-left:20px; padding-right:3px">
+        <b class="lab1">Token: {{ Session::get('token')->id}}</b>
+        <label class="lab3">{{ Carbon\Carbon::now()->isoFormat('LLLL') }}</label>
 
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 480px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 375px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:100%" id="cart">
           </div>
         </div>
@@ -141,10 +82,8 @@ $menutypes = resolve('menutypesforpos');
           <div class="p0">
             <div class="bgh" style="display: flex">
               <div class="col-sm-8">
-                <div id="tables"></div>
-            <div id="dt"></div>
-            <div id="locations"></div>
-            <div id="pt"></div>
+                <b class="lab1a">Member ID / Phone / Name</b>
+                <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
               </div>
               <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
                 <label id="subtotal2" style="
@@ -154,8 +93,12 @@ $menutypes = resolve('menutypesforpos');
                 "></label>
               </div>
             </div>
-            
-            
+            <div id="delivery"></div>
+            <div id="tables"></div>
+            <div id="dt"></div>
+            <div id="locations"></div>
+            <div id="pt"></div>
+            <div id="dtime"></div>
 
             <button class="btn btn-primary btnc1"   type="submit" style="
                 position: relative; float:right; 
@@ -193,7 +136,7 @@ $menutypes = resolve('menutypesforpos');
         </div>
       </div>
     
-    
+    </form>
   </div>
 
 
@@ -223,7 +166,7 @@ $menutypes = resolve('menutypesforpos');
         <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
  <div class="catwraper" style="display: flex">
 
-    {{-- <div class="cat" style="
+    <div class="cat" style="
       width: 60px;
       overflow: hidden;
       height: auto; margin-right:10px
@@ -279,7 +222,7 @@ $menutypes = resolve('menutypesforpos');
       font-weight: 600;
       color: #333;
   ">Cat Three</h6>
-    </div>  --}}
+    </div> 
 
 
 
@@ -289,13 +232,6 @@ $menutypes = resolve('menutypesforpos');
   </div>
           @foreach ($menutypes as $menutype)
             <div class="tab-pane @if ($loop->first) active @endif flex" id="{{$menutype->id}}" >
-
-
-
-
-
-
-
               <div style="display: flex;flex-wrap: wrap;">
                 @forelse ($menutype->products as $product)
                   <div class="card itembox" onclick="addtocart({{$product->id}});" 
@@ -321,7 +257,7 @@ $menutypes = resolve('menutypesforpos');
     </div>
   </div>
 </div>
-</form>
+
 @endsection
 
 
@@ -519,12 +455,7 @@ $menutypes = resolve('menutypesforpos');
 			lookup: options,
 			onSelect: function (member) {
 
-        console.log(member);
-        var res2 = member.value.split(" - ");
-
-        $('#autocomplete2').val(res2[2]);
-
-
+        //console.log(member);
 
         $.ajax({
             type: 'GET',
@@ -535,10 +466,10 @@ $menutypes = resolve('menutypesforpos');
               if(res.msg == 'ok'){
                 $('#delivery').empty();
                 $('#delivery').append(`
-                <div class=" flex">
-                <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
-                <div class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${member.data}')"> <b class="lab1a">Dinein</b></div>
-                <div class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
+                <div class="bgh2 flex">
+                <div class="box1"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Dinein" onClick="getTables('${member.data}')"> <b class="lab1a">Dinein</b></div>
+                <div class="box1"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
                 </div>`);
               }
               else{
@@ -547,7 +478,7 @@ $menutypes = resolve('menutypesforpos');
                 $('#dt').empty();
     $('#tables').empty();
     $('#pt').empty();
-    //$('#dtime').empty();
+    $('#dtime').empty();
                 $('#delivery').append(`
                 <div class="bgh2 flex">${res.msg}</div>`);
               }
@@ -564,7 +495,7 @@ $menutypes = resolve('menutypesforpos');
 
   const takeaway = () => {
     $('#tables').empty();
-    //$('#dtime').empty();
+    $('#dtime').empty();
     $('#locations').empty();
     $('#dt').empty();
   }
@@ -578,7 +509,7 @@ $menutypes = resolve('menutypesforpos');
     $('#dt').empty();
     $('#tables').empty();
     $('#pt').empty();
-    /////$('#dtime').empty();
+    $('#dtime').empty();
 
     $('#dt').append(`<div class="bgh flex">
     <div class="box3"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
@@ -599,20 +530,20 @@ $menutypes = resolve('menutypesforpos');
              switch (res.id) {
               case 1:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
                   <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
                   <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh"><b class="lab1a">Payment Type</b>
                   <div class="flex">
                   <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
                   <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
@@ -628,7 +559,7 @@ $menutypes = resolve('menutypesforpos');
 const getTables = (memberid) => {
 
   $('#pt').empty();
-  //$('#dtime').empty();
+  $('#dtime').empty();
   $('#dt').empty();
 
   $.ajax({
@@ -645,7 +576,7 @@ const getTables = (memberid) => {
           if(item.status == 1){
           
             $('#tdd').append(`
-              <div class="col-md-4" style="padding:2px;"  >
+              <div class="col-md-1" style="padding:2px;"  >
 
                 <div class="form-check">
                   <input class="form-check-input" type="radio" value="${item.id}" name="table" onClick="getPaymenttype('${memberid}')" required id="flexRadioDefault2">
@@ -659,7 +590,7 @@ const getTables = (memberid) => {
               </div>`);
           } else{ 
             $('#tdd').append(`
-                <div class="col-md-4" style="padding:2px;">
+                <div class="col-md-1" style="padding:2px;">
                   <div class="tablepic" style="background:#9a291e">
                   <h5>${item.name}</h5>
                   <p>Seat: ${item.chair}</p>
@@ -692,12 +623,12 @@ const getTables = (memberid) => {
               $('#cart').append(`<div class="row itemtitlebar">
                 <div class="col-sm-1 " style="padding-left:25px">N</div>
                 <div class="col-sm-2 p0">Item</div>
-                <div class="col-sm-2 p0">Qty</div>
+                <div class="col-sm-1 p0">Qty</div>
                 <div class="col-sm-2 p0">U.Price</div>
                 <div class="col-sm-1 p0">VAT</div>
                 <div class="col-sm-1 p0">Dis</div>
-                <div class="col-sm-2 ">Total</div>
-                <div class="col-sm-1 p0">Addon</div>
+                <div class="col-sm-2 p0">Total</div>
+                <div class="col-sm-2 p0">Action</div>
               </div>
               `)
 
@@ -714,8 +645,8 @@ const getTables = (memberid) => {
 
 
               if(item.available_addons != ''){
-                var btn = `<button type="button"  onclick="showaddon('${item.id}', '${item.product.id}')" value="${item.product.id}" style="background:#2f5f35;float:right;width: 50px;color: #fff;margin-right:10px; font-size:11px" class="btn btn-circle btn-sm">
-                   Addon
+                var btn = `<button type="button"  onclick="showaddon('${item.id}', '${item.product.id}')" value="${item.product.id}" style="background:#2f5f35; float:right" class="btn btn-circle btn-sm">
+                  <i class="fas fa-plus btnc"></i>
                 </button>`
               }
               else {
@@ -727,33 +658,27 @@ const getTables = (memberid) => {
           <div class="row">
             <div class="col-sm-1 price " style="padding-left:25px">${item.id}</div>
             <div class="col-sm-2 price p0">${item.product.name} </div>
-            <div class="col-sm-2 p0">
-
-              <div style="display: flex">
-                          
-                          <button type="button" onclick="addtocart('${item.product.id}');" class="btn btn-circle btn-sm">
-                            <i class="fas fa-plus btnc"></i>
-                          </button>
-
-                          <label class="qty">${item.quantity}</label>
-          
-                          <button  type="button" onclick="downcart('${item.product.id}');" class="btn  btn-circle btn-sm">
-                            <i class="fas fa-minus btnc"></i>
-                          </button>
-
-                        </div>
-            
-            
-            
-            </div>
+            <div class="col-sm-1 p0"><label class="qty">${item.quantity}</label></div>
             <div class="col-sm-2 price p0">${item.product.price}</div>
             <div class="col-sm-1 ttl p0" >${item.tax}</div>
-            <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl" >${item.sub_price}</div>
+            <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:15px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
+            <div class="col-sm-2 ttl" >${item.price_total_with_tax}${addont}</div>
             
-            <div class="col-sm-1 act p0">
+            <div class="col-sm-2 act p0">
               <div style="display: flex">
-   
+                          
+                <button type="button" onclick="addtocart('${item.product.id}');" class="btn btn-circle btn-sm">
+                  <i class="fas fa-plus btnc"></i>
+                </button>
+
+                <button  type="button" onclick="downcart('${item.product.id}');" class="btn  btn-circle btn-sm">
+                  <i class="fas fa-minus btnc"></i>
+                </button>
+
+                <button type="button" style="margin-left: 2px" onclick="removecart('${item.product.id}');" class="btn  btn-circle btn-sm">
+                  <i class="fas fa-trash btnc"></i>
+                </button>
+
                 ${btn}
 
                 
@@ -987,11 +912,11 @@ const getDeliverylocations = (memberid) => {
 
 const getDelTime = () => {
 
+  //alert('da');
+    $('#dtime').empty();
+    $('#dtime').append(`<div class="bgh2"><b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb"></div>`);
 
-    // $('#dtime').empty();
-    // $('#dtime').append(`<div class="bgh2"><b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb"></div>`);
-
-    // $("#ctime").val(new Date().toJSON().slice(0,19));
+    //$("#ctime").val(new Date().toJSON().slice(0,19));
 
 }
  

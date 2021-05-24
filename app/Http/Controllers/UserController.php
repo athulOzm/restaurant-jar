@@ -80,7 +80,7 @@ class UserController extends Controller
 
         return $request->validate([
             'name'              =>      'required',
-            'email'             =>      'required|unique:users|email',
+            'email'             =>      'nullable|unique:users|email',
             'phone'             =>      'min:8|unique:users',
             'memberid'          =>      'required|min:3|unique:users',
             'rank_id'           =>      'required',
@@ -99,7 +99,7 @@ class UserController extends Controller
 
         return $request->validate([
             'name'              =>      'required',
-            'email'             =>      'required|email|unique:users,email,'.$request->id,
+            'email'             =>      'nullable|email|unique:users,email,'.$request->id,
             'phone'             =>      'min:8|unique:users,phone,'.$request->id,
             'memberid'          =>      'required|min:3|unique:users,memberid,'.$request->id,
             'rank_id'           =>      'required',

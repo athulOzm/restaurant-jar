@@ -34,9 +34,13 @@
        </li>
        <div class="topbar-divider d-none d-sm-block"></div>
        <!-- Nav Item - User Information -->
+       @if (auth()->user()->type == 1)
        <a class="nav-link  " href="/"  role="button"   aria-expanded="false">
-       <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dashboard</span>
-       </a>
+         <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dashboard</span>
+         </a>
+       @endif
+       
+
        <li class="nav-item dropdown no-arrow">
           <a class="nav-link  " href="#"  onclick="document.getElementById('logout-form').submit();" role="button"  aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logout</span>

@@ -11,7 +11,7 @@ class OrderProduct extends Model
 
     public $itemtotal = 10.000;
 
-    protected $appends = ['addon_total', 'addon_tax', 'addon_total_without_tax', 'price_total', 'price_total_without_dis', 'price_total_with_tax', 'tax', 'available_addons'];
+    protected $appends = ['addon_total', 'addon_tax', 'addon_total_without_tax', 'price_total', 'price_total_without_dis', 'price_total_with_tax', 'tax', 'available_addons', 'sub_price'];
 
 
    
@@ -94,6 +94,13 @@ class OrderProduct extends Model
         $vat = number_format($tp * $this->product->vat/ 100, 3);
         $st = number_format($tp + $vat, 3);
         return number_format($st - $this->discount, 3);
+    }
+
+    public function getSubPriceAttribute()
+    {
+         
+        
+        return number_format($this->getAddonTotalAttribute() + $this->getPriceTotalWithTaxAttribute(), 3);
     }
 
     public function getTaxAttribute()

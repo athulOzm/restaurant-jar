@@ -78,9 +78,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 
 #exTab2 ul li a {
-    color: #696767;
-    padding: 10px 20px;
-    line-height: 25px;
+    color: #1b1f32;
+    padding: 10px 13px;
+    line-height: 35px;
     text-decoration: none;
     font-weight: 400;
 }
@@ -91,7 +91,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
 
 #exTab2 ul li {
-     padding: 10px; border-radius: 3px; margin: 10px
+     padding: 10px; border-radius: 3px
   
     
 }
@@ -170,9 +170,21 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 200; 
 }
 .lab1a {
-    font-size: 16px;
-    color: #f4f5fa;
-    font-weight: 600; line
+    font-size: 12px;
+    color: #acb5ca;
+    font-weight: 600;
+    display: inline-block;
+    margin-left: 0;
+    margin-bottom: 3px;
+}
+input[type=checkbox], input[type=radio] {
+  
+    margin-right: 10px;
+}
+.lab1a b{
+    font-size: 14px;
+    color: #e5e9f1;
+    font-weight: 500!important; display: inline-block
 }
 .lab2{
     font-size: 14px;
@@ -206,12 +218,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #bac2d6;
 }
 .item .qty {
-    font-size: 13px;
+    font-size: 15px;
     color: #abb6c7;
     background: #1b1f32;
     padding: 0px 10px;
     border-radius: 6px;
-    
+    line-height: 28px;
+    margin: 0 3px;
 }
 .itemdis {
     max-width: 100%;
@@ -226,7 +239,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #e6ebf3; font-weight: 600
 }
 .txtb {
-    background: #475067;
+    background: #1b1f32;
     border: 0;
     border-radius: 3px;
     color: #a0b3d0;
@@ -248,7 +261,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #b6bece;
     border-color: #b6bece;
     margin: 10px 0;
-    padding: 8px 30px;color: #333
+    padding: 8px 20px;color: #333
     
 }
 .tar{text-align: right}
@@ -286,6 +299,40 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     padding: 15px 30px;
 }
 
+.bgh2a {
+    background: #2c3346;
+    padding: 5px 10px;
+}
+.oc {
+    font-size: 24px;
+    color: #fff;
+    border: 1px solid #475066;
+    padding: 3px 10px;
+    width: 100%;
+    background: #475066;
+    border-radius: 3px;
+    line-height: 27px;
+}
+.oc2 {
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #475066;
+    padding: 3px 10px;
+    width: 100%;
+    background: #475066;
+    border-radius: 3px;
+    line-height: 27px;
+}
+.box1a {
+    padding: 9px 10px 8px;
+    background: #1b1f32;
+    
+    margin-top: 30px;
+    border-radius: 3px;
+    text-align: center;
+    display: flex;
+    align-items: center; margin-right: 10px
+}
 /*
  *  STYLE 4
  */
@@ -438,7 +485,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
    
 }
 
-.orderser {
+/* .orderser {
     width: 100%;
     border: 1px solid #9ba5b7;
     border-radius: 3px;
@@ -447,7 +494,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-size: 14px;
     background: #ffffff;
     margin: 10px 0;
-}
+} */
       </style>
    </head>
    <body id="page-top">
