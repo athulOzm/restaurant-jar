@@ -47,7 +47,7 @@ $waiter = resolve('waiter');
         <div class="row" style="
     background: #1b1f32;
     margin-right: 2px;
-    border-bottom: 1px solid #353e56; 
+    border-bottom: 1px solid #353e56; padding-bottom:5px
 ">
 
           <div class="col-md-6 my-2">
@@ -101,7 +101,7 @@ $waiter = resolve('waiter');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 480px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 472px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
@@ -165,7 +165,7 @@ $waiter = resolve('waiter');
                 </div>
               </div>
               <div class="col-sm-3 p0" style="float: right; padding-top:20px">
-                <div class="bgh2" style="max-height: calc(100vh - 140px); min-height:50vh; padding:0px">
+                <div class="bgh2" style="max-height: calc(100vh - 140px); min-height:55vh; padding:0px">
                   <div style="padding: 10px">
 
                         OMR 
@@ -174,7 +174,11 @@ $waiter = resolve('waiter');
                         color: #e65776;
                     "></label> <br> <br>
 
-                    Pending Banlance <b id="totcre"></b>
+                    Name <br>
+                    <b id="totcrename" style="color: white"></b>
+                    <hr>
+                    Previous Credit<br> <b style="color: white" id="totcre"></b>
+
 
                   </div>
                 
@@ -263,7 +267,7 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
         </ul>
 
 
-        <div class="tab-content scro2" style="min-height:calc(100vh - 170px);height:calc(100vh - 170px);overflow-y:scroll">
+        <div class="tab-content scro2" style="min-height:calc(100vh - 130px);height:calc(100vh - 130px);overflow-y:scroll">
 
 
         <div class="tab-content" id="pills-tabContent">
@@ -513,6 +517,7 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
           'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 
           'data' : id, 
           'name' : data[i].name, 
+          'pty' : data[i].payment_type_id, 
           'credit' : data[i].total_credit
           });
 			}
@@ -570,10 +575,27 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
         //console.log(member);
         //console.log();
+        $('#totcre').empty();
+        $('#totcrename').empty();
         $('#totcre').append(member.credit);
+        $('#totcrename').append(member.name);
         var res2 = member.value.split(" - ");
 
-        $('#autocomplete2').val(res2[2]);
+        switch (member.pty) {
+          case 1:
+            var pty = 'Cash';
+            break;
+
+          case 2:
+            var pty = 'Credit';
+            break;
+        
+          default:
+            var pty = 'Cash / Credit';
+            break;
+        }
+
+        $('#autocomplete2').val(res2[2] + ` (${pty})`);
 
 
 
@@ -777,7 +799,7 @@ const getTables = (memberid) => {
                 <div class="col-sm-1 ">VAT</div>
                 <div class="col-sm-1 ">Dis</div>
                 <div class="col-sm-2 ">Total</div>
-                <div class="col-sm-1 ">Addon</div>
+                <div class="col-sm-1" style="font-size:9px">Addon</div>
               </div>
               `)
 
@@ -887,7 +909,7 @@ const getTables = (memberid) => {
       //   $('#dtime').empty();
       //   $('#dt').empty();
       //   $('#memberid').val('');
-        getOrders();
+      location.reload();
         
       }
   });

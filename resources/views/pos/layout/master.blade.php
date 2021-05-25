@@ -182,7 +182,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 600;
     display: inline-block;
     margin-left: 0;
-    margin-bottom: 3px;
+    margin-bottom: 1px;
 }
 input[type=checkbox], input[type=radio] {
   
@@ -249,7 +249,7 @@ input[type=checkbox], input[type=radio] {
     background: #2a3042;
     border: 0;
     border-radius: 3px;
-    color:#e65776; font-size: 14px
+    color:#e65776; font-size: 14px; height: 31px;
 }
 .itembox img {
     width: 100%;
@@ -337,14 +337,14 @@ input[type=checkbox], input[type=radio] {
     line-height: 27px;
 }
 .box1a {
-    padding: 9px 10px 8px;
+    padding: 9px 0px 0px;
     background: #1b1f32;
     
     margin-top: 30px;
     border-radius: 3px;
     text-align: center;
     display: flex;
-    align-items: center; margin-right: 10px
+    align-items: center; margin-right: 10px; line-height: 13px
 }
 /*
  *  STYLE 4

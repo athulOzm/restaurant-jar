@@ -24,11 +24,11 @@ class PosController extends Controller
 
             $ct = Order::find(Session::get('token')->id);
             if($ct->status != 1){
-                $ct = Order::create(['status'   =>  1, 'req' => 0]);
+                $ct = Order::create(['status'   =>  1, 'reqfrom' => null]);
             }
         }
         else{
-            $ct = Order::create(['status'   =>  1, 'req' => 0]);
+            $ct = Order::create(['status'   =>  1, 'reqfrom' => null]);
         }
 
         Session::forget('token');
@@ -219,7 +219,8 @@ class PosController extends Controller
            'payment_status' =>  true,
            'table_id'  =>  $table,
            'sn' =>  $request->sn,
-           'waiter_id'  => $request->waiter
+           'waiter_id'  => $request->waiter,
+           'reqfrom'    =>  auth()->user()->id
        ]);
 
        Session::forget('token');
