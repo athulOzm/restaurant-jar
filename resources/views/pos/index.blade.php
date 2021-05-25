@@ -2,7 +2,7 @@
 
 <?php 
 $menutypes = resolve('menutypesforpos');
-//$addons = resolve('addons');
+$waiter = resolve('waiter');
 ?>
 
  
@@ -40,11 +40,15 @@ $menutypes = resolve('menutypesforpos');
 
 
 
-      <div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 10px 0 20px">
+      <div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 0px 0 20px">
         
 
 
-        <div class="row">
+        <div class="row" style="
+    background: #1b1f32;
+    margin-right: 2px;
+    border-bottom: 1px solid #353e56; 
+">
 
           <div class="col-md-6 my-2">
             <p class="lab1a" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
@@ -98,7 +102,7 @@ $menutypes = resolve('menutypesforpos');
 
 
         <div id="itembox" class="scro" style="height:calc(100vh - 480px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
-          <div class="cart"  style="width:100%" id="cart">
+          <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
       </div>
@@ -137,29 +141,59 @@ $menutypes = resolve('menutypesforpos');
       </div>
 
       <div class="backDrop"></div>
-        <div class="box scro" style="max-height: 90vh">
+        <div class="box scro" style="max-height: 90vh; padding-bottom:0">
           <div class="p0">
-            <div class="bgh" style="display: flex">
-              <div class="col-sm-8">
-                <div id="tables"></div>
-            <div id="dt"></div>
-            <div id="locations"></div>
-            <div id="pt"></div>
+            <div class="p0" style="display: flex">
+              <div class="col-sm-9 p0">
+                <div class="bgh">
+                  <div id="tables"></div>
+                  <div id="dt"></div>
+                  <div id="locations"></div>
+                  <div id="pt"></div>
+
+                  <div>
+                    <div class="bgh p0 mt-2">
+                      <b class="lab1a">Special Note</b>
+                      <div class="flex">
+                        <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
               </div>
-              <div class="col-sm-3" style="float: right; padding-top:20px">OMR 
-                <label id="subtotal2" style="
-                    float: right;
-                    font-size: 33px;
-                    color: #e65776;
-                "></label>
+              <div class="col-sm-3 p0" style="float: right; padding-top:20px">
+                <div class="bgh2" style="max-height: calc(100vh - 140px); min-height:50vh; padding:0px">
+                  <div style="padding: 10px">
+
+                        OMR 
+                    <label id="subtotal2" style="
+                        font-size: 33px;
+                        color: #e65776;
+                    "></label> <br> <br>
+
+                    Pending Banlance <b id="totcre"></b>
+
+                  </div>
+                
+
+<button class="btn btn-primary btnc1"   type="submit" style="padding: 30px 0px;
+width: 100%;
+bottom: 0;
+position: absolute;
+margin: 0;
+border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
+
+
+                </div>
               </div>
             </div>
             
             
 
-            <button class="btn btn-primary btnc1"   type="submit" style="
-                position: relative; float:right; 
-            ">Submit Order <i class="fas fa-arrow-right"></i></button>
+            
         </div>
       </div>
 
@@ -248,7 +282,7 @@ $menutypes = resolve('menutypesforpos');
                         @forelse ($menutype->products as $product)
                           <div class="card itembox" onclick="addtocart({{$product->id}});" 
                           style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                          min-height:140px;
+                          min-height:110px;
               background-size: 100% 100%;">
                             <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
                             
@@ -269,7 +303,7 @@ $menutypes = resolve('menutypesforpos');
                         @forelse ($cat->productsbytype($menutype->id) as $product)
                           <div class="card itembox" onclick="addtocart({{$product->id}});" 
                           style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                          min-height:140px;
+                          min-height:110px;
               background-size: 100% 100%;">
                             <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
                             
@@ -475,9 +509,13 @@ $menutypes = resolve('menutypesforpos');
       //console.log(data);
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
-				members.push({'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 'data' : id});
+				members.push({
+          'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 
+          'data' : id, 
+          'name' : data[i].name, 
+          'credit' : data[i].total_credit
+          });
 			}
-			//send parse data to autocomplete function
 			loadSuggestions(members);
 		}
 	});
@@ -530,7 +568,9 @@ $menutypes = resolve('menutypesforpos');
 			lookup: options,
 			onSelect: function (member) {
 
-        console.log(member);
+        //console.log(member);
+        //console.log();
+        $('#totcre').append(member.credit);
         var res2 = member.value.split(" - ");
 
         $('#autocomplete2').val(res2[2]);
@@ -591,7 +631,7 @@ $menutypes = resolve('menutypesforpos');
     $('#pt').empty();
     /////$('#dtime').empty();
 
-    $('#dt').append(`<div class="bgh flex">
+    $('#dt').append(`<div class="bgh flex p0">
     <div class="box3"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
     <div class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
                      </div>`);
@@ -610,20 +650,20 @@ $menutypes = resolve('menutypesforpos');
              switch (res.id) {
               case 1:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
                   <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
                   <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
                   <div class="flex">
                   <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
                   <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
@@ -649,14 +689,43 @@ const getTables = (memberid) => {
         $('#tables').empty();
         $('#locations').empty();
 
+        $('#tables').append(`<div>
+                    <div class="bgh p0 mt-2">
+                      <b class="lab1a">Waiter</b>
+                      <div class="flex">
+                        <select required="" name="waiter" class="form-control mb-3" name="rank_id" id="rank_id" style="
+    background: #2c3346;
+    color: #fff;
+    font-size: 13px;border:1px solid #2c3346
+">
+                            <option value="">Select Waiter</option>
 
-        $('#tables').append(`<div class="bgh flex" style="flex-wrap: wrap;" id="tdd">`)
+                            @foreach ($waiter as $waiter)
+                            <option value="{{$waiter->id}}">{{$waiter->name}}</option>
+                            @endforeach
+
+                
+                                                    
+                          </select>
+
+
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                  <b class="lab1a">Tables</b>
+                  `)
+
+
+
+        $('#tables').append(`<div class="bgh flex p0" style="flex-wrap: wrap;" id="tdd">`)
 
         res.map(item => {
           if(item.status == 1){
           
             $('#tdd').append(`
-              <div class="col-md-4" style="padding:2px;"  >
+              <div class="col-md-2" style="padding:2px;"  >
 
                 <div class="form-check">
                   <input class="form-check-input" type="radio" value="${item.id}" name="table" onClick="getPaymenttype('${memberid}')" required id="flexRadioDefault2">
@@ -670,7 +739,7 @@ const getTables = (memberid) => {
               </div>`);
           } else{ 
             $('#tdd').append(`
-                <div class="col-md-4" style="padding:2px;">
+                <div class="col-md-2" style="padding:2px;">
                   <div class="tablepic" style="background:#9a291e">
                   <h5>${item.name}</h5>
                   <p>Seat: ${item.chair}</p>
@@ -700,15 +769,15 @@ const getTables = (memberid) => {
             //console.log(res);
               $('#cart').empty();
 
-              $('#cart').append(`<div class="row itemtitlebar">
+              $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
                 <div class="col-sm-1 " style="padding-left:25px">N</div>
                 <div class="col-sm-2 p0">Item</div>
-                <div class="col-sm-2 p0">Qty</div>
+                <div class="col-sm-2 ">Qty</div>
                 <div class="col-sm-2 p0">U.Price</div>
-                <div class="col-sm-1 p0">VAT</div>
-                <div class="col-sm-1 p0">Dis</div>
+                <div class="col-sm-1 ">VAT</div>
+                <div class="col-sm-1 ">Dis</div>
                 <div class="col-sm-2 ">Total</div>
-                <div class="col-sm-1 p0">Addon</div>
+                <div class="col-sm-1 ">Addon</div>
               </div>
               `)
 
@@ -753,7 +822,7 @@ const getTables = (memberid) => {
             <div class="col-sm-2 price p0">${item.product.price}</div>
             <div class="col-sm-1 ttl p0" >${item.tax}</div>
             <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl" >${item.sub_price}</div>
+            <div class="col-sm-2 ttl " >${item.sub_price}</div>
             
             <div class="col-sm-1 act p0">
               <div style="display: flex">
@@ -972,7 +1041,7 @@ const getDeliverylocations = (memberid) => {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<div class="bgh2"><b class="lab1a">Location</b>
+          $('#locations').append(`<div class="bgh2 mt-3"><b class="lab1a">Location</b>
           <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
 
 

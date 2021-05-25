@@ -45,6 +45,13 @@ class CreateOrdersTable extends Migration
                 ->onDelete('set null');
 
             $table->boolean('payment_status')->default(false);
+
+            $table->text('sn')->nullable();
+            $table->unsignedBigInteger('waiter_id')->nullable();
+            $table->foreign('waiter_id')
+                ->on('users')
+                ->references('id')
+                ->onDelete('set null');
             $table->timestamps();
         });
     }

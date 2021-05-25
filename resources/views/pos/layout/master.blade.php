@@ -132,7 +132,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #8790a5;
 }
 
-.itembox{width: 140px; margin:5px;border: 1px solid #b9bdc3; cursor: pointer;
+.itembox{width: 120px; margin:5px;border: 1px solid #b9bdc3; cursor: pointer;
     border-top: none; overflow: hidden; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" }
 .itembox h6{font-weight: 600;
     color: #000;
@@ -246,7 +246,7 @@ input[type=checkbox], input[type=radio] {
     color: #e6ebf3; font-weight: 600
 }
 .txtb {
-    background: #1b1f32;
+    background: #2a3042;
     border: 0;
     border-radius: 3px;
     color:#e65776; font-size: 14px
@@ -274,10 +274,16 @@ input[type=checkbox], input[type=radio] {
 .tar{text-align: right}
 .p10{padding: 3px 10px}
 #pt input{font-size: 22px}
-.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestions {
+    border-bottom: 1px solid #999;
+    background: #fff;
+    overflow: auto;
+    color: #111;
+    font-size: 14px;
+}
 	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
 	.autocomplete-selected { background: #F0F0F0; }
-	.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+	.autocomplete-suggestions strong { font-weight: normal; color: #e65776; }
 	.autocomplete-group { padding: 2px 5px; }
 	.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 
@@ -352,7 +358,7 @@ input[type=checkbox], input[type=radio] {
 
 .scro::-webkit-scrollbar
 {
-  width: 6px;
+  width: 1px;
   background-color: #2c3346;
 }
 
@@ -466,7 +472,7 @@ input[type=checkbox], input[type=radio] {
     background: #000000ba;
     border-radius: 6px;
     margin: 10px;
-    margin-top: 110px;
+    margin-top: 90px;
     color: white!important;
     font-size: 12px!important;
 }

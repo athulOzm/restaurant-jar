@@ -6,6 +6,7 @@ use App\Addon;
 use App\Category;
 use App\Menutype;
 use App\Setting;
+use App\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -46,6 +47,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('settings', function(){
 
             return Setting::find(1);
+        });
+
+        app()->bind('waiter', function(){
+
+            return User::where('type', 4)->get();
         });
     }
 

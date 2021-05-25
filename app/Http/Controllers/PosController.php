@@ -217,7 +217,9 @@ class PosController extends Controller
            'delivery_time'  =>  $delivery_time,
            'deliverylocation_id'  =>  $location,
            'payment_status' =>  true,
-           'table_id'  =>  $table
+           'table_id'  =>  $table,
+           'sn' =>  $request->sn,
+           'waiter_id'  => $request->waiter
        ]);
 
        Session::forget('token');
