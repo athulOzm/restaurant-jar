@@ -129,10 +129,6 @@
        
             <a class="collapse-item" href="{{route('pos')}}">POS</a>
             <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
-            <a class="collapse-item" href="{{route('pos.paymenttype.index')}}">Payment Type</a>
-            <a class="collapse-item" href="{{route('pos.table.index')}}">Tables</a>
-            <a class="collapse-item" href="{{route('pos.deliverylocation.index')}}">Delivery Locations</a>
-    
           </div>
         </div>
       </li>
@@ -177,6 +173,9 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('settings.vat')}}">Tax</a>
+            <a class="collapse-item" href="{{route('pos.paymenttype.index')}}">Payment Type</a>
+            <a class="collapse-item" href="{{route('pos.table.index')}}">Tables</a>
+            <a class="collapse-item" href="{{route('pos.deliverylocation.index')}}">Delivery Locations</a>
             <a class="collapse-item" href="">Language</a>
             <a class="collapse-item" href="">User Management</a>
     

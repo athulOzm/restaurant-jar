@@ -497,7 +497,15 @@ input[type=checkbox], input[type=radio] {
     width: 1.4rem;
    
 }
-
+.alert {
+    padding: 8px 20px;margin: 0;
+    margin-left: 30px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    background: #e65776;
+    border: 1px solid #bd1a3d;
+}
 /* .orderser {
     width: 100%;
     border: 1px solid #9ba5b7;

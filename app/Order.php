@@ -16,6 +16,8 @@ class Order extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['req_by'];
+
     public function user(){
 
         return $this->belongsTo(User::class);
@@ -107,6 +109,15 @@ class Order extends Model
             'subtotal' => number_format($st - $dis, 3),
         ];
 
+    }
+
+    public function getReqByAttribute(){
+
+        //return $this->belongsTo(User::class, 'reqfrom', 'id')->name;
+        if($re = User::where('id', $this->reqfrom)->first()){
+
+            return $re->name;
+        } else { return '';}
     }
 
     // public function getDeliveryTime(){

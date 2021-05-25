@@ -44,11 +44,16 @@ footer.sticky-footer {
     padding: 1rem 0;
     flex-shrink: 0;
 }
-      </style>
+.card-header {
+    padding: .55rem 1rem;}
 
+.pc1 div b{
+  font-weight: 500;
+  color: #000;
+  font-size: 13px;
+}
 
-
-
+</style>
 </head>
 
 <body id="page-top">
@@ -178,11 +183,11 @@ footer.sticky-footer {
 #customers td {  background-color: #ebeef6;color: black; font-weight: 400; font-size: 14px}
 .pc1 {
     margin: 0;
-    font-size: 14px;
-    color: #484747;
-    font-weight: 500;
+    font-size: 12px;
+    color: #425eb5;
+    font-weight: 600;
     width: 100%;
-    line-height: 22px;
+    line-height: 25px;
 }
 </style>
            
@@ -240,7 +245,6 @@ footer.sticky-footer {
             url: '/kitchen/getorders',
             success: function(res){
     
-                console.log(res)
                 
                 if(res == 0){
     
@@ -251,9 +255,12 @@ footer.sticky-footer {
                     //const imgPath = '{{env('IMAGE_PATH')}}';
                     res.map(order => {
 
-                      if(order.delivery_type == "Dining"){
+                //console.log(order)
+
+
+                      if(order.delivery_type == "Dinein"){
                      
-                        var loc = 'Table : ' + order.table.name;
+                        var loc = '(Table : ' + order.table.name + ' )';
                       }
 
                       if(order.delivery_type == "Delivery"){
@@ -262,13 +269,13 @@ footer.sticky-footer {
 
                           var loc = `Room No ${order.user.room_address}, ${order.user.location}`;
                         } else {
-                          var loc = order.location.name;
+                          var loc = `(${order.location.name})`;
                         }
                       }
 
                       switch (order.delivery_type) {
                         case "Take away":
-                          var loc = 'Take Away'
+                          var loc = ''
                         default:
                           break;
                       }
@@ -285,7 +292,7 @@ footer.sticky-footer {
             <div class="row">
                 <div class="col-sm-7">
                     <h6 class="m-0 mt-2 font-weight-normal text-primary">Member ID : <b>${order.user.memberid}</b></h6>
-                    <p class="pc1">Name: <span style="color:#000; font-weight:bold">${order.user.name}</span></p>
+                    <p class="pc1">Name: <span style="color:#000; font-weight:600">${order.user.name}</span></p>
                     
                 </div>
                 <div class="col-sm-5"> <button onClick="orderReady('${order.id}')" class="btn btn-success btn-sm right" style="float: right; margin-top:10px">ORDER READY</button> </div>
@@ -297,9 +304,15 @@ footer.sticky-footer {
 
           <div class="row flex-row py-2 m-0" >
            
-              <h6 class="pc1">Order Time: <b>${order.updated_at}</b></h6>
-              <h6 class="pc1">Delivery Time: <b>${order.delivery_time}</b></h6>
-              <h6 class="pc1" style="padding-top:10px">Delivery Place: <b>${loc}</b></h6>
+              <div class="pc1 row"><div class="col-md-4">Order Time:</div> <div class="col-md-8"><b>${order.updated_at}</b></div></div>
+              <div class="pc1 row"><div class="col-md-4">Delivery/ Pickup:</div> <div class="col-md-8"><b>${order.delivery_time}</b></div></div>
+              <div class="pc1 row"><div class="col-md-4">Service Type:</div> <div class="col-md-8"><b>${order.delivery_type} ${loc}</b></div></div>
+              <div class="pc1 row"><div class="col-md-4">Order Source:</div> <div class="col-md-8"><b>${order.req_by}</b></div></div>
+              <div class="pc1 row"><div class="col-md-4">Special Note:</div> <div class="col-md-8"><b>${order.sn}</b></div></div>
+
+ 
+
+              
               
             
 
@@ -307,12 +320,12 @@ footer.sticky-footer {
               
             
           </div>
-          <div class="row bg-primary py-2 m-1 mb-0" style="color: white; font-weight:400">
+          <div class="row bg-primary py-2 mb-0" style="color: white; font-weight:400">
             <div class="col-sm-6">Order Token: <b>#${order.id}</b></div>
             <div class="col-sm-6" style="text-align: right"> </div>
           </div>
 
-          <div class="row m-1 " style="margin-top: -4px!important">
+          <div class="row" style="margin-top: -4px!important">
           <table id="customers" style="width:100%;margin-top: -23px;">
                 <tr>
                   <th>P.ID</th>

@@ -597,43 +597,47 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
         $('#autocomplete2').val(res2[2] + ` (${pty})`);
 
-
-
-        $.ajax({
-            type: 'GET',
-            url: `/pos/creditstatus/${member.data}`,
-            success: function(res){
-              //console.log(res.msg);
-
-              if(res.msg == 'ok'){
-                $('#delivery').empty();
-                $('#delivery').append(`
-                <div class=" flex">
-                <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${member.data}'); takeaway()"> <b class="lab1a">Take away</b></div>
-                <div class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${member.data}')"> <b class="lab1a">Dinein</b></div>
-                <div class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${member.data}')"> <b class="lab1a">Delivery</b></div>
-                </div>`);
-              }
-              else{
-
-                $('#delivery').empty();
-                $('#dt').empty();
-    $('#tables').empty();
-    $('#pt').empty();
-    //$('#dtime').empty();
-                $('#delivery').append(`
-                <div class="bgh2 flex">${res.msg}</div>`);
-              }
-
-            }
-        });
-
-
+        cartcontinue(member.data);
 
 			}
 		});
 	}
   });
+
+  //member selected to continue
+  const cartcontinue = (data) => {
+
+    $.ajax({
+        type: 'GET',
+        url: `/pos/creditstatus/${data}`,
+        success: function(res){
+          //console.log(res.msg);
+
+          if(res.msg == 'ok'){
+            $('#delivery').empty();
+            $('#delivery').append(`
+            <div class=" flex">
+            <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${data}'); takeaway()"> <b class="lab1a">Take away</b></div>
+            <div class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${data}')"> <b class="lab1a">Dinein</b></div>
+            <div class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></div>
+            </div>`);
+          }
+          else{
+
+            $('#delivery').empty();
+            $('#dt').empty();
+            $('#tables').empty();
+            $('#pt').empty();
+            $('#alert').empty();
+            $('#alert').append(`<div class="alert flex">${res.msg}</div>`);
+            $('#pay').prop('disabled', true);
+            //alert(res.msg);
+          }
+
+        }
+    });
+
+  }
 
   const takeaway = () => {
     $('#tables').empty();
