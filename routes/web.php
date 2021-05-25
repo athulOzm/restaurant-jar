@@ -125,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/locations', 'PosController@getlocations');
     Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
     Route::get('/pos/creditstatus/{user}', 'PosController@memberstatus');
+    Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
     
 

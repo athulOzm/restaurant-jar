@@ -262,6 +262,28 @@ class PosController extends Controller
 
     }
 
+    //get member credit status2
+    public function memberstatus2($id){
+
+        $token = Order::with('products')->find(Session::get('token')->id);
+        $nub = $token->products()->count();
+
+        $user = User::where('memberid', $id)->first();
+        
+        if($user->item_limit < $nub){
+
+            $re = $user->item_limit - $nub;
+
+
+
+            return response(['msg' => 'Limit exced! Only '.$user->item_limit.' items allowed for this Member, remove '. $re .' items to continue!'] , 200);
+        }
+        else{
+            return response(['msg' => 'ok', 'id' => $user->id] , 200);
+        }
+
+    }
+
     public function cancel(Request $request){
 
         Order::find($request->token)->products()->detach();

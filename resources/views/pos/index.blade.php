@@ -615,6 +615,8 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
           if(res.msg == 'ok'){
             $('#delivery').empty();
+            $('#alert').empty();
+            $('#pay').prop('disabled', false);
             $('#delivery').append(`
             <div class=" flex">
             <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${data}'); takeaway()"> <b class="lab1a">Take away</b></div>
@@ -636,7 +638,42 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
         }
     });
+  }
 
+  //continue with military id
+  const cartcontinuebymid = (data) => {
+
+    $.ajax({
+        type: 'GET',
+        url: `/pos/creditstatus2/${data}`,
+        success: function(res){
+          //console.log(res.msg);
+
+          if(res.msg == 'ok'){
+            $('#delivery').empty();
+            $('#alert').empty();
+            $('#pay').prop('disabled', false);
+            $('#delivery').append(`
+            <div class=" flex">
+            <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${res.id}'); takeaway()"> <b class="lab1a">Take away</b></div>
+            <div class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${res.id}')"> <b class="lab1a">Dinein</b></div>
+            <div class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></div>
+            </div>`);
+          }
+          else{
+
+            $('#delivery').empty();
+            $('#dt').empty();
+            $('#tables').empty();
+            $('#pt').empty();
+            $('#alert').empty();
+            $('#alert').append(`<div class="alert flex">${res.msg}</div>`);
+            $('#pay').prop('disabled', true);
+            //alert(res.msg);
+          }
+
+        }
+    });
   }
 
   const takeaway = () => {
@@ -934,7 +971,17 @@ const getTables = (memberid) => {
               "_token": token,
           },
           success: function(res){
-           // console.log(res);
+
+            
+            var res = $('#autocomplete').val().split(" - ");
+
+            if(res[0] != ''){
+
+              //console.log(res[0]);
+
+              cartcontinuebymid(res[0]);
+            }
+
             getOrders();
           }
       });
@@ -974,6 +1021,10 @@ var token = $("meta[name='csrf-token']").attr("content");
           "_token": token,
       },
       success: function(){
+
+        
+
+
         getOrders();
       }
   });
@@ -1010,6 +1061,14 @@ var token = $("meta[name='csrf-token']").attr("content");
           "_token": token,
       },
       success: function(){
+
+        var res = $('#autocomplete').val().split(" - ");
+        if(res[0] != ''){
+          //console.log(res[0]);
+          cartcontinuebymid(res[0]);
+        }
+
+
         getOrders();
       }
   });
