@@ -188,26 +188,34 @@
  
                     </div>
 
-                    <div class="form-group col-md-3">
-                        <label for="inputCity">Status  </label>
-                         
-                        <label class="flex flex-row items-center mt-3">
-
-                         
-                            <div>
-                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" @if($user->status) checked @endif  name="status">
-                                <span class="ml-2 text-gray-700">Enabled</span>
-                            </div>
-
-                            <div>
-                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" @if(!$user->status) checked @endif name="status">
-                                <span class="ml-2 text-gray-700">Desabled</span>
-                            </div>
-                      
-
-                            
+                    <div class="form-group col-md-4">
+                        <label for="position" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                            Member Category:
                         </label>
+                        <select  
+                            required 
+                            class="form-control @error('category') is-invalid @enderror"
+                            name="category_id"
+                            id="category_id">
+                            @foreach ($memcategories as $category)
+                                <option 
+                                @if ($user->category_id == $category->id)
+                                    selected
+                                @endif
+                                
+                                value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+
+                            @error('category')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        
+                        </select>
                     </div>
+
+                    
 
                     <div class="form-group col-md-8">
                         <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
@@ -216,7 +224,20 @@
                         <input id="location" type="text"
                             class="form-control @error('location') is-invalid @enderror" name="location"
                             value="{{$user->location}}"   autofocus>
- 
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="inputCity">Status</label>
+                        <label class="flex flex-row items-center mt-3">
+                            <div>
+                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" @if($user->status) checked @endif  name="status">
+                                <span class="ml-2 text-gray-700">Enabled</span>
+                            </div>
+                            <div>
+                                <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" @if(!$user->status) checked @endif name="status">
+                                <span class="ml-2 text-gray-700">Desabled</span>
+                            </div>
+                        </label>
                     </div>
 
                 </div>

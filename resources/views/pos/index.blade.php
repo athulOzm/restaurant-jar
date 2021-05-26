@@ -72,7 +72,7 @@ $waiter = resolve('waiter');
           <div class="col-md-6 my-2">
             <div id="dtime">
               <p class="lab1a">Delivery Time</p>
-              <input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb">
+              <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
             </div>
           </div>
     
@@ -133,7 +133,7 @@ $waiter = resolve('waiter');
             border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
           </div>
           <div class="col-sm-6">
-            <button class="btn btn-primary btnc1" id="pay" type="button">Pay Now <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-primary btnc1" id="pay" type="button">Submit <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
     
@@ -188,7 +188,7 @@ width: 100%;
 bottom: 0;
 position: absolute;
 margin: 0;
-border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
+border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 
                 </div>
@@ -380,26 +380,33 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
 <script type="text/javascript">
 
-  $(document).ready(() => {
+$(document).ready(() => {
 
-      //items
-      getOrders();
+  //set time
+  var dtimee = $('#dtimee').val();
+  if(dtimee == ''){
+    $('#dtimee').val('2021-06-26T17:00:56')
+  }
 
-      //lightbox 
-      $("#pay").on("click", function(){
-        $(".backDrop").animate({"opacity": ".80"}, 300);
-        $(".box").animate({"opacity": "1.0"}, 300);
-        $(".backDrop, .box").css("display", "block");
-      });
-      $(".close, .backDrop").on("click", function(){
-        closeBox();
-      });
-      function closeBox(){
-        $(".backDrop, .box, .box2").animate({"opacity": "0"}, 300, function(){
-        $(".backDrop, .box, .box2").css("display", "none");
-        });
-      }
+  //items
+  getOrders();
+
+  //lightbox 
+  $("#pay").on("click", function(){
+    $(".backDrop").animate({"opacity": ".80"}, 300);
+    $(".box").animate({"opacity": "1.0"}, 300);
+    $(".backDrop, .box").css("display", "block");
   });
+  $(".close, .backDrop").on("click", function(){
+    closeBox();
+  });
+  function closeBox(){
+    $(".backDrop, .box, .box2").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2").css("display", "none");
+    });
+  }
+
+});
 
 
   //lightbox addon
@@ -501,6 +508,9 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
 
   $(document).ready(function(){	
+    
+    
+
 
 
 	var members = [];
@@ -545,6 +555,7 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 			//send parse data to autocomplete function
 			loadmenuss(menus);
 		}
+    
 	});
 
   function loadmenuss(options) {
@@ -597,19 +608,59 @@ border-radius: 0;">Submit Order <i class="fas fa-arrow-right"></i></button>
 
         $('#autocomplete2').val(res2[2] + ` (${pty})`);
 
-        cartcontinue(member.data);
+        var dtimee = $('#dtimee').val();
 
+        if(dtimee != ''){
+          cartcontinue(member.data, dtimee, 'withid');
+        }
 			}
 		});
 	}
   });
 
+
+
+const getlimitbydate = () => {
+
+
+    var dtimee = $('#dtimee').val();
+    
+    var res = $('#autocomplete').val().split(" - ");
+
+    if(dtimee != '' & res[0] != ''){
+      cartcontinue(res[0], dtimee, 'withmid');
+    }
+
+}
+
+
+
+
+
+
+  
+ 
+
+
+
+
+
+
+
   //member selected to continue
-  const cartcontinue = (data) => {
+  const cartcontinue = (data, delitime, pa) => {
+
+    var token = $("meta[name='csrf-token']").attr("content");
 
     $.ajax({
-        type: 'GET',
-        url: `/pos/creditstatus/${data}`,
+        type: 'POST',
+        url: `/pos/creditstatus`,
+        data: {
+          "id": data,
+          "dt": delitime,
+          "pa": pa,
+          "_token": token,
+        },
         success: function(res){
           //console.log(res.msg);
 
@@ -973,14 +1024,10 @@ const getTables = (memberid) => {
           success: function(res){
 
             
-            var res = $('#autocomplete').val().split(" - ");
-
-            if(res[0] != ''){
-
-              //console.log(res[0]);
-
-              cartcontinuebymid(res[0]);
-            }
+            // var res = $('#autocomplete').val().split(" - ");
+            // if(res[0] != ''){
+            //   cartcontinuebymid(res[0]);
+            // }
 
             getOrders();
           }
@@ -1062,13 +1109,10 @@ var token = $("meta[name='csrf-token']").attr("content");
       },
       success: function(){
 
-        var res = $('#autocomplete').val().split(" - ");
-        if(res[0] != ''){
-          //console.log(res[0]);
-          cartcontinuebymid(res[0]);
-        }
-
-
+        // var res = $('#autocomplete').val().split(" - ");
+        // if(res[0] != ''){
+        //   cartcontinuebymid(res[0]);
+        // }
         getOrders();
       }
   });

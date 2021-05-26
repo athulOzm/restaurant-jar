@@ -9,6 +9,7 @@ use App\User;
 use App\Card;
 
 use App\Http\Controllers\Controller;
+use App\MemberCategory;
 use App\Order;
 use App\PaymentType;
 use App\Providers\RouteServiceProvider;
@@ -34,8 +35,9 @@ class UserController extends Controller
 
     public function create(){
         $ranks = Rank::all();
+        $memcategories = MemberCategory::all();
         $paymenttypes = PaymentType::all();
-        return view('member.Create', compact('ranks', 'paymenttypes'));
+        return view('member.Create', compact('ranks', 'paymenttypes', 'memcategories'));
     }
 
     public function destroy(Request $request){
@@ -47,11 +49,12 @@ class UserController extends Controller
     
     public function edit(User $user){
         $ranks = Rank::all();
+        $memcategories = MemberCategory::all();
         $paymenttypes = PaymentType::all();
 
        // dd($user);
 
-        return view('member.Edit', compact('user', 'ranks', 'paymenttypes'));
+        return view('member.Edit', compact('user', 'ranks', 'paymenttypes', 'memcategories'));
     }
 
 
@@ -83,6 +86,7 @@ class UserController extends Controller
             'email'             =>      'nullable|unique:users|email',
             'phone'             =>      'min:8|unique:users',
             'memberid'          =>      'required|min:3|unique:users',
+            'category_id'       =>      'required',
             'rank_id'           =>      'required',
             'limit'             =>      'nullable',
             'item_limit'        =>      'nullable',
@@ -103,6 +107,7 @@ class UserController extends Controller
             'phone'             =>      'min:8|unique:users,phone,'.$request->id,
             'memberid'          =>      'required|min:3|unique:users,memberid,'.$request->id,
             'rank_id'           =>      'required',
+            'category_id'           =>      'required',
             'limit'             =>      'nullable',
             'item_limit'        =>      'nullable',
             'payment_type_id'   =>      'required',

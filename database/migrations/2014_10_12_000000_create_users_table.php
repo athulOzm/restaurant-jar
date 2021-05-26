@@ -43,6 +43,12 @@ class CreateUsersTable extends Migration
                 ->on('payment_types')
                 ->references('id')
                 ->onDelete('set null');
+
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')
+                ->on('member_categories')
+                ->references('id')
+                ->onDelete('set null');
         });
     }
 

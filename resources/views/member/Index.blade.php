@@ -35,9 +35,10 @@
                                             <th class="text-left text-blue-900">Military ID</th>
                                             <th class="text-left text-blue-900">Full Name</th>
                                             <th class="text-left text-blue-900">Email</th>
-                                            <th class="text-left text-blue-900">Phone Number</th>
+                                            <th class="text-left text-blue-900">Phone</th>
                                             <th class="text-left text-blue-900">Rank</th>
                                             <th class="text-left text-blue-900">Item Limit</th>
+                                            <th class="text-left text-blue-900">Category</th>
                                             <th class="text-left text-blue-900">Status</th>
                                             <th class="text-left text-blue-900" width="60">Action</th>
                                         
@@ -56,8 +57,14 @@
                                                 @if ($member->rank_id != null)
                                                 {{$member->getrank()->name}}
                                                 @endif
-                                                </td>
+                                            </td>
                                             <td>{{$member->item_limit}}</td>
+                                          
+                                            <td>
+                                                @if ($member->category_id != null)
+                                                {{$member->category->name}}
+                                                @endif
+                                            </td>
 
                                         <td> @if ($member->status) <span style="color: green"> Active</span> @else Desabled @endif </td>
 

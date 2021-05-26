@@ -191,6 +191,44 @@
  
                     </div>
 
+                    
+
+                    <div class="form-group col-md-4">
+                        <label for="position" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                            Member Category:
+                        </label>
+                        <select  
+                            required 
+                            class="form-control @error('category_id') is-invalid @enderror" 
+                            name="category_id"
+                            id="category_id">
+                            <option value="">Select category</option>
+                            @foreach ($memcategories as $category)
+                                <option
+                                @if (old('category_id') == $category->id)
+                                    selected
+                                @endif
+                                
+                                value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+
+                            @error('category_id')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                        Address:
+                        </label>
+                        <input id="location" type="text"
+                            class="form-control @error('location') is-invalid @enderror" name="location"
+                            value=""   autofocus>
+                    </div>
+
                     <div class="form-group col-md-3">
                         <label for="inputCity">Status</label>
                         <label class="flex flex-row items-center mt-3">
@@ -205,15 +243,7 @@
                         </label>
                     </div>
 
-                    <div class="form-group col-md-8">
-                        <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                        Address:
-                        </label>
-                        <input id="location" type="text"
-                            class="form-control @error('location') is-invalid @enderror" name="location"
-                            value=""   autofocus>
- 
-                    </div>
+
 
                 </div>
 

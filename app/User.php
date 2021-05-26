@@ -4,6 +4,7 @@ namespace App;
 
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -87,5 +88,30 @@ class User extends Authenticatable
         return number_format(array_sum($credit_total), 3);
 
         //return 45.500;
+    }
+
+    public function category(){
+
+        return $this->belongsTo(MemberCategory::class, 'category_id');
+        
+    }
+
+    public function getOrderStatus($dt){
+
+        $date = explode('T', $dt);
+        $date = $date[0];
+
+        $nub = $this->hasMany(Order::class)
+            ->whereDate('delivery_time', '=', $date)
+            //->whereDate('created_at', '2016-12-31')
+            ->count();
+
+        if($this->item_limit <= $nub){
+
+            return response(['msg' => 'Limit exced! Only '.$this->item_limit.' items allowed for this date'] , 200);
+        }
+        else{
+            return response(['msg' => 'ok', 'dt' => $nub] , 200);
+        }
     }
 }

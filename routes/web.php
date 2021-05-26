@@ -56,6 +56,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('member/rank/{rank}', 'RankController@edit')->name('member.rank.edit');
     Route::patch('member/rank', 'RankController@update')->name('member.rank.update');
 
+    //member category
+    Route::get('member/categories', 'MemberCategoryController@index')->name('member.category.index');
+    Route::post('member/category', 'MemberCategoryController@store')->name('member.category.store');
+    Route::delete('member/category/drop', 'MemberCategoryController@destroy')->name('member.category.delete');
+    Route::get('member/category/{category}', 'MemberCategoryController@edit')->name('member.category.edit');
+    Route::patch('member/category', 'MemberCategoryController@update')->name('member.category.update');
+
+  
+
     //payment type
     Route::get('pos/paymenttypes', 'PaymentTypeController@index')->name('pos.paymenttype.index');
     Route::post('pos/paymenttype', 'PaymentTypeController@store')->name('pos.paymenttype.store');
@@ -124,7 +133,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/gettables', 'PosController@gettables');
     Route::get('/pos/locations', 'PosController@getlocations');
     Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
-    Route::get('/pos/creditstatus/{user}', 'PosController@memberstatus');
+    Route::post('/pos/creditstatus', 'PosController@memberstatus');
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
     
