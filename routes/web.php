@@ -161,6 +161,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    //report
+    Route::get('/report/sale', 'ReportController@sale')->name('report.sale');
+
+
+
 
 
 

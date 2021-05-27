@@ -242,7 +242,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
         </div>
 
         <div class="row sitem">
-          <div class="col-md-8">Total Payment</div>
+          <div class="col-md-8">Total Settlement</div>
           <div class="col-md-4">RO: <b id="settle_total"></b></div>
         </div>
 
@@ -256,10 +256,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
           <div class="col-md-4">RO: <b id="settle_total_credit"></b></div>
         </div>
 
-        <div class="row sitem">
-          <div class="col-md-8">Cash in Drawer</div>
-          <div class="col-md-4">RO: <b id="settle_total_cashindrower"></b></div>
-        </div>
+    
 
         <div class="row">
      
@@ -471,12 +468,12 @@ $(document).ready(() => {
           $('#settle_total').empty();
           $('#settle_total_cash').empty();
           $('#settle_total_credit').empty();
-          $('#settle_total_cashindrower').empty();
+          //$('#settle_total_cashindrower').empty();
 
           $('#settle_total').append(res.st);
           $('#settle_total_cash').append(res.cash);
           $('#settle_total_credit').append(res.credit);
-          $('#settle_total_cashindrower').append(res.drawer);
+          //$('#settle_total_cashindrower').append(res.drawer);
         }
     });
    

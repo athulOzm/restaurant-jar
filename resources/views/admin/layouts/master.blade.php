@@ -166,6 +166,26 @@
 
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages8r" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-chart-pie"></i>
+          <span>Report</span>
+        </a>
+        <div id="collapsePages8r" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner ">
+       
+            <a class="collapse-item" href="{{route('report.sale')}}">Sale Report</a>
+            <a class="collapse-item" href="">Fast Moving</a>
+            <a class="collapse-item" href="">Slow Moviing</a>
+            <a class="collapse-item" href="">Settlement Report</a>
+            <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
+            <a class="collapse-item" href="">Member Status</a>
+    
+          </div>
+        </div>
+      </li>
+
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages8" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-cog"></i>
           <span>Settings</span>
@@ -463,7 +483,7 @@
   <script src="{{asset('dashboard/js/sb-admin-2.min.js')}}"></script>
 
   <!-- Page level plugins -->
-  <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script>
+  {{-- <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script> --}}
 
   <!-- Page level plugins -->
   <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -473,9 +493,9 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
-  <!-- Page level custom scripts -->
-  <!-- <script src="{{asset('dashboard/js/demo/chart-area-demo.js')}}"></script>
-  <script src="{{asset('dashboard/js/demo/chart-pie-demo.js')}}"></script> -->
+  {{-- <!-- Page level custom scripts -->
+  <script src="{{asset('dashboard/js/demo/chart-area-demo.js')}}"></script>
+  <script src="{{asset('dashboard/js/demo/chart-pie-demo.js')}}"></script> --}}
 
   <!-- Page level custom scripts -->
   <script src="{{asset('dashboard/js/demo/datatables-demo.js')}}"></script>
