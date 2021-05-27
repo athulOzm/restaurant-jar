@@ -9,16 +9,25 @@ use App\Events\Checkout;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
+use App\Settlement;
 use App\Table;
 use App\User;
 use Defuse\Crypto\Encoding;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class PosController extends Controller
 {
 
     public function pos(){
+
+        if(!Settlement::where('owner_id', auth()->user()->id)->where('closed_at', null)->first()){
+
+            Settlement::create([
+                'owner_id' => auth()->user()->id
+            ]);
+        }
 
         if (Session::exists('token')) {
 
@@ -298,6 +307,60 @@ class PosController extends Controller
         ]);
 
         return response(['msg' => 'ok'] , 200);
+    }
+
+    public function getsettlement(){
+
+        $csettle = Settlement::where('owner_id', auth()->user()->id)->where('closed_at', null)->first();
+
+       $ord = Order::where('reqfrom', auth()->user()->id)
+            ->where('status', 2)
+            ->whereTime('updated_at', '>', $csettle->created_at)
+            ->get();
+
+        //total
+        $tot_price = [];
+        $ord->each(function($item) use(&$tot_price){
+
+            $tot_price[] = number_format($item->total_price, 3);
+        });
+        $st = number_format(array_sum($tot_price), 3);
+
+        //cache
+        $tot_cash = [];
+        $ord->where('payment_type_id', 1)->each(function($item) use(&$tot_cash){
+
+            $tot_cash[] = number_format($item->total_price, 3);
+        });
+        $cash = number_format(array_sum($tot_cash), 3);
+
+        $tot_credit = [];
+        $ord->where('payment_type_id', 2)->each(function($item) use(&$tot_credit){
+
+            $tot_credit[] = number_format($item->total_price, 3);
+        });
+        $credit = number_format(array_sum($tot_credit), 3);
+
+        return response([
+            'st'    =>  $st,
+            'cash'    =>  $cash,
+            'credit'    =>  $credit,
+            'drawer'    =>  $cash,
+
+        ], 200);
+    }
+
+    public function donesettlement(){
+
+        Settlement::where('owner_id', auth()->user()->id)
+            ->where('closed_at', null)
+            ->first()
+            ->update(['closed_at' => Carbon::now()]);
+
+        //Auth::logout();
+        Session::flush();
+
+        return response('done' , 200);
     }
 }
  

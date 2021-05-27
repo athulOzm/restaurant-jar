@@ -71,7 +71,7 @@ class OrderProduct extends Model
 
             $tprice[] = number_format($item->price * $item->pivot->quantity, 3);
         });
-
+        //getPriceTotalWithTaxAttribute()
         return number_format(array_sum($tprice), 3);
     }
 

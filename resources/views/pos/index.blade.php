@@ -132,12 +132,17 @@ $waiter = resolve('waiter');
             background: #6e89e4;
             border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
           </div>
-          <div class="col-sm-6">
+
+          <div class="col-sm-3">
+            <button class="btn btn-primary btnc2" style="
+            background: #00BCD4;
+    border: 1px solid #03A9F4;" onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
+          </div>
+
+          <div class="col-sm-3">
             <button class="btn btn-primary btnc1" id="pay" type="button">Submit <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
-    
-
       </div>
 
       <div class="backDrop"></div>
@@ -230,9 +235,44 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
-    
-    
-  </div>
+
+      <div class="boxsett3 scro " style="max-height: 90vh; overflow-x:hidden">
+        <div class="row">
+          <div class="bgh2 setle">Settlement</div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Total Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Cash Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_cash"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Credit Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_credit"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Cash in Drawer</div>
+          <div class="col-md-4">RO: <b id="settle_total_cashindrower"></b></div>
+        </div>
+
+        <div class="row">
+     
+          <div class="col-md-12" style="text-align: center"><button class="btn btn-primary btnc2" style="
+            background: #00BCD4;
+    border: 1px solid #03A9F4;" onclick="donsettlement()" type="button"><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
+        </div>
+
+
+      </div>
+
+
+    </div>
 
 
 
@@ -401,8 +441,8 @@ $(document).ready(() => {
     closeBox();
   });
   function closeBox(){
-    $(".backDrop, .box, .box2").animate({"opacity": "0"}, 300, function(){
-    $(".backDrop, .box, .box2").css("display", "none");
+    $(".backDrop, .box, .box2, .boxsett3").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .boxsett3").css("display", "none");
     });
   }
 
@@ -411,14 +451,56 @@ $(document).ready(() => {
 
   //lightbox addon
   const showaddon = (pitem, pid)=>{
-
-
     getaddon(pitem);
     getaddonavailable(pid, pitem);
 
     $(".backDrop").animate({"opacity": ".80"}, 300);
     $(".box2").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .box2").css("display", "block");
+  }
+
+
+
+  //show settlement
+  const showsettlement = ()=>{
+    $.ajax({
+        type: 'GET',
+        url: `/pos/getsettlement`,
+        success: function(res){
+          console.log(res);
+          $('#settle_total').empty();
+          $('#settle_total_cash').empty();
+          $('#settle_total_credit').empty();
+          $('#settle_total_cashindrower').empty();
+
+          $('#settle_total').append(res.st);
+          $('#settle_total_cash').append(res.cash);
+          $('#settle_total_credit').append(res.credit);
+          $('#settle_total_cashindrower').append(res.drawer);
+        }
+    });
+   
+    $(".backDrop").animate({"opacity": ".80"}, 300);
+    $(".boxsett3").animate({"opacity": "1.0"}, 300);
+    $(".backDrop, .boxsett3").css("display", "block");
+  }
+
+  //settlement done
+  const donsettlement = () => {
+
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        type: 'POST',
+        url: `/pos/donesettlement`,
+        data: {
+            //"token": id,
+            "_token": token,
+        },
+        success: function(res){
+        location.reload();  
+        }
+    });
+
   }
 
 
@@ -555,7 +637,7 @@ $(document).ready(() => {
 			//send parse data to autocomplete function
 			loadmenuss(menus);
 		}
-    
+
 	});
 
   function loadmenuss(options) {
@@ -995,14 +1077,7 @@ const getTables = (memberid) => {
           "_token": token,
       },
       success: function(res){
-       // console.log(res);
-
-      //  $('#pt').empty();
-      //   $('#dtime').empty();
-      //   $('#dt').empty();
-      //   $('#memberid').val('');
-      location.reload();
-        
+      location.reload();  
       }
   });
 }

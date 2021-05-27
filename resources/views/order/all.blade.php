@@ -30,13 +30,15 @@
                                    
 
 
-                                    <th width="30">Order Id</th>
-                                    <th width="30">Name</th>
+                                    <th width="30">Member ID</th>
+                                    <th width="30">Receipt Id</th>
+                                    <th width="30">User</th>
+                                    <th width="30">Ord. Source</th>
+                                    
 
-                                    <th width="30">Amount</th>
-                                    <th width="30">Payment</th>
-
-                                    <th width="30">View Products</th>
+                                    <th width="30">Amount Total</th>
+                                 
+ 
                                     <th width="30">Action</th>
                                     </tr>
                                 </thead>
@@ -44,19 +46,20 @@
                                 <tbody>
                                 @foreach($orders as $order)
                                     <tr>
+                                        <td>{{$order->user->memberid}}</td>
                                         <td>{{$order->id}}</td>
                                         <td>{{$order->user->name}}</td>
-                                        <td>30.400</td>
-                                        <td>Not Paid</td>
-
-
+                                        <td>{{$order->getReqByAttribute()}}</td>
+                                        <td>{{$order->gettotalprice()['subtotal']}}</td>
                                        
-                                        <th><a href="{{route('product.edit', $order->id)}}" class="btn btn-info    "> <i
-                                            class="fas fa-pencil-alt"></i> Menu list</a></th>
+ 
                                         
                                 <th>
+                                    <a href="" class="btn btn-info    "> <i
+                                        class="fas fa-pencil-alt"></i></a>
+
                                     <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
-                                    <form id="delfrm{{$order->id}}" action="{{route('product.destroy')}}" method="post">
+                                    <form id="delfrm{{$order->id}}" action="{{route('order.destroy')}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="id" value="{{$order->id}}">

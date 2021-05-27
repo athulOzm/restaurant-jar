@@ -260,7 +260,7 @@ input[type=checkbox], input[type=radio] {
     background: #e65776;
     border-color: #e65776;
     margin: 10px 0;
-    padding: 8px 40px;
+    padding: 8px 20px;
     
 }
 .btnc2 {
@@ -268,7 +268,7 @@ input[type=checkbox], input[type=radio] {
     background: #b6bece;
     border-color: #b6bece;
     margin: 10px 0;
-    padding: 8px 20px;color: #333
+    padding: 8px 20px;color: #1b1f32
     
 }
 .tar{text-align: right}
@@ -458,6 +458,37 @@ input[type=checkbox], input[type=radio] {
   -webkit-border-radius: 2px;
   border-radius: 2px; background: #1a1f32; padding-bottom: 0px;overflow-y: scroll;
 }
+
+.boxsett3{
+ border: 1px solid #656f9e;
+  padding: 0;
+  display: none;
+   
+  left: 50%;
+  margin-left: -260px;
+  opacity: 0;
+  position: fixed;
+  top: 4%;
+  z-index: 51; width: 500px;
+  
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; background: #fff; padding-bottom: 0px;overflow-y: scroll;padding: 0px;
+}
+.setle {
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.sitem {
+    background: #fff;
+    padding: 10px;
+    color: #333;
+    border-bottom: 1px solid #e7e7e7;font-size: 13px
+}
+
 .p0{padding: 0!important}
 .close{
   color: white;

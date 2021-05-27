@@ -22,4 +22,10 @@ class OrderController extends Controller
         return view('order.all', ['orders' => Order::where('status', '!=', 1)->get()]);
         
     }
+
+    public function destroy(Request $request)
+    {
+        Order::find($request->id)->delete();
+        return back();
+    }
 }

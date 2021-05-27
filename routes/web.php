@@ -112,6 +112,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('orders/active', 'OrderController@active')->name('order.active');
     Route::get('orders/delivered', 'OrderController@delivered')->name('order.delivered');
     Route::get('orders/all', 'OrderController@all')->name('order.all');
+    Route::delete('order', 'OrderController@destroy')->name('order.destroy');
+
 
 
     //kitchen
@@ -142,6 +144,9 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('setting/vat', 'SettingController@vatupdate')->name('vat.update');
 
     Route::post('pos/cancel', 'PosController@cancel');
+    Route::get('pos/getsettlement', 'PosController@getsettlement');
+    Route::post('pos/donesettlement', 'PosController@donesettlement');
+
 
 
 

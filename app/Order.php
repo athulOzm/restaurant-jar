@@ -16,7 +16,7 @@ class Order extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['req_by'];
+    protected $appends = ['req_by', 'total_price'];
 
     public function user(){
 
@@ -118,6 +118,11 @@ class Order extends Model
 
             return $re->name;
         } else { return '';}
+    }
+
+    public function getTotalPriceAttribute(){
+        
+        return $this->gettotalprice()['subtotal'];
     }
 
     // public function getDeliveryTime(){
