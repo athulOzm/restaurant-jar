@@ -26,6 +26,20 @@
         <div class="col-md-3">
             <input name="dt"  step="any" required type="datetime-local" class="form-control border-gray-400 txtb">
         </div>
+        <div class="col-md-2">
+            <div class="form-group col-md-4">
+               
+                <select required="" class="form-control txtb" name="payment_type_id" id="paymenttype" style="width: auto">
+                    <option value="">User</option>
+
+       
+                                                    <option selected value="1">Admin</option>
+                                                   
+                    
+                                            
+                </select>
+            </div>
+        </div>
         <div class="col-md-4">
             <button class="btn btn-primary btnc1" id="pay" type="submit">View Report <i class="fas fa-arrow-right"></i></button>
         </div>
@@ -46,15 +60,11 @@
 
     <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
         
-        <div class="col-md-8">
+        <div class="col-md-12">
             <canvas id="barChartmonth" style="width: 100%"></canvas>
         </div>
     
-        <div class="col-md-4">
-            {{-- <h5 style="width: 100%">Source</h5> --}}
-
-            <canvas id="cer1" style="width: 600px"></canvas>
-        </div>
+        
     </div>
 
     <br> <br>
@@ -69,14 +79,11 @@
     </div>
     <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
         
-        <div class="col-md-8">
+        <div class="col-md-12">
             <canvas id="barChart" style="width: 100%"></canvas>
         </div>
     
-        <div class="col-md-4">
-            {{-- <h5 style="width: 100%">Source</h5> --}}
-            <canvas id="cer2" style="width: 600px"></canvas>
-        </div>
+        
     </div>
 
     <br> <br> 
@@ -113,7 +120,7 @@ function randomScalingFactor() {
 var barData = {
     labels: @json($month),
     datasets: [{
-        label: 'Total Order',
+        label: 'Total Settlement',
         backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
         borderColor: chartColors.red,
         borderWidth: 1,
@@ -185,69 +192,7 @@ var	myNewChartB = new Chart(ctx, {
 });
 
 
-
-
-
-
-
-
-
-
-
-const data = {
-  labels: [
-    'Take Away',
-    'Dinein',
-    'Delivery'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [{{$ta1}}, {{$di1}}, {{$de1}}],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(75, 192, 192)',
-      'rgb(255, 205, 86)',
-      'rgb(201, 203, 207)',
-      'rgb(54, 162, 235)'
-    ]
-  }]
-};
-
-const data2 = {
-  labels: [
-    'Take Away',
-    'Dinein',
-    'Delivery'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [{{$ta2}}, {{$di2}}, {{$de2}}],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(75, 192, 192)',
-      'rgb(255, 205, 86)',
-      'rgb(201, 203, 207)',
-      'rgb(54, 162, 235)'
-    ]
-  }]
-};
-
-var index = 11;
-var ctx = document.getElementById("cer1").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'polarArea',
-  data: data,
-  options: {}
-});
-
  
-var index = 11;
-var ctx = document.getElementById("cer2").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'polarArea',
-  data: data2,
-  options: {}
-});
 </script>
 
  
