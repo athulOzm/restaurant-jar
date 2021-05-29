@@ -161,15 +161,25 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    //report
+    //sale report
     Route::get('/report/sale', 'ReportController@sale')->name('report.sale');
     Route::post('/report/sale/search', 'ReportController@saleSearch')->name('report.sale.search');
 
+    //fastmoving
     Route::get('/report/fastmoving', 'ReportController@fastmoving')->name('report.fastmoving');
     Route::post('/report/fastmoving/search', 'ReportController@fastMovingSearch')->name('report.fastmoving.search');
 
+    //sloemoving 
     Route::get('/report/slowmoving', 'ReportController@slowmoving')->name('report.slowmoving');
     Route::post('/report/slowmoving/search', 'ReportController@slowMovingSearch')->name('report.slowmoving.search');
+
+    //settlement report
+    Route::get('/report/settlement', 'ReportController@settlement')->name('report.settlement');
+    Route::post('/report/settlement/search', 'ReportController@settlementSearch')->name('report.settlement.search');
+
+    //member report status
+    Route::get('/report/members', 'ReportController@member')->name('report.member');
+
 
 
 

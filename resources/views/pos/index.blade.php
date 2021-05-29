@@ -422,7 +422,7 @@ $(document).ready(() => {
   //set time
   var dtimee = $('#dtimee').val();
   if(dtimee == ''){
-    $('#dtimee').val('2021-05-28T17:00:56')
+    $('#dtimee').val('2021-05-29T00:00:00')
   }
 
   //items

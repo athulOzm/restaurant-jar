@@ -14,8 +14,8 @@
    
 
 <div class="container">
-    <h4 class="mb-3">Sales Report</h4>
-    <form action="{{route('report.sale.search')}}" method="POST">
+    <h4 class="mb-3">Settlement Report</h4>
+    <form action="{{route('report.settlement.search')}}" method="POST">
         @csrf()
         @method('POST')
     <div class="row mb-3">
@@ -35,11 +35,11 @@
 <br> 
     
 <div class="row" style="background: #fff; padding:20px">
-    <h5 style="width: 100%">Sales Last 30 Days</h5>
+    <h5 style="width: 100%">Settlement Last 30 Days</h5>
 
     <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
         
-        <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot}}</b> & 
+        <span style="color: #888; font-size:15px">Total Settlement <b style="color: blue">RO {{$tot}}</b> & 
             <b style="color: blue">{{$tord}}</b> Token used </span> </h5>
 </div>
 
@@ -60,11 +60,11 @@
     <br> <br>
 
     <div class="row" style="background: #fff; padding:20px">
-        <h5 style="width: 100%">Sales Current Financial Year</h5>
+        <h5 style="width: 100%">Settlement Current Financial Year</h5>
     
         <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
             
-            <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot2}}</b> & 
+            <span style="color: #888; font-size:15px">Total Settlement <b style="color: blue">RO {{$tot2}}</b> & 
                 <b style="color: blue">{{$tord2}}</b> Token used </span> </h5>
     </div>
     <div class="row" style="background: #fff; padding:20px; border-radius: 3px">

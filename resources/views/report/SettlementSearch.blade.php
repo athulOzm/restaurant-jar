@@ -14,8 +14,13 @@
    
 
 <div class="container">
-    <h4 class="mb-3">Sales Report</h4>
-    <form action="{{route('report.sale.search')}}" method="POST">
+   
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h2 class="h5 mb-0" style="font-weight: 700">SEARCH RESULT FOR Settlement</h2>
+        
+      </div>
+
+    <form action="{{route('report.settlement.search')}}" method="POST">
         @csrf()
         @method('POST')
     <div class="row mb-3">
@@ -32,55 +37,42 @@
    
     </div>
 </form>
-<br> 
+    <br> 
     
-<div class="row" style="background: #fff; padding:20px">
-    <h5 style="width: 100%">Sales Last 30 Days</h5>
+    <div class="row">
+        <div class="col-md-12"><h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
+            Search result from <u>{{$date_from}}</u> to <u>{{$date_from}}</u> <br><br> 
+            <span style="color: #888; font-size:20px"> Total Settlement <b style="color: blue">RO {{$tot}}</b> & 
+                <b style="color: blue">{{$tord}}</b> Token used </span> </h5></div>
+    </div>
 
-    <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
-        
-        <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot}}</b> & 
-            <b style="color: blue">{{$tord}}</b> Token used </span> </h5>
-</div>
 
 
     <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
-        
-        <div class="col-md-8">
+        <div class="col-md-12 mt-5">
             <canvas id="barChartmonth" style="width: 100%"></canvas>
         </div>
+    </div>
     
-        <div class="col-md-4">
-            {{-- <h5 style="width: 100%">Source</h5> --}}
 
-            <canvas id="cer1" style="width: 600px"></canvas>
+    <div class="row" >
+        <div class="col-md-4 mt-5" style="background: #fff;style="padding-bottom: 40px"">
+            <h5 style="width: 100%; line-height:90px; text-align:center">Service Type</h5>
+            <canvas id="cer1" ></canvas>
+        </div>
+        <div class="col-md-4 mt-5" style="background: #fff;style="padding-bottom: 40px"">
+            <h5 style="width: 100%; line-height:90px; text-align:center">Payment Type (OMR)</h5>
+            <canvas id="cer2" ></canvas>
+        </div>
+        <div class="col-md-4 mt-5" style="background: #fff;style="padding-bottom: 40px"">
+            <h5 style="width: 100%; line-height:90px; text-align:center">Order Source</h5>
+            <canvas id="cer3"></canvas>
         </div>
     </div>
 
     <br> <br>
 
-    <div class="row" style="background: #fff; padding:20px">
-        <h5 style="width: 100%">Sales Current Financial Year</h5>
-    
-        <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
-            
-            <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot2}}</b> & 
-                <b style="color: blue">{{$tord2}}</b> Token used </span> </h5>
-    </div>
-    <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
-        
-        <div class="col-md-8">
-            <canvas id="barChart" style="width: 100%"></canvas>
-        </div>
-    
-        <div class="col-md-4">
-            {{-- <h5 style="width: 100%">Source</h5> --}}
-            <canvas id="cer2" style="width: 600px"></canvas>
-        </div>
-    </div>
-
-    <br> <br> 
-
+ 
 
   </div>
  
@@ -104,48 +96,7 @@ var chartColors = {
     grey: 'rgb(231,233,237)'
 };
 
-function randomScalingFactor() {
-    return Math.round(Math.random() * 960);
-}
-
-//var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-var barData = {
-    labels: @json($month),
-    datasets: [{
-        label: 'Total Order',
-        backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-        borderColor: chartColors.red,
-        borderWidth: 1,
-        data: @json($month_order)
-    }, {
-        label: 'Total Amount',
-        backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-        borderColor: chartColors.blue,
-        borderWidth: 1,
-        data: @json($days_total2)
-    }]
-};
-
-var index = 11;
-var ctx = document.getElementById("barChart").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'bar',
-    data: barData,
-    options: {
-        responsive: false,
-        maintainAspectRation: false,
-        legend: {
-            position: 'top',
-        },
-        title: {
-            display: true,
-            text: 'Bar Chart'
-        },
-        
-    }
-});
-
+ 
 
  
 var barData2 = {
@@ -171,8 +122,8 @@ var	myNewChartB = new Chart(ctx, {
     type: 'bar',
     data: barData2,
     options: {
-        responsive: true,
-        maintainAspectRation: true,
+        responsive: false,
+        maintainAspectRation: false,
         legend: {
             position: 'top',
         },
@@ -192,7 +143,7 @@ var	myNewChartB = new Chart(ctx, {
 
 
 
-
+//------------service type
 
 const data = {
   labels: [
@@ -212,16 +163,25 @@ const data = {
     ]
   }]
 };
+var index = 11;
+var ctx = document.getElementById("cer1").getContext("2d");
+var	myNewChartB = new Chart(ctx, {
+    type: 'polarArea',
+  data: data,
+  options: {}
+});
+
+
+//----------- Payment status
 
 const data2 = {
   labels: [
-    'Take Away',
-    'Dinein',
-    'Delivery'
+    'Total Debit',
+    'Total Credit'
   ],
   datasets: [{
     label: 'My First Dataset',
-    data: [{{$ta2}}, {{$di2}}, {{$de2}}],
+    data: [498, 343],
     backgroundColor: [
       'rgb(255, 99, 132)',
       'rgb(75, 192, 192)',
@@ -231,23 +191,43 @@ const data2 = {
     ]
   }]
 };
-
-var index = 11;
-var ctx = document.getElementById("cer1").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'polarArea',
-  data: data,
-  options: {}
-});
-
- 
 var index = 11;
 var ctx = document.getElementById("cer2").getContext("2d");
 var	myNewChartB = new Chart(ctx, {
-    type: 'polarArea',
+  type: 'polarArea',
   data: data2,
   options: {}
 });
+
+
+//----------- order source
+
+const data3 = {
+  labels: [
+    'Admin POS',
+    'Divice One',
+    'Member Apps'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [{{$tord}}, 0, 0],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ]
+  }]
+};
+var index = 11;
+var ctx = document.getElementById("cer3").getContext("2d");
+var	myNewChartB = new Chart(ctx, {
+  type: 'polarArea',
+  data: data3,
+  options: {}
+});
+ 
 </script>
 
  
