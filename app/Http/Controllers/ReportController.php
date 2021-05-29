@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderProduct;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -90,10 +92,7 @@ class ReportController extends Controller
         return view('report.SaleReport', compact('days', 'days_order', 'days_total', 'month', 'month_order', 'days_total2', 'ta1', 'ta2', 'de1', 'de2', 'di1', 'di2'));
     }
 
-
-
     //sale search
-
     public function saleSearch(Request $request){
 
         $date_from = str_replace('T', ' ', $request->df).':00';
@@ -129,6 +128,94 @@ class ReportController extends Controller
 
         return view('report.SaleSearch', 
         compact('days', 'days_order', 'days_total', 'ta1', 'di1', 'de1', 'date_from', 'date_to', 'tot', 'tord'));
+    }
+
+
+
+
+
+
+    //----------------------------------------------------fast moving
+
+
+    public function fastmoving(){
+ 
+        $menus = DB::table('order_product')
+                 ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
+                 ->select('product_id', DB::raw('count(*) as tot'), 'products.name')
+                 ->groupBy('product_id')
+                 ->get()
+                 ->sortByDesc('tot')
+                 ->take(10);
+
+         $product_id = $menus->pluck('name')->toArray();
+         $product_count = $menus->pluck('tot')->toArray();
+
+        return view('report.FastMoving', compact('product_id', 'product_count'));
+    }
+
+    //sale search
+    public function fastMovingSearch(Request $request){
+
+        $date_from = str_replace('T', ' ', $request->df).':00';
+        $date_to = str_replace('T', ' ', $request->dt).':00';
+
+         
+
+        $menus = DB::table('order_product')
+                 ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
+                 ->select('product_id', DB::raw('count(*) as tot'), 'products.name')
+                 ->groupBy('product_id')
+                 ->get()
+                 ->sortByDesc('tot')
+                 ->take(10);
+
+         $product_id = $menus->pluck('name')->toArray();
+         $product_count = $menus->pluck('tot')->toArray();
+
+        return view('report.FastMovingSer', compact('product_id', 'product_count'));
+    }
+
+
+      //----------------------------------------------------slow fast moving
+
+
+      public function slowmoving(){
+ 
+        $menus = DB::table('order_product')
+                 ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
+                 ->select('product_id', DB::raw('count(*) as tot'), 'products.name')
+                 ->groupBy('product_id')
+                 ->get()
+                 ->sortBy('tot')
+                 ->take(10);
+
+         $product_id = $menus->pluck('name')->toArray();
+         $product_count = $menus->pluck('tot')->toArray();
+
+        return view('report.SlowMoving', compact('product_id', 'product_count'));
+    }
+
+    //sale search
+    public function slowMovingSearch(Request $request){
+
+        $date_from = str_replace('T', ' ', $request->df).':00';
+        $date_to = str_replace('T', ' ', $request->dt).':00';
+
+         
+
+        $menus = DB::table('order_product')
+                 ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
+                 ->select('product_id', DB::raw('count(*) as tot'), 'products.name')
+                 ->groupBy('product_id')
+                 ->get()
+                 ->sortBy('tot')
+                 ->take(10);
+
+         $product_id = $menus->pluck('name')->toArray();
+         $product_count = $menus->pluck('tot')->toArray();
+
+        return view('report.SlowMovingSer', compact('product_id', 'product_count'));
     }
 
 

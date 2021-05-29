@@ -174,8 +174,8 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('report.sale')}}">Sale Report</a>
-            <a class="collapse-item" href="">Fast Moving</a>
-            <a class="collapse-item" href="">Slow Moviing</a>
+            <a class="collapse-item" href="{{route('report.fastmoving')}}">Fast Moving</a>
+            <a class="collapse-item" href="{{route('report.slowmoving')}}">Slow Moviing</a>
             <a class="collapse-item" href="">Settlement Report</a>
             <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
             <a class="collapse-item" href="">Member Status</a>

@@ -165,6 +165,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/report/sale', 'ReportController@sale')->name('report.sale');
     Route::post('/report/sale/search', 'ReportController@saleSearch')->name('report.sale.search');
 
+    Route::get('/report/fastmoving', 'ReportController@fastmoving')->name('report.fastmoving');
+    Route::post('/report/fastmoving/search', 'ReportController@fastMovingSearch')->name('report.fastmoving.search');
+
+    Route::get('/report/slowmoving', 'ReportController@slowmoving')->name('report.slowmoving');
+    Route::post('/report/slowmoving/search', 'ReportController@slowMovingSearch')->name('report.slowmoving.search');
+
 
 
 
