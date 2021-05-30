@@ -32,7 +32,7 @@
             margin: 0;
             font-size: 11px;
         ">Member ID / Name / Phone</p>
-          <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+          <input type="text" name="memberid" required id="sermenus" class="form-control w-full txtb">
         </div>
         
         <div class="col-md-4 mt-3">
@@ -124,37 +124,44 @@ $(document).ready(function(){
 
 
 
-    var members = [];
-    $.ajax({
-      url: "/pos/getmembers",
-     // /pos/getmember
-      async: true,
-      dataType: 'json',
-      success: function (data) {
-        //console.log(data);
-        for (var i = 0, len = data.length; i < len; i++) {
-          var id = (data[i].id).toString();
-          members.push({
-            'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 
-            'data' : id, 
-            'name' : data[i].name, 
-            'pty' : data[i].payment_type_id, 
-            'credit' : data[i].total_credit
-            });
-        }
-        loadSuggestions(members);
-      }
-    });
+  var menus = [];
+	$.ajax({
+		url: "/pos/getmenus",
+		async: true,
+		dataType: 'json',
+		success: function (data) {
+      //console.log(data);
+			for (var i = 0, len = data.length; i < len; i++) {
+				var id = (data[i].id).toString();
+    
+        if(data[i].name_ar === 'null'){
+          menus.push({'value' : data[i].name, 'data' : id});
 
+				
+        } else{menus.push({'value' : data[i].name +  ` | ` + data[i].name_ar, 'data' : id});}
 
-    function loadSuggestions(options) {
-		$('#autocomplete').autocomplete({
-			lookup: options,
-			onSelect: function (member) {
- 
 			}
-		});
-	}
+			//send parse data to autocomplete function
+			loadmenuss(menus);
+		}
+
+	});
+
+  function loadmenuss(options) {
+		$('#sermenus').autocomplete({
+			lookup: options,
+			onSelect: function (menu) {
+
+        //console.log(menu);
+        //addtocart(menu.data);
+        $('#sermenus').val('');
+
+      }
+  });
+
+  }
+
+
   });
 
  

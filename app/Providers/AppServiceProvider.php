@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Addon;
 use App\Category;
 use App\Menutype;
+use App\Product;
 use App\Setting;
 use App\User;
 use Illuminate\Support\Facades\Schema;
@@ -52,6 +53,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('waiter', function(){
 
             return User::where('type', 4)->get();
+        });
+
+        app()->bind('allmenus', function(){
+
+            return Product::where('status', 1)->get();
         });
     }
 

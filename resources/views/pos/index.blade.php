@@ -3,6 +3,8 @@
 <?php 
 $menutypes = resolve('menutypesforpos');
 $waiter = resolve('waiter');
+$allmenus = resolve('allmenus');
+$mcategories = resolve('mcategories');
 ?>
 
  
@@ -286,16 +288,21 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
       <div id="exTab2">
         
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
-          <li class="nav-item" style="width: 50%">
+          <li class="nav-item" style="width: 40%">
             <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu" style="margin: 7px 3px;
             width: 96%;
             font-size: 14px;
             padding: 20px 15px;">
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Items</a>
+          </li>
+
           @foreach ($menutypes as $menutype)
           <?php $nub = 1; ?>
             <li class="nav-item">
-              <a class="nav-link @if ($loop->first) active   @endif" id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
+              <a class="nav-link " id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
             </li>
             <?php 
             $nub = 2;
@@ -308,9 +315,115 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 
         <div class="tab-content" id="pills-tabContent">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="tab-pane fade show active" id="pall" role="tabpanel" aria-labelledby="all">
+
+
+            <div class="row">
+
+              <div class="col-10 p0">
+                <div class="tab-content" id="v-pills-tabContent">
+                  
+                  
+                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div style="display: flex;flex-wrap: wrap;">
+                      @forelse ($allmenus as $product)
+                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
+                        min-height:110px;
+            background-size: 100% 100%;">
+                          <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
+                          
+
+                          <h6 class="itemtitle">{{$product->name}}</h6>
+                        </div>
+                      @empty
+                        No menu found!
+                      @endforelse
+                    </div> 
+                  </div>
+
+                  @foreach ($mcategories as $cat)
+                    <div class="tab-pane fade" id="v-pills-{{$cat->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}">
+                      <div style="display: flex;flex-wrap: wrap;">
+                      @forelse ($cat->products as $product)
+                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
+                        min-height:110px;
+            background-size: 100% 100%;">
+                          <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
+                          
+
+                          <h6 class="itemtitle">{{$product->name}}</h6>
+                        </div>
+                      @empty
+                        No menu found!
+                      @endforelse
+                    </div>
+                    </div>
+                  @endforeach
+
+               
+                </div>
+              </div>
+
+
+              <div class="col-2 p0">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
+
+                  @foreach ($mcategories as $cat)
+                  
+                  <a class="nav-link" id="v-pills-profile-tab{{$cat->id}}" data-toggle="pill" href="#v-pills-{{$cat->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
+
+                @endforeach
+
+                
+                </div>
+              </div>
+              
+            </div>
+          
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           @foreach ($menutypes as $menutype)
             
-            <div class="tab-pane fade @if ($loop->first) show active @endif" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
+            <div class="tab-pane fade" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
 
 
               <div class="row">
