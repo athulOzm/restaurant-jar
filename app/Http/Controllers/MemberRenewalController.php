@@ -18,7 +18,7 @@ class MemberRenewalController extends Controller
 
             if($user = User::find($id)):
                 $d = Carbon::parse($user->renewal_at)->addYear();
-                $user->update(['renewal_at' => $d]);
+                $user->update(['renewal_at' => $d, 'status' => true]);
                 $user->renewals()->create([
                     'payment_type_id'   => $request->payment_type
                 ]);

@@ -76,11 +76,11 @@
                                             <th class="text-left text-blue-900"><input type="checkbox" id="chk"></th>
                                             <th class="text-left text-blue-900">Miss ID</th>
                                             <th class="text-left text-blue-900">Service ID</th>
+                                            <th class="text-left text-blue-900">Expired date</th>
                                             <th class="text-left text-blue-900">Full Name</th>
                                       
                                             <th class="text-left text-blue-900">Phone</th>
-                                            {{-- <th class="text-left text-blue-900">Rank</th> --}}
-                                            <th class="text-left text-blue-900">Item Limit</th>
+                                           
                                             <th class="text-left text-blue-900">Category</th>
                                             <th class="text-left text-blue-900">Status</th>
                                             
@@ -94,24 +94,20 @@
                                         <tr>
                                             <td> <input type="checkbox" id="del_{{$member->id}}" /></td>
                                             <td>{{$member->memberid}}</td>
-                                            <td>{{$member->memberid}}</td>
+                                            <td>{{$member->serviceid}}</td>
+                                            <td>{{ Carbon\Carbon::parse($member->renewal_at)->format('d M Y') }}</td>
+
                                             <td>{{$member->name}}</td>
                                             
                                             <td>{{$member->phone}}</td>
-                                            {{-- <td>
-                                                @if ($member->rank_id != null)
-                                                {{$member->getrank()->name}}
-                                                @endif
-                                            </td> --}}
-                                            <td>{{$member->item_limit}}</td>
-                                          
+                                         
                                             <td>
                                                 @if ($member->category_id != null)
                                                 {{$member->category->name}}
                                                 @endif
                                             </td>
 
-                                        <td style="padding-bottom: 0"> <p style="font-size: 14px; line-height:12px; margin-bottom:0"> @if ($member->status) <span style="color: green"> Active <br>{{ Carbon\Carbon::parse($member->renewal_at)->format('d M Y') }}</span> @else Inactive <br>{{ Carbon\Carbon::parse($member->renewal_at)->format('d M Y') }} @endif </p>
+                                        <td style="padding-bottom: 0"> <p style="font-size: 14px; line-height:12px; margin-bottom:0"> @if ($member->status) <span style="color: green"> Active <br></span> @else Inactive @endif </p>
                                         <br>
                                             {{-- <p style="font-size: 12px">()</p> --}}
                                         </td>

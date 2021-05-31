@@ -36,6 +36,10 @@ class UserController extends Controller
 
     public function rindex(){
 
+        User::where('type', 3)
+            ->whereDate('renewal_at', '<', '2021-04-31')
+            ->update(['status' => false]);
+
         return view('member.Renewal', ['members' => User::where('type', 3)
             ->whereDate('renewal_at', '<', '2021-04-31')
             ->get()
