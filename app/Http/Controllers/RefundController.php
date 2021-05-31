@@ -18,9 +18,9 @@ class RefundController extends Controller
             
             if(session()->has('totalprice')):
                 Session::forget('totalprice');
-                Session::put('toalprice', $ct->total_price);
+                Session::put('totalprice', $ct->total_price);
             else: 
-                Session::put('toalprice', $ct->total_price);
+                Session::put('totalprice', $ct->total_price);
             endif;
 
             return redirect()->route('pos.refund', $ct->id);

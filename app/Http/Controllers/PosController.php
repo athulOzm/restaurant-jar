@@ -158,7 +158,7 @@ class PosController extends Controller
     //pos get cart
     public function getcart(){
 
-        return response(Order::with('orderproducts')->find(Session::get('token')->id), 200);
+        return response(Order::with('orderproducts', 'user')->find(Session::get('token')->id), 200);
     }
 
     //pos get tot price

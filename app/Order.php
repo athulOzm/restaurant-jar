@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 use function GuzzleHttp\Promise\each;
 
@@ -16,7 +17,7 @@ class Order extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['req_by', 'total_price'];
+    protected $appends = ['req_by', 'total_price', 'refund_balance'];
 
     public function user(){
 
@@ -123,6 +124,20 @@ class Order extends Model
     public function getTotalPriceAttribute(){
         
         return $this->gettotalprice()['subtotal'];
+    }
+
+    public function getRefundBalanceAttribute(){
+        
+     
+        if(session()->has('totalprice')):
+
+            return number_format(session()->get('totalprice') - $this->gettotalprice()['subtotal'], 3);
+
+        else: 
+            //return $this->gettotalprice()['subtotal'];
+            return Session::get('totalprice');
+        endif;
+        
     }
 
     // public function getDeliveryTime(){

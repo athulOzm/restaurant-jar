@@ -63,12 +63,16 @@ $mcategories = resolve('mcategories');
     
           <div class="col-md-6">
             <p class="lab1a">MISS ID</p>
-            <input type="text" name="memberid" readonly required id="autocomplete" class="form-control w-full txtb">
+            <input type="text" name="memberid" readonly required id="autocomplete2a" style="background: #1c1f32;
+            border: 0;
+            padding: 0;" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
             <p class="lab1a">Member Name</p>
-            <input type="text" name="memberid_name" readonly required id="autocomplete2" class="form-control w-full txtb">
+            <input type="text" name="memberid_name" readonly style="background: #1c1f32;
+            border: 0;
+            padding: 0;" required id="autocomplete2" class="form-control w-full txtb">
           </div>
 
           
@@ -120,7 +124,7 @@ $mcategories = resolve('mcategories');
         </div>
         
         <div class="row totalamd tar">
-          <div class="col-sm-5"><b class="lab1">Total Amount:</b></div>
+          <div class="col-sm-5"><b class="lab1">Refund Amount:</b></div>
           <div class="col-sm-7" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
         </div>
 
@@ -1043,6 +1047,13 @@ const getTables = (memberid) => {
 
               var subt = [];
               console.log(res);
+
+              $('#autocomplete2a').val(res.user.memberid);
+              $('#autocomplete2').val(res.user.name);
+              $('#subtotal').empty();
+              $('#subtotal').append(res.refund_balance);
+
+              
               res.orderproducts.map(item => {
  
 
@@ -1116,14 +1127,14 @@ const getTables = (memberid) => {
 
           $('#st').empty();
           $('#vat').empty();
-          $('#subtotal').empty();
+          //$('#subtotal').empty();
           $('#discount').empty();
-          $('#subtotal2').val(null);
+          //$('#subtotal2').val(null);
 
           $('#st').append(res.price);
           $('#vat').append(res.tax);
-          $('#subtotal').append(res.subtotal);
-          $('#subtotal2').val(res.subtotal);
+          //$('#subtotal').append(res.subtotal);
+          //$('#subtotal2').val(res.subtotal);
           $('#discount').append(res.discount);
  
         }
@@ -1331,7 +1342,7 @@ const getDelTime = () => {
 
 //alert('asdf');
 
-    var avcre = $('#subtotal2').val();
+    //var avcre = $('#subtotal2').val();
     var ccre = $('#totcre').val();
     $('#vallimit').empty();
 
