@@ -34,6 +34,15 @@ class UserController extends Controller
         return view('member.Index', ['members' => User::where('type', 3)->get()]);
     }
 
+    public function rindex(){
+
+        return view('member.Renewal', ['members' => User::where('type', 3)
+            ->whereDate('renewal_at', '<', '2021-04-31')
+            ->get()
+        
+        ]);
+    }
+
     public function create(){
         $ranks = Rank::all();
         $memcategories = MemberCategory::all();

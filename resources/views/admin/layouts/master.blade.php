@@ -115,6 +115,7 @@
             <a class="collapse-item" href="{{route('member.ledger')}}">Ledger</a>
             <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
             <a class="collapse-item" href="{{route('member.category.index')}}">Member Category</a>
+            <a class="collapse-item" href="{{route('member.renewals')}}">Member Renewal</a>
     
           </div>
         </div>

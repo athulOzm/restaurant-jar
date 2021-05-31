@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('member/create', 'UserController@create')->name('member.create');
     Route::get('/members/ledger', 'UserController@ledger')->name('member.ledger');
     Route::patch('member/renewnow', 'MemberRenewalController@renewnow')->name('member.renew');
+    Route::get('/member/renewals', 'UserController@rindex')->name('member.renewals');
+
 
 
     //waiter
@@ -144,10 +146,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('setting/vat', 'SettingController@vat')->name('settings.vat');
     Route::patch('setting/vat', 'SettingController@vatupdate')->name('vat.update');
-
     Route::post('pos/cancel', 'PosController@cancel');
     Route::get('pos/getsettlement', 'PosController@getsettlement');
     Route::post('pos/donesettlement', 'PosController@donesettlement');
+
+    //sales return - refund
+    Route::post('pos/gettoken', 'RefundController@getToken')->name('pos.refund.gettoken');
+    Route::get('pos/refund/{order}', 'RefundController@refund')->name('pos.refund');
+
 
 
 

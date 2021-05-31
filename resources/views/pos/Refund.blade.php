@@ -53,7 +53,7 @@ $mcategories = resolve('mcategories');
 ">
 
           <div class="col-md-6 my-2">
-            <p class="lab1a" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
+            <p class="lab1a" >Token ID: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
           <div class="col-md-6 my-2">
@@ -63,32 +63,15 @@ $mcategories = resolve('mcategories');
     
           <div class="col-md-6">
             <p class="lab1a">MISS ID</p>
-            <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
+            <input type="text" name="memberid" readonly required id="autocomplete" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
             <p class="lab1a">Member Name</p>
-            <input type="text" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb">
+            <input type="text" name="memberid_name" readonly required id="autocomplete2" class="form-control w-full txtb">
           </div>
 
-          <div class="col-md-6 my-2">
-            <div id="dtime">
-              <p class="lab1a">Delivery Time</p>
-              <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
-            </div>
-          </div>
-    
-          <div class="col-md-6 my-1">
-         
-              <div id="delivery">
-                <div class=" flex">
-                <div class="box1a"><input type="radio" required="" name="del" value="Take away" onclick="getPaymenttype('9'); takeaway()"> <b class="lab1a">Take away</b></div>
-                <div class="box1a"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></div>
-                <div class="box1a"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></div>
-                </div>
-              </div>
           
-          </div>
 
        
 
@@ -103,7 +86,7 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 485px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 425px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
@@ -112,7 +95,7 @@ $mcategories = resolve('mcategories');
     
       <div class="bgh tar" style="padding-bottom: 3px;padding-top: 15px;min-height:230px; ">
         <div class="row">
-          <div class="col-md-7">
+          {{-- <div class="col-md-7">
         
               <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
@@ -121,9 +104,9 @@ $mcategories = resolve('mcategories');
                 </div>
               </div>
          
-          </div>
+          </div> --}}
 
-          <div class="col-md-5">
+          <div class="col-md-12">
             <div class="row" style="font-size: 14px">
                 <div class="col-sm-5">Sub Total:</div>
                 <div class="col-sm-7" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
@@ -142,91 +125,38 @@ $mcategories = resolve('mcategories');
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
           </div>
-          <div class="col-sm-2">
+          
+          <div class="col-sm-6">
+             
+          </div>
+          {{-- <div class="col-sm-2">
             <button class="btn btn-primary btnc2" style="
             background: #6e89e4;
             border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
-          </div>
+          </div> --}}
 
-          <div class="col-sm-3">
+          {{-- <div class="col-sm-3">
             <button class="btn btn-primary btnc2" style="
             background: #6c759c;
     border: 1px solid #424962;" id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
-          </div>
+          </div> --}}
 
-          <div class="col-sm-3">
+          {{-- <div class="col-sm-3">
             <button class="btn btn-primary btnc2" style="
             background: #00BCD4;
     border: 1px solid #03A9F4;" onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
-          </div>
+          </div> --}}
 
-          <div class="col-sm-2">
-            <button class="btn btn-primary btnc1" id="pay" type="button" style="padding: 8px 0; width:100%">Submit <i class="fas fa-arrow-right"></i></button>
+          <div class="col-sm-3 pull-right right">
+            <button class="btn btn-primary btnc1" id="pay" type="button" style="padding: 8px 0; width:100%">Refund <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
 
-      <div class="backDrop"></div>
-        <div class="box scro" style="max-height: 90vh; padding-bottom:0">
-          <div class="p0">
-            <div class="p0" style="display: flex">
-              <div class="col-sm-9 p0">
-                <div class="bgh">
-                  <div id="tables"></div>
-                  <div id="dt"></div>
-                  <div id="locations"></div>
-                  <div id="vallimit" style="
-                  font-size: 13px;
-                  color: #e65776;
-              "></div>
-                  <div id="pt"></div>
-
-                  
-
-
-
-                </div>
-              </div>
-              <div class="col-sm-3 p0" style="float: right; padding-top:20px">
-                <div class="bgh2" style="max-height: calc(100vh - 140px); min-height:55vh; padding:0px">
-                  <div style="padding: 10px">
-
-                        OMR 
-                    <input type="text" readonly id="subtotal2"  style="
-                        font-size: 33px;
-                        color: #e65776;
-                        background: #2c3346;
-                        border: none;width:170px
-                    "> <br> <br>
-
-                    Name <br>
-                    <b id="totcrename" style="color: white"></b>
-                    <hr>
-                    Credit Balance<br> <input type="text" readonly style="color: white;background: #2c3346;border: none;width:170px" id="totcre">
-
-
-                  </div>
-                
-
-<button class="btn btn-primary btnc1"   type="submit" style="padding: 30px 0px;
-width: 100%;
-
-margin: 0;
-border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
-
-
-                </div>
-              </div>
-            </div>
-            
-            
-
-            
-        </div>
-      </div>
+      
 
   
       <div class="box2 scro " style="max-height: 90vh; overflow-x:hidden">
@@ -260,37 +190,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
       
 
-      <div class="boxsett3 scro " style="max-height: 90vh; overflow-x:hidden">
-        <div class="row">
-          <div class="bgh2 setle" style="background: #4dbdd5">Settlement</div>
-        </div>
-
-        <div class="row sitem">
-          <div class="col-md-8">Total Settlement</div>
-          <div class="col-md-4">RO: <b id="settle_total"></b></div>
-        </div>
-
-        <div class="row sitem">
-          <div class="col-md-8">Cash Payment</div>
-          <div class="col-md-4">RO: <b id="settle_total_cash"></b></div>
-        </div>
-
-        <div class="row sitem">
-          <div class="col-md-8">Credit Payment</div>
-          <div class="col-md-4">RO: <b id="settle_total_credit"></b></div>
-        </div>
-
-    
-
-        <div class="row">
-          
-          <div class="col-md-12" style="text-align: center"><button class="btn btn-primary btnc2" style="
-            background: #00BCD4;
-    border: 1px solid #03A9F4;margin: 25px 2% 10px; width:96%; color:white" onclick="donsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
-        </div>
-
-
-      </div>
+      
 
 
     </div>
@@ -556,7 +456,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
     <form action="{{route('pos.refund.gettoken')}}" method="POST">
       @csrf()
       @method('POST')
-      <p class="lab1a" style="color: #1b1f32">Receipt ID</p>
+      <p class="lab1a" style="color: #1b1f32">Token ID</p>
       <input required type="text" name="token_id" class="form-control w-full txt" id="">
       <button class="btn btn-primary btnc1" id="pay" type="submit" style="padding: 8px 0; width:100%; background:#6c759c; border:1px solid #424962">Go <i class="fas fa-arrow-right"></i></button>
     </form>
@@ -1142,6 +1042,7 @@ const getTables = (memberid) => {
               `)
 
               var subt = [];
+              console.log(res);
               res.orderproducts.map(item => {
  
 

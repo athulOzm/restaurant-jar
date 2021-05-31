@@ -260,7 +260,7 @@ input[type=checkbox], input[type=radio] {
     background: #e65776;
     border-color: #e65776;
     margin: 10px 0;
-    padding: 8px 20px;
+    padding: 8px 20px;font-size: 14px
     
 }
 .btnc2 {
@@ -268,8 +268,9 @@ input[type=checkbox], input[type=radio] {
     background: #b6bece;
     border-color: #b6bece;
     margin: 10px 0;
-    padding: 8px 20px;color: #1b1f32
-    
+    padding: 8px 0px;
+    color: #1b1f32;
+    width: 100%;font-size: 14px
 }
 .tar{text-align: right}
 .p10{padding: 3px 10px}
@@ -457,6 +458,22 @@ input[type=checkbox], input[type=radio] {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; background: #1a1f32; padding-bottom: 0px;overflow-y: scroll;
+}
+.sales_return{
+ border:1px solid #424962;
+  padding: 20px;
+  display: none;
+   
+  left: 50%;
+  margin-left: -170px;
+  opacity: 0;
+  position: fixed;
+  top: 50%;
+  z-index: 51; width: 350px; margin-top: -150px;
+  
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; background: #fff; overflow-y: scroll; padding-bottom: 20px
 }
 
 .boxsett3{
