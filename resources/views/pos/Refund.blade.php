@@ -124,17 +124,22 @@ $mcategories = resolve('mcategories');
         </div>
         
         <div class="row totalamd tar">
-          <div class="col-sm-5"><b class="lab1">Refund Amount:</b></div>
-          <div class="col-sm-7" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
+          <div class="col-sm-5"><b class="lab1"></b></div>
+          <div class="col-sm-7" style="color:#e65776; line-height:20px; padding-left:25px"><label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
         </div>
 
         <div class="row">
-          <div class="col-sm-3">
-            <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
+          <div class="col-sm-5">
+            <button class="btn btn-primary btnc2" type="button" ><i class="fas fa-print"></i> Print</button>
           </div>
           
-          <div class="col-sm-6">
-             
+          <div class="col-sm-4">
+            <select required="" class="form-control mt-2" name="category_id" id="category_id">
+              
+                                              <option value="1">Cash</option>
+                                              <option value="2">Credit</option>
+              
+                                      </select>
           </div>
           {{-- <div class="col-sm-2">
             <button class="btn btn-primary btnc2" style="

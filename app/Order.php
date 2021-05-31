@@ -131,7 +131,13 @@ class Order extends Model
      
         if(session()->has('totalprice')):
 
-            return number_format(session()->get('totalprice') - $this->gettotalprice()['subtotal'], 3);
+            $ramount = number_format(session()->get('totalprice') - $this->gettotalprice()['subtotal'], 3);
+
+            if($ramount >= 0){
+                return 'Refund Amount '. $ramount;
+            } else{
+                return 'Pay Amount '. abs($ramount);
+            }
 
         else: 
             //return $this->gettotalprice()['subtotal'];
