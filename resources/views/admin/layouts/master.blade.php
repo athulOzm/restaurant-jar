@@ -159,6 +159,7 @@
             <a class="collapse-item" href="{{route('user.index')}}">Users</a>
             <a class="collapse-item" href="{{route('waiter.index')}}">Waiters</a>
             <a class="collapse-item" href="{{route('member.index')}}">Members</a>
+            <a class="collapse-item" href="{{route('member.index')}}">Devices</a>
     
           </div>
         </div>

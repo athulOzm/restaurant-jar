@@ -103,21 +103,37 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 472px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 485px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
       </div>
 
     
-      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 14px;min-height:230px">
+      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 15px;min-height:230px; ">
         <div class="row">
-          <div class="col-sm-5">Sub Total:</div>
-          <div class="col-sm-7" ><label id="st"  style="font-weight: 600;"></label></div>
-          <div class="col-sm-5">VAT:</div>
-          <div class="col-sm-7" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
-          <div class="col-sm-5">Discount:</div>
-          <div class="col-sm-7" ><label id="discount" style="font-weight: 600;">0.000</label></div>
+          <div class="col-md-7">
+        
+              <div class="bgh p0" style="text-align: left">
+                <b class="lab1a">Special Note</b>
+                <div class="flex">
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; margin-bottom:6px"></textarea>
+                </div>
+              </div>
+         
+          </div>
+
+          <div class="col-md-5">
+            <div class="row" style="font-size: 14px">
+                <div class="col-sm-5">Sub Total:</div>
+                <div class="col-sm-7" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
+                <div class="col-sm-5">VAT:</div>
+                <div class="col-sm-7" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
+                <div class="col-sm-5">Discount:</div>
+                <div class="col-sm-7" ><label id="discount" style="font-weight: 600;">0.000</label></div>
+            </div>
+          </div>
+ 
         </div>
         
         <div class="row totalamd tar">
@@ -156,16 +172,13 @@ $mcategories = resolve('mcategories');
                   <div id="tables"></div>
                   <div id="dt"></div>
                   <div id="locations"></div>
+                  <div id="vallimit" style="
+                  font-size: 13px;
+                  color: #e65776;
+              "></div>
                   <div id="pt"></div>
 
-                  <div>
-                    <div class="bgh p0 mt-2">
-                      <b class="lab1a">Special Note</b>
-                      <div class="flex">
-                        <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff"></textarea>
-                      </div>
-                    </div>
-                  </div>
+                  
 
 
 
@@ -176,15 +189,17 @@ $mcategories = resolve('mcategories');
                   <div style="padding: 10px">
 
                         OMR 
-                    <label id="subtotal2" style="
+                    <input type="text" readonly id="subtotal2"  style="
                         font-size: 33px;
                         color: #e65776;
-                    "></label> <br> <br>
+                        background: #2c3346;
+                        border: none;width:170px
+                    "> <br> <br>
 
                     Name <br>
                     <b id="totcrename" style="color: white"></b>
                     <hr>
-                    Previous Credit<br> <b style="color: white" id="totcre"></b>
+                    Credit Balance<br> <input type="text" readonly style="color: white;background: #2c3346;border: none;width:170px" id="totcre">
 
 
                   </div>
@@ -192,8 +207,7 @@ $mcategories = resolve('mcategories');
 
 <button class="btn btn-primary btnc1"   type="submit" style="padding: 30px 0px;
 width: 100%;
-bottom: 0;
-position: absolute;
+
 margin: 0;
 border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
@@ -296,7 +310,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Items</a>
+            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Menu</a>
           </li>
 
           @foreach ($menutypes as $menutype)
@@ -778,9 +792,9 @@ $(document).ready(() => {
 
         //console.log(member);
         //console.log();
-        $('#totcre').empty();
+        $('#totcre').val(null);
         $('#totcrename').empty();
-        $('#totcre').append(member.credit);
+        $('#totcre').val(member.credit);
         $('#totcrename').append(member.name);
         var res2 = member.value.split(" - ");
 
@@ -964,15 +978,15 @@ const getlimitbydate = () => {
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                  <div class="flex"><div class="box3"><input id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
+                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type </b>
                   <div class="flex">
                   <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
-                  <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  <div class="box3"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </div></div>`);
                  break;
              }
@@ -1163,12 +1177,12 @@ const getTables = (memberid) => {
           $('#vat').empty();
           $('#subtotal').empty();
           $('#discount').empty();
-          $('#subtotal2').empty();
+          $('#subtotal2').val(null);
 
           $('#st').append(res.price);
           $('#vat').append(res.tax);
           $('#subtotal').append(res.subtotal);
-          $('#subtotal2').append(res.subtotal);
+          $('#subtotal2').val(res.subtotal);
           $('#discount').append(res.discount);
  
         }
@@ -1213,7 +1227,7 @@ const getTables = (memberid) => {
             // if(res[0] != ''){
             //   cartcontinuebymid(res[0]);
             // }
-
+            $('#crepay').prop('checked', false);
             getOrders();
           }
       });
@@ -1374,8 +1388,20 @@ const getDeliverylocations = (memberid) => {
 
 const getDelTime = () => {
 
+//alert('asdf');
 
-    // $('#dtime').empty();
+    var avcre = $('#subtotal2').val();
+    var ccre = $('#totcre').val();
+    $('#vallimit').empty();
+
+    if(avcre < ccre){
+
+    
+    } else{
+      $('#crepay').prop('checked', false);
+      $('#vallimit').append('Credit Limit Exced!');
+    }
+    //alert(avcre);
     // $('#dtime').append(`<div class="bgh2"><b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb"></div>`);
 
     // $("#ctime").val(new Date().toJSON().slice(0,19));

@@ -75,13 +75,28 @@
 
                     <div class="form-group col-md-4">
                         <label for="memberid" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Military ID:
+                            Miss ID:
                         </label>
                         <input id="memberid" type="text"
                             class="form-control @error('memberid') is-invalid @enderror" name="memberid"
                             value="{{ old('memberid') }}" required  autofocus>
 
                             @error('memberid')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        <label for="serviceid" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                            Service ID:
+                        </label>
+                        <input id="serviceid" type="text"
+                            class="form-control @error('serviceid') is-invalid @enderror" name="serviceid"
+                            value="{{ old('serviceid') }}" required  autofocus>
+
+                            @error('serviceid')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -149,9 +164,9 @@
                         </select>
                     </div>
 
-                    {{-- <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
                         <label for="limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Order Limit:
+                            Member Limit:
                         </label>
                         <input id="limit" type="text"
                             class="form-control @error('limit') is-invalid @enderror" name="limit"
@@ -162,13 +177,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                    </div> --}}
+                    </div>
 
-                    <input type="hidden" name="limit" value="0">
+                
 
                     <div class="form-group col-md-4">
                         <label for="item_limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Item Limit Per Order:
+                            Order Limit:
                         </label>
                         <input id="item_limit" type="text"
                             class="form-control @error('item_limit') is-invalid @enderror" name="item_limit"
@@ -220,7 +235,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-4">
                         <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                         Address:
                         </label>

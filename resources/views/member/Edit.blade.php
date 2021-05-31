@@ -17,12 +17,19 @@
 
             <div class="col-md-12">
                 <div class="card shadow mb-12">
-                    <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Member</h6> 
-            
 
-        </div>
-        <div class="card-body">
+               
+
+
+
+
+
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Edit Member</h6>
+                    </div>
+
+
+                    <div class="card-body">
        
 
                 <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.update') }}">
@@ -77,13 +84,28 @@
 
                     <div class="form-group col-md-4">
                         <label for="memberid" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Military ID:
+                            Miss ID:
                         </label>
                         <input id="memberid" type="text"
                             class="form-control @error('memberid') is-invalid @enderror" name="memberid"
                             value="{{ $user->memberid }}" required  autofocus>
 
                             @error('memberid')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="serviceid" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                        Service ID:
+                        </label>
+                        <input id="serviceid" type="text"
+                            class="form-control @error('serviceid') is-invalid @enderror" name="serviceid"
+                            value="{{ $user->serviceid }}" required  autofocus>
+
+                            @error('serviceid')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -146,9 +168,9 @@
                         </select>
                     </div>
 
-                    {{-- <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
                         <label for="limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Order Limit:
+                            Credit Limit:
                         </label>
                         <input id="limit" type="text"
                             class="form-control @error('limit') is-invalid @enderror" name="limit"
@@ -159,13 +181,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                    </div> --}}
+                    </div>
 
-                    <input type="hidden" name="limit" value="0">
+                  
 
                     <div class="form-group col-md-4">
                         <label for="item_limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Item Limit Per Order:
+                            Member Limit:
                         </label>
                         <input id="item_limit" type="text"
                             class="form-control @error('item_limit') is-invalid @enderror" name="item_limit"
@@ -217,7 +239,7 @@
 
                     
 
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-4">
                         <label for="location" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                             Address:
                         </label>

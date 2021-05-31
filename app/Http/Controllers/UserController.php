@@ -14,6 +14,7 @@ use App\Order;
 use App\PaymentType;
 use App\Providers\RouteServiceProvider;
 use App\Rank;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,6 +58,8 @@ class UserController extends Controller
         return view('member.Edit', compact('user', 'ranks', 'paymenttypes', 'memcategories'));
     }
 
+    
+
 
 
 
@@ -79,6 +82,9 @@ class UserController extends Controller
     }
 
 
+    
+
+
     public function validateReq($request){
 
         return $request->validate([
@@ -86,6 +92,7 @@ class UserController extends Controller
             'email'             =>      'nullable|unique:users|email',
             'phone'             =>      'min:8|unique:users',
             'memberid'          =>      'required|min:3|unique:users',
+            'serviceid'         =>      'required|min:3|unique:users',
             'category_id'       =>      'required',
             'rank_id'           =>      'required',
             'limit'             =>      'nullable',
@@ -106,6 +113,7 @@ class UserController extends Controller
             'email'             =>      'nullable|email|unique:users,email,'.$request->id,
             'phone'             =>      'min:8|unique:users,phone,'.$request->id,
             'memberid'          =>      'required|min:3|unique:users,memberid,'.$request->id,
+            'serviceid'          =>      'required|min:3|unique:users,serviceid,'.$request->id,
             'rank_id'           =>      'required',
             'category_id'           =>      'required',
             'limit'             =>      'nullable',

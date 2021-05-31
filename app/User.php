@@ -85,7 +85,9 @@ class User extends Authenticatable
             $credit_total[] = $item->gettotalprice()['subtotal'];
         });
 
-        return number_format(array_sum($credit_total), 3);
+        $tcredit = number_format(array_sum($credit_total), 3);
+
+        return number_format($this->limit - $tcredit , 3);
 
         //return 45.500;
     }
@@ -113,5 +115,11 @@ class User extends Authenticatable
         else{
             return response(['msg' => 'ok', 'dt' => $nub] , 200);
         }
+    }
+
+    //renewals
+    public function renewals(){
+
+        return $this->hasMany(MemberRenewal::class);
     }
 }

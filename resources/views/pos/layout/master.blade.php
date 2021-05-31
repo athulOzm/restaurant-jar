@@ -246,7 +246,7 @@ input[type=checkbox], input[type=radio] {
     color: #e6ebf3; font-weight: 600
 }
 .txtb {
-    background: #2a3042;
+    background: #424962;
     border: 0;
     border-radius: 3px;
     color:#e65776; font-size: 14px; height: 31px;

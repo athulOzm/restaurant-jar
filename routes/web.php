@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('member', 'UserController@updateweb')->name('member.update');
     Route::get('member/create', 'UserController@create')->name('member.create');
     Route::get('/members/ledger', 'UserController@ledger')->name('member.ledger');
+    Route::patch('member/renewnow', 'MemberRenewalController@renewnow')->name('member.renew');
+
 
     //waiter
     Route::get('/waiters', 'UserController@waiterindex')->name('waiter.index');
