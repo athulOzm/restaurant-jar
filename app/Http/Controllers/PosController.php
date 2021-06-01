@@ -12,128 +12,22 @@ use App\Product;
 use App\Settlement;
 use App\Table;
 use App\User;
-use Defuse\Crypto\Encoding;
+//use Defuse\Crypto\Encoding;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Mike42\Escpos\CapabilityProfile;
-use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
-use Mike42\Escpos\EscposImage;
-use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
+//use Illuminate\Support\Facades\Storage;
+//use Mike42\Escpos\CapabilityProfile;
+// use Mike42\Escpos\Printer;
+// use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+// use Mike42\Escpos\EscposImage;
+// use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
 
 use App\Item;
+use Illuminate\Support\Facades\Redirect;
 
 class PosController extends Controller
 {
-
-    public function print(){
-
-
-    $connector = new CupsPrintConnector('_USB_Receipt_Printer');
-    $printer = new Printer($connector);
-
-
-
-    /* Information for the receipt */
-    $items = array(
-        new Item("Example item #1", "4.00"),
-        new Item("Another thing", "3.50"),
-        new Item("Something else", "1.00"),
-        new Item("A final item", "4.45"),
-    );
-    $subtotal = new item('Subtotal', '12.95');
-    $tax = new Item('A local tax', '1.30');
-    $total = new Item('Total', '14.25', true);
-    /* Date is kept the same for testing */
-    // $date = date('l jS \of F Y h:i:s A');
-    $date = "Monday 6th of April 2015 02:56:25 PM";
-
-    /* Start the printer */
-    //$logo = EscposImage::load("resources/escpos-php.png", false);
-    $printer = new Printer($connector);
-
-    /* Print top logo */
-    $printer -> setJustification(Printer::JUSTIFY_CENTER);
-   // $printer -> graphics($logo);
-
-    /* Name of shop */
-    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-    $printer -> text("ExampleMart Ltd.\n");
-    $printer -> selectPrintMode();
-    $printer -> text("Shop No. 42.\n");
-    $printer -> feed();
-
-    /* Title of receipt */
-    $printer -> setEmphasis(true);
-    $printer -> text("SALES INVOICE\n");
-    $printer -> setEmphasis(false);
-
-    /* Items */
-    $printer -> setJustification(Printer::JUSTIFY_LEFT);
-    $printer -> setEmphasis(true);
-    $printer -> text(new Item('', '$'));
-    $printer -> setEmphasis(false);
-    foreach ($items as $item) {
-        $printer -> text($item);
-    }
-    $printer -> setEmphasis(true);
-    $printer -> text($subtotal);
-    $printer -> setEmphasis(false);
-    $printer -> feed();
-
-    /* Tax and total */
-    $printer -> text($tax);
-    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-    $printer -> text($total);
-    $printer -> selectPrintMode();
-
-    /* Footer */
-    $printer -> feed(2);
-    $printer -> setJustification(Printer::JUSTIFY_CENTER);
-    $printer -> text("Thank you for shopping at ExampleMart\n");
-    $printer -> text("For trading hours, please visit example.com\n");
-    $printer -> feed(2);
-    $printer -> text($date . "\n");
-
-    /* Cut the receipt and open the cash drawer */
-    $printer -> cut();
-    $printer -> pulse();
-
-    $printer -> close();
-
- 
-return back();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -313,6 +207,15 @@ return back();
     }
 
 
+    public function getprint($id){
+
+        $order = Order::with('orderproducts', 'user')->find($id);
+
+        //dd($order);
+        return view('pos.Print', compact('order'));
+    }
+
+
     //checkout pos
     public function checkout(Request $request) {
 
@@ -353,101 +256,89 @@ return back();
        Session::forget('token');
        Checkout::dispatch($id);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       return redirect()->route('pos.print', $id);
 
 
 
 
        //print --------------------------------------------------------------------------------------------
-    $connector = new CupsPrintConnector('_USB_Receipt_Printer');
-    $printer = new Printer($connector);
+//     $connector = new CupsPrintConnector('_USB_Receipt_Printer');
+//     $printer = new Printer($connector);
 
 
 
-    /* Information for the receipt */
-    $items = array(
-        new Item("Example item #1", "4.00"),
-        new Item("Another thing", "3.50"),
-        new Item("Something else", "1.00"),
-        new Item("A final item", "4.45"),
-    );
-    $subtotal = new item('Subtotal', '12.95');
-    $tax = new Item('A local tax', '1.30');
-    $total = new Item('Total', '14.25', true);
-    /* Date is kept the same for testing */
-    // $date = date('l jS \of F Y h:i:s A');
-    $date = "Monday 6th of April 2015 02:56:25 PM";
+//     /* Information for the receipt */
+//     $items = array(
+//         new Item("Example item #1", "4.00"),
+//         new Item("Another thing", "3.50"),
+//         new Item("Something else", "1.00"),
+//         new Item("A final item", "4.45"),
+//     );
+//     $subtotal = new item('Subtotal', '12.95');
+//     $tax = new Item('A local tax', '1.30');
+//     $total = new Item('Total', '14.25', true);
+//     /* Date is kept the same for testing */
+//     // $date = date('l jS \of F Y h:i:s A');
+//     $date = "Monday 6th of April 2015 02:56:25 PM";
 
-    /* Start the printer */
-    //$logo = EscposImage::load("resources/escpos-php.png", false);
-    $printer = new Printer($connector);
+//     /* Start the printer */
+//     //$logo = EscposImage::load("resources/escpos-php.png", false);
+//     $printer = new Printer($connector);
 
-    /* Print top logo */
-    $printer -> setJustification(Printer::JUSTIFY_CENTER);
-   // $printer -> graphics($logo);
+//     /* Print top logo */
+//     $printer -> setJustification(Printer::JUSTIFY_CENTER);
+//    // $printer -> graphics($logo);
 
-    /* Name of shop */
-    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-    $printer -> text("Restoapp Ltd.\n");
-    $printer -> selectPrintMode();
-    $printer -> text("Shop No. 42.\n");
-    $printer -> feed();
+//     /* Name of shop */
+//     $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+//     $printer -> text("Restoapp Ltd.\n");
+//     $printer -> selectPrintMode();
+//     $printer -> text("Shop No. 42.\n");
+//     $printer -> feed();
 
-    /* Title of receipt */
-    $printer -> setEmphasis(true);
-    $printer -> text("SALES INVOICE\n");
-    $printer -> setEmphasis(false);
+//     /* Title of receipt */
+//     $printer -> setEmphasis(true);
+//     $printer -> text("SALES INVOICE\n");
+//     $printer -> setEmphasis(false);
 
-    /* Items */
-    $printer -> setJustification(Printer::JUSTIFY_LEFT);
-    $printer -> setEmphasis(true);
-    //$printer -> text(new Item('', '$'));
-    $printer -> setEmphasis(false);
-    foreach ($items as $item) {
-        $printer -> text($item);
-    }
-    $printer -> setEmphasis(true);
-    $printer -> text($subtotal);
-    $printer -> setEmphasis(false);
-    $printer -> feed();
+//     /* Items */
+//     $printer -> setJustification(Printer::JUSTIFY_LEFT);
+//     $printer -> setEmphasis(true);
+//     //$printer -> text(new Item('', '$'));
+//     $printer -> setEmphasis(false);
+//     foreach ($items as $item) {
+//         $printer -> text($item);
+//     }
+//     $printer -> setEmphasis(true);
+//     $printer -> text($subtotal);
+//     $printer -> setEmphasis(false);
+//     $printer -> feed();
 
-    /* Tax and total */
-    $printer -> text($tax);
-    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-    $printer -> text($total);
-    $printer -> selectPrintMode();
+//     /* Tax and total */
+//     $printer -> text($tax);
+//     $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+//     $printer -> text($total);
+//     $printer -> selectPrintMode();
 
-    /* Footer */
-    $printer -> feed(2);
-    $printer -> setJustification(Printer::JUSTIFY_CENTER);
-    $printer -> text("Thank you for shopping at ExampleMart\n");
-    $printer -> text("For trading hours, please visit example.com\n");
-    $printer -> feed(2);
-    $printer -> text($date . "\n");
+//     /* Footer */
+//     $printer -> feed(2);
+//     $printer -> setJustification(Printer::JUSTIFY_CENTER);
+//     $printer -> text("Thank you for shopping at ExampleMart\n");
+//     $printer -> text("For trading hours, please visit example.com\n");
+//     $printer -> feed(2);
+//     $printer -> text($date . "\n");
 
-    /* Cut the receipt and open the cash drawer */
-    $printer -> cut();
-    $printer -> pulse();
+//     /* Cut the receipt and open the cash drawer */
+//     $printer -> cut();
+//     $printer -> pulse();
 
-    $printer -> close();
+//     $printer -> close();
 
 
     //-----------------------------------------------------------------------------
+
+    //Redirect::away('/asdf');
        
-       return redirect()->route('pos');
     }
 
 

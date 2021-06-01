@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
 
-    Route::get('pos/printnow', 'PosController@print')->name('pos.print');
+    Route::get('pos/print/{coupon}', 'PosController@getprint')->name('pos.print');
 
     
 
