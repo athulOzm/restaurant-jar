@@ -130,7 +130,7 @@ $mcategories = resolve('mcategories');
 
         <div class="row">
           <div class="col-sm-5">
-            <button class="btn btn-primary btnc2" type="button" ><i class="fas fa-print"></i> Print</button>
+            <button class="btn btn-primary btnc2" type="button"  onclick='printDiv();'><i class="fas fa-print"></i> Print</button>
           </div>
           
           <div class="col-sm-4">
@@ -481,6 +481,27 @@ $mcategories = resolve('mcategories');
 @section('script')
 
 <script type="text/javascript">
+
+
+
+function printDiv() 
+{
+
+  var divToPrint=document.getElementById('itembox');
+
+  var newWin=window.open('','Print-Window');
+
+  newWin.document.open();
+
+  newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+  newWin.document.close();
+
+  setTimeout(function(){newWin.close();},10);
+
+}
+
+
 
 $(document).ready(() => {
 

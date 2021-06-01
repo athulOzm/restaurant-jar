@@ -142,6 +142,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pos/creditstatus', 'PosController@memberstatus');
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
+
+    Route::get('pos/printnow', 'PosController@print')->name('pos.print');
+
     
 
     Route::get('setting/vat', 'SettingController@vat')->name('settings.vat');
@@ -187,6 +190,9 @@ Route::middleware(['auth'])->group(function () {
 
     //member report status
     Route::get('/report/members', 'ReportController@member')->name('report.member');
+
+
+
 
 
 
