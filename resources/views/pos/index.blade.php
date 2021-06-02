@@ -1674,7 +1674,11 @@ const getDelTime = () => {
     var ccre = $('#totcre').val();
     $('#vallimit').empty();
 
-    if(avcre < ccre){
+    console.log(avcre);
+    console.log(ccre);
+
+
+    if(Math.floor(avcre) < Math.floor(ccre)){
 
     
     } else{
