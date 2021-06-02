@@ -8,96 +8,120 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
-<style>
 
-#invoice-POS{
- 
-  padding:2mm;
-  margin: 0 auto;
-  width: 88mm;
-  background: #FFF;
-}
-  
-::selection {background: #f31544; color: #FFF;}
-::moz-selection {background: #f31544; color: #FFF;}
-h1{
-  font-size: 1.5em;
-  color: #222;
-}
-h2{font-size: .9em;}
-h3{
-  font-size: 1.2em;
-  font-weight: 300;
-  line-height: 2em;
-}
-p{
-  font-size: .7em;
-  color: #666;
-  line-height: 1.2em;
-}
- 
-#top, #mid,#bot{ /* Targets all id with 'col-' */
-  border-bottom: 1px solid #EEE;
+    <style>
+
+      #invoice-POS{
+       
+        padding:2mm;
+        margin: 0 auto;
+        width: 86mm;
+        background: #FFF;
+      }
+        
+      ::selection {background: #f31544; color: #FFF;}
+      ::moz-selection {background: #f31544; color: #FFF;}
+      h1{
+        font-size: 1.5em;
+        color: #222;
+      }
+      h2{font-size: 2em;}
+      h3{
+        font-size: 1.6em;
+        font-weight: 800;
+        line-height: 1.6em; padding: 0; margin: 0
+      }
+      p{
+        font-size: 1.6em;
+        color: #000;
+        line-height: 1.1em;
+      }
+       
+      #top, #mid,#bot{ /* Targets all id with 'col-' */
+        /* border-bottom: 1px solid #000; */
+      }
+      
+      
+      
+      #top .logo{
+        //float: left;
+        height: 60px;
+        width: 60px;
+        /* background: url(http://michaeltruong.ca/images/logo1.png) no-repeat; */
+        background-size: 60px 60px;
+      }
+      .clientlogo{
+        float: left;
+        height: 60px;
+        width: 60px;
+        /* background: url(http://michaeltruong.ca/images/client.jpg) no-repeat; */
+        background-size: 60px 60px;
+        border-radius: 50px;
+      }
+      .info{
+        display: block;
+        //float:left;
+        margin-left: 0;
+      }
+      .title{
+        float: right;
+      }
+      .title p{text-align: right;} 
+      table{
+        width: 100%;
+        border-collapse: collapse;
+      }
+   
+      .tabletitle{
+        //padding: 5px;
+        font-size: .6em;
+       
+      }
+      .service{border-bottom: 1px solid #000;}
+      .item{width: 24mm;}
+      .itemtext{font-size: 1.3em;}
+      .itemtext2{font-size: 1.1em; margin: 0; padding: 0}
+      
+      #legalcopy{
+        margin-top: 5mm;
+      }
+      
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        #invoice-POS, #invoice-POS * {
+          visibility: visible;
+        }
+        #invoice-POS {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+       
+
+      .info p {
+    margin: 0;
+    line-height: 1.5em;
+    font-size: 1em;
 }
 
-#top{min-height: 100px;}
-#mid{min-height: 80px;} 
-#bot{ min-height: 50px;}
-
-#top .logo{
-  //float: left;
-	height: 60px;
-	width: 60px;
-	background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
-	background-size: 60px 60px;
+.info {
+    display: block;
+    margin-left: 0;
+    border-bottom: 1px solid #000;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
 }
-.clientlogo{
-  float: left;
-	height: 60px;
-	width: 60px;
-	background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
-	background-size: 60px 60px;
-  border-radius: 50px;
-}
-.info{
-  display: block;
-  //float:left;
-  margin-left: 0;
-}
-.title{
-  float: right;
-}
-.title p{text-align: right;} 
-table{
-  width: 100%;
-  border-collapse: collapse;
-}
-td{
-  //padding: 5px 0 5px 15px;
-  //border: 1px solid #EEE
-}
-.tabletitle{
-  //padding: 5px;
-  font-size: .5em;
-  background: #EEE;
-}
-.service{border-bottom: 1px solid #EEE;}
-.item{width: 24mm;}
-.itemtext{font-size: .5em;}
-
-#legalcopy{
-  margin-top: 5mm;
-}
-
-  
- 
-
-</style>
+.tar{text-align: right}
+      
+      </style>
  
   </head>
 <body>
 
-    <div class="backf" style="
+    {{-- <div class="backf" style="
     max-width: 88mm;
     margin: auto;
     text-align: center;
@@ -109,21 +133,28 @@ td{
         color: #fff;
         text-decoration: none;
     ">Back to POS</a>
-    </div>
+    </div> --}}
 
 
     <div id="invoice-POS">
     
+
         <center id="top">
          
           <div class="info"> 
-            <img src="http://restoapp.link/img/cooking.png" width="30" alt="">
-            <h2>POS Test </h2>
-            <p style="line-height:.6em">CR No: 12345</p>
-            <p style="line-height:.6em">AL AMARAT</p>
-            <p style="line-height:.6em">Tel : (968) 0000-9999</p>
 
-          </div> 
+            <div style="width: 48%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="40" alt="">
+              <h2 style="margin: 0; font-size:1.5em">POS Test </h2>
+            </div>
+
+            <div style="width: 48%; float:right; text-align:right">
+              <p>CR No: 12345</p>
+              <p>AL AMARAT</p>
+              <p>Tel : (968) 0000-9999</p>
+            </div>
+            
+            <div style="clear: both"></div>
+            </div> 
         </center> 
         
      
@@ -133,33 +164,60 @@ td{
                         <div id="table">
                             <table>
                                 <tr class="tabletitle" style="text-align: left;">
-                                    <td class="item"><h2>العنصر </h2></td>
-                                    <td class="Hours"><h2>الكمية </h2></td>
-                                    <td class="Rate"><h2>السعر </h2></td>
-                                    <td class="Rate"><h2>خصم </h2></td>
-                                    <td class="Rate"><h2>ضريبة </h2></td>
-                                    <td class="Rate"><h2>اجمالي</h2></td>
+                                    <td class="item"><h3>العنصر </h3></td>
+                                    <td class="Hours"><h3>الكمية </h3></td>
+                                    <td class="Rate"><h3>السعر </h3></td>
+                                    <td class="Rate"><h3>خصم </h3></td>
+                                    <td class="Rate"><h3>ضريبة </h3></td>
+                                    <td class="Rate tar"><h3>اجمالي</h3></td>
                                 </tr>
                                 <tr class="tabletitle" style="text-align: left; ">
-                                    <td class="item"><h2>Item</h2></td>
-                                    <td class="Hours"><h2>Qty</h2></td>
-                                    <td class="Rate"><h2>Rate</h2></td>
-                                    <td class="Rate"><h2>Discount</h2></td>
-                                    <td class="Rate"><h2>VAT</h2></td>
-                                    <td class="Rate"><h2>Total</h2></td>
+                                    <td class="item"><h3>Item</h3></td>
+                                    <td class="Hours"><h3>Qty</h3></td>
+                                    <td class="Rate"><h3>Rate</h3></td>
+                                    <td class="Rate"><h3>Discount</h3></td>
+                                    <td class="Rate"><h3>VAT</h3></td>
+                                    <td class="Rate tar"><h3>Total</h3></td>
                                 </tr>
 
                                 @foreach ($order->orderproducts as $product)
                                 
                             {{-- @dd($product) --}}
-                                <tr class="service">
+
+                          
+                                <tr >
                                     <td class="tableitem"><p class="itemtext">{{$product->product->name}}</p></td>
                                     <td class="tableitem"><p class="itemtext">{{$product->quantity}}</p></td>
-                                    <td class="tableitem"><p class="itemtext">{{$product->product->price}}</p></td>
-                                    <td class="tableitem"><p class="itemtext">{{$product->discount}}</p></td>
-                                    <td class="tableitem"><p class="itemtext">{{$product->tax}}</p></td>
-                                    <td class="tableitem"><p class="itemtext">{{$product->sub_price}}</p></td>
+                                    <td class="tableitem"><p class="itemtext2">{{$product->product->price}}</p></td>
+                                    <td class="tableitem"><p class="itemtext2">{{$product->discount}}</p></td>
+                                    <td class="tableitem"><p class="itemtext2">{{$product->tax}}</p></td>
+                                    <td class="tableitem tar"><p class="itemtext"><b>{{$product->price_total_with_tax}}</b></p></td>
                                 </tr>
+
+                                  @foreach ($product->items as $item)
+
+                                  {{-- @dd($item) --}}
+                                      <tr class="service2">
+                                        
+                                        <td class="tableitem"><p class="itemtext2"> + {{$item->name}}</p></td>
+                                        <td class="tableitem"><p class="itemtext2">{{$item->pivot->quantity}}</p></td>
+                                        <td class="tableitem"><p class="itemtext2">{{$item->price}}</p></td>
+                                        <td class="tableitem"><p class="itemtext2">{{$item->pivot->discount}}</p></td>
+                                        <td class="tableitem"><p class="itemtext2">{{$item->vat}}</p></td>
+                                        <td class="tableitem tar"><p class="itemtext"><b>
+                                          {{ @number_format($item->price * $item->pivot->quantity, 3)}}</b>
+                                       </p></td>
+                                        
+
+                                    </tr>
+                                  @endforeach
+                           
+
+                           
+                                  
+ 
+
+
                                 @endforeach
     
                              
@@ -167,40 +225,42 @@ td{
     
                                 <tr class="tabletitle">
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="Rate"><h2>tax</h2></td>
-                                    <td class="payment"><h2>{{$order->gettotalprice()['tax']}}</h2></td>
-                                    <td class="Rate"><h2>ضريبة </h2></td>
+                                  
+                                   
+                                    <td class="Rate" colspan="2"><h2>tax</h2></td>
+                                    <td class="payment tar"><h2>{{$order->gettotalprice()['tax']}}</h2></td>
+                                    <td class="Rate tar" colspan="2"  ><h2>ضريبة </h2></td>
                                     
 
                                 </tr>
 
                                 <tr class="tabletitle">
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="Rate"><h2>Discount</h2></td>
-                                    <td class="payment"><h2>{{$order->gettotalprice()['discount']}}</h2></td>
-                                    <td class="Rate"><h2>خصم </h2></td>
+                                    
+                                  
+                                    <td class="Rate"  colspan="2"><h2>Discount</h2></td>
+                                    <td class="payment tar"><h2>{{$order->gettotalprice()['discount']}}</h2></td>
+                                    <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
 
                                 </tr>
     
                                 <tr class="tabletitle">
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="Rate"><h2>Total</h2></td>
-                                    <td class="payment"><h2>{{$order->gettotalprice()['subtotal']}}</h2></td>
-                                    <td class="Rate"><h2>اجمالي</h2></td>
+                                 
+                                    
+                                    <td class="Rate"  colspan="2"><h2>Total</h2></td>
+                                    <td class="payment tar"><h2>{{$order->gettotalprice()['subtotal']}}</h2></td>
+                                    <td class="Rate tar" colspan="2" ><h2>اجمالي</h2></td>
 
                                 </tr>
     
                             </table>
-                        </div><!--End Table-->
+                        </div><!--End Table--> 
+
+                        <hr>
     
-                        <div id="legalcopy" style="text-align: center">
-                            <p class="legal"><strong>Thank you for your business!</strong></p>
+                        <div id="legalcopy" style="text-align: center; margin:0">
+                            <p class="" style="line-height: .9em; margin:0"><strong style="font-size: .6em; line-height:.8em">شكر لحسن زيارتكم لنا</strong></p>
                         </div>
     
                     </div><!--End InvoiceBot-->
@@ -210,8 +270,10 @@ td{
 <script type="text/javascript">
     function auto_print() {     
         window.print()
+        window.location.href = "http://restoapp.link/pos/";
+
     }
-    //setTimeout(auto_print, 1000);
+    setTimeout(auto_print, 500);
 </script>
 </body>
 </html>

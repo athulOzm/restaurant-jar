@@ -219,6 +219,7 @@ class PosController extends Controller
     //checkout pos
     public function checkout(Request $request) {
 
+
         $id = explode('-', $request->memberid);
 
         $memberid = $id[0];
@@ -239,6 +240,8 @@ class PosController extends Controller
             $location = null;
         }
 
+
+
        $id = Order::find(Session::get('token')->id)->update([
            'status' =>  2,
            'user_id'    =>  User::where('memberid', $memberid)->first()->id,
@@ -253,10 +256,14 @@ class PosController extends Controller
            'reqfrom'    =>  auth()->user()->id
        ]);
 
-       Session::forget('token');
-       Checkout::dispatch($id);
+       $tid = Session::get('token')->id;
 
-       return redirect()->route('pos.print', $id);
+       Session::forget('token');
+       Checkout::dispatch($tid);
+
+       //dd($id);
+
+       return redirect()->route('pos.print', $tid);
 
 
 
