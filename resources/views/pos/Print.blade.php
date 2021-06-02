@@ -27,9 +27,9 @@ body{font-family: 'Poppins', sans-serif;!important;}
         font-size: 1.5em;
         color: #222;
       }
-      h2{font-size: 2em;}
+      h2{font-size: 1.6em;}
       h3{
-        font-size: 1.6em;
+        font-size: 1.4em;
         font-weight: 800;
         line-height: 1.6em; padding: 0; margin: 0
       }
@@ -81,7 +81,7 @@ body{font-family: 'Poppins', sans-serif;!important;}
       }
       .service{border-bottom: 1px solid #000;}
       /* .item{width: 24mm;} */
-      .itemtext{font-size: 1.2em;}
+      .itemtext{font-size: 1em;}
       .itemtext2{font-size: .9em; margin: 0; padding: 0}
       
       #legalcopy{
@@ -105,19 +105,29 @@ body{font-family: 'Poppins', sans-serif;!important;}
 
       .info p {
     margin: 0;
-    line-height: 1.5em;
+    line-height: 1.3em;
     font-size: 1em;
 }
+
+
+.nn p {
+    margin: 0;
+    line-height: 1.3em;
+    font-size: .8em;
+}
+
 
 .info {
     display: block;
     margin-left: 0;
     border-bottom: 1px solid #000;
     padding-bottom: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 15px; 
 }
 .tar{text-align: right}
-  p, h2, h3{margin-block-end:.4em; margin-block-start:.4em}
+p{margin-block-end:.5em; margin-block-start:.5em}
+
+h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
  
 
@@ -149,17 +159,27 @@ body{font-family: 'Poppins', sans-serif;!important;}
          
           <div class="info"> 
 
-            <div style="width: 48%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="40" alt="">
-              <h2 style="margin: 0; font-size:1.5em">POS Test </h2>
+            <div style="width: 38%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="40" alt="">
+              <h2 style="margin: 0; font-size:1.3em">POS Test </h2>
             </div>
 
-            <div style="width: 48%; float:right; text-align:right">
+            <div style="width: 58%; float:right; text-align:right; padding-top:10px">
               <p>CR No: 12345</p>
               <p>AL AMARAT</p>
               <p>Tel : (968) 0000-9999</p>
             </div>
             
             <div style="clear: both"></div>
+
+            <div style="width: 100%; text-align:left; padding-top:10px" class="nn">
+              <p>Date: <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
+              <p>Invoice No: <b>#{{$order->id}}</b></p>
+               
+            </div>
+
+            <div style="clear: both"></div>
+
+
             </div> 
         </center> 
         
@@ -267,6 +287,8 @@ body{font-family: 'Poppins', sans-serif;!important;}
     
                         <div id="legalcopy" style="text-align: center; margin:0">
                             <p class="" style="line-height: .9em; margin:0"><strong style="font-size: .6em; line-height:.8em">شكر لحسن زيارتكم لنا</strong></p>
+                            <p>_</p>
+                            <p>_</p><p>_</p>
                         </div>
     
                     </div><!--End InvoiceBot-->
