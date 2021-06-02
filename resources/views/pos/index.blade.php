@@ -318,7 +318,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Menu</a>
+            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Category</a>
           </li>
 
           @foreach ($menutypes as $menutype)
