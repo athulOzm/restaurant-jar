@@ -8,12 +8,14 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-
+body{font-family: 'Poppins', sans-serif;!important;}
       #invoice-POS{
        
-        padding:2mm;
+        padding:1mm 2mm 18mm;
         margin: 0 auto;
         width: 86mm;
         background: #FFF;
@@ -73,14 +75,14 @@
       }
    
       .tabletitle{
-        //padding: 5px;
+       
         font-size: .6em;
        
       }
       .service{border-bottom: 1px solid #000;}
-      .item{width: 24mm;}
-      .itemtext{font-size: 1.3em;}
-      .itemtext2{font-size: 1.1em; margin: 0; padding: 0}
+      /* .item{width: 24mm;} */
+      .itemtext{font-size: 1.2em;}
+      .itemtext2{font-size: .9em; margin: 0; padding: 0}
       
       #legalcopy{
         margin-top: 5mm;
@@ -115,7 +117,11 @@
     margin-bottom: 15px;
 }
 .tar{text-align: right}
-      
+  p, h2, h3{margin-block-end:.4em; margin-block-start:.4em}
+
+ 
+
+
       </style>
  
   </head>
@@ -270,7 +276,7 @@
 <script type="text/javascript">
     function auto_print() {     
         window.print()
-        window.location.href = "http://restoapp.link/pos/";
+        window.location.href = "/pos";
 
     }
     setTimeout(auto_print, 500);
