@@ -6,6 +6,7 @@ use App\Addon;
 use App\Category;
 use App\Menutype;
 use App\Product;
+use App\Promotion;
 use App\Setting;
 use App\User;
 use Illuminate\Support\Facades\Schema;
@@ -38,6 +39,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('mcategories', function(){
 
             return Category::where('parant_id', null)->get();
+        });
+        
+        app()->bind('promotions', function(){
+
+            return Promotion::where('status', true)->get();
         });
 
         app()->bind('addons', function(){

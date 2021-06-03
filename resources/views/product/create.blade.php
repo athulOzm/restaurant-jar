@@ -1,6 +1,7 @@
 
 <?php
 $mcategories = resolve('mcategories');
+$promotions = resolve('promotions');
 $menutypes = resolve('menutypes');
 $addons = resolve('addons');
 $settings = resolve('settings');
@@ -230,6 +231,8 @@ select[data-multi-select-plugin] {
                         <input type="hidden"  value="1000" name="coupons">
                             @csrf
 
+                            <input type="hidden" name="subcat" value="">
+
 
 
                             <div class="row">
@@ -249,7 +252,7 @@ select[data-multi-select-plugin] {
                                 </div>
 
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Product Name Arabic</label>
                                     <input style="text-align: right" type="text" value="{{@old('name_ar')}}"
                                         class="form-control @error('name_ar') is-invalid @enderror" name="name_ar">
@@ -261,47 +264,8 @@ select[data-multi-select-plugin] {
                                 </div>
 
 
-                                <div class="form-group col-md-5">
-                                    <label for="inputCity">
-                                        Category
-                                    </label>
-                                    <select  
-                                        required 
-                                        class="form-control w-full border-gray-400" 
-                                        name="cat"
-                                        id="category"
-                                    >
-
-                                    <option value="">Select Category</option>
-
-                               
-                                        @foreach ($mcategories as $item)
-                                        <option 
-                                        
-                                        @if (old('cat') == $item->id)
-                                            selected
-                                        @endif
-                                        
-                                        value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                        
-                                    </select>
-                                </div>
-
+                                
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">
-                                        Sub Category
-                                    </label>
-                                    <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
-                               
-                                       
-                                        <option value="">Sub Category </option>
-                                      
-                                        
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-3">
                                     <label for="inputCity">Price (RO)</label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{@old('price')}}" name="price">
@@ -312,7 +276,7 @@ select[data-multi-select-plugin] {
                                     @enderror
                                 </div>
 
-                                <div class="form-group  col-md-3">
+                                <div class="form-group  col-md-4">
                                     <label for="inputCity">
                                         VAT (%)
                                     </label>
@@ -327,7 +291,7 @@ select[data-multi-select-plugin] {
                                         @enderror
                                 </div>
 
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
                                         value="{{@old('qty')}}" name="qty">
@@ -336,6 +300,28 @@ select[data-multi-select-plugin] {
                                         <strong>Enter Stock Available</strong>
                                     </span>
                                     @enderror
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                  <label for="promotion">
+                                      Promotion
+                                  </label>
+                                  <select  
+                                      
+                                      class="form-control w-full border-gray-400" 
+                                      name="promotion"
+                                      id="promotion"
+                                  >
+                                  <option value="">Select Promotion</option>
+                                      @foreach ($promotions as $item)
+                                      <option 
+                                      @if (old('promotion') == $item->id)
+                                          selected
+                                      @endif
+                                      value="{{$item->id}}">{{$item->name}}</option>
+                                      @endforeach
+                                  </select>
                                 </div>
 
                                 
@@ -384,7 +370,7 @@ select[data-multi-select-plugin] {
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">Cover Image *</label>
+                                    <label for="inputCity">Image</label>
                                     <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
                                         id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
                                     @error('cover')
@@ -422,6 +408,39 @@ select[data-multi-select-plugin] {
                                 </div>
                               
                             </div>
+
+
+
+                            <div class="form-group col-md-12">
+                              <div class="row">
+
+                              <label for="inputCity">
+                                  Category
+                              </label>
+                              <select  
+                                  required 
+                                  class="form-control w-full border-gray-400" 
+                                  name="cat"
+                                  id="category"
+                              >
+
+                              <option value="">Select Category</option>
+
+                         
+                                  @foreach ($mcategories as $item)
+                                  <option 
+                                  
+                                  @if (old('cat') == $item->id)
+                                      selected
+                                  @endif
+                                  
+                                  value="{{$item->id}}">{{$item->name}}</option>
+                                  @endforeach
+                                  
+                              </select>
+                            </div>
+                          </div>
+ 
  
                       
                          

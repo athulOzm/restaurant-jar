@@ -66,6 +66,7 @@ class ProductController extends Controller
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : null,
             'category_id'   =>  $request->cat,
+            'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status
 
@@ -153,6 +154,7 @@ class ProductController extends Controller
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : $request->curimage,
             'category_id'   =>  $request->cat,
+            'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status
 

@@ -20,14 +20,17 @@ class CreateProductsTable extends Migration
             $table->string('name_ar')->nullable();
             $table->boolean('status')->default(true);
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
 
             $table->unsignedBigInteger('subcategory_id')->nullable();
-            $table->foreign('subcategory_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('subcategory_id')->references('id')->on('categories')->onDelete('set null');
+
+            $table->unsignedBigInteger('promotion_id')->nullable();
+            $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('set null');
 
             $table->decimal('price', 8, 3)->nullable();
             $table->decimal('vat', 8, 2)->default(0);

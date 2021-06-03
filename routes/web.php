@@ -192,6 +192,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/report/members', 'ReportController@member')->name('report.member');
 
 
+    //promotions
+    Route::get('promotions', 'PromotionController@index')->name('promotion.index');
+    Route::post('promotion', 'PromotionController@store')->name('promotion.store');
+    Route::delete('promotion/drop', 'PromotionController@destroy')->name('promotion.delete');
+    Route::get('promotion/{promotion}', 'PromotionController@edit')->name('promotion.edit');
+    Route::patch('promotion', 'PromotionController@update')->name('promotion.update');
+
+
 
 
 

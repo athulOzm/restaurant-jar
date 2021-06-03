@@ -3,6 +3,8 @@
 $mcategories = resolve('mcategories');
 $menutypes = resolve('menutypes');
 $addons = resolve('addons');
+$promotions = resolve('promotions');
+
 ?>
 @extends('admin.layouts.master')
 
@@ -271,7 +273,7 @@ $addons = resolve('addons');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Product Name Arabic</label>
                                     <input style="text-align: right" type="text" value="{{$product->name_ar}}"
                                         class="form-control @error('name_ar') is-invalid @enderror" name="name_ar">
@@ -282,32 +284,10 @@ $addons = resolve('addons');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-5">
-                                    <label for="inputCity">
-                                        Category
-                                    </label>
-                                    <select  
-                                        required 
-                                        class="form-control w-full border-gray-400" 
-                                        name="cat"
-                                        id="category"
-                                    >
-                               
-                                        @foreach ($mcategories as $item)
-                                        <option 
+                                
 
-                                        @if ($product->category_id == $item->id)
-                                            selected
-                                        @endif
-                                        
-                                        
-                                        value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                        
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-4">
+                                <input type="hidden" name="subcat" value="">
+                                {{-- <div class="form-group col-md-4">
                                     <label for="inputCity">
                                         Sub Category
                                     </label>
@@ -323,10 +303,10 @@ $addons = resolve('addons');
                                             
                                         @endif 
                                     </select>
-                                </div>
+                                </div> --}}
 
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Price </label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{$product->price}}" name="price">
@@ -337,7 +317,7 @@ $addons = resolve('addons');
                                     @enderror
                                 </div>
 
-                                <div class="form-group  col-md-3">
+                                <div class="form-group  col-md-4">
                                     <label for="inputCity">
                                         VAT (%):
                                     </label>
@@ -352,7 +332,7 @@ $addons = resolve('addons');
                                         @enderror
                                 </div>
 
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
                                         value="{{$product->getAvailableQty()}}" name="qty">
@@ -362,6 +342,34 @@ $addons = resolve('addons');
                                     </span>
                                     @enderror
                                 </div>
+
+
+                                <div class="form-group col-md-4">
+                                  <label for="promotion">
+                                      Promotion
+                                  </label>
+                                  <select  
+                                      
+                                      class="form-control w-full border-gray-400" 
+                                      name="promotion"
+                                      id="promotion"
+                                  >
+
+                                  <option value="">Select Promotion</option>
+                             
+                                      @foreach ($promotions as $item)
+                                      <option 
+
+                                      @if ($product->promotion_id == $item->id)
+                                          selected
+                                      @endif
+                                      
+                                      
+                                      value="{{$item->id}}">{{$item->name}}</option>
+                                      @endforeach
+                                      
+                                  </select>
+                              </div>
 
                                 
 
@@ -428,14 +436,27 @@ $addons = resolve('addons');
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">Cover Image *</label>
-                                    <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
-                                        id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
-                                    @error('cover')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
+
+                                  <div class="row">
+
+                                    <div class="col-md-3">
+                                      @if ($product->cover != null)
+                                        <img class="img-thumbnail " width="90" src="{{env('IMAGE_PATH')}}{{ $product->cover}}"  style="float: left"/>
+                                      @endif
+                                    </div>
+                                    <div class="col-md-9">
+
+                                      <label for="inputCity">Image</label>
+                                      <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                                          id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                                      @error('cover')
+                                      <span class="invalid-feedback" role="alert">
+                                          <strong>{{$message}}</strong>
+                                      </span>
+                                      @enderror
+
+                                    </div>
+                                  </div>
                                 </div>
 
                                 {{-- <div class="form-group col-md-4">
@@ -451,33 +472,7 @@ $addons = resolve('addons');
                                 <input type="hidden" name="images">
 
                             </div>
-
-                      
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        @if ($product->cover != null)
-                                        <label for="inputCity">Cover Image</label>
-                                <div class="row">
-                                    <div class="col-md-9">
-                                       
-                                    <img class="img-thumbnail " src="{{env('IMAGE_PATH')}}{{ $product->cover}}" />
-                                    
-                                    </div>
-                                </div>@endif
-                                    </div>
-                                    <div class="col-md-6">
-                                    {{-- <label for="inputCity">Gallery Images</label> --}}
-                                <div class="row" id="displayImages"></div>
-                                    </div>
-
-                                </div>
-                                
-
-                                
-
-                            </div>
+ 
 
 
                             <div class="form-group col-md-12">
@@ -496,6 +491,36 @@ $addons = resolve('addons');
                                 </div>
                               
                             </div>
+
+
+                            <div class="form-group col-md-5">
+                              <div class="row">
+
+                              <label for="inputCity">
+                                  Category
+                              </label>
+                              <select  
+                                  required 
+                                  class="form-control w-full border-gray-400" 
+                                  name="cat"
+                                  id="category"
+                              >
+                         
+                                  @foreach ($mcategories as $item)
+                                  <option 
+
+                                  @if ($product->category_id == $item->id)
+                                      selected
+                                  @endif
+                                  
+                                  
+                                  value="{{$item->id}}">{{$item->name}}</option>
+                                  @endforeach
+                                  
+                              </select>
+                            </div>
+
+                          </div>
 
 
                       

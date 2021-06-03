@@ -41,6 +41,10 @@
     color: rgba(255, 255, 255, 1);
     font-size: 17px;
 }
+.container, .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 </style>
 </head>
 
@@ -91,8 +95,8 @@
             <a class="collapse-item" href="{{route('product.index')}}">Menus</a>
             <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a>
             <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
-
             <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
+            <a class="collapse-item" href="{{route('promotion.index')}}">Promotions</a>
        
     
           </div>

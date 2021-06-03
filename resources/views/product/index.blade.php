@@ -33,7 +33,8 @@
                                         <th>Name</th>
                                         <th>Category</th>
                                         <th>Menu Type</th>
-                                        <th>Stock Available</th>
+                                        <th>Stock</th>
+                                        <th>Promotion</th>
 
                                         
                                         <th>Price</th>
@@ -71,6 +72,12 @@
                                         @endforeach </td>
 
                                         <td>{{$product->getAvailableQty()}} </td>
+
+                                        <td>
+                                            @if ($product->promotion_id != null)
+                                               {{$product->promotion->name}} 
+                                            @endif
+                                            </td>
 
                                        
                                         <td>{{$product->price}} </td>
