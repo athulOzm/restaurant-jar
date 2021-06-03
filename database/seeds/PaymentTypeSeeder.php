@@ -13,11 +13,11 @@ class PaymentTypeSeeder extends Seeder
     public function run()
     {
         factory(PaymentType::class)->create([
-            'name' => 'Cash'
+            'name' => 'Card'
         ]);
 
         factory(PaymentType::class)->create([
-            'name' => 'Card'
+            'name' => 'Credit'
         ]);
 
         factory(PaymentType::class)->create([

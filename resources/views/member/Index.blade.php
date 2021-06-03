@@ -80,7 +80,6 @@
                                             <th class="text-left text-blue-900">Miss ID</th>
                                             <th class="text-left text-blue-900">Service ID</th>
                                             <th class="text-left text-blue-900">Full Name</th>
-                                      
                                             <th class="text-left text-blue-900">Phone</th>
                                             <th class="text-left text-blue-900">Rank</th>
                                             <th class="text-left text-blue-900">Item Limit</th>
@@ -98,8 +97,7 @@
                                        
                                             <td>{{$member->memberid}}</td>
                                             <td>{{$member->memberid}}</td>
-                                            <td>{{$member->name}}</td>
-                                            
+                                            <td>{{$member->name}} <span style="text-align: right">{{$member->ar_name}}</span></td>
                                             <td>{{$member->phone}}</td>
                                             <td>
                                                 @if ($member->rank_id != null)
@@ -107,7 +105,6 @@
                                                 @endif
                                             </td>
                                             <td>{{$member->item_limit}}</td>
-                                          
                                             <td>
                                                 @if ($member->category_id != null)
                                                 {{$member->category->name}}

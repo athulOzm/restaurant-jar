@@ -43,6 +43,20 @@
                             @enderror
                     </div>
 
+
+                    <div class="form-group col-md-4">
+                        <label for="ar_name" class="block  text-sm font-bold mb-2 sm:mb-4">Full Name Arabic:</label>
+                        <input id="ar_name" type="text"
+                            class="form-control @error('ar_name') is-invalid @enderror" name="ar_name"
+                            value="{{ old('ar_name') }}" required  autofocus>
+
+                            @error('ar_name')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                    </div>
+
                     <div class="form-group col-md-4">
                         <label for="email" class="block  text-sm font-bold mb-2 sm:mb-4 ">
                             Email:

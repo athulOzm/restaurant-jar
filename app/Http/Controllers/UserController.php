@@ -34,18 +34,7 @@ class UserController extends Controller
         return view('member.Index', ['members' => User::where('type', 3)->get()]);
     }
 
-    public function rindex(){
-
-        User::where('type', 3)
-            ->whereDate('renewal_at', '<', '2021-04-31')
-            ->update(['status' => false]);
-
-        return view('member.Renewal', ['members' => User::where('type', 3)
-            ->whereDate('renewal_at', '<', '2021-04-31')
-            ->get()
-        
-        ]);
-    }
+    
 
     public function create(){
         $ranks = Rank::all();
@@ -102,6 +91,7 @@ class UserController extends Controller
 
         return $request->validate([
             'name'              =>      'required',
+            'ar_name'           =>      'nullable',
             'email'             =>      'nullable|unique:users|email',
             'phone'             =>      'min:8|unique:users',
             'memberid'          =>      'required|min:3|unique:users',
@@ -123,6 +113,7 @@ class UserController extends Controller
 
         return $request->validate([
             'name'              =>      'required',
+            'ar_name'           =>      'nullable',
             'email'             =>      'nullable|email|unique:users,email,'.$request->id,
             'phone'             =>      'min:8|unique:users,phone,'.$request->id,
             'memberid'          =>      'required|min:3|unique:users,memberid,'.$request->id,

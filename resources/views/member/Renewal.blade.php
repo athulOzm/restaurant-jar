@@ -47,10 +47,14 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+ 
+
 
     <div class="pull-right" style="height: 70vh;">
         <div class="card-body p-0">
             <div class="row">
+
+              
     
          
   
@@ -63,9 +67,25 @@
                             
                             </h6> 
 
- 
+
                             
-    
+                                <form action="" method="GET">
+                                    <div class="row">
+                                    <div class="col-md-4 mt-2 " style="margin-left: -15px">
+                                        <select  class="form-control " name="payment_type" id="category_id">
+                                            <option value="">Filter by Payment Type</option>
+                                            <option @if ($pt == 1) selected @endif value="1">Card</option>
+                                            <option @if ($pt == 2) selected @endif value="2">Credit</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4 mt-2 " style="margin-left: -15px">
+                                        <input type="submit" value="Filter" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                </form>
+                            
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -155,14 +175,10 @@
 <div class="backDrop"></div>
 
 <div class="box scro" style="max-height: 90vh; padding-bottom:0">
-        <form action="{{route('member.renew')}}" method="POST">
+        <form id="rnw" action="{{route('member.renew')}}" method="POST">
             @csrf()
             @method('PATCH')
-    <p style="font-size: 13px">Payment Type</p>
-    <select required="" class="form-control " name="payment_type" id="paymenttype">  
-        <option value="1">Cash</option>
-        <option value="2">Card</option>
-    </select>
+    <input type="hidden" name="payment_type" value="{{$pt}}">
 
     <input type="hidden" name="id[]" id="memid" >
 
@@ -217,11 +233,13 @@ $('#delete').click(function(){
 
   if(post_arr.length > 0){
 
-    $(".backDrop").animate({"opacity": ".80"}, 300);
-    $(".box").animate({"opacity": "1.0"}, 300);
-    $(".backDrop, .box").css("display", "block");
+    // $(".backDrop").animate({"opacity": ".80"}, 300);
+    // $(".box").animate({"opacity": "1.0"}, 300);
+    // $(".backDrop, .box").css("display", "block");
 
     $('#memid').val(post_arr);
+
+    $('#rnw').submit();
 
      // var isDelete = confirm("Do you really want to delete records?");
     //   if (isDelete == true) {
