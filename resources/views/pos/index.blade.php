@@ -71,6 +71,16 @@ $mcategories = resolve('mcategories');
             <input type="text" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb">
           </div>
 
+          <div class="col-md-6">
+            <p class="lab1a">Member Balance</p>
+            <input type="text" name="memberid" required id="" class="form-control w-full txtb">
+          </div>
+    
+          <div class="col-md-6">
+            <p class="lab1a">--</p>
+            <input type="text" name="memberid_name" required id="" class="form-control w-full txtb">
+          </div>
+
           <div class="col-md-6 my-2">
             <div id="dtime">
               <p class="lab1a">Delivery Time</p>
@@ -317,14 +327,14 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
             padding: 20px 15px;">
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Category</a>
-          </li>
+          </li> --}}
 
           @foreach ($menutypes as $menutype)
           <?php $nub = 1; ?>
             <li class="nav-item">
-              <a class="nav-link " id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
+              <a class="nav-link @if($loop->first) active @endif" id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
             </li>
             <?php 
             $nub = 2;
@@ -338,26 +348,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
         <div class="tab-content" id="pills-tabContent">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <div class="tab-pane fade show active" id="pall" role="tabpanel" aria-labelledby="all">
-
-
+          {{-- <div class="tab-pane fade show active" id="pall" role="tabpanel" aria-labelledby="all">
             <div class="row">
 
               <div class="col-10 p0">
@@ -418,38 +409,26 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
               </div>
               
             </div>
-          
-
-          </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          </div>  --}}
+          {{-- end - all cat tab --}}
 
 
           @foreach ($menutypes as $menutype)
-            
-            <div class="tab-pane fade" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
 
+          
+            <div class="tab-pane fade @if($loop->first) show active @endif" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
 
               <div class="row">
 
                 <div class="col-10 p0">
                   <div class="tab-content" id="v-pills-tabContent">
+
+
+
+
+
+
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                      
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
                           <div class="card itembox" onclick="addtocart({{$product->id}});" 
@@ -462,14 +441,14 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                           No menu found!
                         @endforelse
                       </div> 
-
                     </div>
 
                     @foreach ($menutype->categories() as $cat)
-
-                      <div class="tab-pane fade" id="v-pills-{{$cat->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}">
+                      <div class="tab-pane fade" id="v-pills-{{$cat->id}}{{$menutype->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}{{$menutype->id}}">
                         <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($cat->productsbytype($menutype->id) as $product)
+
+                        
                           <div class="card itembox" onclick="addtocart({{$product->id}});" 
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
@@ -494,7 +473,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
                     @foreach ($menutype->categories() as $cat)
                     
-                    <a class="nav-link" id="v-pills-profile-tab{{$cat->id}}" data-toggle="pill" href="#v-pills-{{$cat->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
+                    <a class="nav-link" id="v-pills-{{$cat->id}}{{$menutype->id}}-tab" data-toggle="pill" href="#v-pills-{{$cat->id}}{{$menutype->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
 
                   @endforeach
 

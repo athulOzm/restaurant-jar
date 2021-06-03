@@ -28,7 +28,13 @@ class Category extends Model
 
     public function productsbytype($pt){
 
-        return Menutype::find($pt)->products()->where('category_id', $this->id)->get();
+        //return Menutype::find($pt)->products()->get();
+       return $this->products->filter(function($product) use(&$pt){
+
+            if(Menutype::find($pt)->products->contains($product)){
+                return $product;
+            }
+        });
 
     }
 }

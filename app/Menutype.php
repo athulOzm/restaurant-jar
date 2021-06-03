@@ -16,7 +16,7 @@ class Menutype extends Model
 
     public function categories(){
 
-        $products =  $this->belongsToMany(Product::class)->with('category');
+        $products =  $this->belongsToMany(Product::class)->with('categories');
 
         $cat = [];
 
