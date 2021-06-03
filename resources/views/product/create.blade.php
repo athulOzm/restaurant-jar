@@ -35,7 +35,7 @@ select[data-multi-select-plugin] {
     height: auto;
     width: 100%;
     padding: 3px 8px;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.42857143;
     padding-bottom: 0px;
     color: #555;
@@ -46,7 +46,7 @@ select[data-multi-select-plugin] {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
     -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;font-weight: 400
 }
  
 .autocomplete-list {
@@ -323,23 +323,30 @@ select[data-multi-select-plugin] {
                                       @endforeach
                                   </select>
                                 </div>
-
-                                
-
-                                
-
-                                
-
-                                
                             </div>
-
-                       
 
 
                             <div class="row">
+                              <div class="form-group col-md-6">
+                                <label for="addon">Categories</label>
+                                    <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
+                                      @foreach ($mcategories as $item)
+                                        <option @if (old('cat') == $item->id) selected @endif value="{{$item->name}}">{{$item->name}}</option>
+                                      @endforeach
+                                    </select>
+                              </div>
 
-                                
+                              <div class="form-group col-md-6">
+                                <label for="addon">Addon</label>
+                                    <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
+                                        @foreach ($addons as $addon)
+                                            <option value="{{$addon['name']}}">addon</option>
+                                        @endforeach
+                                    </select>
+                              </div>
+                            </div>
 
+                            <div class="row">
                                 <div class="form-group col-md-3">
                                     <label for="inputCity">Menu Type  </label>
                                      
@@ -396,50 +403,25 @@ select[data-multi-select-plugin] {
                             </div>
 
 
-                            <div class="form-group col-md-12">
-                                <div class="row">
-                                <label for="inputCity">Addon</label>
-                                 
-                                    <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
-                                        @foreach ($addons as $addon)
-                                            <option value="{{$addon['name']}}">jjj</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                              
-                            </div>
+                            
 
 
 
-                            <div class="form-group col-md-12">
+                            {{-- <div class="form-group col-md-12">
                               <div class="row">
-
-                              <label for="inputCity">
-                                  Category
-                              </label>
-                              <select  
-                                  required 
-                                  class="form-control w-full border-gray-400" 
-                                  name="cat"
-                                  id="category"
-                              >
-
-                              <option value="">Select Category</option>
-
-                         
+                                <label for="inputCity">Category</label>
+                                <select  
+                                    required 
+                                    class="form-control w-full border-gray-400" 
+                                    name="cat"
+                                    id="category">
+                                  <option value="">Select Category</option>
                                   @foreach ($mcategories as $item)
-                                  <option 
-                                  
-                                  @if (old('cat') == $item->id)
-                                      selected
-                                  @endif
-                                  
-                                  value="{{$item->id}}">{{$item->name}}</option>
+                                    <option @if (old('cat') == $item->id) selected @endif value="{{$item->id}}">{{$item->name}}</option>
                                   @endforeach
-                                  
-                              </select>
-                            </div>
-                          </div>
+                                </select>
+                              </div>
+                            </div> --}}
  
  
                       

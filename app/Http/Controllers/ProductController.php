@@ -54,6 +54,7 @@ class ProductController extends Controller
         endif;
 
         $pic = $request->addon;
+        $cats = $request->cat;
         
 
         $product = Product::create([
@@ -65,7 +66,7 @@ class ProductController extends Controller
             'qty' =>  $request->qty,
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : null,
-            'category_id'   =>  $request->cat,
+ //           'category_id'   =>  $request->cat,
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status
@@ -79,6 +80,15 @@ class ProductController extends Controller
                 }
             });
             $product->addons()->attach($addonitems);
+        }
+
+        if($cats != ''){
+            $categories = Category::all()->filter(function ($cat) use(&$cats){
+                if (in_array($cat->name, $cats)) {
+                    return $cat->id;
+                }
+            });
+            $product->categories()->attach($categories);
         }
 
 
@@ -153,7 +163,7 @@ class ProductController extends Controller
             'qty' =>  $request->qty,
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : $request->curimage,
-            'category_id'   =>  $request->cat,
+           // 'category_id'   =>  $request->cat,
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status
@@ -161,7 +171,6 @@ class ProductController extends Controller
         ]);
 
         $pic = $request->addon;
-
         if($pic != ''){
             $addonitems = Addon::all()->filter(function ($addon) use(&$pic){
                 if (in_array($addon->name, $pic)) {
@@ -172,7 +181,21 @@ class ProductController extends Controller
             $addonitems = [];
         }
 
+        $cats = $request->cat;
+        if($cats != ''){
+            $categories = Category::all()->filter(function ($addon2) use(&$cats){
+                if (in_array($addon2->name, $cats)) {
+                    return $addon2->id;
+                }
+            });
+        } else{
+            $categories = [];
+        }
+
+        //dd($categories);
+
         Product::find($request->id)->addons()->sync($addonitems);
+        Product::find($request->id)->categories()->sync($categories);
         Product::find($request->id)->types()->sync($request->type);
        
 

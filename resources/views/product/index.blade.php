@@ -62,14 +62,15 @@
                                         </td>
 
                                         <td>{{$product->name}} <span style="text-align: right; float:right"> {{$product->name_ar}}</span></td>
-                                        <td>{{$product->category->name}} 
-                                        @if ($product->subcategory_id != null)
-                                        <i class="fas fa-angle-right"></i>  {{$product->subcategory->name}} 
-                                        @endif
+                                        <td> 
+                                            @foreach ($product->categories as $type)
+                                                {{$type->name}}, 
+                                            @endforeach 
                                         </td>
-                                        <td>@foreach ($product->types as $type)
-                                            {{$type->name}}, 
-                                        @endforeach </td>
+                                        <td>
+                                            @foreach ($product->types as $type)
+                                                {{$type->name}}, 
+                                            @endforeach </td>
 
                                         <td>{{$product->getAvailableQty()}} </td>
 

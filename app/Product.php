@@ -103,4 +103,10 @@ class Product extends Model
 
         return $this->belongsToMany(Addon::class);
     }
+
+    //categories
+    public function categories(){
+
+        return $this->belongsToMany(Category::class);
+    }
 }

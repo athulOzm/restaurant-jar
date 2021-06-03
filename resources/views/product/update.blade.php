@@ -370,14 +370,39 @@ $promotions = resolve('promotions');
                                       
                                   </select>
                               </div>
+                            </div>
 
-                                
+                          
 
-                                
+                            <div class="row">
 
-                                
+                              <div class="form-group col-md-6">
+                                <label for="inputCity">Categories</label>
+                                <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
+                                    @foreach ($product->categories as $addo)
+                                        <option value="{{$addo['name']}}" selected>jjj</option>
+                                    @endforeach
 
-                                
+                                    @foreach ($mcategories as $addon)
+                                        <option value="{{$addon['name']}}">jjj</option>
+                                    @endforeach
+                                </select>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="inputCity">Addon</label>
+                                <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
+                                    @foreach ($product->addons as $addo)
+                                        <option value="{{$addo['name']}}" selected>jjj</option>
+                                    @endforeach
+
+                                    @foreach ($addons as $addon)
+                                        <option value="{{$addon['name']}}">jjj</option>
+                                    @endforeach
+                                </select>
+                              </div>
+
+
                             </div>
 
                        
@@ -475,25 +500,10 @@ $promotions = resolve('promotions');
  
 
 
-                            <div class="form-group col-md-12">
-                                <div class="row">
-                                <label for="inputCity">Addon</label>
-                                 
-                                    <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
-                                        @foreach ($product->addons as $addo)
-                                            <option value="{{$addo['name']}}" selected>jjj</option>
-                                        @endforeach
-
-                                        @foreach ($addons as $addon)
-                                            <option value="{{$addon['name']}}">jjj</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                              
-                            </div>
+                            
 
 
-                            <div class="form-group col-md-5">
+                            {{-- <div class="form-group col-md-5">
                               <div class="row">
 
                               <label for="inputCity">
@@ -507,20 +517,13 @@ $promotions = resolve('promotions');
                               >
                          
                                   @foreach ($mcategories as $item)
-                                  <option 
-
-                                  @if ($product->category_id == $item->id)
-                                      selected
-                                  @endif
-                                  
-                                  
-                                  value="{{$item->id}}">{{$item->name}}</option>
+                                  <option  @if ($product->category_id == $item->id) selected @endif value="{{$item->id}}">{{$item->name}}</option>
                                   @endforeach
                                   
                               </select>
                             </div>
 
-                          </div>
+                          </div> --}}
 
 
                       
