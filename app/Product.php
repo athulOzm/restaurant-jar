@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Product extends Model
 {
     protected $guarded = [];
+
+    protected $appends  = ['promotion_price'];
 
 
     public function types(){
@@ -24,6 +28,58 @@ class Product extends Model
     public function promotion(){
 
         return $this->belongsTo(Promotion::class);
+    }
+
+    
+    
+
+
+    //check promotion and get 
+    public function getPromotion(){
+
+        if($this->promotion  and $this->promotion->status == true): 
+
+            
+            if(Carbon::parse($this->promotion->to)->gte(Carbon::now()) and Carbon::parse($this->promotion->from)->lte(Carbon::now())): 
+
+                if($this->promotion->amount_type == 2): 
+
+                    return $this->promotion->value;
+                else: 
+                    return number_format($this->promotion->value, 0).'%';
+                endif;
+
+            else: 
+                return false;
+            endif;
+
+        else: 
+            return false;
+        endif;
+    }
+
+    //get price after promo
+    public function getPromotionPriceAttribute(){
+        if($this->promotion and $this->promotion->status == true): 
+
+            if(Carbon::parse($this->promotion->to)->gte(Carbon::now()) and Carbon::parse($this->promotion->from)->lte(Carbon::now())): 
+
+                if($this->promotion->amount_type == 2): 
+
+                    return number_format($this->price - $this->promotion->value, 3);
+                else: 
+                    $promo_price = number_format($this->price * $this->promotion->value / 100, 3);
+                    return number_format($this->price - $promo_price, 3);
+
+                endif;
+
+            else: 
+                return $this->price;  
+            endif;
+
+        else: 
+            return $this->price;
+        endif;
     }
 
     public function subcategory(){

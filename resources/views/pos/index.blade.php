@@ -243,7 +243,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                 <div class="col-sm-1 p0">S.N</div>
                 <div class="col-sm-4 p0">Item</div>
                 <div class="col-sm-2 p0">Qty</div>
-                <div class="col-sm-2 p0">U.Price</div>
+                <div class="col-sm-2 p0">Unit.Price</div>
                 <div class="col-sm-3 p0">Action</div>  
               </div>
       
@@ -367,15 +367,14 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                   <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <div style="display: flex;flex-wrap: wrap;">
                       @forelse ($allmenus as $product)
-                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                        min-height:110px;
-            background-size: 100% 100%;">
-                          <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
-                          
 
+                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                          <h5>{{$product->price}}</h5>
+                          @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
                           <h6 class="itemtitle">{{$product->name}}</h6>
                         </div>
+
                       @empty
                         No menu found!
                       @endforelse
@@ -387,13 +386,10 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                       <div style="display: flex;flex-wrap: wrap;">
                       @forelse ($cat->products as $product)
                         <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                        min-height:110px;
-            background-size: 100% 100%;">
-                          <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
-                          
-
-                          <h6 class="itemtitle">{{$product->name}}</h6>
+                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                            <h5>{{$product->price}}</h5>
+                            @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
+                            <h6 class="itemtitle">{{$product->name}}</h6>
                         </div>
                       @empty
                         No menu found!
@@ -457,13 +453,10 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
                           <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                          min-height:110px;
-              background-size: 100% 100%;">
-                            <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
-                            
-
-                            <h6 class="itemtitle">{{$product->name}}</h6>
+                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                              <h5>{{$product->price}}</h5>
+                              @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
+                              <h6 class="itemtitle">{{$product->name}}</h6>
                           </div>
                         @empty
                           No menu found!
@@ -478,13 +471,10 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                         <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($cat->productsbytype($menutype->id) as $product)
                           <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');
-                          min-height:110px;
-              background-size: 100% 100%;">
-                            <h5 ><span style="font-size: 10px">RO</span> {{$product->price}}</h5>
-                            
-
-                            <h6 class="itemtitle">{{$product->name}}</h6>
+                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                              <h5>{{$product->price}}</h5>
+                              @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
+                              <h6 class="itemtitle">{{$product->name}}</h6>
                           </div>
                         @empty
                           No menu found!
@@ -1373,7 +1363,7 @@ const getTables = (memberid) => {
                 <div class="col-sm-1 " style="padding-left:25px">N</div>
                 <div class="col-sm-2 p0">Item</div>
                 <div class="col-sm-2 ">Qty</div>
-                <div class="col-sm-2 p0">U.Price</div>
+                <div class="col-sm-2 p0">Unit.Price</div>
                 <div class="col-sm-1 ">VAT</div>
                 <div class="col-sm-1 ">Dis</div>
                 <div class="col-sm-2 ">Total</div>
@@ -1383,9 +1373,9 @@ const getTables = (memberid) => {
 
               var subt = [];
               res.orderproducts.map(item => {
- 
 
-
+                //console.log(item);
+                
               if(item.available_addons != ''){
                 var btn = `<button type="button"  onclick="showaddon('${item.id}', '${item.product.id}')" value="${item.product.id}" style="background:#3f59ad;float:right;width: 50px;color: #fff;margin-right:15px; font-size:11px" class="btn btn-circle btn-sm">
                    Addon
@@ -1419,7 +1409,7 @@ const getTables = (memberid) => {
             
             
             </div>
-            <div class="col-sm-2 price p0">${item.product.price}</div>
+            <div class="col-sm-2 price p0">${item.product.promotion_price}</div>
             <div class="col-sm-1 ttl p0" >${item.tax}</div>
             <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
             <div class="col-sm-2 ttl " >${item.sub_price}</div>

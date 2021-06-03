@@ -75,22 +75,24 @@ class OrderProduct extends Model
         return number_format(array_sum($tprice), 3);
     }
 
+    
+
 
     public function getPriceTotalAttribute()
     {
-        $tp = number_format($this->product->price * $this->quantity, 3);
+        $tp = number_format($this->product->promotion_price * $this->quantity, 3);
         return number_format($tp - $this->discount, 3);
     }
 
     public function getPriceTotalWithoutDisAttribute()
     {
-        return  number_format($this->product->price * $this->quantity, 3);
+        return  number_format($this->product->promotion_price * $this->quantity, 3);
      
     }
 
     public function getPriceTotalWithTaxAttribute()
     {
-        $tp = number_format($this->product->price * $this->quantity, 3);
+        $tp = number_format($this->product->promotion_price * $this->quantity, 3);
         $vat = number_format($tp * $this->product->vat/ 100, 3);
         $st = number_format($tp + $vat, 3);
         return number_format($st - $this->discount, 3);
@@ -105,7 +107,7 @@ class OrderProduct extends Model
 
     public function getTaxAttribute()
     {
-        $tp = number_format($this->product->price * $this->quantity, 3);
+        $tp = number_format($this->product->promotion_price * $this->quantity, 3);
         $vat = number_format($tp * $this->product->vat/ 100, 3);
        // $st = number_format($tp + $vat, 3);
         return number_format($vat, 3);

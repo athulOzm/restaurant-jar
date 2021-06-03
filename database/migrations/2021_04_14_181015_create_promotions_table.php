@@ -17,8 +17,8 @@ class CreatePromotionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('amount_type');
-            $table->time('from');
-            $table->time('to');
+            $table->dateTime('from');
+            $table->dateTime('to');
             $table->decimal('value', 8, 3)->nullable();
             $table->boolean('status')->default(true);
              

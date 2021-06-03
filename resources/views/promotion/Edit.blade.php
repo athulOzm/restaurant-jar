@@ -59,9 +59,9 @@
                                         <label for="from" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                             Time From:
                                         </label>
-                                        <input id="from" type="time"  value="{{$promotion->from}}"
+                                        <input id="from" type="datetime-local"  value="{{$promotion->from}}"
                                             class="form-control w-full border-gray-400 @error('from') border-red-500 @enderror" name="from"
-                                            value="{{ old('from') }}" required  autofocus>
+                                              required  autofocus>
                 
                                             @error('from')
                                             <p class="text-red-500 text-xs italic mt-4">
@@ -74,9 +74,9 @@
                                         <label for="from" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                             Time To:
                                         </label>
-                                        <input id="from" type="time"  value="{{$promotion->to}}"
+                                        <input id="from" type="datetime-local"  value="{{$promotion->to}}"
                                             class="form-control w-full border-gray-400 @error('to') border-red-500 @enderror" name="to"
-                                            value="{{ old('to') }}" required  autofocus>
+                                            required  autofocus>
                 
                                             @error('to')
                                             <p class="text-red-500 text-xs italic mt-4">

@@ -15,7 +15,7 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        return view('promotion.Index', ['promotions' => Promotion::all()]);
+        return view('promotion.Index', ['promotions' => Promotion::where('status', true)->get()]);
     }
 
     /**
@@ -89,7 +89,7 @@ class PromotionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Promotion::find($request->id)->delete();
+        Promotion::find($request->id)->update(['status' => false]);
         return back();
     }
 
