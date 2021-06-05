@@ -201,6 +201,11 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('promotion', 'PromotionController@update')->name('promotion.update');
 
 
+    //barcode
+    Route::get('barcode/menu', 'BarcodeController@index')->name('menu.barcode.index');
+    Route::post('barcode/menu', 'BarcodeController@code')->name('barcode.menu.generate');
+
+
 
 
 

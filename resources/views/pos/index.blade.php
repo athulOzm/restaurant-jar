@@ -1471,7 +1471,7 @@ const updqty = (cart_item) =>  {
           "qty": qty
       },
       success: function(res){
-      location.reload();  
+        getOrders();
       }
   });
 

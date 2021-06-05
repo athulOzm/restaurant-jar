@@ -97,6 +97,7 @@
             <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
             <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
             <a class="collapse-item" href="{{route('promotion.index')}}">Promotions</a>
+            <a class="collapse-item" href="{{route('menu.barcode.index')}}">Generate Barcode</a>
        
     
           </div>
