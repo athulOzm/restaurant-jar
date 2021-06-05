@@ -73,6 +73,21 @@
                             @enderror
                     </div>
 
+                    <div class="form-group col-md-12">
+                        <label for="wid" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                            Waiter ID:
+                        </label>
+                        <input id="wid" type="text"
+                            class="form-control @error('wid') is-invalid @enderror" name="wid"
+                            value="{{ old('wid') }}"   autofocus>
+
+                            @error('wid')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                    </div>
+
                  
 
                 </div>

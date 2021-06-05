@@ -324,6 +324,7 @@ class UserController extends Controller
             'name'              =>      $request->name,
             'email'             =>      $request->email,
             'phone'             =>      $request->phone,
+            'memberid'          =>      $request->wid,
             'type'              =>      4
         ]);
 

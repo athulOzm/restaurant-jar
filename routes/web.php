@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('waiter', 'UserController@waiterupdateweb')->name('waiter.update');
     Route::get('waiter/create', 'UserController@waitercreate')->name('waiter.create');
 
+
+
     //user
     Route::get('/users', 'UserController@userindex')->name('user.index');
     Route::post('/user', 'UserController@userstoreWeb')->name('user.store');
@@ -206,19 +208,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('barcode/menu', 'BarcodeController@code')->name('barcode.menu.generate');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
+
+
+//Route::get('waiter', 'UserController@index')->name('dashboard.waiter.index');
+
 
  

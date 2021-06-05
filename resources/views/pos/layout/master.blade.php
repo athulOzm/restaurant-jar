@@ -194,7 +194,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin-right: 5px;
     margin-top: 2px;
     width: 100%;
-    border-radius: 3px; cursor: pointer
+    border-radius: 3px; cursor: pointer; margin-bottom: 0
 }
 .box3 input {opacity: .5; margin-left: 15px}
 .box1 input[type=radio]{ margin-right: 10px}
@@ -552,11 +552,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 
 .itemtitle {
-    background: #000000ba;
+    background: #f8f9fc;
     border-radius: 6px;
-    margin: 10px;
+    margin: 6px;
     margin-top: 90px;
-    color: white!important;
+    color: black!important;
     font-size: 12px!important;
 }
 
