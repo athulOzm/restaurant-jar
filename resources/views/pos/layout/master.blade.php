@@ -182,11 +182,21 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #2c3346;
     margin-right: 20px; margin-top: 4px
 }
-.box3 {
+/* .box3 {
     padding: 7px 20px;
     background: #2c3346;
     margin-right: 20px; margin-top: 4px
+} */
+
+.box3 {
+    padding: 3px 0px;
+    background: #2c3346;
+    margin-right: 5px;
+    margin-top: 2px;
+    width: 100%;
+    border-radius: 3px; cursor: pointer
 }
+.box3 input {opacity: .5; margin-left: 15px}
 .box1 input[type=radio]{ margin-right: 10px}
 
 .flex{display: flex}
@@ -203,10 +213,16 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin-left: 0;
     margin-bottom: 1px;
 }
-input[type=checkbox], input[type=radio] {
-  
-    margin-right: 10px;
+
+.lab1b {
+    font-size: 12px;
+    color:#758098;
+    font-weight: 400;
+    display: inline-block;
+    margin-left: 0;
+    margin-bottom: 1px;
 }
+ 
 .lab1a b{
     font-size: 14px;
     color: #7c8498;

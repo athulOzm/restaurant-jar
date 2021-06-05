@@ -53,48 +53,56 @@ $mcategories = resolve('mcategories');
 ">
 
           <div class="col-md-6 my-2">
-            <p class="lab1a" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
+            <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
           <div class="col-md-6 my-2">
-            <p class="lab1a">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
+            <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
           </div>
           
     
           <div class="col-md-6">
-            <p class="lab1a">MISS ID</p>
+            <p class="lab1b">MISS ID</p>
             <input type="text" name="memberid" required id="autocomplete" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
-            <p class="lab1a">Member Name</p>
+            <p class="lab1b">Member Name</p>
             <input type="text" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb">
           </div>
 
           <div class="col-md-6">
-            <p class="lab1a">Member Balance</p>
-            <input type="text" name="memberid" required id="" class="form-control w-full txtb">
+            <p class="lab1b">Member Balance</p>
+            <input type="text" name="memberid"  required id="totcre2" readonly style="background: #424961" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
-            <p class="lab1a">--</p>
-            <input type="text" name="memberid_name" required id="" class="form-control w-full txtb">
+            <p class="lab1b">Payment Type</p>
+            <div id="pt">
+              <div class="bgh p0">
+              <div class="flex">
+              <label class="box3"><input type="radio" onclick="getDelTime()" required="" name="pt" value="1"> <b class="lab1a">Card</b></label>
+              <label class="box3"><input type="radio" onclick="getDelTime()" id="crepay" required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
+              </div></div>
+            </div>
+
           </div>
 
           <div class="col-md-6 my-2">
             <div id="dtime">
-              <p class="lab1a">Delivery Time</p>
+              <p class="lab1b">Delivery Time</p>
               <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
             </div>
           </div>
     
           <div class="col-md-6 my-1">
+            <p class="lab1b">Delivery Type</p>
          
               <div id="delivery">
                 <div class=" flex">
-                <div class="box1a"><input type="radio" required="" name="del" value="Take away" onclick="getPaymenttype('9'); takeaway()"> <b class="lab1a">Take away</b></div>
-                <div class="box1a"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></div>
-                <div class="box1a"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></div>
+                <label class="box3"><input type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
+                <label class="box3"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
+                <label class="box3"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
           
@@ -113,7 +121,7 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 535px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 555px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
@@ -192,7 +200,6 @@ $mcategories = resolve('mcategories');
                   font-size: 13px;
                   color: #e65776;
               "></div>
-                  <div id="pt"></div>
 
                   
 
@@ -563,6 +570,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 @section('script')
 
 <script type="text/javascript">
+
 
 
 const paynow = () => {
@@ -1039,12 +1047,17 @@ $(document).ready(() => {
 			lookup: options,
 			onSelect: function (member) {
 
-        //console.log(member);
+        console.log(member);
         //console.log();
         $('#totcre').val(null);
+        $('#totcre2').val(null);
+        $('#totcre2').val(member.credit);
         $('#totcrename').empty();
         $('#totcre').val(member.credit);
         $('#totcrename').append(member.name);
+
+        getPaymenttype(member.data);
+
         var res2 = member.value.split(" - ");
 
         switch (member.pty) {
@@ -1125,9 +1138,9 @@ const getlimitbydate = () => {
             $('#pay').prop('disabled', false);
             $('#delivery').append(`
             <div class=" flex">
-            <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${data}'); takeaway()"> <b class="lab1a">Take away</b></div>
-            <div class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${data}')"> <b class="lab1a">Dinein</b></div>
-            <div class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></div>
+            <label class="box3"><input type="radio" required name="del" value="Take away" onClick="takeaway()"> <b class="lab1a">Take away</b></label>
+            <label class="box3"><input type="radio" required name="del" value="Dinein" onClick="getTables('${data}')"> <b class="lab1a">Dinein</b></label>
+            <label class="box3"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></label>
             </div>`);
           }
           else{
@@ -1135,7 +1148,7 @@ const getlimitbydate = () => {
             $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
-            $('#pt').empty();
+            //$('#pt').empty();
             $('#alert').empty();
             $('#alert').append(`<div class="alert flex">${res.msg}</div>`);
             $('#pay').prop('disabled', true);
@@ -1161,9 +1174,9 @@ const getlimitbydate = () => {
             $('#pay').prop('disabled', false);
             $('#delivery').append(`
             <div class=" flex">
-            <div class="box1a"><input type="radio" required name="del" value="Take away" onClick="getPaymenttype('${res.id}'); takeaway()"> <b class="lab1a">Take away</b></div>
-            <div class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${res.id}')"> <b class="lab1a">Dinein</b></div>
-            <div class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></div>
+            <label class="box1a"><input type="radio" required name="del" value="Take away" onClick="takeaway()"> <b class="lab1a">Take away</b></label>
+            <label class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${res.id}')"> <b class="lab1a">Dinein</b></label>
+            <label class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></label>
             </div>`);
           }
           else{
@@ -1171,7 +1184,7 @@ const getlimitbydate = () => {
             $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
-            $('#pt').empty();
+           // $('#pt').empty();
             $('#alert').empty();
             $('#alert').append(`<div class="alert flex">${res.msg}</div>`);
             $('#pay').prop('disabled', true);
@@ -1197,12 +1210,12 @@ const getlimitbydate = () => {
 
     $('#dt').empty();
     $('#tables').empty();
-    $('#pt').empty();
+    //$('#pt').empty();
     /////$('#dtime').empty();
 
     $('#dt').append(`<div class="bgh flex p0">
-    <div class="box3"><input type="radio"  required onClick="getPaymenttype('${memberid}');hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></div>
-    <div class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></div>
+    <label class="box3"><input type="radio"  required onClick="hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
+    <label class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
                      </div>`);
   }
 
@@ -1219,24 +1232,24 @@ const getlimitbydate = () => {
              switch (res.id) {
               case 1:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div></div>
+                $('#pt').append(`<div class="bgh p0">
+                  <div class="flex"><div class="box3"><input checked type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></div></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type</b>
-                  <div class="flex"><div class="box3"><input id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                $('#pt').append(`<div class="bgh p0">
+                  <div class="flex"><div class="box3"><input checked id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
-                $('#pt').append(`<div class="bgh p0 mt-2"><b class="lab1a">Payment Type </b>
+                $('#pt').append(`<div class="bgh p0">
                   <div class="flex">
-                  <div class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Cash</b></div>
-                  <div class="box3"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
-                  </div></div>`);
+                  <label class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></label>
+                  <label class="box3 checkbx"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  </label></div>`);
                  break;
              }
 
@@ -1247,7 +1260,7 @@ const getlimitbydate = () => {
 
 const getTables = (memberid) => {
 
-  $('#pt').empty();
+  //$('#pt').empty();
   //$('#dtime').empty();
   $('#dt').empty();
 
@@ -1351,6 +1364,7 @@ const getTables = (memberid) => {
               `)
 
               var subt = [];
+              var n =1;
               res.orderproducts.map(item => {
 
                 //console.log(item);
@@ -1367,7 +1381,7 @@ const getTables = (memberid) => {
                   $('#cart').append(
                     `<div class="item">
           <div class="row">
-            <div class="col-sm-1 price " style="padding-left:25px">${item.id}</div>
+            <div class="col-sm-1 price " style="padding-left:25px">${n}</div>
             <div class="col-sm-2 price p0">${item.product.name} </div>
             <div class="col-sm-2 p0">
 
@@ -1405,6 +1419,8 @@ const getTables = (memberid) => {
            
           </div>
         </div>`);
+
+        n = n+1;
           });
 
 
@@ -1631,7 +1647,7 @@ var token = $("meta[name='csrf-token']").attr("content");
   
   //get subcat
 const getDeliverylocations = (memberid) => {
-  $('#pt').empty();
+ // $('#pt').empty();
   
     $.ajax({
         type: 'GET',

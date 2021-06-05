@@ -134,7 +134,7 @@ class PosController extends Controller
 
        if(DB::table('order_product')
        ->where('order_id', $token->id)
-       ->where('product_id', $request->id)->first()->quantity == 1){
+       ->where('product_id', $request->id)->first()->quantity <= 1){
         Order::find(Session::get('token')->id)->products()->detach(['product_id' => $request->id]);
        }
 
