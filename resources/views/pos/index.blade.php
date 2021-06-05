@@ -113,7 +113,7 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 485px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 535px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
@@ -1377,7 +1377,7 @@ const getTables = (memberid) => {
                             <i class="fas fa-plus btnc"></i>
                           </button>
 
-                          <label class="qty">${item.quantity}</label>
+                          <label class="qty"><input class="smtxt" id="${item.id}" onChange="updqty('${item.id}')" type="text" value="${item.quantity}"></label>
           
                           <button  type="button" onclick="downcart('${item.product.id}');" class="btn  btn-circle btn-sm">
                             <i class="fas fa-minus btnc"></i>
@@ -1453,6 +1453,28 @@ const getTables = (memberid) => {
       location.reload();  
       }
   });
+}
+
+
+//update quantity 
+const updqty = (cart_item) =>  {
+
+  let qty = $(`#${cart_item}`).val();
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/updqty`,
+      data: {
+          "_token": token,
+          "cart_item": cart_item,
+          "qty": qty
+      },
+      success: function(res){
+      location.reload();  
+      }
+  });
+
 }
 
 

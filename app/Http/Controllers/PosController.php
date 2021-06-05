@@ -144,6 +144,13 @@ class PosController extends Controller
        ->decrement('quantity');
     }
 
+
+    //upd quantity
+    public function updqty(Request $request){
+
+       DB::update('update order_product set quantity = '.$request->qty.' where id = ?', [$request->cart_item]);
+    }
+
     //minus item cart addon
     public function downcartaddon(Request $request){
         $token = OrderProduct::find($request->pid);

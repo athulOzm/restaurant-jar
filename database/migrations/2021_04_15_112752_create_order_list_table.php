@@ -32,7 +32,8 @@ class CreateOrderListTable extends Migration
                 ->references('id')
                 ->onDelete('cascade');
 
-            $table->integer('quantity')->default(1);
+            //$table->integer('quantity')->default(1);
+            $table->decimal('quantity', 8, 1)->nullable()->default(1);
             $table->decimal('discount', 8, 3)->default(0);
             $table->timestamps();
         });

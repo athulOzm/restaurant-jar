@@ -22,7 +22,11 @@ class ReportController extends Controller
         //                 return Carbon::parse($val->delivery_time)->format('d');
         //            });
 
-        $period = CarbonPeriod::create('2021-04-31', '2021-05-30');
+        $current_date = Carbon::now()->toDateString();
+        $sub_month_date = Carbon::now()->subMonth()->toDateString();
+        $sub_year_date = Carbon::now()->subYear()->toDateString();
+
+        $period = CarbonPeriod::create($sub_month_date, $current_date);
         $days=[];
         $days_order=[];
         foreach ($period as $date) {
@@ -40,35 +44,35 @@ class ReportController extends Controller
         //take away
         $ta1 = Order::where('status', 2)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2021-04-31','2021-05-30'])
+            ->whereBetween('delivery_time', [$sub_month_date, $current_date])
             ->count();
         $ta2 = Order::where('status', 2)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2020-04-31','2021-05-30'])
+            ->whereBetween('delivery_time', [$sub_year_date, $current_date])
             ->count();
 
         //dine in
         $di1 = Order::where('status', 2)
             ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', ['2021-04-31','2021-05-30'])
+            ->whereBetween('delivery_time', [$sub_month_date, $current_date])
             ->count();
         $di2 = Order::where('status', 2)
             ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', ['2020-04-31','2021-05-30'])
+            ->whereBetween('delivery_time', [$sub_year_date, $current_date])
             ->count();
 
         //dine in
         $de1 = Order::where('status', 2)
             ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', ['2021-04-31','2021-05-30'])
+            ->whereBetween('delivery_time', [$sub_month_date, $current_date])
             ->count();
         $de2 = Order::where('status', 2)
             ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', ['2020-04-31','2021-05-30'])
+            ->whereBetween('delivery_time', [$sub_year_date, $current_date])
             ->count();
 
 
-        $period = CarbonPeriod::create('2020-05-30', '1 month', '2021-05-30');
+        $period = CarbonPeriod::create('2020-05-30', '1 month', $current_date);
         $month=[];
         $month_order=[];
         foreach ($period as $date) {
@@ -236,7 +240,11 @@ class ReportController extends Controller
     //----------------------------------------------------------------------------------------------------------------------settlement -----------
     public function settlement(){
 
-        $period = CarbonPeriod::create('2021-04-31', '2021-05-30');
+        $current_date = Carbon::now()->toDateString();
+        $sub_month_date = Carbon::now()->subMonth()->toDateString();
+        $sub_year_date = Carbon::now()->subYear()->toDateString();
+
+        $period = CarbonPeriod::create($sub_month_date, $current_date);
         $days=[];
         $days_order=[];
         foreach ($period as $date) {
@@ -254,7 +262,7 @@ class ReportController extends Controller
         
 
 
-        $period = CarbonPeriod::create('2020-05-30', '1 month', '2021-05-30');
+        $period = CarbonPeriod::create('2020-05-30', '1 month', $current_date);
         $month=[];
         $month_order=[];
         foreach ($period as $date) {

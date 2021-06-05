@@ -34,7 +34,7 @@ class CreateProductsTable extends Migration
 
             $table->decimal('price', 8, 3)->nullable();
             $table->decimal('vat', 8, 2)->default(0);
-            $table->integer('qty')->default(10);
+            $table->decimal('qty', 8, 1)->nullable()->default(10);
             $table->longText('body')->nullable();
             $table->string('cover')->nullable();
 

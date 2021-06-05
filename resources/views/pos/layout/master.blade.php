@@ -153,7 +153,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     position: absolute;
     border-bottom-right-radius: 6px;
 }
-
+.smtxt {
+    width: 25px;
+    background: transparent;
+    border: 0;
+    text-align: center;
+    color: white;
+}
 .itembox h4 {
     font-size: 13px;
     font-weight: 400;
