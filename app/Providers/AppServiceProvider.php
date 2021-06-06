@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Addon;
 use App\Category;
 use App\Menutype;
+use App\Order;
 use App\Product;
 use App\Promotion;
 use App\Setting;
@@ -64,6 +65,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('allmenus', function(){
 
             return Product::where('status', 1)->get();
+        });
+
+        app()->bind('saleslog', function(){
+
+            return User::with('ordersPosted')->find(auth()->user()->id);
         });
     }
 

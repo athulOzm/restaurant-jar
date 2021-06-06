@@ -116,7 +116,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #000;
 }
 
-.tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
+.tab-content>.active{border-left: 0px solid #fff; padding: 10px}
 
 #exTabsale ul li {
       border-radius: 0px; padding: 3px 
@@ -667,6 +667,26 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
       <!-- Core plugin JavaScript-->
       {{-- <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
+
+        <!-- Page level plugins -->
+  <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+  {{-- <script src="https://code.jquery.com/jquery-3.5.1.js">
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js">
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"> --}}
+    
+<script>
+    $(document).ready(function() {
+    $('#dataTable').DataTable();
+    $('#dataTable2').DataTable();
+    $('#dataTable3').DataTable();
+} );
+</script>
+  
+
+
+  
       @yield('script')
      
       <!-- Custom scripts for all pages-->

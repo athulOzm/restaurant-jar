@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function ordersPosted(){
+
+        return $this->hasMany(Order::class, 'reqfrom', 'id');
+    }
+
     public function getCreditAmount(){
 
         $credit_orders = $this->orders()->where('payment_type_id', 2)->get();

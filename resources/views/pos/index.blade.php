@@ -212,42 +212,7 @@ $mcategories = resolve('mcategories');
 
       <div class="box scro">
         <div class="p0">
-        
-
- 
-          <div id="exTabsale" >	
-          <ul  class="nav nav-pills pill2">
-                <li class="active">
-                  <a  href="#1a" data-toggle="tab">Sales Log</a>
-                </li>
-                <li><a href="#2a" data-toggle="tab">Hold Items</a>
-                </li>
-                <li><a href="#3a" data-toggle="tab">Open Tokens</a>
-                </li>
-                 
-              </ul>
-          
-                <div class="tab-content clearfix">
-                  <div class="tab-pane active" id="1a">
-                    <h3>Content's background color is the same for the tab</h3>
-                  </div>
-                  <div class="tab-pane" id="2a">
-                    <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
-                  </div>
-                  <div class="tab-pane" id="3a">
-                    <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
-                  </div>
-                    
-                </div>
-            </div>
-          
-            
-
-
-
-
-
-
+        @include('pos.partials.SalesLog')
         </div>
       </div>
 
