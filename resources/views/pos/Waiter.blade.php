@@ -21,7 +21,7 @@ $mcategories = resolve('mcategories');
 }
 </style>
 
-<form action="{{route('pos.checkout')}}" method="POST" id="mform">
+<form action="{{route('waiter.pos.checkout')}}" method="POST" id="mform">
   @csrf
 
  
@@ -846,7 +846,7 @@ $(document).ready(() => {
   const showsettlement = ()=>{
     $.ajax({
         type: 'GET',
-        url: `/pos/getsettlement`,
+        url: `/waiter/pos/getsettlement`,
         success: function(res){
           console.log(res);
           $('#settle_total').empty();
@@ -872,7 +872,7 @@ $(document).ready(() => {
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
         type: 'POST',
-        url: `/pos/donesettlement`,
+        url: `/waiter/pos/donesettlement`,
         data: {
             //"token": id,
             "_token": token,
@@ -890,7 +890,7 @@ $(document).ready(() => {
     //get addon items
     const getaddonavailable = (id, pitem) => {
     $.ajax({
-      url: `/pos/getaddonava/${id}`,
+      url: `/waiter/pos/getaddonava/${id}`,
       async: true,
       dataType: 'json',
       success: function (data) {
@@ -926,7 +926,7 @@ $(document).ready(() => {
   //get addon items
   const getaddon = (id) => {
     $.ajax({
-      url: `/pos/getaddon/${id}`,
+      url: `/waiter/pos/getaddon/${id}`,
       async: true,
       dataType: 'json',
       success: function (data) {
@@ -1122,7 +1122,7 @@ const getlimitbydate = () => {
 
     $.ajax({
         type: 'POST',
-        url: `/pos/creditstatus`,
+        url: `/waiter/pos/creditstatus`,
         data: {
           "id": data,
           "dt": delitime,
@@ -1164,7 +1164,7 @@ const getlimitbydate = () => {
 
     $.ajax({
         type: 'GET',
-        url: `/pos/creditstatus2/${data}`,
+        url: `/waiter/pos/creditstatus2/${data}`,
         success: function(res){
           //console.log(res.msg);
 
@@ -1225,7 +1225,7 @@ const getlimitbydate = () => {
 
         $.ajax({
             type: 'GET',
-            url: `/pos/${memberid}/getpaymenttype`,
+            url: `/waiter/pos/${memberid}/getpaymenttype`,
             success: function(res){
              //console.log(res);
              
@@ -1266,7 +1266,7 @@ const getTables = (memberid) => {
 
   $.ajax({
       type: 'GET',
-      url: `/pos/gettables`,
+      url: `/waiter/pos/gettables`,
       success: function(res){
         $('#tables').empty();
         $('#locations').empty();
@@ -1460,7 +1460,7 @@ const getTables = (memberid) => {
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/cancel`,
+      url: `/waiter/pos/cancel`,
       data: {
           "token": id,
           "_token": token,
@@ -1480,7 +1480,7 @@ const updqty = (cart_item) =>  {
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/updqty`,
+      url: `/waiter/pos/updqty`,
       data: {
           "_token": token,
           "cart_item": cart_item,
@@ -1502,7 +1502,7 @@ const updqty = (cart_item) =>  {
       var token = $("meta[name='csrf-token']").attr("content");
       $.ajax({
           type: 'POST',
-          url: `/pos/addtocart`,
+          url: `/waiter/pos/addtocart`,
           data: {
               "id": item,
               "_token": token,
@@ -1527,7 +1527,7 @@ const updqty = (cart_item) =>  {
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
         type: 'POST',
-        url: `/pos/addtocartaddon`,
+        url: `/waiter/pos/addtocartaddon`,
         data: {
             "id": item,
             "pid": pitem,
@@ -1548,7 +1548,7 @@ const removecart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/removecart`,
+      url: `/waiter/pos/removecart`,
       data: {
           "id": item,
           "_token": token,
@@ -1568,7 +1568,7 @@ const removecartaddon = (item, pid) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/removecartaddon`,
+      url: `/waiter/pos/removecartaddon`,
       data: {
           "id": item,
           "pid": pid,
@@ -1588,7 +1588,7 @@ const downcart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/downcart`,
+      url: `/waiter/pos/downcart`,
       data: {
           "id": item,
           "_token": token,
@@ -1610,7 +1610,7 @@ const downcartaddon = (item, pid) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/downcartaddon`,
+      url: `/waiter/pos/downcartaddon`,
       data: {
           "id": item,
           "pid": pid,
@@ -1633,7 +1633,7 @@ var dis = $(`#itemd${id}`).val();
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/adddiscount`,
+      url: `/waiter/pos/adddiscount`,
       data: {
           "id": item,
           "dis": dis,

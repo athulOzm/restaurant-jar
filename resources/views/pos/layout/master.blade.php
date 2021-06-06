@@ -80,7 +80,6 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .nav-pills{
     border-bottom: 0px solid #e7e7e7;
- 
     border-radius: 6px; background: #e5e9f1
 }
 
@@ -98,14 +97,32 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
 
 #exTab2 ul li {
-      border-radius: 3px; padding: 3px
-  
-    
+      border-radius: 3px; padding: 3px 
 }
 #exTab2 ul li.active {
-    background: #ffffff;box-shadow: 0 .10rem 0.45rem 0 rgba(58,59,69,.15)!important
-  
-    
+    background: #ffffff;box-shadow: 0 .10rem 0.45rem 0 rgba(58,59,69,.15)!important 
+}
+
+
+#exTabsale ul li a {
+    padding: 10px 13px;
+    line-height: 35px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    color: #404040;
+}
+#exTabsale ul li.active a {
+    color: #000;
+}
+
+.tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
+
+#exTabsale ul li {
+      border-radius: 0px; padding: 3px 
+}
+#exTabsale ul li.active {
+    background: #ffffff;
 }
 
 /* remove border radius for the tab */
@@ -201,7 +218,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .flex{display: flex}
 .lab1 {
-    font-size: 20px;
+    font-size: 16px;
     color: #f4f5fa;
     font-weight: 200; 
 }
@@ -305,8 +322,10 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin: 10px 0;
     padding: 8px 0px;
     color: #1b1f32;
-    width: 100%;font-size: 14px
+    width: 100%;font-size: 13px; border-radius: 3px
 }
+
+.p5{padding-left: 5px; padding-right: 5px}
 .tar{text-align: right}
 .p10{padding: 3px 10px}
 #pt input{font-size: 22px}
@@ -340,7 +359,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .cart tr:nth-child(even){background: none}  
 .bgh {
     background: #1a1f32;
-    padding: 15px 30px;
+    padding: 15px 15px 0 25px
 }
 
 .bgh2 {
@@ -462,20 +481,18 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 
 .box{
- border: 2px solid #e7e7e7;
-  
+ 
   display: none;
-  min-height: 400px;
-  left: 50%;
-  margin-left: -400px;
+  min-height: 600px;
+  left: 5%;
   opacity: 0;
   position: fixed;
   top: 4%;
-  z-index: 51; width: 800px;
+  z-index: 51; width: 90%;
   
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-  border-radius: 2px; background: #1a1f32; padding-bottom: 20px;overflow-y: scroll;
+  border-radius: 2px; background: #fff; padding-bottom: 20px;overflow-y: scroll;
 }
 
 .box2{
@@ -599,6 +616,12 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #ffffff;
     margin: 10px 0;
 } */
+
+.pill2 {
+    border-bottom: 0px solid #e7e7e7;
+    background: #FFC107;
+    border-radius: 0;
+}
       </style>
    </head>
    <body id="page-top">
@@ -633,6 +656,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       </div>
       <!-- End of Page Wrapper -->
       <!-- Bootstrap core JavaScript-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
       <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
 
     

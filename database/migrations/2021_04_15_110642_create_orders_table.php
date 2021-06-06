@@ -47,6 +47,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('payment_status')->default(false);
 
             $table->text('sn')->nullable();
+            $table->boolean('made')->default(false);
 
             $table->unsignedBigInteger('waiter_id')->nullable();
             $table->foreign('waiter_id')

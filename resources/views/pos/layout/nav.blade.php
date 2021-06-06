@@ -23,18 +23,28 @@
        <div class="topbar-divider d-none d-sm-block"></div>
        <!-- Nav Item - User Information -->
        @if (auth()->user()->type == 1)
-       <a class="nav-link  " href="/"  role="button"   aria-expanded="false">
+
+       <button class="nav-link btn btn-primary btnc2"  style="color: #1c1c1d;background: #e5e9f1;border-radius: 3px;border: none;text-align: center;"  id="pay"  role="button"   aria-expanded="false">
+         <span class="mr-2 d-none d-lg-inline">Sales Log</span>
+       </button>
+       
+       <a class="nav-link" style="line-height: 41px" href="/"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dashboard</span>
-         </a>
+       </a>
+
+       
        @endif
        
 
        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link  " href="#"  onclick="document.getElementById('logout-form').submit();" role="button"  aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logout</span>
+          <a  style="line-height: 43px" class="nav-link  " href="#"  onclick="document.getElementById('logout-form').submit();" role="button"  aria-expanded="false">
+          <span  class=" mr-2 d-none d-lg-inline text-gray-600 small mt-3">Logout</span>
           </a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
        </li>
     </ul>
  </nav>
  <!-- End of Topbar -->
+
+
+

@@ -24,8 +24,9 @@ $mcategories = resolve('mcategories');
 <form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off">
   @csrf
 
- 
-
+ <input type="hidden" name="reqtype" value="pos" id="reqtype">
+<input type="hidden" name="subtt2" id="totcre" value="">
+<input type="hidden" name="subtt2" id="subtotal2" value="">
 
 <div class="row">
 
@@ -49,7 +50,7 @@ $mcategories = resolve('mcategories');
         <div class="row" style="
     background: #1b1f32;
     margin-right: 2px;
-    border-bottom: 1px solid #353e56; padding-bottom:5px
+    border-bottom: 1px solid #353e56; padding-bottom:3px;
 ">
 
           <div class="col-md-6 my-2">
@@ -110,8 +111,14 @@ $mcategories = resolve('mcategories');
 
        
 
-          <div class="col-md-6">
-            
+          <div class="col-md-12">
+            <div id="tables"></div>
+            <div id="dt"></div>
+            <div id="locations"></div>
+            <div id="vallimit" style="
+            font-size: 13px;
+            color: #e65776;
+        "></div>
           </div>
 
           
@@ -128,122 +135,123 @@ $mcategories = resolve('mcategories');
       </div>
 
     
-      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 15px;min-height:230px; ">
+      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:200px; position: absolute; bottom:0; width:100% ">
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-6">
         
               <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
                 <div class="flex">
-                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; margin-bottom:6px"></textarea>
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:90px; margin-bottom:6px"></textarea>
                 </div>
               </div>
          
           </div>
 
-          <div class="col-md-5">
+          <div class="col-md-6">
             <div class="row" style="font-size: 14px">
-                <div class="col-sm-5">Sub Total:</div>
-                <div class="col-sm-7" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
-                <div class="col-sm-5">VAT:</div>
-                <div class="col-sm-7" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
-                <div class="col-sm-5">Discount:</div>
-                <div class="col-sm-7" ><label id="discount" style="font-weight: 600;">0.000</label></div>
+                <div class="col-sm-6">Sub Total:</div>
+                <div class="col-sm-6" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
+                <div class="col-sm-6">VAT:</div>
+                <div class="col-sm-6" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
+                <div class="col-sm-6">Discount:</div>
+                <div class="col-sm-6" ><label id="discount" style="font-weight: 600;">0.000</label></div>
+
+                <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
+                <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
+          <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:10px"></label></div>
+        </div>
+
+
             </div>
           </div>
  
         </div>
         
-        <div class="row totalamd tar">
-          <div class="col-sm-5"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-7" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
-        </div>
+        {{-- <div class="row totalamd tar">
+          <div class="col-sm-9" style="text-align: right"><b class="lab1">Total Amount:</b></div>
+          <div class="col-sm-3" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
+        </div> --}}
 
         <div class="row">
-          <div class="col-sm-2">
-            <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
-          </div>
-          <div class="col-sm-2">
-            <button class="btn btn-primary btnc2" style="
-            background: #6e89e4;
-            border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
+
+          <div class="col-sm-2 p5">
+            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
           </div>
 
-          <div class="col-sm-3">
-            <button class="btn btn-primary btnc2" style="
-            background: #6c759c;
-    border: 1px solid #424962;" id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
+          <div class="col-sm-2 p5">
+            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
           </div>
 
-          <div class="col-sm-3">
-            <button class="btn btn-primary btnc2" style="
-            background: #00BCD4;
-    border: 1px solid #03A9F4;" onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
+          <div class="col-sm-2 p5">
+            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
           </div>
 
-          <div class="col-sm-2">
-            <button class="btn btn-primary btnc1" id="pay" type="button" style="padding: 8px 0; width:100%">Submit <i class="fas fa-arrow-right"></i></button>
+  
+          
+
+          <div class="col-sm-2 p5">
+            <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
+          </div>
+
+          <div class="col-sm-2 p5">
+            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> KOT</button>
+          </div>
+
+
+          
+
+          <div class="col-sm-2 p5">
+            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="padding: 8px 0; width:100%; background:#e65776; border:1px solid #e65776">Pay <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
 
       <div class="backDrop"></div>
-        <div class="box scro" style="max-height: 90vh; padding-bottom:0">
-          <div class="p0">
-            <div class="p0" style="display: flex">
-              <div class="col-sm-9 p0">
-                <div class="bgh">
-                  <div id="tables"></div>
-                  <div id="dt"></div>
-                  <div id="locations"></div>
-                  <div id="vallimit" style="
-                  font-size: 13px;
-                  color: #e65776;
-              "></div>
-
-                  
 
 
+      <div class="box scro">
+        <div class="p0">
+        
 
-                </div>
-              </div>
-              <div class="col-sm-3 p0" style="float: right; padding-top:20px">
-                <div class="bgh2" style="max-height: calc(100vh - 140px); min-height:55vh; padding:0px">
-                  <div style="padding: 10px">
-
-                        OMR 
-                    <input type="text" readonly id="subtotal2"  style="
-                        font-size: 33px;
-                        color: #e65776;
-                        background: #2c3346;
-                        border: none;width:170px
-                    "> <br> <br>
-
-                    Name <br>
-                    <b id="totcrename" style="color: white"></b>
-                    <hr>
-                    Credit Balance<br> <input type="text" readonly style="color: white;background: #2c3346;border: none;width:170px" id="totcre">
-
-
+ 
+          <div id="exTabsale" >	
+          <ul  class="nav nav-pills pill2">
+                <li class="active">
+                  <a  href="#1a" data-toggle="tab">Sales Log</a>
+                </li>
+                <li><a href="#2a" data-toggle="tab">Hold Items</a>
+                </li>
+                <li><a href="#3a" data-toggle="tab">Open Tokens</a>
+                </li>
+                 
+              </ul>
+          
+                <div class="tab-content clearfix">
+                  <div class="tab-pane active" id="1a">
+                    <h3>Content's background color is the same for the tab</h3>
                   </div>
-                
-
-<button class="btn btn-primary btnc1"    type="submit" style="padding: 30px 0px;
-width: 100%;
-
-margin: 0;
-border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
-
-
+                  <div class="tab-pane" id="2a">
+                    <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
+                  </div>
+                  <div class="tab-pane" id="3a">
+                    <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
+                  </div>
+                    
                 </div>
-              </div>
             </div>
-            
+          
             
 
-            
+
+
+
+
+
         </div>
       </div>
+
+      {{-- end sales log --}}
 
   
       <div class="box2 scro " style="max-height: 90vh; overflow-x:hidden">
@@ -333,11 +341,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
             font-size: 14px;
             padding: 20px 15px;">
           </li>
-
-          {{-- <li class="nav-item">
-            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Category</a>
-          </li> --}}
-
+ 
           @foreach ($menutypes as $menutype)
           <?php $nub = 1; ?>
             <li class="nav-item">
@@ -354,72 +358,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 
         <div class="tab-content" id="pills-tabContent">
-
-          {{-- <div class="tab-pane fade show active" id="pall" role="tabpanel" aria-labelledby="all">
-            <div class="row">
-
-              <div class="col-10 p0">
-                <div class="tab-content" id="v-pills-tabContent">
-                  
-                  
-                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                    <div style="display: flex;flex-wrap: wrap;">
-                      @forelse ($allmenus as $product)
-
-                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
-                          <h5>{{$product->price}}</h5>
-                          @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                          <h6 class="itemtitle">{{$product->name}}</h6>
-                        </div>
-
-                      @empty
-                        No menu found!
-                      @endforelse
-                    </div> 
-                  </div>
-
-                  @foreach ($mcategories as $cat)
-                    <div class="tab-pane fade" id="v-pills-{{$cat->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}">
-                      <div style="display: flex;flex-wrap: wrap;">
-                      @forelse ($cat->products as $product)
-                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
-                            <h5>{{$product->price}}</h5>
-                            @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                            <h6 class="itemtitle">{{$product->name}}</h6>
-                        </div>
-                      @empty
-                        No menu found!
-                      @endforelse
-                    </div>
-                    </div>
-                  @endforeach
-
-               
-                </div>
-              </div>
-
-
-              <div class="col-2 p0">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
-
-                  @foreach ($mcategories as $cat)
-                  
-                  <a class="nav-link" id="v-pills-profile-tab{{$cat->id}}" data-toggle="pill" href="#v-pills-{{$cat->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
-
-                @endforeach
-
-                
-                </div>
-              </div>
-              
-            </div>
-          </div>  --}}
-          {{-- end - all cat tab --}}
-
-
+ 
           @foreach ($menutypes as $menutype)
 
           
@@ -502,7 +441,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 
 
-        
+
 
 
 
@@ -539,38 +478,42 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
-
 @endsection
 
 
 
 
 @section('script')
-
+ 
 <script type="text/javascript">
 
+//open and submit kot
+const kot = () =>  {
+
+if($('#autocomplete').val() == ''){
+
+  alert('Please Choose Member');
+} else{
+  $('#reqtype').val('kot');
+  $('#mform').submit();
+}
+
+}
+
+
+//open and submit hold
+const hold = () =>  {
+
+if($('#autocomplete').val() == ''){
+
+    alert('Please Choose Member');
+  } else{
+    $('#reqtype').val('hold');
+    $('#mform').submit();
+  }
+
+}
 
 
 const paynow = () => {
@@ -1272,13 +1215,13 @@ const getTables = (memberid) => {
         $('#locations').empty();
 
         $('#tables').append(`<div>
-                    <div class="bgh p0 mt-2">
-                      <b class="lab1a">Waiter</b>
+                    <div class="bgh p0">
+                      <b class="lab1b">Waiter</b>
                       <div class="flex">
-                        <select required="" name="waiter" class="form-control mb-3" name="rank_id" id="rank_id" style="
-    background: #2c3346;
+                        <select required="" name="waiter" class="form-control mb-1" name="rank_id" id="rank_id" style="
+    background: #424961;
     color: #fff;
-    font-size: 13px;border:1px solid #2c3346
+    font-size: 13px;border:1px solid #424961
 ">
                             <option value="">Select Waiter</option>
 
@@ -1296,7 +1239,7 @@ const getTables = (memberid) => {
                     
                   </div>
                   
-                  <b class="lab1a">Tables</b>
+                  <b class="lab1b">Tables</b>
                   `)
 
 
@@ -1307,7 +1250,7 @@ const getTables = (memberid) => {
           if(item.status == 1){
           
             $('#tdd').append(`
-              <div class="col-md-2" style="padding:2px;"  >
+              <div class="col-md-1" style="padding:2px;"  >
 
                 <div class="form-check">
                   <input class="form-check-input" type="radio" value="${item.id}" name="table" required id="flexRadioDefault2">
@@ -1321,7 +1264,7 @@ const getTables = (memberid) => {
               </div>`);
           } else{ 
             $('#tdd').append(`
-                <div class="col-md-2" style="padding:2px;">
+                <div class="col-md-1" style="padding:2px;">
                   <div class="tablepic" style="background:#9a291e">
                   <h5>${item.name}</h5>
                   <p>Seat: ${item.chair}</p>
@@ -1656,7 +1599,7 @@ const getDeliverylocations = (memberid) => {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<div class="bgh2 mt-3"><b class="lab1a">Location</b>
+          $('#locations').append(`<div class="bgh1 mt-1"><b class="lab1a">Location</b>
           <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
 
 

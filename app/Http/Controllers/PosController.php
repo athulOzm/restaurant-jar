@@ -249,28 +249,72 @@ class PosController extends Controller
 
 
 
-       $id = Order::find(Session::get('token')->id)->update([
-           'status' =>  2,
-           'user_id'    =>  User::where('memberid', $memberid)->first()->id,
-           'delivery_type' => $delivery_type,
-           'payment_type_id'    =>  $payment_type,
-           'delivery_time'  =>  $delivery_time,
-           'deliverylocation_id'  =>  $location,
-           'payment_status' =>  true,
-           'table_id'  =>  $table,
-           'sn' =>  $request->sn,
-           'waiter_id'  => $request->waiter,
-           'reqfrom'    =>  auth()->user()->id
-       ]);
+        if($request->reqtype == 'kot'){
+
+            $id = Order::find(Session::get('token')->id)->update([
+                'status' =>  3,
+                'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+                'delivery_type' => $delivery_type,
+                'payment_type_id'    =>  $payment_type,
+                'delivery_time'  =>  $delivery_time,
+                'deliverylocation_id'  =>  $location,
+                'payment_status' =>  true,
+                'table_id'  =>  $table,
+                'sn' =>  $request->sn,
+                'waiter_id'  => $request->waiter,
+                'reqfrom'    =>  auth()->user()->id
+            ]);
+
+        } else if($request->reqtype == 'hold'){
+            $id = Order::find(Session::get('token')->id)->update([
+                'status' =>  2,
+                'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+                'delivery_type' => $delivery_type,
+                'payment_type_id'    =>  $payment_type,
+                'delivery_time'  =>  $delivery_time,
+                'deliverylocation_id'  =>  $location,
+                'payment_status' =>  true,
+                'table_id'  =>  $table,
+                'sn' =>  $request->sn,
+                'waiter_id'  => $request->waiter,
+                'reqfrom'    =>  auth()->user()->id
+            ]);
+
+        } else{
+
+            $id = Order::find(Session::get('token')->id)->update([
+                'status' =>  4,
+                'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+                'delivery_type' => $delivery_type,
+                'payment_type_id'    =>  $payment_type,
+                'delivery_time'  =>  $delivery_time,
+                'deliverylocation_id'  =>  $location,
+                'payment_status' =>  true,
+                'table_id'  =>  $table,
+                'sn' =>  $request->sn,
+                'waiter_id'  => $request->waiter,
+                'reqfrom'    =>  auth()->user()->id
+            ]);
+        }
+
+
+
+       
 
        $tid = Session::get('token')->id;
 
        Session::forget('token');
-       Checkout::dispatch($tid);
 
-       //dd($id);
+       if($request->reqtype == 'hold'){
 
-       return redirect()->route('pos.print', $tid);
+            //Checkout::dispatch($tid);
+            return redirect()->route('pos');
+       } else{
+
+            Checkout::dispatch($tid);
+            return redirect()->route('pos.print', $tid);
+       }
+       
 
 
 

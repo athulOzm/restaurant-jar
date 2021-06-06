@@ -224,22 +224,22 @@ Route::middleware(['auth:waiter'])->group(function () {
 
 
     //pos
-    Route::post('pos/addtocart', 'PosController@addtocart');
-    Route::post('pos/downcart', 'PosController@downcart');
-    Route::post('pos/updqty', 'PosController@updqty');
-    Route::post('pos/removecart', 'PosController@removecart');
-    Route::post('pos/adddiscount', 'PosController@discount');
-    Route::get('pos/totalprice', 'PosController@totalprice');
-    Route::get('pos/getcart', 'PosController@getcart');
-    Route::get('pos/getmembers', 'PosController@getmembers');
-    Route::get('/pos/{memberid}/getpaymenttype', 'PosController@getpaymenttypes');
-    Route::get('/pos/gettables', 'PosController@gettables');
-    Route::get('/pos/locations', 'PosController@getlocations');
-    Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
-    Route::post('/pos/creditstatus', 'PosController@memberstatus');
-    Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
-    Route::get('pos/getmenus', 'PosController@getmenus');
-    Route::get('pos/print/{coupon}', 'PosController@getprint');
+    Route::post('waiter/pos/addtocart', 'PosController@addtocart');
+    Route::post('waiter/pos/downcart', 'PosController@downcart');
+    Route::post('waiter/pos/updqty', 'PosController@updqty');
+    Route::post('waiter/pos/removecart', 'PosController@removecart');
+    Route::post('waiter/pos/adddiscount', 'PosController@discount');
+    Route::get('waiter/pos/totalprice', 'PosController@totalprice');
+    Route::get('waiter/pos/getcart', 'PosController@getcart');
+    Route::get('waiter/pos/getmembers', 'PosController@getmembers');
+    Route::get('waiter/pos/{memberid}/getpaymenttype', 'PosController@getpaymenttypes');
+    Route::get('waiter/pos/gettables', 'PosController@gettables');
+    Route::get('waiter/pos/locations', 'PosController@getlocations');
+    Route::post('waiter/pos/checkout', 'PosController@checkout')->name('waiter.pos.checkout');
+    Route::post('waiter/pos/creditstatus', 'PosController@memberstatus');
+    Route::get('waiter/pos/creditstatus2/{user}', 'PosController@memberstatus2');
+    Route::get('waiter/pos/getmenus', 'PosController@getmenus');
+    Route::get('waiter/pos/print/{coupon}', 'PosController@getprint');
 
     //logout
     Route::get('waiter/logout', 'WaiterController@logout');
