@@ -108,4 +108,37 @@ class LoginController extends Controller
     }
 
 
+    //waiter login with id
+    public function waiterlogin(Request $request)
+    {
+        $this->validate($request, [
+            'memberid' => 'required'
+        ]);
+
+        if(!is_null($user = User::where('memberid', $request->memberid)->first())) {
+
+            if(Auth::guard('waiter')->loginUsingId($user->id, true)){
+                
+                $user = Auth::user();
+                // $token                  =       $user->createToken('token')->accessToken;
+                // $success['success']     =       true;
+                // $success['message']     =       "Success! you are logged in successfully";
+                // $success['token']       =       $token;
+                // $success['user']        =       $user;
+    
+                //return response(['status' => true, 'data' => $success], 200);
+                return redirect()->route('waiter');
+            } 
+        }
+        else{
+
+            return back();
+        }
+
+         
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+
 }

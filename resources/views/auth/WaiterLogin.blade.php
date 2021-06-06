@@ -53,20 +53,20 @@ form.user .form-control-user {
                 <div class="p-5">
                   <div class="text-center">
 
-                    <h1 class="h4 text-gray-900 mb-4">Admin Login</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Tablet Login</h1>
 
                   </div>
 
 
-                    <form method="POST" class="user" action="{{ route('login') }}">
+                    <form method="POST" class="user" action="{{ route('waiter.login.create') }}">
                         @csrf
 
                         <div class="form-group row">
                           
                             
-                                <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus="" placeholder="Enter Email Address..." autofocus>
+                                <input id="memberid" type="text" class="form-control form-control-user @error('memberid') is-invalid @enderror" name="memberid" value="{{ old('memberid') }}" required autocomplete="memberid" autofocus="" placeholder="Enter ID..." autofocus>
 
-                                @error('email')
+                                @error('memberid')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -74,7 +74,7 @@ form.user .form-control-user {
                      
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                            
                    
                                 <input id="password" type="password" class="form-control form-control-user  @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"  autofocus="" placeholder="Enter Password">
@@ -85,9 +85,9 @@ form.user .form-control-user {
                                     </span>
                                 @enderror
                        
-                        </div>
+                        </div> --}}
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                            
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -97,7 +97,7 @@ form.user .form-control-user {
                                     </label>
                                 </div>
                          
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row mb-0">
                             

@@ -320,11 +320,16 @@ class UserController extends Controller
 
     public function waiterstoreWeb(Request $request){
 
+        $request->validate([
+            'memberid'  =>  'required|unique:users',
+            'phone' =>  'unique:users'
+        ]);
+
         User::create([
             'name'              =>      $request->name,
             'email'             =>      $request->email,
             'phone'             =>      $request->phone,
-            'memberid'          =>      $request->wid,
+            'memberid'          =>      $request->memberid,
             'type'              =>      4
         ]);
 

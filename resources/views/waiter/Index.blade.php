@@ -35,6 +35,7 @@
                                         <tr>
                                       
                                             <th class="text-left text-blue-900">Full Name</th>
+                                            <th class="text-left text-blue-900">ID</th>
                                             <th class="text-left text-blue-900">Email</th>
                                             <th class="text-left text-blue-900">Phone Number</th>
                                            
@@ -49,6 +50,7 @@
                                         <tr>
                                       
                                             <td>{{$waiter->name}}</td>
+                                            <td> <b> {{$waiter->memberid}}</b></td>
                                             <td>{{$waiter->email}}</td>
                                             <td>{{$waiter->phone}}</td>
                                          

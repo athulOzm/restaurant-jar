@@ -53,7 +53,7 @@ form.user .form-control-user {
                 <div class="p-5">
                   <div class="text-center">
 
-                    <h1 class="h4 text-gray-900 mb-4">Admin Login</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Admin Login..</h1>
 
                   </div>
 

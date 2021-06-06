@@ -1,4 +1,4 @@
-@extends('pos.layout.master')
+@extends('pos.layout.waiter')
 
 <?php 
 $menutypes = resolve('menutypesforpos');
@@ -21,7 +21,7 @@ $mcategories = resolve('mcategories');
 }
 </style>
 
-<form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off">
+<form action="{{route('pos.checkout')}}" method="POST" id="mform">
   @csrf
 
  
@@ -121,7 +121,7 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 535px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 495px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
@@ -160,10 +160,10 @@ $mcategories = resolve('mcategories');
         </div>
 
         <div class="row">
-          <div class="col-sm-2">
-            <button class="btn btn-primary btnc2" type="button"><i class="fas fa-print"></i> Print</button>
+         <div class="col-sm-6">
+            <a class="btn btn-primary btnc2" href="/waiter/logout" type="button"><i class="fas fa-user"></i> Logout</a>
           </div>
-          <div class="col-sm-2">
+           {{-- <div class="col-sm-2">
             <button class="btn btn-primary btnc2" style="
             background: #6e89e4;
             border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
@@ -179,9 +179,9 @@ $mcategories = resolve('mcategories');
             <button class="btn btn-primary btnc2" style="
             background: #00BCD4;
     border: 1px solid #03A9F4;" onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
-          </div>
+          </div> --}}
 
-          <div class="col-sm-2">
+          <div class="col-sm-6" style="float: right">
             <button class="btn btn-primary btnc1" id="pay" type="button" style="padding: 8px 0; width:100%">Submit <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
@@ -208,7 +208,7 @@ $mcategories = resolve('mcategories');
                 </div>
               </div>
               <div class="col-sm-3 p0" style="float: right; padding-top:20px">
-                <div class="bgh2" style="max-height: calc(100vh - 140px); min-height:55vh; padding:0px">
+                <div class="bgh2" style="max-height: calc(100vh - 100px); min-height:55vh; padding:0px">
                   <div style="padding: 10px">
 
                         OMR 
@@ -571,7 +571,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 <script type="text/javascript">
 
-
+ 
 
 const paynow = () => {
 
