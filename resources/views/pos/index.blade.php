@@ -61,15 +61,15 @@ $mcategories = resolve('mcategories');
             <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
           </div>
           
-    
+        
           <div class="col-md-6">
             <p class="lab1b">MISS ID</p>
-            <input type="text" name="memberid" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
+            <input type="text" name="memberid" value="@if($cur_token->user){{$cur_token->user->memberid}}@endif" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
             <p class="lab1b">Member Name</p>
-            <input type="text" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb">
+            <input type="text" value="@if($cur_token->user){{$cur_token->user->name}}@endif" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb" >
           </div>
 
           <div class="col-md-6">
@@ -82,8 +82,8 @@ $mcategories = resolve('mcategories');
             <div id="pt">
               <div class="bgh p0">
               <div class="flex">
-              <label class="box3"><input type="radio" onclick="getDelTime()" required="" name="pt" value="1"> <b class="lab1a">Card</b></label>
-              <label class="box3"><input type="radio" onclick="getDelTime()" id="crepay" required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
+              <label class="box3"><input type="radio" onclick="getDelTime()" required="" @if($cur_token->payment_type_id == 1) checked @endif name="pt" value="1"> <b class="lab1a">Card</b></label>
+              <label class="box3"><input type="radio" onclick="getDelTime()" id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
               </div></div>
             </div>
 
@@ -210,11 +210,7 @@ $mcategories = resolve('mcategories');
       <div class="backDrop"></div>
 
 
-      <div class="box scro">
-        <div class="p0">
-        @include('pos.partials.SalesLog')
-        </div>
-      </div>
+      
 
       {{-- end sales log --}}
 
@@ -424,7 +420,11 @@ $mcategories = resolve('mcategories');
 </div>
 </form>
 
-
+<div class="box scro">
+  <div class="p0">
+  @include('pos.partials.SalesLog')
+  </div>
+</div>
 
 <div class="sales_return" style="max-height: 90vh; overflow-x:hidden; padding:0">
 

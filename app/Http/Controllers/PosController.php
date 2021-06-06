@@ -54,7 +54,16 @@ class PosController extends Controller
 
         Session::forget('token');
         Session::put('token', $ct);
-        return view('pos.index');
+        $cur_token = Order::with('user', 'table', 'location')->where('id', $ct->id)->first();
+        return view('pos.index', compact('cur_token'));
+    }
+
+    public function update(Order $order){
+
+        Session::forget('token');
+        Session::put('token', $order);
+        $cur_token = Order::with('user', 'table', 'location')->where('id', $order->id)->first();
+        return view('pos.index', compact('cur_token'));
     }
 
 

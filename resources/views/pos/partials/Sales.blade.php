@@ -22,42 +22,50 @@ $saleslog = resolve('saleslog');
                        
 
 
-                        <th width="30">Member ID</th>
-                        <th width="30">Receipt Id</th>
-                        <th width="30">User</th>
-                        <th width="30">Ord. Source</th>
+                        
+                        <th>Id /هوية شخصية</th>
+                        <th>Receipt No / رقم الإيصال</th>
+                        <th >User Name</th>
+                        <th>Date / تاريخ</th>
+                      
                         
 
-                        <th width="30">Amount Total</th>
+                        <th>TOTAL / مجموع</th>
                      
 
-                        <th width="30">Action</th>
+                        <th>Action / عمل </th>
                         </tr>
                     </thead>
 
                     <tbody>
                     @foreach($saleslog->ordersPosted()->where('status', 4)->get() as $sale)
                         <tr>
-                            <td>{{$sale->user->memberid}}</td>
                             <td>{{$sale->id}}</td>
-                            <td>{{$sale->user->name}}</td>
-                            <td>{{$sale->getReqByAttribute()}}</td>
+                            <td>RE-{{$sale->id}}</td>
+                            <td>{{$sale->user->memberid}}</td>
+                            <td>{{$sale->updated_at}}</td>
+                      
+                            
                             <td>{{$sale->gettotalprice()['subtotal']}}</td>
                            
+                           
+                            
 
                             
-                    <th>
-                        <a href="" class="btn btn-info    "> <i
-                            class="fas fa-pencil-alt"></i></a>
+                    <td>
+                        <a href="" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+                        <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Print</a>
+                        <a href="" class="btn btn-info"> <i class="fas fa-expand-arrows-alt"></i> Move Order</a>
+                        <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit & Pay</a>
 
-                        <a onclick="deleteCon('delfrm{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                        {{-- <a onclick="deleteCon('delfrm{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                         <form id="delfrm{{$sale->id}}" action="" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="id" value="{{$sale->id}}">
-                        </form>
+                        </form> --}}
 
-                    </th>
+                    </td>
                         
                         </tr>
                         @endforeach

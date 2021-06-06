@@ -488,11 +488,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   opacity: 0;
   position: fixed;
   top: 4%;
-  z-index: 51; width: 90%;
+  z-index: 51; width: 90%; overflow: hidden;
   
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px; background: #fff; padding-bottom: 20px;overflow-y: scroll;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px; background: #fff; padding-bottom: 20px;overflow-y: scroll; 
 }
 
 .box2{

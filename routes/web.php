@@ -146,6 +146,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
     Route::get('pos/print/{coupon}', 'PosController@getprint')->name('pos.print');
+    Route::get('pos/update/{order}', 'PosController@update')->name('pos.update');
 
     
 
