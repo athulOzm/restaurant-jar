@@ -192,16 +192,23 @@ $mcategories = resolve('mcategories');
 
           {{-- <div class="col-sm-2 p5">
             <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
-          </div>
-
-          <div class="col-sm-2 p5">
-            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> KOT</button>
           </div> --}}
+
+          <div class="col-sm-4"></div>
+
+          <div class="col-sm-4">
+            <select required="" class="form-control mt-2" name="category_id" id="category_id">
+              
+                                              <option value="1">Cash</option>
+                                              <option value="2">Credit</option>
+              
+                                      </select>
+          </div>
 
 
           
 
-          <div class="col-sm-2 p5">
+          <div class="col-sm-4 p5">
             <button class="btn btn-primary btnc2" id="pay2" type="submit" style="padding: 8px 0; width:100%; background:#e65776; border:1px solid #e65776">Refund <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
@@ -1271,6 +1278,11 @@ const getTables = (memberid) => {
               </div>
               `)
 
+              $('#autocomplete2a').val(res.user.memberid);
+              $('#autocomplete2').val(res.user.name);
+              $('#subtotal').empty();
+              $('#subtotal').append(res.refund_balance);
+
               var subt = [];
               var n =1;
               res.orderproducts.map(item => {
@@ -1334,28 +1346,26 @@ const getTables = (memberid) => {
 
           //get total price
           gettotprice()
+          
           }
       });
   };
 
   const gettotprice = async () => {
-
     $.ajax({
         type: 'GET',
         url: "/pos/totalprice",
         success: function(res) {
           //console.log(res);
-
           $('#st').empty();
           $('#vat').empty();
-          $('#subtotal').empty();
+          //$('#subtotal').empty();
           $('#discount').empty();
-          $('#subtotal2').val(null);
-
+          //$('#subtotal2').val(null);
           $('#st').append(res.price);
           $('#vat').append(res.tax);
-          $('#subtotal').append(res.subtotal);
-          $('#subtotal2').val(res.subtotal);
+          //$('#subtotal').append(res.subtotal);
+          //$('#subtotal2').val(res.subtotal);
           $('#discount').append(res.discount);
  
         }
