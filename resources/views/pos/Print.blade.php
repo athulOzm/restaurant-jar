@@ -159,7 +159,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
          
           <div class="info"> 
 
-            <div style="width: 38%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="60" alt="">
+            <div style="width: 38%; float:left; text-align:left"><img src="{{asset('img/cooking.png')}}" width="60" alt="">
               <h2 style="margin: 0; font-size:1.3em"> </h2>
             </div>
 

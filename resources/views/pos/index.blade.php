@@ -74,7 +74,7 @@ $mcategories = resolve('mcategories');
 
           <div class="col-md-6">
             <p class="lab1b">Member Balance</p>
-            <input type="text" id="totcre2" readonly style="background: #424961" class="form-control w-full txtb">
+            <input type="text" id="totcre2" readonly value="@if($cur_token->user){{number_format($cur_token->user->limit - $cur_token->user->getCreditAmount(), 3)}}@endif" style="background: #424961" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
