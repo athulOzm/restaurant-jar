@@ -208,12 +208,14 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 } */
 
 .box3 {
-    padding: 3px 0px;
+    padding: 2px 0px;
     background: #2c3346;
     margin-right: 5px;
-    margin-top: 2px;
+    margin-top: 0px;
     width: 100%;
-    border-radius: 3px; cursor: pointer; margin-bottom: 0
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 0;
 }
 .box3 input {opacity: .5; margin-left: 15px}
 .box1 input[type=radio]{ margin-right: 10px}
@@ -239,7 +241,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 400;
     display: inline-block;
     margin-left: 0;
-    margin-bottom: 1px;
+    margin-bottom: 0px;
 }
  
 .lab1a b{
@@ -257,10 +259,10 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #6f788e;
 }
 .item {
-    line-height: 25px;
+    line-height: 20px;
     margin: 0px 0;
     padding-right: 15px;
-    padding: 8px 0 ;
+    padding: 4px 0 ;
     border: 1px solid #343c52; border-top: none; background: #2a3042
 }
 .item label{margin-bottom: 0}
@@ -303,7 +305,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #424962;
     border: 0;
     border-radius: 3px;
-    color:#e65776; font-size: 14px; height: 31px;
+    color:#e65776; font-size: 14px; height: 27px;
 }
 .itembox img {
     width: 100%;
@@ -321,8 +323,8 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     height: auto;
     background: #b6bece;
     border-color: #b6bece;
-    margin: 10px 0;
-    padding: 8px 0px;
+    margin: 6px 0;
+    padding: 5px 0px;
     color: #1b1f32;
     width: 100%;font-size: 13px; border-radius: 3px
 }

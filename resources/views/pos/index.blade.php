@@ -19,6 +19,16 @@ $mcategories = resolve('mcategories');
     padding: 10px 10px 0;
     border-radius: 6px;
 }
+
+label {
+    display: inline-block;
+    margin-bottom: .1rem;
+}
+
+.form-control {
+    height: 28px;
+    padding: 3px 10px;
+}
 </style>
 
 <form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off">
@@ -50,14 +60,14 @@ $mcategories = resolve('mcategories');
         <div class="row" style="
     background: #1b1f32;
     margin-right: 2px;
-    border-bottom: 1px solid #353e56; padding-bottom:3px;
+    border-bottom: 1px solid #353e56; padding-bottom:6px;
 ">
 
-          <div class="col-md-6 my-2">
+          <div class="col-md-6">
             <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
-          <div class="col-md-6 my-2">
+          <div class="col-md-6">
             <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
           </div>
           
@@ -89,14 +99,14 @@ $mcategories = resolve('mcategories');
 
           </div>
 
-          <div class="col-md-6 my-2">
+          <div class="col-md-6">
             <div id="dtime">
               <p class="lab1b">Delivery Time</p>
               <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
             </div>
           </div>
     
-          <div class="col-md-6 my-1">
+          <div class="col-md-6">
             <p class="lab1b">Delivery Type</p>
          
               <div id="delivery">
@@ -113,8 +123,16 @@ $mcategories = resolve('mcategories');
 
           <div class="col-md-12">
             <div id="tables"></div>
+            <div class="row">
+              <div class="col-md-6">
             <div id="dt"></div>
+
+              </div>
+              <div class="col-md-6">
             <div id="locations"></div>
+
+              </div>
+            </div>
             <div id="vallimit" style="
             font-size: 13px;
             color: #e65776;
@@ -128,21 +146,21 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 515px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 390px); margin-top:5px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
       </div>
 
     
-      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:180px; position: absolute; bottom:0; width:100% ">
+      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:150px; position: absolute; bottom:0; width:100% ">
         <div class="row">
           <div class="col-md-6">
         
               <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
                 <div class="flex">
-                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:90px; margin-bottom:6px"></textarea>
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:70px; margin-bottom:6px"></textarea>
                 </div>
               </div>
          
@@ -202,7 +220,7 @@ $mcategories = resolve('mcategories');
           
 
           <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="padding: 8px 0; width:100%; background:#e65776; border:1px solid #e65776">Pay <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Pay <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
@@ -1121,7 +1139,7 @@ const getlimitbydate = () => {
     //$('#pt').empty();
     /////$('#dtime').empty();
 
-    $('#dt').append(`<div class="bgh flex p0">
+    $('#dt').append(`<div class="bgh flex p0" style="margin-top:7px">
     <label class="box3"><input type="radio"  required onClick="hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
     <label class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
                      </div>`);
@@ -1564,7 +1582,7 @@ const getDeliverylocations = (memberid) => {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<div class="bgh1 mt-1"><b class="lab1a">Location</b>
+          $('#locations').append(`<div class="bgh1 mt-1">
           <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
 
 
