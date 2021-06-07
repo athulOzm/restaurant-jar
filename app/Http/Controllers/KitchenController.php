@@ -25,10 +25,10 @@ class KitchenController extends Controller
     public function orderReady(Order $order){
 
         $order->update([
-            'made' => true
+            'made' => 1
         ]);
 
-        $orders = Order::with(['products', 'user', 'table', 'location'])->where('made', false)->where('status', 4)->get();
+        $orders = Order::with(['products', 'user', 'table', 'location'])->where('made', false)->where('status', 3)->where('status', 4)->get();
         return  response()->json($orders);
     }
 
