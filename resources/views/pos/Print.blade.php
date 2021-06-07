@@ -212,7 +212,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
                           
                                 <tr >
-                                    <td class="tableitem"><p class="itemtext">{{$product->product->name}}</p></td>
+                                    <td class="tableitem"><p class="itemtext">{{$product->product->name}}<br>{{$product->product->name_ar}}</p></td>
                                     <td class="tableitem"><p class="itemtext">{{$product->quantity}}</p></td>
                                     <td class="tableitem"><p class="itemtext2">{{$product->product->price}}</p></td>
                                     <td class="tableitem"><p class="itemtext2">{{$product->discount}}</p></td>

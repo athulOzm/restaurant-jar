@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\MemberRenewal;
 use App\User;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MemberRenewalController extends Controller
 {
@@ -57,6 +60,20 @@ class MemberRenewalController extends Controller
         }
         return back();
     }
+
+    public function downloadId(User $user){
+
+        $customPaper = array(0,0,345.00,225.0);
+
+       // \QrCode::format('png')->size(200)->generate($user->memberid, storage_path('app/public/cover/'.$user->memberid.'.png'));
+
+         $pdf = PDF::loadView('pdf.Memberid', compact('user'))->setPaper($customPaper, 'landscape');
+         return $pdf->download($user->memberid.'.pdf');
+        //return view('pdf.Memberid', compact('user'));
+        
+    }
+
+    
 
  
 }

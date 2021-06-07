@@ -85,6 +85,7 @@
                                             <th class="text-left text-blue-900">Item Limit</th>
                                             <th class="text-left text-blue-900">Category</th>
                                             <th class="text-left text-blue-900">Status</th>
+                                            <th class="text-left text-blue-900" width="50">Member Card</th>
                                             <th class="text-left text-blue-900" width="60">Action</th>
                                         
     
@@ -116,6 +117,16 @@
                                             {{-- <p style="font-size: 12px">()</p> --}}
                                         </td>
 
+
+                                        <td>
+                                            
+<a target="_blank" href="{{route('member.download.id', $member)}}" class="btn btn-secondary" style="
+font-size: 12px;
+padding: 0 5px;
+"> Download</a> 
+
+</td>
+
                                          
 
                                         <th>
@@ -124,6 +135,7 @@
 
                                             
                                                     
+                                            
                                             <a href="{{route('member.edit', $member)}}" class="btn btn-secondary  btn-circle btn-sm "> <i class="fas fa-pencil-alt"></i></a> 
 
                                            

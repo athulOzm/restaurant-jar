@@ -33,6 +33,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/members/ledger', 'UserController@ledger')->name('member.ledger');
     Route::patch('member/renewnow', 'MemberRenewalController@renewnow')->name('member.renew');
     Route::get('/member/renewals', 'MemberRenewalController@index')->name('member.renewals');
+    Route::get('/member/downloadid/{user}', 'MemberRenewalController@downloadId')->name('member.download.id');
 
 
 
