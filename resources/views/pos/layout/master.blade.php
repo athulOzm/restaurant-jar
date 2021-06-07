@@ -281,21 +281,23 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #bac2d6;
 }
 .item .qty {
-    font-size: 15px;
+    font-size: 14px;
     color: #abb6c7;
     background: #1b1f32;
     padding: 0px 10px;
-    border-radius: 6px;
-    line-height: 28px;
+    border-radius: 3px;
+ 
     margin: 0 3px;
 }
+
+
 .itemdis {
     max-width: 100%;
     margin-right: 5px;
     background: #8790a5;
     border: none;
     border-radius: 3px;
-    height: 26px;
+    height: 23px;
 }
 .item .ttl {
     font-size: 13px;

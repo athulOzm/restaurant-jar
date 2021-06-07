@@ -19,7 +19,10 @@ $mcategories = resolve('mcategories');
     padding: 10px 10px 0;
     border-radius: 6px;
 }
+.btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {
+    height: 1.6rem;
 
+}
 label {
     display: inline-block;
     margin-bottom: .1rem;
