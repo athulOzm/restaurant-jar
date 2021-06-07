@@ -177,6 +177,8 @@ label {
                 <div class="col-sm-6" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
                 <div class="col-sm-6">Discount:</div>
                 <div class="col-sm-6" ><label id="discount" style="font-weight: 600;">0.000</label></div>
+                <div class="col-sm-6">Container:</div>
+                <div class="col-sm-6" ><label id="container" style="font-weight: 600;">0.000</label></div>
 
                 <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
                 <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
@@ -1284,9 +1286,10 @@ const getTables = (memberid) => {
                 <div class="col-sm-1 " style="padding-left:25px">N</div>
                 <div class="col-sm-2 p0">Item</div>
                 <div class="col-sm-2 ">Qty</div>
-                <div class="col-sm-2 p0">Unit.Price</div>
-                <div class="col-sm-1 ">VAT</div>
+                <div class="col-sm-1 p0">Unit.Price</div>
                 <div class="col-sm-1 ">Dis</div>
+                <div class="col-sm-1 ">VAT</div>
+                <div class="col-sm-1 ">Cont</div>
                 <div class="col-sm-2 ">Total</div>
                 <div class="col-sm-1" style="font-size:9px">Addon</div>
               </div>
@@ -1331,10 +1334,22 @@ const getTables = (memberid) => {
             
             
             </div>
-            <div class="col-sm-2 price p0">${item.product.promotion_price}</div>
+            <div class="col-sm-1 price p0">${item.product.promotion_price}</div>
+            <div class="col-sm-1 p0">
+              <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" 
+              id="itemd${item.product.id}" class="itemdis" type="text">
+            </div>
+
             <div class="col-sm-1 ttl p0" >${item.tax}</div>
-            <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl " >${item.sub_price}</div>
+
+
+            <div class="col-sm-1 p0">
+              <input value="${item.container}" style="font-size:14px" onChange="addcontainer('${item.id}', '${item.product.id}');" 
+              id="itemc${item.product.id}" class="itemdis" type="text">
+            </div>
+
+
+            <div class="col-sm-2 ttl p0" >${item.sub_price}</div>
             
             <div class="col-sm-1 act p0">
               <div style="display: flex">
@@ -1371,6 +1386,7 @@ const getTables = (memberid) => {
           $('#vat').empty();
           $('#subtotal').empty();
           $('#discount').empty();
+          $('#container').empty();
           $('#subtotal2').val(null);
 
           $('#st').append(res.price);
@@ -1378,6 +1394,7 @@ const getTables = (memberid) => {
           $('#subtotal').append(res.subtotal);
           $('#subtotal2').val(res.subtotal);
           $('#discount').append(res.discount);
+          $('#container').append(res.container);
  
         }
     })
@@ -1559,10 +1576,32 @@ const adddiscount = (item, id) => {
 var dis = $(`#itemd${id}`).val();
 
 
-var token = $("meta[name='csrf-token']").attr("content");
+  var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
       url: `/pos/adddiscount`,
+      data: {
+          "id": item,
+          "dis": dis,
+          "_token": token,
+      },
+      success: function(){
+        getOrders();
+      }
+  });
+}
+
+
+//container
+const addcontainer = (item, id) => {
+
+var dis = $(`#itemc${id}`).val();
+
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/addcontainer`,
       data: {
           "id": item,
           "dis": dis,

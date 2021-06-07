@@ -260,13 +260,15 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                               </tr>
 
                                 <tr class="tabletitle">
-                                    
-                                    
-                                  
                                     <td class="Rate"  colspan="3"><h2>Discount</h2></td>
                                     <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['discount']}}</h2></td>
                                     <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
+                                </tr>
 
+                                <tr class="tabletitle">
+                                  <td class="Rate"  colspan="3"><h2>Container</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['container']}}</h2></td>
+                                  <td class="Rate tar" colspan="2"  ><h2>وعاء </h2></td>
                                 </tr>
 
                                 <tr class="tabletitle">

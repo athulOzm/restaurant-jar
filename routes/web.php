@@ -135,6 +135,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('pos/updqty', 'PosController@updqty');
     Route::post('pos/removecart', 'PosController@removecart')->name('pos.removecart');
     Route::post('pos/adddiscount', 'PosController@discount')->name('pos.discount');
+    Route::post('pos/addcontainer', 'PosController@container')->name('pos.container');
     Route::get('pos/totalprice', 'PosController@totalprice');
     Route::get('pos/getcart', 'PosController@getcart')->name('pos.getcart');
     Route::get('pos/getmembers', 'PosController@getmembers')->name('pos.getmembers');

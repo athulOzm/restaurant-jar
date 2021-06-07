@@ -102,7 +102,7 @@ class OrderProduct extends Model
     {
          
         
-        return number_format($this->getAddonTotalAttribute() + $this->getPriceTotalWithTaxAttribute(), 3);
+        return number_format($this->getAddonTotalAttribute() + $this->getPriceTotalWithTaxAttribute() + $this->container, 3);
     }
 
     public function getTaxAttribute()

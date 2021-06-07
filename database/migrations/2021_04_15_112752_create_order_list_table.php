@@ -34,6 +34,8 @@ class CreateOrderListTable extends Migration
 
             //$table->integer('quantity')->default(1);
             $table->decimal('quantity', 8, 1)->nullable()->default(1);
+            $table->decimal('container', 8, 3)->default(0);
+
             $table->decimal('discount', 8, 3)->default(0);
             $table->timestamps();
         });

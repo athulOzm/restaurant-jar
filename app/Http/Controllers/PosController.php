@@ -217,8 +217,14 @@ $clone->push();
     //add discount
     public function discount(Request $request){
 
-       DB::update('update order_product set discount = '.$request->dis.' where id = ?', [$request->id]);
+        DB::update('update order_product set discount = '.$request->dis.' where id = ?', [$request->id]);
     }
+
+    //add container
+    public function container(Request $request){
+
+        DB::update('update order_product set container = '.$request->dis.' where id = ?', [$request->id]);
+     }
 
     //pos get cart
     public function getcart(){

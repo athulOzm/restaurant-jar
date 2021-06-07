@@ -37,7 +37,7 @@ class Order extends Model
     public function products(){
 
         return $this->belongsToMany(Product::class)
-            ->withPivot('product_id', 'quantity', 'discount', 'id')
+            ->withPivot('product_id', 'quantity', 'discount', 'container', 'id')
             ->withTimestamps();
     }
 
@@ -95,11 +95,19 @@ class Order extends Model
             $dis[] = number_format($item->discount, 3);
         });
 
+        //container
+        $cont = [];
+        $cartitems->each(function($item) use(&$cont){
+
+            $cont[] = number_format($item->container, 3);
+        });
+
         //sub total
         $price = number_format(array_sum($tprice) + array_sum($price_addon), 3);
         $tax = number_format(array_sum($tax) + array_sum($addon_tax), 3);
         $dis = number_format(array_sum($dis), 3);
-        $st = number_format($price + $tax, 3);
+        $cont = number_format(array_sum($cont), 3);
+        $st = number_format($price + $tax + $cont, 3);
 
          
 
@@ -107,6 +115,7 @@ class Order extends Model
             'price' => $price,
             'tax' => $tax,
             'discount' => $dis,
+            'container' => $cont,
             'subtotal' => number_format($st - $dis, 3),
         ];
 
