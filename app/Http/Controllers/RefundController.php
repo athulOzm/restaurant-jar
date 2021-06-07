@@ -31,8 +31,8 @@ class RefundController extends Controller
     }
 
 
-    public function refund(){
+    public function refund($id){
 
-        return view('pos.Refund');
+        return view('pos.Refund', ['cur_token' => Order::find($id)]);
     }
 }

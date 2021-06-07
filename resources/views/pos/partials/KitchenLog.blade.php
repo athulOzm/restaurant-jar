@@ -16,7 +16,7 @@ $saleslog = resolve('saleslog');
      
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bsaleed" id="dataTable3" width="100%" cellspacing="0">
+                <table class="table table-bsaleed" id="dataTable2" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -24,12 +24,12 @@ $saleslog = resolve('saleslog');
                             <th>Member ID</th>
                             <th>Date</th>
                             <th>TOTAL</th>
-                            <th>Action</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                    @foreach($saleslog->ordersPosted()->where('status', 3)->get() as $sale)
+                    @foreach($saleslog->ordersPosted()->where('status', 3)->orWhere('status', 4)->get() as $sale)
                         <tr>
                             <td>{{$sale->id}}</td>
                             <td>RE-{{$sale->id}}</td>
@@ -46,18 +46,14 @@ $saleslog = resolve('saleslog');
 
                             
                     <td>
-                        <a target="_blank" href="{{route('pos.view', $sale->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+<b>                        @if ($sale->made)
+                            Ready to Deliver
+                        @else
+                            Prograssing
+                        @endif
 
-                        <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
-                        <a href="" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a>
-                        <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit & Pay</a>
-
-                        {{-- <a onclick="deleteCon('delfrm{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
-                        <form id="delfrm{{$sale->id}}" action="" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="id" value="{{$sale->id}}">
-                        </form> --}}
+                         
+                    </b>
 
                     </td>
                         

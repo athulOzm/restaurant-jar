@@ -19,21 +19,12 @@ $saleslog = resolve('saleslog');
                 <table class="table table-bsaleed" id="dataTable2" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                       
-
-
-                        
-                        <th>Id /هوية شخصية</th>
-                        <th>Receipt No / رقم الإيصال</th>
-                        <th >User Name</th>
-                        <th>Date / تاريخ</th>
-                      
-                        
-
-                        <th>TOTAL / مجموع</th>
-                     
-
-                        <th>Action / عمل </th>
+                            <th>Id</th>
+                            <th>Receipt No</th>
+                            <th>Member ID</th>
+                            <th>Date</th>
+                            <th>TOTAL</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -42,7 +33,9 @@ $saleslog = resolve('saleslog');
                         <tr>
                             <td>{{$sale->id}}</td>
                             <td>RE-{{$sale->id}}</td>
-                            <td>{{$sale->user->memberid}}</td>
+                            <td>@if ($sale->user)
+                                {{$sale->user->memberid}}
+                            @endif</td>
                             <td>{{$sale->updated_at}}</td>
                       
                             
@@ -53,9 +46,10 @@ $saleslog = resolve('saleslog');
 
                             
                     <td>
-                        <a href="" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+                        <a target="_blank" href="{{route('pos.view', $sale->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+
                         <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
-                        <a href="" class="btn btn-info"> <i class="fas fa-expand-arrows-alt"></i> Move Order</a>
+                        <a href="" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a>
                         <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit & Pay</a>
 
                         {{-- <a onclick="deleteCon('delfrm{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>

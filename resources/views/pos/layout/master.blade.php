@@ -25,7 +25,7 @@
          padding: 0 .75rem;
          }
          .topbar {
-         height: 50px;
+         height: 55px;
          }
          .text-gray-600 {
          color: #242425!important;

@@ -58,12 +58,49 @@ class PosController extends Controller
         return view('pos.index', compact('cur_token'));
     }
 
+    //update order
     public function update(Order $order){
 
         Session::forget('token');
         Session::put('token', $order);
         $cur_token = Order::with('user', 'table', 'location')->where('id', $order->id)->first();
         return view('pos.index', compact('cur_token'));
+    }
+
+
+    //clone order
+    public function clone(Order $order){
+
+
+$clone = $order->replicate();
+$clone->push();
+
+foreach($order->products as $tag)
+{
+    $clone->products()->attach($tag);
+    // you may set the timestamps to the second argument of attach()
+}
+
+// foreach($item->categories as $category)
+// {
+//     $clone->categories()->attach($category);
+//     // you may set the timestamps to the second argument of attach()
+// }
+
+$clone->push();
+
+
+
+        // $newt = $order->replicate();
+        // $newt->push();
+        
+        // $products = $order->orderproducts;
+        // $newt->products()->attach($products);
+
+        Session::forget('token');
+        Session::put('token', $clone);
+        //$cur_token = Order::with('user', 'table', 'location')->where('id', $newt->id)->first();
+        return redirect()->route('pos.update', $clone->id);
     }
 
 
@@ -229,6 +266,14 @@ class PosController extends Controller
 
         //dd($order);
         return view('pos.Print', compact('order'));
+    }
+
+    public function getview($id){
+
+        $order = Order::with('orderproducts', 'user')->find($id);
+
+        //dd($order);
+        return view('pos.View', compact('order'));
     }
 
 
@@ -476,6 +521,12 @@ class PosController extends Controller
             'delivery_time' =>  null
         ]);
 
+
+        $ct = Order::create(['status'   =>  1, 'reqfrom' => auth()->user()->id]);
+        
+
+        Session::forget('token');
+        Session::put('token', $ct);
         return response(['msg' => 'ok'] , 200);
     }
 
