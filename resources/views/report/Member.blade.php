@@ -10,32 +10,94 @@
 
  <style>
 .txtb{min-width: 100%; width: auto}
+.la{padding: 0;
+            margin: 0;
+            font-size: 11px;
+        }
  </style>
    
 
 <div class="container">
    
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h2 class="h5 mb-0" style="font-weight: 700">MEMBER STATUS</h2>
+        <h2 class="h5 mb-0" style="font-weight: 700">MEMBER REPORT (ENQUIRY)</h2>
         
       </div>
 
-    <form action="{{route('report.sale.search')}}" method="POST">
+    <form action="" method="GET">
         @csrf()
-        @method('POST')
+        @method('GET')
     <div class="row mb-3">
         
         
         <div class="col-md-3">
-          <p style="
-            padding: 0;
-            margin: 0;
-            font-size: 11px;
-        ">Member ID / Name / Phone</p>
+          <p class="la">Member ID / Name / Phone</p>
           <input type="text" name="memberid" required id="sermenus" class="form-control w-full txtb">
         </div>
+
+      
+
+        <div class="col-md-3">
+          <p class="la">Date From</p>
+
+          <input name="df"  step="any" required  type="datetime-local" class="form-control border-gray-400 txtb">
+      </div>
+      <div class="col-md-3">
+        <p class="la">Date To</p>
+
+          <input name="dt"  step="any" required type="datetime-local" class="form-control border-gray-400 txtb">
+      </div>
+
+      <div class="form-group col-md-3">
+        <p class="la">
+            Payment Type:
+        </p>
+        <select required="" class="form-control " name="payment_type_id" id="paymenttype">
+            <option value="">All</option>
+
+
+                                            <option value="1">Card</option>
+                                            <option value="2">Credit</option>
+                                            <option value="3">Both</option>
+            
+                                    
+        </select>
+    </div>
+
+    <div class="form-group col-md-3">
+      <p class="la">
+          Delivery Type:
+      </p>
+      <select required="" class="form-control " name="payment_type_id" id="paymenttype">
+          <option value="">All</option>
+
+
+                                          <option value="1">Dinein</option>
+                                          <option value="2">Takeaway</option>
+                                          <option value="3">Delivery</option>
+          
+                                  
+      </select>
+  </div>
+
+  <div class="form-group col-md-3">
+    <p class="la">
+        Delivery Location:
+    </p>
+    <select required="" class="form-control " name="payment_type_id" id="paymenttype">
+        <option value="">All</option>
+
+
+                                        <option value="1">Pool 1</option>
+                                        <option value="2">Pool 2</option>
+                                        <option value="3">Guarden </option>
         
-        <div class="col-md-4 mt-3">
+                                
+    </select>
+</div>
+
+        
+        <div class="col-md-3 mt-3">
             <button class="btn btn-primary btnc1" id="pay" type="submit">View Report <i class="fas fa-arrow-right"></i></button>
         </div>
    
