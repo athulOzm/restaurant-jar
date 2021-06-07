@@ -15,7 +15,7 @@ class ReportController extends Controller
     //sale index
     public function sale(){
 
-        // $ord = Order::where('status', 2)
+        // $ord = Order::where('status', 4)
         //            ->whereDate('delivery_time', '>', Carbon::now()->subDays(30))
         //            ->get()
         //            ->groupBy(function($val) {
@@ -32,8 +32,8 @@ class ReportController extends Controller
         foreach ($period as $date) {
 
             $days[] =  $date->format('Y-m-d');
-            $days_order[] = Order::where('status', 2)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
-            $tot = Order::where('status', 2)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
+            $days_order[] = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
+            $tot = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
             $days_tot=[];
             $tot->each(function($ord) use(&$days_tot){
                 $days_tot[] = $ord->total_price;
@@ -42,31 +42,31 @@ class ReportController extends Controller
         }
 
         //take away
-        $ta1 = Order::where('status', 2)
+        $ta1 = Order::where('status', 4)
             ->where('delivery_type', 'Take away')
             ->whereBetween('delivery_time', [$sub_month_date, $current_date])
             ->count();
-        $ta2 = Order::where('status', 2)
+        $ta2 = Order::where('status', 4)
             ->where('delivery_type', 'Take away')
             ->whereBetween('delivery_time', [$sub_year_date, $current_date])
             ->count();
 
         //dine in
-        $di1 = Order::where('status', 2)
+        $di1 = Order::where('status', 4)
             ->where('delivery_type', 'Dinein')
             ->whereBetween('delivery_time', [$sub_month_date, $current_date])
             ->count();
-        $di2 = Order::where('status', 2)
+        $di2 = Order::where('status', 4)
             ->where('delivery_type', 'Dinein')
             ->whereBetween('delivery_time', [$sub_year_date, $current_date])
             ->count();
 
         //dine in
-        $de1 = Order::where('status', 2)
+        $de1 = Order::where('status', 4)
             ->where('delivery_type', 'Delivery')
             ->whereBetween('delivery_time', [$sub_month_date, $current_date])
             ->count();
-        $de2 = Order::where('status', 2)
+        $de2 = Order::where('status', 4)
             ->where('delivery_type', 'Delivery')
             ->whereBetween('delivery_time', [$sub_year_date, $current_date])
             ->count();
@@ -78,12 +78,12 @@ class ReportController extends Controller
         foreach ($period as $date) {
 
             $month[] =  $date->format('Y-M');
-            $month_order[] = Order::where('status', 2)
+            $month_order[] = Order::where('status', 4)
                 ->whereYear('delivery_time', '=', $date->format('Y'))
                 ->whereMonth('delivery_time', '=', $date->format('m'))
                 ->count();
 
-            $tot = Order::where('status', 2)
+            $tot = Order::where('status', 4)
                 ->whereYear('delivery_time', '=', $date->format('Y'))
                 ->whereMonth('delivery_time', '=', $date->format('m'))
                 ->get();
@@ -117,8 +117,8 @@ class ReportController extends Controller
         foreach ($period as $date) {
 
             $days[] =  $date->format('Y-m-d');
-            $days_order[] = Order::where('status', 2)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
-            $tot = Order::where('status', 2)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
+            $days_order[] = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
+            $tot = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
             $days_tot=[];
             $tot->each(function($ord) use(&$days_tot){
                 $days_tot[] = $ord->total_price;
@@ -126,7 +126,7 @@ class ReportController extends Controller
             $days_total[] = number_format(array_sum($days_tot), 3);
         }
 
-        $res = Order::where('status', 2)
+        $res = Order::where('status', 4)
             ->whereBetween('delivery_time', [$date_from, $date_to])
             ->get();
 
@@ -268,12 +268,12 @@ class ReportController extends Controller
         foreach ($period as $date) {
 
             $month[] =  $date->format('Y-M');
-            $month_order[] = Order::where('status', 2)
+            $month_order[] = Order::where('status', 4)
                 ->whereYear('delivery_time', '=', $date->format('Y'))
                 ->whereMonth('delivery_time', '=', $date->format('m'))
                 ->count();
 
-            $tot = Order::where('status', 2)
+            $tot = Order::where('status', 4)
                 ->whereYear('delivery_time', '=', $date->format('Y'))
                 ->whereMonth('delivery_time', '=', $date->format('m'))
                 ->get();
@@ -307,8 +307,8 @@ class ReportController extends Controller
         foreach ($period as $date) {
 
             $days[] =  $date->format('Y-m-d');
-            $days_order[] = Order::where('status', 2)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
-            $tot = Order::where('status', 2)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
+            $days_order[] = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
+            $tot = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
             $days_tot=[];
             $tot->each(function($ord) use(&$days_tot){
                 $days_tot[] = $ord->total_price;
@@ -316,7 +316,7 @@ class ReportController extends Controller
             $days_total[] = number_format(array_sum($days_tot), 3);
         }
 
-        $res = Order::where('status', 2)
+        $res = Order::where('status', 4)
             ->whereBetween('delivery_time', [$date_from, $date_to])
             ->get();
 
