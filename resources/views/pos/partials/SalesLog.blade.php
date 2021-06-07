@@ -17,7 +17,7 @@ input[type=search]{
     border: 2px solid #4e72df;
     padding: 10px 0;
     height: 40px;
-    width: 97%;
+    width: 95%;
 }
 
 #dataTable{color: #333}

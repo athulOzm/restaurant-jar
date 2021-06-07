@@ -53,6 +53,13 @@
                                           
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="item_limit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                            Quantity:
+                                        </label>
+                                        <input id="item_limit" type="text" class="form-control " name="qty" value="1" autofocus="">
+                                    </div>
+
 
     
                                     

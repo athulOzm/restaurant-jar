@@ -16,7 +16,7 @@ $saleslog = resolve('saleslog');
      
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bsaleed" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bsaleed" id="dataTable2" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                        
@@ -54,7 +54,7 @@ $saleslog = resolve('saleslog');
                             
                     <td>
                         <a href="" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
-                        <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Print</a>
+                        <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
                         <a href="" class="btn btn-info"> <i class="fas fa-expand-arrows-alt"></i> Move Order</a>
                         <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit & Pay</a>
 

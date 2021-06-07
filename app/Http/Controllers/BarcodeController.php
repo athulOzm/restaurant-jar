@@ -14,10 +14,15 @@ class BarcodeController extends Controller
 
     public function code(Request $request)
     {
+ 
 
         
-        $menu = Product::where('name', $request->barcode)->get();
+        $men = Product::where('name', $request->barcode)->first();
         $menus = Product::all();
-        return view('barcode.Code', compact('menu', 'menus'));
+        $qty = $request->qty;
+
+        //dd($menu);
+
+        return view('barcode.Code', compact('men', 'menus', 'qty'));
     }
 }
