@@ -160,7 +160,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
           <div class="info"> 
 
             <div style="width: 38%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="40" alt="">
-              <h2 style="margin: 0; font-size:1.3em"> </h2>
+              <h2 style="margin: 0; font-size:1.3em">POS Test </h2>
             </div>
 
             <div style="width: 58%; float:right; text-align:right; padding-top:10px">
@@ -174,6 +174,8 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
             <div style="width: 100%; text-align:left; padding-top:10px" class="nn">
               <p>Date: <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
               <p>Invoice No: <b>#{{$order->id}}</b></p>
+
+              <h5>Re Settlement</h5>
                
             </div>
 
@@ -250,14 +252,15 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
     
     
                                 <tr class="tabletitle">
-                                  <td></td>
+                                    <td></td>
                                   
-                                
-                                  <td class="Rate"  colspan="2"><h2>Total Amount</h2></td>
-                                  <td class="payment tar"><h2>{{$order->gettotalprice()['price']}}</h2></td>
-                                  <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
+                                   
+                                    <td class="Rate" colspan="2"><h2>tax</h2></td>
+                                    <td class="payment tar"><h2>{{$order->gettotalprice()['tax']}}</h2></td>
+                                    <td class="Rate tar" colspan="2"  ><h2>ضريبة </h2></td>
+                                    
 
-                              </tr>
+                                </tr>
 
                                 <tr class="tabletitle">
                                     <td></td>
@@ -268,23 +271,12 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                                     <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
 
                                 </tr>
-
-                                <tr class="tabletitle">
-                                  <td></td>
-                                
-                                 
-                                  <td class="Rate" colspan="2"><h2>Tax</h2></td>
-                                  <td class="payment tar"><h2>{{$order->gettotalprice()['tax']}}</h2></td>
-                                  <td class="Rate tar" colspan="2"  ><h2>ضريبة </h2></td>
-                                  
-
-                              </tr>
     
                                 <tr class="tabletitle">
                                     <td></td>
                                  
                                     
-                                    <td class="Rate"  colspan="2"><h2>Total Amound after Tax</h2></td>
+                                    <td class="Rate"  colspan="2"><h2>Total</h2></td>
                                     <td class="payment tar"><h2>{{$order->gettotalprice()['subtotal']}}</h2></td>
                                     <td class="Rate tar" colspan="2" ><h2>اجمالي</h2></td>
 
@@ -297,8 +289,8 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
     
                         <div id="legalcopy" style="text-align: center; margin:0">
                             <p class="" style="line-height: .9em; margin:0"><strong style="font-size: .6em; line-height:.8em">شكر لحسن زيارتكم لنا</strong></p>
-                            {{-- <p>_</p>
-                            <p>_</p><p>_</p> --}}
+                            <p>_</p>
+                            <p>_</p><p>_</p>
                         </div>
     
                     </div><!--End InvoiceBot-->

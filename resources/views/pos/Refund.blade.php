@@ -21,7 +21,7 @@ $mcategories = resolve('mcategories');
 }
 </style>
 
-<form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off">
+<form action="{{route('pos.checkoutrefund')}}" method="POST" id="mform" autocomplete="off">
   @csrf
 
  <input type="hidden" name="reqtype" value="pos" id="reqtype">

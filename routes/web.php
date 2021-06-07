@@ -142,6 +142,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/pos/gettables', 'PosController@gettables');
     Route::get('/pos/locations', 'PosController@getlocations');
     Route::post('/pos/checkout', 'PosController@checkout')->name('pos.checkout');
+    Route::post('/pos/checkoutrefund', 'PosController@checkoutrefund')->name('pos.checkoutrefund');
     Route::post('/pos/creditstatus', 'PosController@memberstatus');
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
@@ -149,6 +150,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('pos/update/{order}', 'PosController@update')->name('pos.update');
     Route::get('pos/view/{coupon}', 'PosController@getview')->name('pos.view');
     Route::get('pos/clone/{order}', 'PosController@clone')->name('pos.clone');
+    Route::get('pos/refundprint/{coupon}', 'PosController@getprintrefund')->name('pos.refundprint');
 
 
 
@@ -241,6 +243,7 @@ Route::middleware(['auth:waiter'])->group(function () {
     Route::get('waiter/pos/gettables', 'PosController@gettables');
     Route::get('waiter/pos/locations', 'PosController@getlocations');
     Route::post('waiter/pos/checkout', 'PosController@checkout')->name('waiter.pos.checkout');
+    Route::post('waiter/pos/checkoutrefund', 'PosController@checkoutrefund')->name('waiter.pos.checkoutrefund');
     Route::post('waiter/pos/creditstatus', 'PosController@memberstatus');
     Route::get('waiter/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('waiter/pos/getmenus', 'PosController@getmenus');

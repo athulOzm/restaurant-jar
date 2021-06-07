@@ -268,6 +268,14 @@ $clone->push();
         return view('pos.Print', compact('order'));
     }
 
+    public function getprintrefund($id){
+
+        $order = Order::with('orderproducts', 'user')->find($id);
+
+        //dd($order);
+        return view('pos.PrintRefund', compact('order'));
+    }
+
     public function getview($id){
 
         $order = Order::with('orderproducts', 'user')->find($id);
@@ -450,7 +458,58 @@ $clone->push();
     //-----------------------------------------------------------------------------
 
     //Redirect::away('/asdf');
-       
+    }
+
+
+    //checkout refund
+    public function checkoutrefund(Request $request) {
+
+
+        $id = explode('-', $request->memberid);
+
+        $memberid = $id[0];
+        $delivery_type = $request->del;
+        $payment_type = $request->pt;
+        $delivery_time = $request->dtime;
+
+        if(isset($request->table)){
+            $table = $request->table;
+            Table::find($table)->update(['status' => false]);
+        } else {
+            $table = null;
+        }
+
+        if(isset($request->location)){
+            $location = $request->location;
+        } else {
+            $location = null;
+        }
+
+        $id = Order::find(Session::get('token')->id)->update([
+            'status' =>  4,
+            'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+            'delivery_type' => $delivery_type,
+            'payment_type_id'    =>  $payment_type,
+            'delivery_time'  =>  $delivery_time,
+            'deliverylocation_id'  =>  $location,
+            'payment_status' =>  true,
+            'table_id'  =>  $table,
+            'sn' =>  $request->sn,
+            'waiter_id'  => $request->waiter,
+            'reqfrom'    =>  auth()->user()->id
+        ]);
+        
+       $tid = Session::get('token')->id;
+       Session::forget('token');
+
+       if($request->reqtype == 'hold'){
+
+            return redirect()->route('pos');
+       } else{
+
+            Checkout::dispatch($tid);
+            return redirect()->route('pos.refundprint', $tid);
+       }
     }
 
 
