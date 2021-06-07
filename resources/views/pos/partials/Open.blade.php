@@ -29,7 +29,7 @@ $saleslog = resolve('saleslog');
                     </thead>
 
                     <tbody>
-                    @foreach($saleslog->ordersPosted()->where('status', 3)->get() as $sale)
+                    @foreach($saleslog->ordersPosted()->where('status', 3)->take(50)->get() as $sale)
                         <tr>
                             <td>{{$sale->id}}</td>
                             <td>RE-{{$sale->id}}</td>

@@ -91,7 +91,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Barcode 
 
-                                <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-print fa-sm text-white-50 print-link"></i> Print</button>
+                                <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm print-link" style="float:right"><i class="fas fa-fw fa-print fa-sm text-white-50 "></i> Print</button>
                             </h6>
                         </div>
                         <div class="card-body" id="ele2" style="width: 86mm; text-align:center">

@@ -128,14 +128,14 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 535px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 515px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
       </div>
 
     
-      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:200px; position: absolute; bottom:0; width:100% ">
+      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:180px; position: absolute; bottom:0; width:100% ">
         <div class="row">
           <div class="col-md-6">
         

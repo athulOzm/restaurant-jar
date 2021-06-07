@@ -11,7 +11,7 @@ input[type=search]{
    appearance: none; /* rest */
 }
 
-#dataTable_filter input, #dataTable2_filter input, #dataTable3_filter input {
+#dataTable_filter input, #dataTable2_filter input, #dataTable3_filter input, #dataTable4_filter input {
     background: #fff;
     position: absolute;
     border: 2px solid #4e72df;
@@ -37,7 +37,7 @@ input[type=search]{
     font-size: 14px;
 }
 .table td, .table th{line-height: 37px!important}
-#dataTable, #dataTable2, #dataTable3{border:2px solid #bbb;}
+#dataTable, #dataTable2, #dataTable3, #dataTable4{border:2px solid #bbb;}
 #exTabsale ul li a{line-height: 40px}
 .pagination li a{line-height: 15px!important}
 </style>

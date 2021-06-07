@@ -14,7 +14,7 @@
    
 
 <div class="container">
-   
+   <div class="col-md-12">
     
 <div class="row" style="background: #fff; padding:20px">
   
@@ -62,7 +62,7 @@
 
     <br> <br> 
 
-
+</div>
   </div>
  
 

@@ -18,6 +18,8 @@
       <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
       
       <style>
+
+.navbar{padding: 2px 1em}
           body{flex:1; background: #f4f5fa; overflow: hidden;}
        
          .topbar .nav-item .nav-link {
@@ -25,7 +27,7 @@
          padding: 0 .75rem;
          }
          .topbar {
-         height: 55px;
+         height: 45px;
          }
          .text-gray-600 {
          color: #242425!important;
@@ -681,6 +683,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     $('#dataTable').DataTable();
     $('#dataTable2').DataTable();
     $('#dataTable3').DataTable();
+    $('#dataTable4').DataTable();
 } );
 </script>
   

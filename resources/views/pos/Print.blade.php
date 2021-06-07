@@ -27,7 +27,7 @@ body{font-family: 'Poppins', sans-serif;!important;}
         font-size: 1.5em;
         color: #222;
       }
-      h2{font-size: 1.6em;}
+      h2{font-size: 1.6em; font-weight: 600}
       h3{
         font-size: 1.4em;
         font-weight: 800;
@@ -159,7 +159,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
          
           <div class="info"> 
 
-            <div style="width: 38%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="40" alt="">
+            <div style="width: 38%; float:left; text-align:left"><img src="http://restoapp.link/img/cooking.png" width="60" alt="">
               <h2 style="margin: 0; font-size:1.3em"> </h2>
             </div>
 
@@ -240,7 +240,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                            
 
                            
-                                  
+                              
  
 
 
@@ -249,44 +249,44 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                              
     
     
-                                <tr class="tabletitle">
-                                  <td></td>
+                                <tr class="tabletitle" style="border-top: 1px solid #333">
+                                 
                                   
                                 
-                                  <td class="Rate"  colspan="2"><h2>Total Amount</h2></td>
-                                  <td class="payment tar"><h2>{{$order->gettotalprice()['price']}}</h2></td>
-                                  <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
+                                  <td class="Rate"  colspan="3"><h2>Total Amount</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['price']}}</h2></td>
+                                  <td class="Rate tar" colspan="2"  ><h2>اجمالي المبلغ</h2></td>
 
                               </tr>
 
                                 <tr class="tabletitle">
-                                    <td></td>
+                                    
                                     
                                   
-                                    <td class="Rate"  colspan="2"><h2>Discount</h2></td>
-                                    <td class="payment tar"><h2>{{$order->gettotalprice()['discount']}}</h2></td>
+                                    <td class="Rate"  colspan="3"><h2>Discount</h2></td>
+                                    <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['discount']}}</h2></td>
                                     <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
 
                                 </tr>
 
                                 <tr class="tabletitle">
-                                  <td></td>
+                                  
                                 
                                  
-                                  <td class="Rate" colspan="2"><h2>Tax</h2></td>
-                                  <td class="payment tar"><h2>{{$order->gettotalprice()['tax']}}</h2></td>
-                                  <td class="Rate tar" colspan="2"  ><h2>ضريبة </h2></td>
+                                  <td class="Rate" colspan="3"><h2>Tax</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['tax']}}</h2></td>
+                                  <td class="Rate tar" colspan="2"  ><h2>الضريبة</h2></td>
                                   
 
                               </tr>
     
                                 <tr class="tabletitle">
-                                    <td></td>
+                                    
                                  
                                     
-                                    <td class="Rate"  colspan="2"><h2>Total Amound after Tax</h2></td>
-                                    <td class="payment tar"><h2>{{$order->gettotalprice()['subtotal']}}</h2></td>
-                                    <td class="Rate tar" colspan="2" ><h2>اجمالي</h2></td>
+                                    <td class="Rate"  colspan="3"><h2>Total Amound after Tax</h2></td>
+                                    <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['subtotal']}}</h2></td>
+                                    <td class="Rate tar" colspan="2" ><h2>اجمالي المبلغ بعد الضريبة </h2></td>
 
                                 </tr>
     
@@ -294,6 +294,15 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                         </div><!--End Table--> 
 
                         <hr>
+
+                      <div style="text-align: center">
+
+                        <img width="250mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG($order->gettotalprice()['subtotal'], 'C39', 2, 40)}}" alt="barcode" />
+
+                      </div>
+
+
+                        
     
                         <div id="legalcopy" style="text-align: center; margin:0">
                             <p class="" style="line-height: .9em; margin:0"><strong style="font-size: .6em; line-height:.8em">شكر لحسن زيارتكم لنا</strong></p>

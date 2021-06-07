@@ -4,7 +4,18 @@
 
 @section('content')
 
+<style>
 
+.btn-info {
+    color: #fff;
+    background-color: #36b9cc;
+    border-color: #36b9cc;
+    padding: 3px 5px;
+    font-size: 13px;
+}
+
+
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -46,17 +57,25 @@
                                 <tbody>
                                 @foreach($orders as $order)
                                     <tr>
-                                        <td>{{$order->user->memberid}}</td>
+                                         
+                                        <td>@if ($order->user)
+                                            {{$order->user->memberid}}
+                                        @endif</td>
                                         <td>{{$order->id}}</td>
-                                        <td>{{$order->user->name}}</td>
+                                       
+                                        <td>@if ($order->user)
+                                            {{$order->user->name}}
+                                        @endif</td>
                                         <td>{{$order->getReqByAttribute()}}</td>
                                         <td>{{$order->gettotalprice()['subtotal']}}</td>
                                        
  
                                         
-                                <th>
-                                    <a href="" class="btn btn-info    "> <i
-                                        class="fas fa-pencil-alt"></i></a>
+                                <th style="font-size: 10px">
+                                    <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+                        <a target="_blank" href="{{route('pos.print', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
+                        <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a>
+                        <a href="{{route('pos.update', $order->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit</a>
 
                                     <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                     <form id="delfrm{{$order->id}}" action="{{route('order.destroy')}}" method="post">
