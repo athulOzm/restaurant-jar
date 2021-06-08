@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\OrderProduct;
 use App\Settlement;
+use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -336,7 +337,60 @@ class ReportController extends Controller
 
     public function member(){
 
-        return view('report.Member');
+        return view('report.Member', ['users' => User::where('type', 3)->get()]);
+    }
+
+
+    //sale search
+    public function memberSearch(Request $request){
+
+        $date_from = str_replace('T', ' ', $request->df).':00';
+        $date_to = str_replace('T', ' ', $request->dt).':00';
+
+        //dd($date_from);
+
+        $user = User::where('memberid', $request->memberid)->first();
+
+        $rec = Order::where('status', 4)
+            ->whereBetween('delivery_time', [$date_from, $date_to])
+            ->where('user_id', $user->id)
+            ->get();
+
+        
+
+        $tot_ord = $rec->count();
+
+
+
+        $pricet = [];
+        $rec->each(function($ord) use(&$pricet){
+            $pricet[] = $ord->total_price;
+        });
+        $tot_price = number_format(array_sum($pricet), 3);
+
+        $pricetc = [];
+        $rec->where('payment_type_id', 1)->each(function($ord) use(&$pricetc){
+            $pricetc[] = $ord->total_price;
+        });
+        $tot_pricec = number_format(array_sum($pricetc), 3);
+
+        $pricetca = [];
+        $rec->where('payment_type_id', 2)->each(function($ord) use(&$pricetca){
+            $pricetca[] = $ord->total_price;
+        });
+        $tot_priceca = number_format(array_sum($pricetca), 3);
+
+
+
+
+        $users = User::where('type', 3)->get();
+
+        
+ 
+        
+
+        return view('report.MemberSearch', 
+        compact('rec', 'tot_ord', 'tot_price','tot_pricec','tot_priceca', 'users', 'user'));
     }
 
 

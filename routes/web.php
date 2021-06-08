@@ -198,9 +198,12 @@ Route::middleware(['auth:admin'])->group(function () {
     //settlement report
     Route::get('/report/settlement', 'ReportController@settlement')->name('report.settlement');
     Route::post('/report/settlement/search', 'ReportController@settlementSearch')->name('report.settlement.search');
+    
 
     //member report status
     Route::get('/report/members', 'ReportController@member')->name('report.member');
+    Route::post('/report/member/search', 'ReportController@memberSearch')->name('report.member.search');
+
 
 
     //promotions

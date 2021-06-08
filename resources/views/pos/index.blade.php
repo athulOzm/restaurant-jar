@@ -1164,14 +1164,14 @@ const getlimitbydate = () => {
               case 1:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><div class="box3"><input checked type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></div></div>
+                  <div class="flex"><div class="box3"><input  type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></div></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><div class="box3"><input checked id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                  <div class="flex"><div class="box3"><input  id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
                  break;
              
                default:

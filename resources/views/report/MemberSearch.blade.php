@@ -14,7 +14,8 @@
             margin: 0;
             font-size: 11px;
         }
-
+        .pt1{border-top:1px solid #e7e7e7; padding: 8px}
+.tar{font-weight: bold; text-align: right}
         .bootstrap-select>.dropdown-toggle{background: white; border: 1px solid #777}
  </style>
    
@@ -66,6 +67,7 @@
             <option value="">All</option>
 
 
+                                            <option value="0">All</option>
                                             <option value="1">Card</option>
                                             <option value="2">Credit</option>
                                             <option value="3">Both</option>
@@ -115,6 +117,103 @@
 </form>
     <br> 
  
+    <hr>
+
+    @if (isset($tot_ord))
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow mb-12" style="width:100%">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Member Details</h6> 
+                
+
+            </div>
+            <div class="card-body">
+                <div class="row pt1">
+                    <div class="col-md-6">Name</div>
+                    <div class="col-md-6 tar">{{$user->name}}</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Member ID</div>
+                    <div class="col-md-6 tar">{{$user->memberid}}</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Credit Amount</div>
+                    <div class="col-md-6 tar">{{$user->getCreditAmount()}}</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Credit Balance</div>
+                    <div class="col-md-6 tar">{{number_format($user->limit - $user->getCreditAmount(), 3)}}</div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="card shadow mb-12" style="width:100%">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Member Menu Items</h6> 
+                
+
+            </div>
+            <div class="card-body">
+                <div class="row pt1">
+                    <div class="col-md-6">Total Token</div>
+                    <div class="col-md-6 tar">{{$tot_ord}}</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Breakfast</div>
+                    <div class="col-md-6 tar">RO: 0.000</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Lunch</div>
+                    <div class="col-md-6 tar">RO: 0.000</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Dinner</div>
+                    <div class="col-md-6 tar">RO: 0.000</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="card shadow mb-12" style="width:100%">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Member Transactions</h6> 
+                
+
+            </div>
+            <div class="card-body">
+                <div class="row pt1">
+                    <div class="col-md-6">Total Transactions</div>
+                    <div class="col-md-6 tar">RO {{$tot_price}}</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Credit Payment</div>
+                    <div class="col-md-6 tar">RO {{$tot_pricec}}</div>
+                </div>
+                <div class="row pt1">
+                    <div class="col-md-6">Total Card Payment</div>
+                    <div class="col-md-6 tar">RO {{$tot_priceca}}</div>
+                </div>
+                
+
+              
+            </div>
+        </div>
+    </div>
+ 
+
+</div>
+
+    @endif
+
+    
 
 
     {{-- <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
