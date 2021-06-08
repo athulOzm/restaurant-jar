@@ -299,7 +299,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
                       <div style="text-align: center">
 
-                        <img width="250mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG($order->gettotalprice()['subtotal'], 'C39', 2, 40)}}" alt="barcode" />
+                        <img width="250mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG('RE-'.$order->id, 'C39', 2, 40)}}" alt="barcode" />
 
                       </div>
 
@@ -322,7 +322,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
         window.location.href = "/pos";
 
     }
-    setTimeout(auto_print, 500);
+    setTimeout(auto_print, 1000);
 </script>
 </body>
 </html>

@@ -27,6 +27,8 @@ class Menutype extends Model
 
         $collection = collect($cat);
 
+        //$collection = $collection->filter(function ($value) { return !is_null($value); });
+
         return $collection->unique();
 
     }

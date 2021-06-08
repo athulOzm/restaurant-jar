@@ -10,7 +10,7 @@ class RefundController extends Controller
 {
     public function getToken(Request $request){
 
-        if($ct = Order::find($request->token_id)){
+        if($ct = Order::find(str_replace('RE-', '', $request->token_id))){
 
             Session::forget('token');
             Session::put('token', $ct);
@@ -32,7 +32,7 @@ class RefundController extends Controller
 
 
     public function refund($id){
-
+        
         return view('pos.Refund', ['cur_token' => Order::find($id)]);
     }
 }
