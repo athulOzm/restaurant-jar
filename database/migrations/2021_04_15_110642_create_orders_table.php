@@ -61,6 +61,8 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->onDelete('set null');
 
+            $table->string('attachment')->nullable();
+
             $table->timestamps();
         });
     }

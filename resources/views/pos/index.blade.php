@@ -34,7 +34,7 @@ label {
 }
 </style>
 
-<form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off">
+<form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off" enctype="multipart/form-data">
   @csrf
 
  <input type="hidden" name="reqtype" value="pos" id="reqtype">
@@ -52,11 +52,52 @@ label {
 
 
       
+ <style>
+   .nns::placeholder{color:green; font-weight: 300;font-size:13px}
+ </style>
+
+
+
+<div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 0px 0 20px">
+
+ 
+        <div style="
+        
+        
+        position: absolute;
+        right: 0;
+        margin-left: -150px;
+        width: 300px;
+        background: #2c3346;
+        margin-top: -45px;
+        padding:0;
+        border-top-left-radius: 6px;
+        height: 41px;
+    
+    
+    ">
+
+    <div class="row">
+
+      <div class="col-sm-2">
+        <i class="fas fa-barcode" style="
+            color: #717994;
+            font-size: 40px;
+            line-height: 1px;
+            margin: 21px 0 0;
+        "></i>
+      </div>
+      
+      <div class="col-sm-10">
+        <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" placeholder="Scan barcode..">
+      </div>
+    </div>
+           
+  </div>
  
 
 
 
-      <div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 0px 0 20px">
         
 
 
@@ -154,18 +195,54 @@ label {
           </div>
         </div>
       </div>
-
+<style>
+  .custom-file-input:lang(en)~.custom-file-label::after {
+    content: "PDF";
+    background: #2c3346;
+    margin: 0;
+    color: #4e72df; left: 0px
+}
+</style>
     
       <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:150px; position: absolute; bottom:0; width:100% ">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 " style="padding-right: 0">
         
               <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
                 <div class="flex">
-                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:70px; margin-bottom:6px"></textarea>
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; "></textarea>
+
+                
+
+                <div class="input-group " style="width: 50px;margin-left:3px;background: #2c3346;border-radius: 3px;">
+                  <div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input form-control w-full txtb" id="inputGroupFile01">
+                    <label class="custom-file-label" for="inputGroupFile01" style="
+                        
+                        
+                        
+                        width: auto;
+                        font-size: 10px;
+                        line-height: 90px;
+                        border:0;
+                        margin-top: 29px;
+                        background: #2c3346
+                 
+                    
+                    
+                    
+                    "></label>
+                  </div>
                 </div>
+
               </div>
+
+
+              </div>
+
+              
+
          
           </div>
 
@@ -477,6 +554,21 @@ label {
 @section('script')
  
 <script type="text/javascript">
+
+ 
+$('#sbc').keyup(function(){
+
+  if($('#sbc').val().length > 3){
+
+    var sid = $('#sbc').val();
+    
+    window.location.href = "/pos/update/"+sid.replace('RE-', '');
+
+  }
+  
+});
+ 
+
 
 //open and submit kot
 const kot = () =>  {
@@ -916,11 +1008,11 @@ $(document).ready(() => {
 		async: true,
 		dataType: 'json',
 		success: function (data) {
-      //console.log(data);
+      console.log(data);
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
 				members.push({
-          'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 
+          'value' : data[i].memberid +` | `+ data[i].phone +` | `+ data[i].name +` | `+ data[i].rank.name +` | `+ data[i].serviceid +` | `+ data[i].room_address, 
           'data' : id, 
           'name' : data[i].name, 
           'pty' : data[i].payment_type_id, 
@@ -991,23 +1083,23 @@ $(document).ready(() => {
 
         getPaymenttype(member.data);
 
-        var res2 = member.value.split(" - ");
+        var res2 = member.value.split(" | ");
 
-        switch (member.pty) {
-          case 1:
-            var pty = 'Cash';
-            break;
+        // switch (member.pty) {
+        //   case 1:
+        //     var pty = 'Cash';
+        //     break;
 
-          case 2:
-            var pty = 'Credit';
-            break;
+        //   case 2:
+        //     var pty = 'Credit';
+        //     break;
         
-          default:
-            var pty = 'Cash / Credit';
-            break;
-        }
+        //   default:
+        //     var pty = 'Cash / Credit';
+        //     break;
+        // }
 
-        $('#autocomplete2').val(res2[2] + ` (${pty})`);
+        $('#autocomplete2').val(res2[2]);
 
         var dtimee = $('#dtimee').val();
 

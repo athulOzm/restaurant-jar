@@ -48,6 +48,12 @@ class User extends Authenticatable
         //$this->belongsTo(Rank::class, 'rank_id', 'id');
     }
 
+    public function rank(){
+
+        return $this->belongsTo(Rank::class);
+        //, 'rank_id', 'id'
+    }
+
     public function paymenttypes(){
 
         return $this->belongsTo(PaymentType::class, 'payment_type_id', 'id');

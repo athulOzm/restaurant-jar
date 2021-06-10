@@ -21,7 +21,7 @@ class Menutype extends Model
         $cat = [];
 
         $products->each(function($product) use(&$cat){
-
+            
             $cat[] = $product->category;
         });
 

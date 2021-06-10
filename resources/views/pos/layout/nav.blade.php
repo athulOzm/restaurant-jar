@@ -13,6 +13,8 @@
        "> POS</h3>
 
        <div id="alert"></div>
+
+       
  
     <ul class="navbar-nav ml-auto">
        <!-- Nav Item - Search Dropdown (Visible Only XS) -->

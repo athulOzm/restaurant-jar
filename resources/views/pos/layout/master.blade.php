@@ -307,7 +307,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #424962;
     border: 0;
     border-radius: 3px;
-    color:#e65776; font-size: 14px; height: 27px;
+    color:#e65776; font-size: 13px; height: 27px;
 }
 .itembox img {
     width: 100%;
@@ -340,9 +340,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #fff;
     overflow: auto;
     color: #111;
-    font-size: 14px;
+    font-size: 14px;width: 500px!important
 }
-	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden;font-size: 12px }
 	.autocomplete-selected { background: #F0F0F0; }
 	.autocomplete-suggestions strong { font-weight: normal; color: #e65776; }
 	.autocomplete-group { padding: 2px 5px; }
@@ -662,6 +662,10 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       </div>
       <!-- End of Page Wrapper -->
       <!-- Bootstrap core JavaScript-->
+
+   
+
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
@@ -700,6 +704,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> --}}
       {{-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> --}}
 
+     
     
       
    </body>

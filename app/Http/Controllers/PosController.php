@@ -25,6 +25,7 @@ use Carbon\Carbon;
 
 use App\Item;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class PosController extends Controller
 {
@@ -242,7 +243,7 @@ $clone->push();
 
     public function getmembers(){
 
-        return response(User::where('type', 3)->where('status', true)->get(), 200);
+        return response(User::with('rank')->where('type', 3)->where('status', true)->get(), 200);
     }
 
     public function getmenus(){
@@ -316,6 +317,13 @@ $clone->push();
         }
 
 
+        
+
+
+
+        
+
+
 
         if($request->reqtype == 'kot'){
 
@@ -370,6 +378,17 @@ $clone->push();
        
 
        $tid = Session::get('token')->id;
+
+
+       if($request->hasfile('file')):
+
+            $fpath = Storage::putFile('pospdf', $request->file('file'));
+
+            $id = Order::find(Session::get('token')->id)->update(['attachment' => $fpath]);
+
+        endif;
+
+
 
        Session::forget('token');
 
