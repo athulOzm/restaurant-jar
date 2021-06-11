@@ -73,22 +73,31 @@ class PosController extends Controller
     public function clone(Order $order){
 
 
-$clone = $order->replicate();
-$clone->push();
+    $clone = $order->replicate();
+    $clone->push();
 
-foreach($order->products as $tag)
-{
-    $clone->products()->attach($tag);
-    // you may set the timestamps to the second argument of attach()
-}
+    foreach($order->products as $tag)
+    {
 
-// foreach($item->categories as $category)
-// {
-//     $clone->categories()->attach($category);
-//     // you may set the timestamps to the second argument of attach()
-// }
+       // dd($tag);
 
-$clone->push();
+ 
+    
+         //$extra_attributes = array_except($item->pivot->getAttributes(), $item->pivot->getForeignKey());
+        // $clone->{$relation}()->attach($item, $extra_attributes);
+         
+
+        $clone->products()->attach($tag, ['price' => $tag->pivot->price, 'quantity' => $tag->pivot->quantity, 'vat' => $tag->pivot->vat, 'promotion' => $tag->pivot->promotion]);
+        // you may set the timestamps to the second argument of attach()
+    }
+
+    // foreach($item->categories as $category)
+    // {
+    //     $clone->categories()->attach($category);
+    //     // you may set the timestamps to the second argument of attach()
+    // }
+
+    $clone->push();
 
 
 
