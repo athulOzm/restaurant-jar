@@ -69,18 +69,20 @@ class Product extends Model
                     return number_format($this->price - $this->promotion->value, 3);
                 else: 
                     $promo_price = number_format($this->price * $this->promotion->value / 100, 3);
-                    return number_format($this->price - $promo_price, 3);
+                    return number_format($promo_price, 3);
 
                 endif;
 
             else: 
-                return $this->price;  
+                return 0;
             endif;
 
         else: 
-            return $this->price;
+            return 0;
         endif;
     }
+
+ 
 
     public function subcategory(){
 

@@ -54,12 +54,13 @@ class Order extends Model
 
         $cartitems = $this->orderproducts;
 
-        //price without tax and dis
+        //price
         $tprice = [];
         $cartitems->each(function($item) use(&$tprice){
 
-            $tprice[] = $item->price_total_without_dis;
+            $tprice[] = $item->price_total;
         });
+
         //price add on without tax
         $price_addon = [];
         $cartitems->each(function($item) use(&$price_addon){
@@ -75,6 +76,7 @@ class Order extends Model
 
             $tax[] = $item->tax;
         });
+
         // tax addon
         $addon_tax = [];
         $cartitems->each(function($item) use(&$addon_tax){
@@ -83,16 +85,19 @@ class Order extends Model
         });
 
 
-
-
-
-
-
         //discount
         $dis = [];
         $cartitems->each(function($item) use(&$dis){
 
             $dis[] = number_format($item->discount, 3);
+        });
+
+        //promotion
+        $promotion = [];
+        $cartitems->each(function($item) use(&$promotion){
+
+            $promotion[] = number_format($item->promotion * $item->quantity, 3);
+
         });
 
         //container
@@ -106,8 +111,10 @@ class Order extends Model
         $price = number_format(array_sum($tprice) + array_sum($price_addon), 3);
         $tax = number_format(array_sum($tax) + array_sum($addon_tax), 3);
         $dis = number_format(array_sum($dis), 3);
+        $promotion = number_format(array_sum($promotion), 3);
         $cont = number_format(array_sum($cont), 3);
         $st = number_format($price + $tax + $cont, 3);
+        $reduce = number_format($dis + $promotion ,3);
 
          
 
@@ -116,7 +123,8 @@ class Order extends Model
             'tax' => $tax,
             'discount' => $dis,
             'container' => $cont,
-            'subtotal' => number_format($st - $dis, 3),
+            'promotion' => $promotion,
+            'subtotal' => number_format($st - $reduce, 3),
         ];
 
     }

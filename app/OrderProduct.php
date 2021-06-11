@@ -11,7 +11,7 @@ class OrderProduct extends Model
 
     public $itemtotal = 10.000;
 
-    protected $appends = ['addon_total', 'addon_tax', 'addon_total_without_tax', 'price_total', 'price_total_without_dis', 'price_total_with_tax', 'tax', 'available_addons', 'sub_price'];
+    protected $appends = ['addon_total', 'addon_tax', 'addon_total_without_tax', 'price_total', 'price_total_without_dis', 'price_total_with_tax', 'tax', 'available_addons', 'sub_price', 'unit_price_with_promotion'];
 
 
    
@@ -77,11 +77,18 @@ class OrderProduct extends Model
 
     
 
-
+    //total price#
     public function getPriceTotalAttribute()
     {
-        $tp = number_format($this->product->promotion_price * $this->quantity, 3);
-        return number_format($tp - $this->discount, 3);
+        return number_format($this->price * $this->quantity, 3);
+        //return number_format($tp - $this->discount, 3);
+    }
+
+    //unitprice with promotion #
+    public function getUnitPriceWithPromotionAttribute()
+    {
+        return number_format($this->price - $this->promotion, 3);
+        //return number_format($tp - $this->discount, 3);
     }
 
     public function getPriceTotalWithoutDisAttribute()
@@ -92,8 +99,8 @@ class OrderProduct extends Model
 
     public function getPriceTotalWithTaxAttribute()
     {
-        $tp = number_format($this->product->promotion_price * $this->quantity, 3);
-        $vat = number_format($tp * $this->product->vat/ 100, 3);
+        $tp = number_format($this->getUnitPriceWithPromotionAttribute() * $this->quantity, 3);
+        $vat = number_format($tp * $this->vat/ 100, 3);
         $st = number_format($tp + $vat, 3);
         return number_format($st - $this->discount, 3);
     }
@@ -102,13 +109,17 @@ class OrderProduct extends Model
     {
          
         
-        return number_format($this->getAddonTotalAttribute() + $this->getPriceTotalWithTaxAttribute() + $this->container, 3);
+        return number_format(
+            $this->getAddonTotalAttribute() 
+            + $this->getPriceTotalWithTaxAttribute() 
+            + $this->container
+            , 3);
     }
 
     public function getTaxAttribute()
     {
-        $tp = number_format($this->product->promotion_price * $this->quantity, 3);
-        $vat = number_format($tp * $this->product->vat/ 100, 3);
+        $tp = number_format($this->getUnitPriceWithPromotionAttribute() * $this->quantity, 3);
+        $vat = number_format($tp * $this->vat/ 100, 3);
        // $st = number_format($tp + $vat, 3);
         return number_format($vat, 3);
     }

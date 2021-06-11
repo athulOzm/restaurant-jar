@@ -111,6 +111,10 @@ $clone->push();
 
        $pid = $request->id;
 
+       $product = Product::find($request->id);
+
+
+
        $token = Order::find(Session::get('token')->id);
 
        $status = Order::whereHas('products', function($q) use($pid){
@@ -121,7 +125,11 @@ $clone->push();
         if($status == ''){
 
             $product = [
-                'product_id' => $request->id, 'quantity'    =>  1
+                'product_id' => $request->id, 
+                'quantity' =>  1,
+                'price' => $product->price,
+                'vat' => $product->vat,
+                'promotion' => $product->promotion_price,
             ];
             $token->products()->attach([$product]);
         } 

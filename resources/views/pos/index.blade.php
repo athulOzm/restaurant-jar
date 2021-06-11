@@ -117,7 +117,7 @@ label {
           
         
           <div class="col-md-6">
-            <p class="lab1b">MISS ID</p>
+            <p class="lab1b">MESS ID</p>
             <input type="text" name="memberid" value="@if($cur_token->user){{$cur_token->user->memberid}}@endif" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
           </div>
     
@@ -137,7 +137,7 @@ label {
               <div class="bgh p0">
               <div class="flex">
               <label class="box3"><input type="radio" onclick="getDelTime()" required="" @if($cur_token->payment_type_id == 1) checked @endif name="pt" value="1"> <b class="lab1a">Card</b></label>
-              <label class="box3"><input type="radio" onclick="getDelTime()" id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
+              <label class="box3"  style="margin-right: 0"><input type="radio" onclick="getDelTime()" id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
               </div></div>
             </div>
 
@@ -157,7 +157,7 @@ label {
                 <div class=" flex">
                 <label class="box3"><input type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
                 <label class="box3"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
-                <label class="box3"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></label>
+                <label class="box3" style="margin-right: 0"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
           
@@ -246,24 +246,25 @@ label {
          
           </div>
 
-          <div class="col-md-6">
-            <div class="row" style="font-size: 14px">
-                <div class="col-sm-6">Sub Total:</div>
-                <div class="col-sm-6" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
-                <div class="col-sm-6">VAT:</div>
-                <div class="col-sm-6" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
-                <div class="col-sm-6">Discount:</div>
-                <div class="col-sm-6" ><label id="discount" style="font-weight: 600;">0.000</label></div>
-                <div class="col-sm-6">Container:</div>
-                <div class="col-sm-6" ><label id="container" style="font-weight: 600;">0.000</label></div>
+          <div class="col-md-6" style="font-size: 14px">
+            
+                <div class="row">
+                  <div class="col-sm-6">Sub Total:</div>
+                  <div class="col-sm-6" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
+                </div>
+                
+                <div class="row" id="vat"></div>
+                <div class="row" id="discount"></div>
+                <div class="row" id="container"></div>
+                <div class="row" id="promotion"></div>
 
                 <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
-                <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:10px"></label></div>
-        </div>
+                  <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
+                  <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:0px"></label></div>
+                </div>
 
 
-            </div>
+           
           </div>
  
         </div>
@@ -295,7 +296,7 @@ label {
           </div>
 
           <div class="col-sm-2 p5">
-            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> KOT</button>
+            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Print & Save</button>
           </div>
 
 
@@ -567,7 +568,7 @@ const roomservices = (memberid) => {
     url: `/get/members/${memberid}`,
     success: function(res){
       console.log(res);
-      $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" style="background: #424961" class="form-control w-full txtb mt-2">`);
+      $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" class="form-control w-full txtb mt-2">`);
 
     }
   });
@@ -1184,7 +1185,7 @@ const getlimitbydate = () => {
             <div class=" flex">
             <label class="box3"><input type="radio" required name="del" value="Take away" onClick="takeaway()"> <b class="lab1a">Take away</b></label>
             <label class="box3"><input type="radio" required name="del" value="Dinein" onClick="getTables('${data}')"> <b class="lab1a">Dinein</b></label>
-            <label class="box3"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></label>
+            <label class="box3" style="margin-right:0"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></label>
             </div>`);
           }
           else{
@@ -1220,7 +1221,7 @@ const getlimitbydate = () => {
             <div class=" flex">
             <label class="box1a"><input type="radio" required name="del" value="Take away" onClick="takeaway()"> <b class="lab1a">Take away</b></label>
             <label class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${res.id}')"> <b class="lab1a">Dinein</b></label>
-            <label class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></label>
+            <label class="box1a" style="margin-right:0"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></label>
             </div>`);
           }
           else{
@@ -1277,14 +1278,14 @@ const getlimitbydate = () => {
               case 1:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><div class="box3"><input  type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></div></div>
+                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></label></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><div class="box3"><input  id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></label></div></div>`);
                  break;
              
                default:
@@ -1292,7 +1293,7 @@ const getlimitbydate = () => {
                 $('#pt').append(`<div class="bgh p0">
                   <div class="flex">
                   <label class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></label>
-                  <label class="box3 checkbx"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  <label class="box3 checkbx"  style="margin-right: 0"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </label></div>`);
                  break;
              }
@@ -1392,7 +1393,7 @@ const getTables = (memberid) => {
           url: '/pos/getcart',
           success: function(res){
 
-            //console.log(res);
+            console.log(res);
               $('#cart').empty();
 
               $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
@@ -1447,7 +1448,7 @@ const getTables = (memberid) => {
             
             
             </div>
-            <div class="col-sm-1 price p0">${item.product.promotion_price}</div>
+            <div class="col-sm-1 price p0">${item.unit_price_with_promotion}</div>
             <div class="col-sm-1 p0">
               <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" 
               id="itemd${item.product.id}" class="itemdis" type="text">
@@ -1499,15 +1500,31 @@ const getTables = (memberid) => {
           $('#vat').empty();
           $('#subtotal').empty();
           $('#discount').empty();
+          $('#promotion').empty();
           $('#container').empty();
           $('#subtotal2').val(null);
 
+
           $('#st').append(res.price);
-          $('#vat').append(res.tax);
+
+          if(res.tax != '0.000'){
+            $('#vat').append(`<div class="col-sm-6">VAT:</div><div class="col-sm-6" ><label  style="font-weight: 600;">${res.tax}</label></div>`);
+          }
+
           $('#subtotal').append(res.subtotal);
           $('#subtotal2').val(res.subtotal);
-          $('#discount').append(res.discount);
-          $('#container').append(res.container);
+
+          if(res.discount != '0.000'){
+            $('#discount').append(`<div class="col-sm-6">Discount:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.discount}</label></div>`);
+          }
+
+          if(res.promotion != '0.000'){
+            $('#promotion').append(`<div class="col-sm-6">Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.promotion}</label></div>`);
+          }
+
+          if(res.container != '0.000'){
+            $('#container').append(`<div class="col-sm-6">Container:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.container}</label></div>`);
+          }
  
         }
     })

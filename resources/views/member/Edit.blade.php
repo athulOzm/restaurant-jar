@@ -71,7 +71,7 @@
                         </label>
                         <input id="email" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ $user->email }}" required  autofocus>
+                            value="{{ $user->email }}"  autofocus>
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -97,7 +97,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="memberid" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Miss ID:
+                            Mess ID:
                         </label>
                         <input id="memberid" type="text"
                             class="form-control @error('memberid') is-invalid @enderror" name="memberid"

@@ -237,11 +237,6 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
                                     </tr>
                                   @endforeach
-                           
-
-                           
-                              
- 
 
 
                                 @endforeach
@@ -249,48 +244,44 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                              
     
     
-                                <tr class="tabletitle" style="border-top: 1px solid #333">
-                                 
-                                  
                                 
+                                <tr class="tabletitle" style="border-top: 1px solid #333">
                                   <td class="Rate"  colspan="3"><h2>Total Amount</h2></td>
                                   <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['price']}}</h2></td>
                                   <td class="Rate tar" colspan="2"  ><h2>اجمالي المبلغ</h2></td>
+                                </tr>
 
-                              </tr>
-
-                                <tr class="tabletitle">
+                                @if ($order->gettotalprice()['discount'] != 0)
+                                  <tr class="tabletitle">
                                     <td class="Rate"  colspan="3"><h2>Discount</h2></td>
                                     <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['discount']}}</h2></td>
                                     <td class="Rate tar" colspan="2"  ><h2>خصم </h2></td>
-                                </tr>
+                                  </tr>
+                                @endif
 
-                                <tr class="tabletitle">
-                                  <td class="Rate"  colspan="3"><h2>Container</h2></td>
-                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['container']}}</h2></td>
-                                  <td class="Rate tar" colspan="2"  ><h2>وعاء </h2></td>
-                                </tr>
+                                @if ($order->gettotalprice()['container'] != 0)
+                                  <tr class="tabletitle">
+                                    <td class="Rate"  colspan="3"><h2>Container</h2></td>
+                                    <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['container']}}</h2></td>
+                                    <td class="Rate tar" colspan="2"  ><h2>وعاء </h2></td>
+                                  </tr>
+                                @endif
 
-                                <tr class="tabletitle">
-                                  
-                                
-                                 
-                                  <td class="Rate" colspan="3"><h2>Tax</h2></td>
-                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['tax']}}</h2></td>
-                                  <td class="Rate tar" colspan="2"  ><h2>الضريبة</h2></td>
-                                  
 
-                              </tr>
+                                @if ($order->gettotalprice()['tax'] != 0)
+                                  <tr class="tabletitle">
+                                    <td class="Rate" colspan="3"><h2>Tax</h2></td>
+                                    <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['tax']}}</h2></td>
+                                    <td class="Rate tar" colspan="2"  ><h2>الضريبة</h2></td>
+                                  </tr>
+                              
     
                                 <tr class="tabletitle">
-                                    
-                                 
-                                    
-                                    <td class="Rate"  colspan="3"><h2>Total Amound after Tax</h2></td>
-                                    <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['subtotal']}}</h2></td>
-                                    <td class="Rate tar" colspan="2" ><h2>اجمالي المبلغ بعد الضريبة </h2></td>
-
+                                  <td class="Rate"  colspan="3"><h2>Total Amound after Tax</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['subtotal']}}</h2></td>
+                                  <td class="Rate tar" colspan="2" ><h2>اجمالي المبلغ بعد الضريبة </h2></td>
                                 </tr>
+                                @endif
     
                             </table>
                         </div><!--End Table--> 
