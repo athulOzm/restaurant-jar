@@ -104,7 +104,7 @@ label {
         <div class="row" style="
     background: #1b1f32;
     margin-right: 2px;
-    border-bottom: 1px solid #353e56; padding-bottom:6px;
+    border-bottom: 1px solid #353e56; padding-bottom:9px;
 ">
 
           <div class="col-md-6">
@@ -302,7 +302,7 @@ label {
           
 
           <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Pay <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
@@ -555,6 +555,25 @@ label {
  
 <script type="text/javascript">
 
+
+//room services
+
+const roomservices = (memberid) => {
+
+  hideloc();
+
+  $.ajax({
+    type: 'GET',
+    url: `/get/members/${memberid}`,
+    success: function(res){
+      console.log(res);
+      $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" style="background: #424961" class="form-control w-full txtb mt-2">`);
+
+    }
+  });
+
+
+}
  
 $('#sbc').keyup(function(){
 
@@ -873,7 +892,7 @@ $(document).ready(() => {
         type: 'GET',
         url: `/pos/getsettlement`,
         success: function(res){
-          console.log(res);
+          //console.log(res);
           $('#settle_total').empty();
           $('#settle_total_cash').empty();
           $('#settle_total_credit').empty();
@@ -1008,7 +1027,7 @@ $(document).ready(() => {
 		async: true,
 		dataType: 'json',
 		success: function (data) {
-      console.log(data);
+      //console.log(data);
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
 				members.push({
@@ -1238,9 +1257,9 @@ const getlimitbydate = () => {
     //$('#pt').empty();
     /////$('#dtime').empty();
 
-    $('#dt').append(`<div class="bgh flex p0" style="margin-top:7px">
-    <label class="box3"><input type="radio"  required onClick="hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
-    <label class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
+    $('#dt').append(`<div class="bgh flex p0" style="margin-top:8px">
+    <label class="box3"><input type="radio"  required onClick="roomservices('${memberid}')" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
+    <label class="box3" style="margin-right:0"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
                      </div>`);
   }
 
@@ -1574,7 +1593,7 @@ const updqty = (cart_item) =>  {
             "_token": token,
         },
         success: function(res){
-         console.log(res);
+         //console.log(res);
           getaddon(pitem);
           getOrders();
 
@@ -1718,7 +1737,7 @@ const getDeliverylocations = (memberid) => {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<div class="bgh1 mt-1">
+          $('#locations').append(`<div class="bgh1 mt-2">
           <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
 
 
@@ -1743,8 +1762,8 @@ const getDelTime = () => {
     var ccre = $('#totcre').val();
     $('#vallimit').empty();
 
-    console.log(avcre);
-    console.log(ccre);
+    //console.log(avcre);
+    //console.log(ccre);
 
 
     if(Math.floor(avcre) < Math.floor(ccre)){

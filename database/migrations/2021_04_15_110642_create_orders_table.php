@@ -62,6 +62,7 @@ class CreateOrdersTable extends Migration
                 ->onDelete('set null');
 
             $table->string('attachment')->nullable();
+            $table->string('room_addr')->nullable();
 
             $table->timestamps();
         });

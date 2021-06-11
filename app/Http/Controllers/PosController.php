@@ -246,6 +246,11 @@ $clone->push();
         return response(User::with('rank')->where('type', 3)->where('status', true)->get(), 200);
     }
 
+    public function getmember(User $user){
+
+        return response($user, 200);
+    }
+
     public function getmenus(){
 
         return response(Product::all(), 200);
@@ -296,7 +301,7 @@ $clone->push();
     public function checkout(Request $request) {
 
 
-        $id = explode('-', $request->memberid);
+        $id = explode('|', $request->memberid);
 
         $memberid = $id[0];
         $delivery_type = $request->del;
@@ -314,6 +319,12 @@ $clone->push();
             $location = $request->location;
         } else {
             $location = null;
+        }
+
+        if(isset($request->room_address)){
+            $room_addr = $request->room_address;
+        } else {
+            $room_addr = null;
         }
 
 
@@ -334,6 +345,7 @@ $clone->push();
                 'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $location,
+                'room_addr'  =>  $room_addr,
                 'payment_status' =>  true,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
@@ -349,6 +361,7 @@ $clone->push();
                 'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $location,
+                'room_addr'  =>  $room_addr,
                 'payment_status' =>  true,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
@@ -365,6 +378,7 @@ $clone->push();
                 'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $location,
+                'room_addr'  =>  $room_addr,
                 'payment_status' =>  true,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,

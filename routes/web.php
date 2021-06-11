@@ -154,6 +154,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('pos/clone/{order}', 'PosController@clone')->name('pos.clone');
     Route::get('pos/refundprint/{coupon}', 'PosController@getprintrefund')->name('pos.refundprint');
 
+    //get member
+    Route::get('get/members/{user}', 'PosController@getmember')->name('get.member');
+
+
 
 
     
