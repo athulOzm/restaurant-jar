@@ -153,6 +153,47 @@ class PosController extends Controller
         return response(['message' => 'product added successfully'], 201);
     }
 
+    //add to cart pos
+    public function addtocartByBarcode(Request $request){
+
+        
+
+        $pid = explode('-', $request->item)[1];
+        $qty = explode('-', $request->item)[2];
+ 
+        $product = Product::find($pid);
+ 
+ 
+ 
+        $token = Order::find(Session::get('token')->id);
+ 
+        $status = Order::whereHas('products', function($q) use($pid){
+                         $q->where('product_id', $pid);
+                     })
+                  ->with('products')->where('id', $token->id)->first();
+       
+         if($status == ''){
+ 
+             $product = [
+                 'product_id' => $product->id, 
+                 'quantity' =>  $qty,
+                 'price' => $product->price,
+                 'vat' => $product->vat,
+                 'promotion' => $product->promotion_price,
+             ];
+             $token->products()->attach([$product]);
+         } 
+         else {
+ 
+            DB::table('order_product')
+             ->where('order_id', $token->id)
+             ->where('product_id', $pid)
+             ->update(['quantity' => $qty]);
+         }
+ 
+         return response(['message' => 'product added successfully'], 201);
+     }
+
 
     //addtocart Addon
     public function addtocartaddon(Request $request){

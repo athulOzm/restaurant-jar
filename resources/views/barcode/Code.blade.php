@@ -96,11 +96,11 @@
                         </div>
                         <div class="card-body" id="ele2" style="width: 86mm; text-align:center">
                             
+ 
 
+                        <img width="256mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG('ME-'.$men->id.'-'.$qty, 'C39', 2, 60)}}" alt="barcode" />
 
-                        <img width="256mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG($men->name.'-'.number_format($men->promotion_price * $qty, 3), 'C39', 1, 60)}}" alt="barcode" />
-
-                        <h4 style="width: 100%; text-align:center; letter-spacing:3px" class="p0">34567896543456</h4>
+                        <h4 style="width: 100%; text-align:center; letter-spacing:3px" class="p0"><?php echo rand('345678965434560', '945678965434560');?></h4>
 
                         <h5 style="width: 100%; text-align:center">{{$men->name}} | RO: {{number_format($men->promotion_price * $qty, 3)}}</h5>
 

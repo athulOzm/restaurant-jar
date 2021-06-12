@@ -571,18 +571,41 @@ const roomservices = (memberid) => {
   });
 }
  
+//update token
 $('#sbc').keyup(function(){
-
   if($('#sbc').val().length > 3){
-
     var sid = $('#sbc').val();
     
     window.location.href = "/pos/update/"+sid.replace('RE-', '');
+  }
+});
+
+
+//add cart from barcode
+$('#sermenus').keyup(function(){
+
+  var sid = $('#sermenus').val();
+
+  if(sid.includes('ME-')){
+
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        type: 'POST',
+        url: `/pos/addtocartbybarcode`,
+        data: {
+            "item": sid,
+            "_token": token,
+        },
+        success: function(res){
+          $('#crepay').prop('checked', false);
+          getOrders();
+        }
+    });
 
   }
-  
+
 });
- 
+
 
 
 //open and submit kot

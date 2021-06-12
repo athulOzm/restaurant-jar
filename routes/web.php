@@ -132,6 +132,7 @@ Route::middleware(['auth:admin'])->group(function () {
     //pos
     Route::get('pos', 'PosController@pos')->name('pos');
     Route::post('pos/addtocart', 'PosController@addtocart')->name('pos.addtocart');
+    Route::post('pos/addtocartbybarcode', 'PosController@addtocartByBarcode');
     Route::post('pos/downcart', 'PosController@downcart')->name('pos.downcart');
     Route::post('pos/updqty', 'PosController@updqty');
     Route::post('pos/removecart', 'PosController@removecart')->name('pos.removecart');
@@ -241,6 +242,7 @@ Route::middleware(['auth:waiter'])->group(function () {
 
     //pos
     Route::post('waiter/pos/addtocart', 'PosController@addtocart');
+    Route::post('waiter/pos/addtocartbybarcode', 'PosController@addtocartByBarcode');
     Route::post('waiter/pos/downcart', 'PosController@downcart');
     Route::post('waiter/pos/updqty', 'PosController@updqty');
     Route::post('waiter/pos/removecart', 'PosController@removecart');
