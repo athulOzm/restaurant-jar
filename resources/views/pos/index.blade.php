@@ -197,7 +197,7 @@ label {
       </div>
 <style>
   .custom-file-input:lang(en)~.custom-file-label::after {
-    content: "PDF";
+    content: "Attach";
     background: #2c3346;
     margin: 0;
     color: #4e72df; left: 0px
@@ -215,7 +215,7 @@ label {
 
                 
 
-                <div class="input-group " style="width: 50px;margin-left:3px;background: #2c3346;border-radius: 3px;">
+                <div class="input-group " style="width: 70px;margin-left:3px;background: #2c3346;border-radius: 3px;">
                   <div class="custom-file">
                     <input type="file" name="file" class="custom-file-input form-control w-full txtb" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01" style="
@@ -526,6 +526,12 @@ label {
 <div class="box scro">
   <div class="p0">
   @include('pos.partials.SalesLog')
+  </div>
+</div>
+
+<div class="boxordersource scro">
+  <div class="p0">
+  @include('pos.partials.ResourceLog')
   </div>
 </div>
 
@@ -887,13 +893,20 @@ $(document).ready(() => {
     $(".backDrop, .box").css("display", "block");
   });
 
+  //lightbox 
+  $("#pay2").on("click", function(){
+    $(".backDrop").animate({"opacity": ".80"}, 300);
+    $(".boxordersource").animate({"opacity": "1.0"}, 300);
+    $(".backDrop, .boxordersource").css("display", "block");
+  });
+
   $(".close, .backDrop").on("click", function(){
     closeBox();
   });
 
   function closeBox(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3").animate({"opacity": "0"}, 300, function(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3").css("display", "none");
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").css("display", "none");
     });
   }
 
@@ -1066,7 +1079,7 @@ $(document).ready(() => {
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
 				members.push({
-          'value' : data[i].memberid +` | `+ data[i].phone +` | `+ data[i].name +` | `+ data[i].rank.name +` | `+ data[i].serviceid +` | `+ data[i].room_address, 
+          'value' : data[i].memberid +` | `+ data[i].phone +` | `+ data[i].name +` | `+ data[i].ar_name +` | `+ data[i].rank.name +` | `+ data[i].serviceid +` | `+ data[i].room_address, 
           'data' : id, 
           'name' : data[i].name, 
           'pty' : data[i].payment_type_id, 

@@ -127,6 +127,28 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #ffffff;
 }
 
+ 
+#exTabsale2 ul li a {
+    padding: 10px 13px;
+    line-height: 35px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    color: #404040;
+}
+#exTabsale2 ul li.active a {
+    color: #000;
+}
+
+.tab-content>.active{border-left: 0px solid #fff; padding: 10px}
+
+#exTabsale2 ul li {
+      border-radius: 0px; padding: 3px 
+}
+#exTabsale2 ul li.active {
+    background: #ffffff;
+}
+
 /* remove border radius for the tab */
 
 #exTab1 .nav-pills > li > a {
@@ -419,13 +441,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .scro::-webkit-scrollbar
 {
-  width: 1px;
+  width: 13px;
   background-color: #2c3346;
 }
 
 .scro::-webkit-scrollbar-thumb
 {
-  background-color: #000000;
+  background-color: #4e72df;
   border: 0px solid #555555;
 }
 
@@ -488,17 +510,32 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .box{
  
-  display: none;
-  min-height: 600px;
-  left: 5%;
-  opacity: 0;
-  position: fixed;
-  top: 4%;
-  z-index: 51; width: 90%; overflow: hidden;
-  
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px; background: #fff; padding-bottom: 20px;overflow-y: scroll; 
+ display: none;
+ min-height: 600px;
+ left: 5%;
+ opacity: 0;
+ position: fixed;
+ top: 4%;
+ z-index: 51; width: 90%; overflow: hidden;
+ 
+ -moz-border-radius: 6px;
+ -webkit-border-radius: 6px;
+ border-radius: 6px; background: #fff; padding-bottom: 20px;overflow-y: scroll; 
+}
+
+.boxordersource{
+ 
+ display: none;
+ min-height: 600px;
+ left: 5%;
+ opacity: 0;
+ position: fixed;
+ top: 4%;
+ z-index: 51; width: 90%; overflow: hidden;
+ 
+ -moz-border-radius: 6px;
+ -webkit-border-radius: 6px;
+ border-radius: 6px; background: #fff; padding-bottom: 20px;overflow-y: scroll; 
 }
 
 .box2{
@@ -692,6 +729,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     $('#dataTable2').DataTable();
     $('#dataTable3').DataTable();
     $('#dataTable4').DataTable();
+
+    $('#dataTablea').DataTable();
+    $('#dataTablea2').DataTable();
+    $('#dataTablea3').DataTable();
+
 } );
 </script>
   

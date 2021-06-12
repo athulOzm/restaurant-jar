@@ -48,7 +48,7 @@
                         <label for="ar_name" class="block  text-sm font-bold mb-2 sm:mb-4">Full Name Arabic:</label>
                         <input id="ar_name" type="text"
                             class="form-control @error('ar_name') is-invalid @enderror" name="ar_name"
-                            value="{{ old('ar_name') }}" required  autofocus>
+                            value="{{ old('ar_name') }}" required  autofocus style="text-align: right">
 
                             @error('ar_name')
                             <span class="invalid-feedback" role="alert">
