@@ -157,7 +157,7 @@ label {
                 <div class=" flex">
                 <label class="box3"><input type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
                 <label class="box3"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
-                <label class="box3" style="margin-right: 0"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></label>
+                <label class="box3" style="margin-right: 0"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('@if($cur_token->user){{$cur_token->user->memberid}}@endif')"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
           

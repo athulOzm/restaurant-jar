@@ -265,7 +265,11 @@ class PosController extends Controller
 
     public function getmember($user){
 
-        return response(User::where('memberid', $user)->first(), 200);
+        if(User::find($user)): 
+            return response(User::find($user), 200);
+        else: 
+            return response(User::where('memberid', $user)->first(), 200);
+        endif;
     }
 
     public function getmenus(){
