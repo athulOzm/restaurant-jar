@@ -53,7 +53,7 @@ label {
 
       
  <style>
-   .nns::placeholder{color:green; font-weight: 300;font-size:13px}
+   .nns::placeholder{color:#4e72df; font-weight: 300;font-size:13px}
  </style>
 
 
@@ -89,7 +89,7 @@ label {
       </div>
       
       <div class="col-sm-10">
-        <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" placeholder="Scan barcode..">
+        <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" placeholder="Scan Bill Barcode">
       </div>
     </div>
            
@@ -398,7 +398,7 @@ label {
         
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
           <li class="nav-item" style="width: 40%">
-            <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu" style="margin: 7px 3px;
+            <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Items/ Add by Barcode" style="margin: 7px 3px;
             width: 96%;
             font-size: 14px;
             padding: 20px 15px;">
@@ -598,10 +598,26 @@ $('#sermenus').keyup(function(){
         },
         success: function(res){
           $('#crepay').prop('checked', false);
+          $('#sermenus').val(null);
           getOrders();
         }
     });
+  } else if(sid.includes('RE-')){
 
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        type: 'POST',
+        url: `/pos/addtocartbyreceipt`,
+        data: {
+            "item": sid,
+            "_token": token,
+        },
+        success: function(res){
+          $('#crepay').prop('checked', false);
+          $('#sermenus').val(null);
+          getOrders();
+        }
+    });
   }
 
 });

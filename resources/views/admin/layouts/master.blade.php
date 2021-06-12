@@ -95,6 +95,20 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages16" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-utensils"></i>
+          <span>Kitchen Display</span>
+        </a>
+        <div id="collapsePages16" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner ">
+       
+            <a class="collapse-item" href="{{route('kitchen')}}">Kitchen Display</a>
+    
+          </div>
+        </div>
+      </li>
+
       
 
 
@@ -143,19 +157,7 @@
 
       
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages16" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-fw fa-utensils"></i>
-          <span>Kitchen Display</span>
-        </a>
-        <div id="collapsePages16" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-primary py-2 collapse-inner ">
-       
-            <a class="collapse-item" href="{{route('kitchen')}}">Kitchen Display</a>
-    
-          </div>
-        </div>
-      </li>
+      
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages88" aria-expanded="true" aria-controls="collapsePages33">

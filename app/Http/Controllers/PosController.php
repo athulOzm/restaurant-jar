@@ -72,40 +72,16 @@ class PosController extends Controller
     //clone order
     public function clone(Order $order){
 
+        $clone = $order->replicate();
+        $clone->push();
 
-    $clone = $order->replicate();
-    $clone->push();
+        foreach($order->products as $tag)
+        {
+            $clone->products()->attach($tag, ['price' => $tag->pivot->price, 'quantity' => $tag->pivot->quantity, 'vat' => $tag->pivot->vat, 'promotion' => $tag->pivot->promotion]);
+            // you may set the timestamps to the second argument of attach()
+        }
 
-    foreach($order->products as $tag)
-    {
-
-       // dd($tag);
-
- 
-    
-         //$extra_attributes = array_except($item->pivot->getAttributes(), $item->pivot->getForeignKey());
-        // $clone->{$relation}()->attach($item, $extra_attributes);
-         
-
-        $clone->products()->attach($tag, ['price' => $tag->pivot->price, 'quantity' => $tag->pivot->quantity, 'vat' => $tag->pivot->vat, 'promotion' => $tag->pivot->promotion]);
-        // you may set the timestamps to the second argument of attach()
-    }
-
-    // foreach($item->categories as $category)
-    // {
-    //     $clone->categories()->attach($category);
-    //     // you may set the timestamps to the second argument of attach()
-    // }
-
-    $clone->push();
-
-
-
-        // $newt = $order->replicate();
-        // $newt->push();
-        
-        // $products = $order->orderproducts;
-        // $newt->products()->attach($products);
+        $clone->push();
 
         Session::forget('token');
         Session::put('token', $clone);
@@ -156,14 +132,11 @@ class PosController extends Controller
     //add to cart pos
     public function addtocartByBarcode(Request $request){
 
-        
 
         $pid = explode('-', $request->item)[1];
         $qty = explode('-', $request->item)[2];
  
         $product = Product::find($pid);
- 
- 
  
         $token = Order::find(Session::get('token')->id);
  
@@ -190,6 +163,32 @@ class PosController extends Controller
              ->where('product_id', $pid)
              ->update(['quantity' => $qty]);
          }
+ 
+         return response(['message' => 'product added successfully'], 201);
+     }
+
+
+     //add to cart pos
+    public function addtocartByReceipt(Request $request){
+
+
+        $token = explode('-', $request->item)[1];
+
+        $order = Order::find($token);
+
+
+        $clone = Order::find(Session::get('token')->id);
+
+        //dd($order->products);
+
+        $clone->products()->detach();
+
+        foreach($order->products as $tag)
+        {
+            $clone->products()->attach($tag, ['price' => $tag->pivot->price, 'quantity' => $tag->pivot->quantity, 'vat' => $tag->pivot->vat, 'promotion' => $tag->pivot->promotion]);
+            // you may set the timestamps to the second argument of attach()
+        }
+
  
          return response(['message' => 'product added successfully'], 201);
      }

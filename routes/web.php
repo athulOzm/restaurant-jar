@@ -129,10 +129,11 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::patch('kitchen/orderready/{order}', 'KitchenController@orderReady')->name('kitchen.ready');
 
 
-    //pos
+    //pos pos/
     Route::get('pos', 'PosController@pos')->name('pos');
     Route::post('pos/addtocart', 'PosController@addtocart')->name('pos.addtocart');
     Route::post('pos/addtocartbybarcode', 'PosController@addtocartByBarcode');
+    Route::post('pos/addtocartbyreceipt', 'PosController@addtocartByReceipt');
     Route::post('pos/downcart', 'PosController@downcart')->name('pos.downcart');
     Route::post('pos/updqty', 'PosController@updqty');
     Route::post('pos/removecart', 'PosController@removecart')->name('pos.removecart');
@@ -172,10 +173,6 @@ Route::middleware(['auth:admin'])->group(function () {
     //sales return - refund
     Route::post('pos/gettoken', 'RefundController@getToken')->name('pos.refund.gettoken');
     Route::get('pos/refund/{order}', 'RefundController@refund')->name('pos.refund');
-
-
-
-
 
 
 
