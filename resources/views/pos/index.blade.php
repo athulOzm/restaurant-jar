@@ -558,22 +558,17 @@ label {
 
 
 //room services
-
 const roomservices = (memberid) => {
-
   hideloc();
-
   $.ajax({
     type: 'GET',
     url: `/get/members/${memberid}`,
     success: function(res){
-      console.log(res);
+      //console.log(res);
       $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" class="form-control w-full txtb mt-2">`);
 
     }
   });
-
-
 }
  
 $('#sbc').keyup(function(){
@@ -1092,7 +1087,7 @@ $(document).ready(() => {
 			lookup: options,
 			onSelect: function (member) {
 
-        console.log(member);
+        //console.log(member);
         //console.log();
         $('#totcre').val(null);
         $('#totcre2').val(null);
@@ -1138,7 +1133,7 @@ const getlimitbydate = () => {
 
     var dtimee = $('#dtimee').val();
     
-    var res = $('#autocomplete').val().split(" - ");
+    var res = $('#autocomplete').val().split(" | ");
 
     if(dtimee != '' & res[0] != ''){
       cartcontinue(res[0], dtimee, 'withmid');
@@ -1393,7 +1388,7 @@ const getTables = (memberid) => {
           url: '/pos/getcart',
           success: function(res){
 
-            console.log(res);
+            //console.log(res);
               $('#cart').empty();
 
               $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
@@ -1779,8 +1774,13 @@ const getDelTime = () => {
     var ccre = $('#totcre').val();
     $('#vallimit').empty();
 
-    //console.log(avcre);
-    //console.log(ccre);
+//     var a='1,125'
+// a=a.replace(/\,/g,'')
+// a=Number(a)
+
+ccre = ccre.replace(/\,/g,'');
+ccre = Number(ccre);
+avcre = Number(avcre);
 
 
     if(Math.floor(avcre) < Math.floor(ccre)){

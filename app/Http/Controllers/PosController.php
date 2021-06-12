@@ -263,9 +263,9 @@ class PosController extends Controller
         return response(User::with('rank')->where('type', 3)->where('status', true)->get(), 200);
     }
 
-    public function getmember(User $user){
+    public function getmember($user){
 
-        return response($user, 200);
+        return response(User::where('memberid', $user)->first(), 200);
     }
 
     public function getmenus(){
@@ -581,7 +581,7 @@ class PosController extends Controller
         return response($product->addons, 200);
     }
 
-    //get member credit status
+    // //get member credit status
     // public function memberstatus(User $user){
     //     $token = Order::with('products')->find(Session::get('token')->id);
     //     $nub = $token->products()->count();
