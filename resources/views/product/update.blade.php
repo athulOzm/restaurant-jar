@@ -224,6 +224,34 @@ $promotions = resolve('promotions');
         max-height: 130px;
         overflow-y: auto;
     }
+
+
+    .backDrop{
+  background-color: #000;
+  display: none;
+  filter: alpha(opacity=0);
+  height: 100%;
+  left: 0px;
+  opacity: .0;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 50;
+}
+
+.pricelog{
+ 
+ display: none;
+ left: 50%;
+ opacity: 0;
+ position: fixed;
+ top: 4%;
+ z-index: 51; width: 500px; overflow: hidden; margin-left: -250px;  
+ 
+ -moz-border-radius: 6px;
+ -webkit-border-radius: 6px;
+ border-radius: 6px; background: none; padding-bottom: 20px;overflow-y: scroll; 
+}
     </style>
 <div class="container" style="height: 90vh;">
     <div class="card-body p-0">
@@ -306,7 +334,7 @@ $promotions = resolve('promotions');
 
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">Price </label>
+                                    <label for="inputCity">Price (<a style="font-weight: 600" id="pricelog" href="#" class="">View Price Log</a>) </label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{$product->price}}" name="price">
                                     @error('price')
@@ -548,6 +576,56 @@ $promotions = resolve('promotions');
         </div>
     </div>
 </div>
+
+<div class="backDrop"></div>
+
+<div class="pricelog">
+
+  <div class="card shadow mb-12" style="width:100%">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Price Log</h6> 
+        
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-left text-blue-900">Date</th>
+                    <th style="width: 65px">Price</th>
+                   
+                        
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse ($product->menuprices as $price)
+                    <tr>
+                        <td>{{$price->created_at}}</td>
+                       
+                        <td>{{$price->price}}</td>
+                         
+
+                    </tr>
+                    @empty
+                        <tr><td>Price not updated</td></tr>
+                    @endforelse
+
+                    
+                 
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+
 @endsection
 
 
@@ -1024,6 +1102,26 @@ $('#category').change(function() {
         })
     }
 });
+
+
+
+//lightbox 
+$("#pricelog").on("click", function(){
+ 
+    $(".backDrop").animate({"opacity": ".80"}, 300);
+    $(".pricelog").animate({"opacity": "1.0"}, 300);
+    $(".backDrop, .pricelog").css("display", "block");
+  });
+
+  $(".close, .backDrop").on("click", function(){
+    closeBox();
+  });
+
+  function closeBox(){
+    $(".backDrop, .pricelog").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .pricelog").css("display", "none");
+    });
+  }
 
 
 </script>

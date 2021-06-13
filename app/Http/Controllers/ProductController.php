@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use App\Media;
+use App\MenuPrice;
 use App\Menutype;
 use Carbon\Carbon;
 
@@ -71,6 +72,10 @@ class ProductController extends Controller
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status
 
+        ]);
+
+        $product->menuprices()->create([
+            'price' =>  $request->price
         ]);
 
         if($pic != ''){
@@ -153,8 +158,12 @@ class ProductController extends Controller
             $img->resize(250, 300)->save(storage_path('app/public/cover').'/'.$fname);
         endif;
 
+        $product = Product::find($request->id);
 
-        Product::find($request->id)->update([
+        $product_price = $product->price;
+
+
+        $product->update([
 
             'name' => $request->name,
             'name_ar' => $request->name_ar,
@@ -167,8 +176,15 @@ class ProductController extends Controller
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status
-
         ]);
+
+        if($product_price != $request->price){
+            $product->menuprices()->create([
+                'price' =>  $request->price
+            ]);
+        }
+
+        
 
         $pic = $request->addon;
         if($pic != ''){

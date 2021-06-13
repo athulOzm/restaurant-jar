@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -99,6 +100,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class)
             ->withPivot('product_id', 'quantity', 'discount')
             ->withTimestamps();
+    }
+
+    public function menuprices(){
+
+        return $this->hasMany(MenuPrice::class);
     }
 
     public function addons(){
