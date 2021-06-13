@@ -73,12 +73,11 @@ class User extends Authenticatable
 
     public function getCreditAmount(){
 
-        if($this->debits()->exists()){
-            $da = $this->debits()->latest('created_at')->first()->created_at;
-            $credit_orders = $this->orders()->where('payment_type_id', 2)->whereDate('delivery_time', '>=', $da)->get();
-        } else{
-            $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
-        }
+        
+        $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+
+        
+        
 
         $credit_total = [];
 
@@ -87,19 +86,21 @@ class User extends Authenticatable
             $credit_total[] = $item->gettotalprice()['subtotal'];
         });
 
-        return number_format(array_sum($credit_total), 3);
+        $deb_total = $this->debits()->pluck('amount')->toArray();
+
+        return number_format(array_sum($credit_total) - array_sum($deb_total), 3);
 
         //return 45.500;
     }
 
     public function getTotalCreditAttribute(){
 
-        if($this->debits()->exists()){
-            $da = $this->debits()->latest('created_at')->first()->created_at;
-            $credit_orders = $this->orders()->where('payment_type_id', 2)->whereDate('delivery_time', '>=', $da)->get();
-        } else{
+        // if($this->debits()->exists()){
+        //     $da = $this->debits()->latest('created_at')->first()->created_at;
+        //     $credit_orders = $this->orders()->where('payment_type_id', 2)->where('delivery_time', '=>', $da)->get();
+        // } else{
             $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
-        }
+       // }
 
         $credit_total = [];
 
@@ -108,7 +109,9 @@ class User extends Authenticatable
             $credit_total[] = $item->gettotalprice()['subtotal'];
         });
 
-        $tcredit = number_format(array_sum($credit_total), 3);
+        $deb_total = $this->debits()->pluck('amount')->toArray();
+
+        $tcredit = number_format(array_sum($credit_total) - array_sum($deb_total), 3);
 
         return number_format($this->limit - $tcredit , 3);
 
