@@ -63,6 +63,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::delete('/user/drop', 'UserController@userdestroy')->name('user.delete');
     Route::get('user/edit/{user}', 'UserController@useredit')->name('user.edit');
     Route::patch('user', 'UserController@userupdateweb')->name('user.update');
+    Route::post('member/debit', 'UserController@memberDebit')->name('member.debit');
     Route::get('user/create', 'UserController@usercreate')->name('user.create');
 
 
@@ -214,6 +215,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
     //member report status
     Route::get('/report/members', 'ReportController@member')->name('report.member');
+    Route::get('/report/members/balance', 'ReportController@memberbalance')->name('report.members.balance');
     Route::post('/report/member/search', 'ReportController@memberSearch')->name('report.member.search');
 
 

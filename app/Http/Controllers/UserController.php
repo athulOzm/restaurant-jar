@@ -11,6 +11,7 @@ use App\Card;
 
 use App\Http\Controllers\Controller;
 use App\MemberCategory;
+use App\MemberPay;
 use App\Order;
 use App\PaymentType;
 use App\Providers\RouteServiceProvider;
@@ -375,6 +376,21 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('user.index');
+    }
+
+
+    //member debit
+
+    public function memberDebit(Request $request){
+
+        MemberPay::create([
+            'amount'    => $request->amount,
+            'user_id'   =>  $request->id
+        ]);
+        
+        return back();
+        
+
     }
 
 

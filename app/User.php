@@ -59,6 +59,8 @@ class User extends Authenticatable
         return $this->belongsTo(PaymentType::class, 'payment_type_id', 'id');
     }
 
+ 
+
     public function orders(){
 
         return $this->hasMany(Order::class);
@@ -126,6 +128,11 @@ class User extends Authenticatable
         else{
             return response(['msg' => 'ok', 'dt' => $nub] , 200);
         }
+    }
+
+    public function debits(){
+
+        $this->hasMany(MemberPay::class);
     }
 
     //renewals

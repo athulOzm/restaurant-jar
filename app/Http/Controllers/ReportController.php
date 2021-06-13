@@ -394,6 +394,12 @@ class ReportController extends Controller
     }
 
 
+    public function memberBalance(){
+
+        return view('report.MemberBalance', ['members' => User::where('type', 3)->get()]);
+    }
+
+
 
 
 }
