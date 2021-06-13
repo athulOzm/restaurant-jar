@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
-    public function index(\App\branch $branch){
+    public function index(\App\Branch $branch){
 
         return view('branch.Index', ['branches' => $branch::all()]);
         
