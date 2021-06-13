@@ -31,6 +31,34 @@
                     <div class="row">
 
                     <div class="form-group col-md-4">
+                        <label for="position" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                            Branch:
+                        </label>
+                        <select  
+                            required 
+                            class="form-control @error('branch_id') is-invalid @enderror" 
+                            name="branch_id"
+                            id="branch_id">
+                            <option value="">Select branch</option>
+                            @foreach ($branches as $branch)
+                                <option
+                                @if (old('branch_id') == $branch->id)
+                                    selected
+                                @endif
+                                
+                                value="{{$branch->id}}">{{$branch->name}}</option>
+                            @endforeach
+
+                            @error('branch_id')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-4">
                         <label for="name" class="block  text-sm font-bold mb-2 sm:mb-4">Full Name:</label>
                         <input id="name" type="text"
                             class="form-control @error('name') is-invalid @enderror" name="name"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +41,8 @@ class UserController extends Controller
         $ranks = Rank::all();
         $memcategories = MemberCategory::all();
         $paymenttypes = PaymentType::all();
-        return view('member.Create', compact('ranks', 'paymenttypes', 'memcategories'));
+        $branches = Branch::all();
+        return view('member.Create', compact('ranks', 'paymenttypes', 'memcategories', 'branches'));
     }
 
     public function destroy(Request $request){

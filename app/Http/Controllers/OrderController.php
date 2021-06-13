@@ -9,12 +9,12 @@ class OrderController extends Controller
 {
     public function active(){
 
-        return view('order.active', ['orders' => Order::where('status', 1)->get()]);
+        return view('order.active', ['orders' => Order::where('status', 3)->get()]);
     }
 
     public function delivered(){
 
-        return view('order.delivered', ['orders' => Order::where('status', 2)->get()]);
+        return view('order.delivered', ['orders' => Order::where('status', 4)->get()]);
         
     }
     public function all(){

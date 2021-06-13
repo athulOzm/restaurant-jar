@@ -28,23 +28,23 @@
                 <div class="col-md-4">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Update Category</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Update Branch</h6> 
                             
     
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
 
-                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.rank.update') }}">
+                                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('branch.update') }}">
                                     @csrf
                                     @method('PATCH')
-                                    <input type="hidden" name="id" value="{{$rank->id}}">
+                                    <input type="hidden" name="id" value="{{$branch->id}}">
                 
                                     <div class="form-group">
                                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                             Name:
                                         </label>
-                                        <input id="name" type="name" value="{{$rank->name}}"
+                                        <input id="name" type="name" value="{{$branch->name}}"
                                             class="form-control w-full border-gray-400 @error('name') border-red-500 @enderror" name="name"
                                             value="{{ old('name') }}" required  autofocus>
                 

@@ -8,6 +8,16 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware(['auth:admin'])->group(function () {
 
+    //branches
+    Route::get('/branches', 'BranchController@index')->name('branch.index');
+    Route::post('/branch', 'BranchController@store')->name('branch.store');
+    Route::delete('/branch/drop', 'BranchController@delete')->name('branch.delete');
+    Route::get('branch/{branch}', 'BranchController@edit')->name('branch.edit');
+    Route::patch('branch', 'BranchController@update')->name('branch.update');
+    Route::get('getsubbranch/{branch}', 'BranchController@getSubbranch');
+
+
+
     //menutype
     Route::get('menutypes', 'MenutypeController@index')->name('menutype.index');
     Route::post('menutype', 'MenutypeController@store')->name('menutype.store');

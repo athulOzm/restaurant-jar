@@ -132,6 +132,21 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages74" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-calendar-minus"></i>
+          <span>Branches</span>
+        </a>
+        <div id="collapsePages74" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner ">
+       
+            <a class="collapse-item" href="{{route('branch.index')}}">Branchs</a>
+          
+    
+          </div>
+        </div>
+      </li>
+
      
 
        
@@ -144,6 +159,7 @@
         <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
+           
             <a class="collapse-item" href="{{route('member.index')}}">Members</a>
             <a class="collapse-item" href="{{route('member.ledger')}}">Ledger</a>
             <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
@@ -355,6 +371,21 @@
             {{-- <div class="topbar-divider d-none d-sm-block"></div> --}}
 
             <!-- Nav Item - User Information -->
+
+            <li>
+              <a href="/pos" style="
+              margin-top: 19px;
+              margin-right: 15px;
+              line-height: 17px;
+              border-radius: 20px;
+          " class="btn btn-outline-primary tn-sm btn-rounded"><span class="ul-btn__text ml-1">POS</span></a>
+            </li>
+            <li><i id="go-button" class="fa fa-arrows-alt" style="
+              font-size: 22px;
+              color: #999;line-height:70px
+              " aria-hidden="true"></i></li>
+
+
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
@@ -537,7 +568,66 @@ setTimeout(() => {
 
 }, 5000);
 
+
+
+// /* Get into full screen */
+// function GoInFullscreen(element) {
+// 	if(element.requestFullscreen)
+// 		element.requestFullscreen();
+// 	else if(element.mozRequestFullScreen)
+// 		element.mozRequestFullScreen();
+// 	else if(element.webkitRequestFullscreen)
+// 		element.webkitRequestFullscreen();
+// 	else if(element.msRequestFullscreen)
+// 		element.msRequestFullscreen();
+// }
+
+// /* Get out of full screen */
+// function GoOutFullscreen() {
+// 	if(document.exitFullscreen)
+// 		document.exitFullscreen();
+// 	else if(document.mozCancelFullScreen)
+// 		document.mozCancelFullScreen();
+// 	else if(document.webkitExitFullscreen)
+// 		document.webkitExitFullscreen();
+// 	else if(document.msExitFullscreen)
+// 		document.msExitFullscreen();
+// }
+
+// /* Is currently in full screen or not */
+// function IsFullScreenCurrently() {
+// 	var full_screen_element = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
+	
+// 	// If no element is in full-screen
+// 	if(full_screen_element === null)
+// 		return false;
+// 	else
+// 		return true;
+// }
+
+// $("#go-button").on('click', function() {
+// 	if(IsFullScreenCurrently())
+// 		GoOutFullscreen();
+// 	else
+// 		GoInFullscreen($("#wrapper").get(0));
+// });
+
+// $(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {
+// 	// if(IsFullScreenCurrently()) {
+// 	// 	$("#wrapper span").text('Full Screen Mode Enabled');
+// 	// 	$("#go-button").text('Disable Full Screen');
+// 	// }
+// 	// else {
+// 	// 	$("#wrapper span").text('Full Screen Mode Disabled');
+// 	// 	$("#go-button").text('Enable Full Screen');
+// 	// }
+// });
+
 </script>
+
+
+
+
 </body>
 
 </html>
