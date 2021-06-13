@@ -73,7 +73,12 @@ class User extends Authenticatable
 
     public function getCreditAmount(){
 
-        $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+        if($this->debits()->exists()){
+            $da = $this->debits()->latest('created_at')->first()->created_at;
+            $credit_orders = $this->orders()->where('payment_type_id', 2)->whereDate('delivery_time', '>=', $da)->get();
+        } else{
+            $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+        }
 
         $credit_total = [];
 
@@ -89,7 +94,12 @@ class User extends Authenticatable
 
     public function getTotalCreditAttribute(){
 
-        $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+        if($this->debits()->exists()){
+            $da = $this->debits()->latest('created_at')->first()->created_at;
+            $credit_orders = $this->orders()->where('payment_type_id', 2)->whereDate('delivery_time', '>=', $da)->get();
+        } else{
+            $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+        }
 
         $credit_total = [];
 
@@ -132,7 +142,7 @@ class User extends Authenticatable
 
     public function debits(){
 
-        $this->hasMany(MemberPay::class);
+        return $this->hasMany(MemberPay::class);
     }
 
     //renewals
