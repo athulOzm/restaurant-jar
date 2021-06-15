@@ -337,24 +337,48 @@ class ReportController extends Controller
 
     public function member(){
 
-        return view('report.Member', ['users' => User::where('type', 3)->get()]);
+        return view('report.MemberSearch', ['users' => User::where('type', 3)->get()]);
     }
 
 
     //sale search
     public function memberSearch(Request $request){
 
-        $date_from = str_replace('T', ' ', $request->df).':00';
-        $date_to = str_replace('T', ' ', $request->dt).':00';
+        
 
         //dd($date_from);
 
         $user = User::where('memberid', $request->memberid)->first();
 
         $rec = Order::where('status', 4)
-            ->whereBetween('delivery_time', [$date_from, $date_to])
             ->where('user_id', $user->id)
             ->get();
+
+           // dd($request->df);
+
+        if($request->df != null){
+
+            $date_from = str_replace('T', ' ', $request->df).':00';
+            $rec = $rec->where('delivery_time', '>', $date_from);
+        }
+
+        if($request->dt != null){
+            
+            $date_to = str_replace('T', ' ', $request->dt).':00';
+            $rec = $rec->where('delivery_time', '<', $date_to);
+        }
+
+        //payment type
+        if($request->payment_type_id != null){
+            
+            $rec = $rec->where('payment_type_id', $request->payment_type_id);
+        }
+
+        //delivery type
+        if($request->delivery_type != null){
+            
+            $rec = $rec->where('delivery_type', $request->delivery_type);
+        }
 
         
 

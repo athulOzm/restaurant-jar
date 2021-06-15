@@ -17,6 +17,16 @@
         .pt1{border-top:1px solid #e7e7e7; padding: 8px}
 .tar{font-weight: bold; text-align: right}
         .bootstrap-select>.dropdown-toggle{background: white; border: 1px solid #777}
+
+        .table-bordered th, .table-bordered td {
+    border: 1px solid #f1e8e8;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #222;
+}
+
+#dataTable .btn{font-size: .7rem; padding: 2px 4px}
  </style>
    
 
@@ -51,12 +61,12 @@
         <div class="col-md-3">
           <p class="la">Date From</p>
 
-          <input name="df"  step="any" required  type="datetime-local" class="form-control border-gray-400 txtb">
+          <input name="df"  step="any"    type="datetime-local" class="form-control border-gray-400 txtb">
       </div>
       <div class="col-md-3">
         <p class="la">Date To</p>
 
-          <input name="dt"  step="any" required type="datetime-local" class="form-control border-gray-400 txtb">
+          <input name="dt"  step="any"   type="datetime-local" class="form-control border-gray-400 txtb">
       </div>
 
       <div class="form-group col-md-3">
@@ -67,10 +77,9 @@
             <option value="">All</option>
 
 
-                                            <option value="0">All</option>
                                             <option value="1">Card</option>
                                             <option value="2">Credit</option>
-                                            <option value="3">Both</option>
+                                     
             
                                     
         </select>
@@ -80,13 +89,13 @@
       <p class="la">
           Delivery Type:
       </p>
-      <select  class="form-control " name="payment_type_id" id="paymenttype">
+      <select  class="form-control " name="delivery_type" id="paymenttype">
           <option value="">All</option>
 
 
-                                          <option value="1">Dinein</option>
-                                          <option value="2">Takeaway</option>
-                                          <option value="3">Delivery</option>
+                                          <option value="Dinein">Dinein</option>
+                                          <option value="Takeaway">Takeaway</option>
+                                          <option value="Delivery">Delivery</option>
           
                                   
       </select>
@@ -108,6 +117,7 @@
     </select>
 </div>
 
+
         
         <div class="col-md-3 mt-3">
             <button class="btn btn-primary btnc1" id="pay" type="submit">View Report <i class="fas fa-arrow-right"></i></button>
@@ -115,19 +125,77 @@
    
     </div>
 </form>
-    <br> 
- 
+    
     <hr>
 
     @if (isset($tot_ord))
 
 <div class="row">
-    <div class="col-md-6">
+    
+
+
+    <div class="col-md-8">
         <div class="card shadow mb-12" style="width:100%">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Member Details</h6> 
+                <h6 class="m-0 font-weight-bold text-primary">Receipt</h6> 
                 
 
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="font-size: .8rem">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                           
+
+
+                            <th width="30">Member ID</th>
+                            <th width="30">Receipt Id</th>
+                          
+                            <th width="30">Amount Total</th>
+                         
+
+                            <th width="30">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach($rec as $order)
+                            <tr>
+                                 
+                                <td>@if ($order->user)
+                                    {{$order->user->memberid}}
+                                @endif</td>
+                                <td>RE-{{$order->id}}</td>
+                           
+                               
+                                <td>{{$order->gettotalprice()['subtotal']}}</td>
+                               
+
+                                
+                        <th style="font-size: 10px">
+                <a target="_blank" href="{{route('pos.print.a4', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Print</a>
+                <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View Attachment</a>
+                
+
+           
+
+                        </th>
+                            
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="card shadow mb-12" style="width:100%">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Member Details</h6>
             </div>
             <div class="card-body">
                 <div class="row pt1">
@@ -152,61 +220,7 @@
     </div>
 
 
-    <div class="col-md-6">
-        <div class="card shadow mb-12" style="width:100%">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Member Menu Items</h6> 
-                
-
-            </div>
-            <div class="card-body">
-                <div class="row pt1">
-                    <div class="col-md-6">Total Token</div>
-                    <div class="col-md-6 tar">{{$tot_ord}}</div>
-                </div>
-                <div class="row pt1">
-                    <div class="col-md-6">Total Breakfast</div>
-                    <div class="col-md-6 tar">RO: 0.000</div>
-                </div>
-                <div class="row pt1">
-                    <div class="col-md-6">Total Lunch</div>
-                    <div class="col-md-6 tar">RO: 0.000</div>
-                </div>
-                <div class="row pt1">
-                    <div class="col-md-6">Total Dinner</div>
-                    <div class="col-md-6 tar">RO: 0.000</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-6">
-        <div class="card shadow mb-12" style="width:100%">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Member Transactions</h6> 
-                
-
-            </div>
-            <div class="card-body">
-                <div class="row pt1">
-                    <div class="col-md-6">Total Transactions</div>
-                    <div class="col-md-6 tar">RO {{$tot_price}}</div>
-                </div>
-                <div class="row pt1">
-                    <div class="col-md-6">Total Credit Payment</div>
-                    <div class="col-md-6 tar">RO {{$tot_pricec}}</div>
-                </div>
-                <div class="row pt1">
-                    <div class="col-md-6">Total Card Payment</div>
-                    <div class="col-md-6 tar">RO {{$tot_priceca}}</div>
-                </div>
-                
-
-              
-            </div>
-        </div>
-    </div>
+    
  
 
 </div>

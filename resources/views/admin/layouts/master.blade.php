@@ -90,7 +90,8 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('pos')}}">POS</a>
-            <a class="collapse-item" href="{{route('order.all')}}">Order List</a>
+            <a class="collapse-item" href="{{route('order.list')}}">Order List</a>
+            <a class="collapse-item" href="{{route('order.history')}}">Order History</a>
           </div>
         </div>
       </li>

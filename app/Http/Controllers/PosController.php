@@ -341,6 +341,14 @@ class PosController extends Controller
         return view('pos.Print', compact('order'));
     }
 
+    public function getprintA4($id){
+
+        $order = Order::with('orderproducts', 'user')->find($id);
+
+        //dd($order);
+        return view('pos.PrintA4', compact('order'));
+    }
+
     public function getprintrefund($id){
 
         $order = Order::with('orderproducts', 'user')->find($id);

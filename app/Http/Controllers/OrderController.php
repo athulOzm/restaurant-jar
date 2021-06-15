@@ -19,8 +19,17 @@ class OrderController extends Controller
     }
     public function all(){
 
-        return view('order.all', ['orders' => Order::where('status', '!=', 1)->get()]);
-        
+        return view('order.all', ['orders' => Order::where('status', '!=', 1)->get()]); 
+    }
+
+    public function history(){
+
+        return view('order.History', ['orders' => Order::where('status', 4)->get()]); 
+    }
+
+    public function list(){
+
+        return view('order.List', ['orders' => Order::where('status', '!=', 1)->where('status', '!=', 4)->get()]); 
     }
 
     public function destroy(Request $request)

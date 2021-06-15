@@ -45,10 +45,10 @@ input[type=search]{
 
 <div id="exTabsale"  style="color: #222">	
     <ul  class="nav nav-pills pill2">
-      <li class="active">
+      {{-- <li class="active">
         <a  href="#1a" data-toggle="tab">Sales Log</a>
-      </li>
-      <li><a href="#2a" data-toggle="tab">Hold Bills</a>
+      </li> --}}
+      <li class="active"><a href="#2a" data-toggle="tab">Hold Bills</a>
       </li>
       <li><a href="#3a" data-toggle="tab">Open Bills</a></li>
       <li><a href="#4a" data-toggle="tab">Kitchen Log</a></li>
@@ -56,10 +56,10 @@ input[type=search]{
     </ul>
 
     <div class="tab-content clearfix">
-      <div class="tab-pane active" id="1a">
+      {{-- <div class="tab-pane active" id="1a">
         @include('pos.partials.Sales')
-      </div>
-      <div class="tab-pane" id="2a">
+      </div> --}}
+      <div class="tab-pane active" id="2a">
         @include('pos.partials.Hold')
       </div>
       <div class="tab-pane" id="3a">

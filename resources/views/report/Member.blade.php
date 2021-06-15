@@ -50,61 +50,47 @@
         <div class="col-md-3">
           <p class="la">Date From</p>
 
-          <input name="df"  step="any" required  type="datetime-local" class="form-control border-gray-400 txtb">
-      </div>
-      <div class="col-md-3">
-        <p class="la">Date To</p>
+          <input name="df"  step="any"  type="datetime-local" class="form-control border-gray-400 txtb">
+        </div>
+        <div class="col-md-3">
+            <p class="la">Date To</p>
+            <input name="dt"  step="any"  type="datetime-local" class="form-control border-gray-400 txtb">
+        </div>
 
-          <input name="dt"  step="any" required type="datetime-local" class="form-control border-gray-400 txtb">
-      </div>
+        <div class="form-group col-md-3">
+            <p class="la">
+                Payment Type:
+            </p>
+            <select  class="form-control " name="payment_type_id" id="paymenttype">
+                <option value="">All</option>
+                <option value="1">Card</option>
+                <option value="2">Credit</option>         
+            </select>
+        </div>
 
-      <div class="form-group col-md-3">
+        <div class="form-group col-md-3">
         <p class="la">
-            Payment Type:
+            Delivery Type:
         </p>
-        <select  class="form-control " name="payment_type_id" id="paymenttype">
+        <select  class="form-control " name="delivery_type" id="paymenttype">
             <option value="">All</option>
-
-
-                                            <option value="1">Card</option>
-                                            <option value="2">Credit</option>
-                                            <option value="3">Both</option>
-            
-                                    
+                <option value="Dinein">Dinein</option>
+                <option value="Takeaway">Takeaway</option>
+                <option value="Delivery">Delivery</option>
         </select>
-    </div>
+        </div>
 
-    <div class="form-group col-md-3">
-      <p class="la">
-          Delivery Type:
-      </p>
-      <select  class="form-control " name="payment_type_id" id="paymenttype">
-          <option value="">All</option>
-
-
-                                          <option value="1">Dinein</option>
-                                          <option value="2">Takeaway</option>
-                                          <option value="3">Delivery</option>
-          
-                                  
-      </select>
-  </div>
-
-  <div class="form-group col-md-3">
-    <p class="la">
-        Delivery Location:
-    </p>
-    <select  class="form-control " name="payment_type_id" id="paymenttype">
-        <option value="">All</option>
-
-
-                                        <option value="1">Pool 1</option>
-                                        <option value="2">Pool 2</option>
-                                        <option value="3">Guarden </option>
-        
-                                
-    </select>
-</div>
+        <div class="form-group col-md-3">
+            <p class="la">
+                Delivery Location:
+            </p>
+            <select  class="form-control " name="payment_type_id" id="paymenttype">
+                <option value="">All</option>
+                <option value="1">Pool 1</option>
+                <option value="2">Pool 2</option>
+                <option value="3">Guarden </option>        
+            </select>
+        </div>
 
         
         <div class="col-md-3 mt-3">

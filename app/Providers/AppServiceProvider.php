@@ -71,6 +71,11 @@ class AppServiceProvider extends ServiceProvider
 
             return User::with('ordersPosted')->find(auth()->user()->id);
         });
+
+        app()->bind('members', function(){
+
+            return User::where('type', 3)->get();
+        });
     }
 
     /**

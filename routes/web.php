@@ -132,6 +132,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('orders/all', 'OrderController@all')->name('order.all');
     Route::delete('order', 'OrderController@destroy')->name('order.destroy');
 
+    Route::get('orders/history', 'OrderController@history')->name('order.history');
+    Route::get('orders/list', 'OrderController@list')->name('order.list');
+
+
 
 
     //kitchen
@@ -162,6 +166,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
     Route::get('pos/print/{coupon}', 'PosController@getprint')->name('pos.print');
+    Route::get('pos/printa4/{coupon}', 'PosController@getprintA4')->name('pos.print.a4');
     Route::get('pos/update/{order}', 'PosController@update')->name('pos.update');
     Route::get('pos/view/{coupon}', 'PosController@getview')->name('pos.view');
     Route::get('pos/clone/{order}', 'PosController@clone')->name('pos.clone');
