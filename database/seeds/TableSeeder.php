@@ -1,5 +1,6 @@
 <?php
 
+use App\Setting;
 use App\Table;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,9 @@ class TableSeeder extends Seeder
     public function run()
     {
         factory(Table::class, 9)
+            ->create();
+
+        factory(Setting::class, 1)
             ->create();
     }
 }

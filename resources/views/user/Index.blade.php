@@ -35,6 +35,7 @@
                                         <tr>
                                       
                                             <th class="text-left text-blue-900">Full Name</th>
+                                            <th class="text-left text-blue-900">Branch</th>
                                             <th class="text-left text-blue-900">Email</th>
                                            
                                             <th class="text-left text-blue-900" width="60">Action</th>
@@ -48,6 +49,7 @@
                                         <tr>
                                       
                                             <td>{{$user->name}}</td>
+                                            <td>{{$user->branch->full_name}}</td>
                                             <td>{{$user->email}}</td>
                                          
                                            

@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Branch;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -25,6 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$12$/FXElhbvw8X0f434WjXRZuAxwlqbtet8wFrPX24isHu7IbtzypHSy', // admin123
         'remember_token' => Str::random(10),
         'type'  =>  1,
-        'item_limit' => 5
+        'item_limit' => 5,
+        'branch_id'   =>  $faker->randomElement(Branch::all()->pluck('id')->toArray())
     ];
 });

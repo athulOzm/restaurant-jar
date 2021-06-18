@@ -368,21 +368,64 @@ class UserController extends Controller
         return view('user.Edit', compact('user', 'ranks', 'paymenttypes'));
     }
 
+
+
+
+    //user web -----------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------
     public function userstoreWeb(Request $request){
+
+        $request->validate([
+            'email' => 'unique:users|email',
+           'password'          =>      'required|alpha_num|min:4'
+
+        ]);
+
+        
+
 
         User::create([
             'name'              =>      $request->name,
             'email'             =>      $request->email,
             'password'          =>  Hash::make($request->password),
-            'type'              =>      5
+            'type'              =>      5,
+            'branch_id'         =>  $request->branch_id
+        ]);
+
+        return redirect()->route('user.index');
+    }
+
+    public function userupdateweb(Request $request){
+
+        $request->validate([
+           'password'          =>      'required|alpha_num|min:4',
+           'email'             =>      'email|unique:users,email,'.$request->id,
+        ]);
+
+        User::find($request->id)->update([
+            'name'              =>      $request->name,
+            'email'             =>      $request->email,
+            'password'          =>  Hash::make($request->password),
+            'branch_id'         =>  $request->branch_id
         ]);
 
         return redirect()->route('user.index');
     }
 
 
-    //member debit
 
+
+
+
+
+
+
+
+
+
+
+
+    //member debit --------------------------------------------------------------------------------
     public function memberDebit(Request $request){
 
         MemberPay::create([
@@ -391,8 +434,6 @@ class UserController extends Controller
         ]);
         
         return back();
-        
-
     }
 
 
