@@ -99,7 +99,8 @@ class TableController extends Controller
 
         return $request->validate([
             'name'  =>  'required',
-            'chair' =>  'required'
+            'chair' =>  'required|numeric',
+            'branch_id' =>  'required'
 
          
         ]);

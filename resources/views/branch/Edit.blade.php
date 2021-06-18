@@ -54,6 +54,21 @@
                                             </p>
                                             @enderror
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="code" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                            Code:
+                                        </label>
+                                        <input id="code" type="text"
+                                            class="form-control w-full border-gray-400 @error('name') border-red-500 @enderror" name="code"
+                                            value="{{$branch->code}}" required  autofocus>
+                
+                                            @error('code')
+                                            <p class="text-red-500 text-xs italic mt-4">
+                                                {{ $message }}
+                                            </p>
+                                            @enderror
+                                    </div>
      
     
                                     

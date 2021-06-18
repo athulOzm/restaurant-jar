@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Addon;
+use App\Branch;
 use App\Category;
 use App\Menutype;
 use App\Order;
@@ -75,6 +76,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('members', function(){
 
             return User::where('type', 3)->get();
+        });
+
+        app()->bind('branches', function(){
+
+            return Branch::all();
         });
     }
 
