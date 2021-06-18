@@ -103,14 +103,12 @@
                                         <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                             Branches:
                                         </label>
-                                       
                                             <select required class="form-control w-full border-gray-400" name="branch_id">
                                                 <option value=""> Choose Branch</option>
                                                 @foreach ($branches as $item)
                                                 <option value="{{$item->id}}">{{$item->full_name}}</option>
                                                 @endforeach
                                             </select>
-                 
                                     </div>
                 
                                     <div class="form-group">

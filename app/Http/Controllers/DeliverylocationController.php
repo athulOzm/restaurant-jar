@@ -100,6 +100,7 @@ class DeliverylocationController extends Controller
 
         return $request->validate([
             'name'  =>  'required',
+            'branch_id'  =>  'required'
     
 
          

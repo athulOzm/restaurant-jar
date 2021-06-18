@@ -18,6 +18,7 @@ class CreateDeliverylocationsTable extends Migration
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->string('name');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
