@@ -76,6 +76,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th class="text-left text-blue-900">Branch</th>
                                          
                                             <th class="text-left text-blue-900">Mess ID</th>
                                             <th class="text-left text-blue-900">Service ID</th>
@@ -95,6 +96,7 @@
                                     <tbody>
                                         @forelse ($members as $member)
                                         <tr>
+                                            <td>{{$member->branch->full_name}}</td>
                                        
                                             <td>{{$member->memberid}}</td>
                                             <td>{{$member->memberid}}</td>

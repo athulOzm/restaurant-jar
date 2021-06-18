@@ -1,4 +1,5 @@
 
+<?php $branches = resolve('branches');?>
 @extends('admin.layouts.master')
 
 @section('head', 'Create Member')
@@ -29,6 +30,8 @@
                     @csrf
 
                     <div class="row">
+
+                        
 
                     <div class="form-group col-md-4">
                         <label for="position" class="block  text-sm font-bold mb-2 sm:mb-4 ">

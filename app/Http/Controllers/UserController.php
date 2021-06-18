@@ -106,6 +106,7 @@ class UserController extends Controller
             'payment_type_id'   =>      'required',
             'room_address'      =>      'nullable',
             'location'          =>      'nullable',
+            'branch_id'         =>      'required',
             'status'            =>      'nullable'
         ]);
     }
@@ -122,11 +123,12 @@ class UserController extends Controller
             'memberid'          =>      'required|min:3|unique:users,memberid,'.$request->id,
             'serviceid'          =>      'required|min:3|unique:users,serviceid,'.$request->id,
             'rank_id'           =>      'required',
-            'category_id'           =>      'required',
+            'category_id'       =>      'required',
             'limit'             =>      'nullable',
             'item_limit'        =>      'nullable',
             'payment_type_id'   =>      'required',
             'room_address'      =>      'nullable',
+            'branch_id'         =>      'required',
             'location'          =>      'nullable',
             'status'            =>      'nullable'
         ]);
