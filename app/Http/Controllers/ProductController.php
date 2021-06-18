@@ -70,7 +70,8 @@ class ProductController extends Controller
  //           'category_id'   =>  $request->cat,
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
-            'status'    => $request->status
+            'status'    => $request->status,
+            'branch_id'    => $request->branch_id
 
         ]);
 
@@ -175,6 +176,7 @@ class ProductController extends Controller
            // 'category_id'   =>  $request->cat,
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
+            'branch_id'    => $request->branch_id,
             'status'    => $request->status
         ]);
 

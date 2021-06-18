@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Branch;
 use App\Category;
 use App\Product;
 use App\User;
@@ -13,6 +14,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'user_id'   => User::first(),
         'price' =>  rand(6, 25),
         'body'  =>  $faker->text(10),
-        'category_id'   =>  $faker->randomElement(Category::where('parant_id', null)->pluck('id')->toArray())
+        'category_id'   =>  $faker->randomElement(Category::where('parant_id', null)->pluck('id')->toArray()),
+        'branch_id'   =>  $faker->randomElement(Branch::all()->pluck('id')->toArray())
     ];
 });

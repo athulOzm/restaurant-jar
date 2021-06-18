@@ -39,6 +39,10 @@
                                         
                                         <th>Price</th>
                                         <th>Tax</th>
+                                        <td>Branch</td>
+                                       
+
+                                        
                                         
 
                                         <th width="50">Status</th>
@@ -83,6 +87,7 @@
                                        
                                         <td>{{$product->price}} </td>
                                         <td>{{$product->vat}}% </td>
+                                        <td>{{$product->branch->full_name}}</td>
 
                                        
 

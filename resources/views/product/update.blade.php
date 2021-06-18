@@ -4,6 +4,7 @@ $mcategories = resolve('mcategories');
 $menutypes = resolve('menutypes');
 $addons = resolve('addons');
 $promotions = resolve('promotions');
+$branches = resolve('branches');
 
 ?>
 @extends('admin.layouts.master')
@@ -286,6 +287,18 @@ $promotions = resolve('promotions');
 
                             <div class="row">
 
+                              <div class="form-group  col-md-4">
+                                <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                    Branches:
+                                </label>
+                                    <select required class="form-control w-full border-gray-400" name="branch_id">
+                                        <option value="{{$product->branch->id}}" selected> {{$product->branch->full_name}}</option>
+                                        @foreach ($branches as $item)
+                                        <option value="{{$item->id}}">{{$item->full_name}}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
+
                                 
 
 
@@ -371,39 +384,41 @@ $promotions = resolve('promotions');
                                 </div>
 
 
-                                <div class="form-group col-md-4">
-                                  <label for="promotion">
-                                      Promotion
-                                  </label>
-                                  <select  
-                                      
-                                      class="form-control w-full border-gray-400" 
-                                      name="promotion"
-                                      id="promotion"
-                                  >
-
-                                  <option value="">Select Promotion</option>
-                             
-                                      @foreach ($promotions as $item)
-                                      <option 
-
-                                      @if ($product->promotion_id == $item->id)
-                                          selected
-                                      @endif
-                                      
-                                      
-                                      value="{{$item->id}}">{{$item->name}}</option>
-                                      @endforeach
-                                      
-                                  </select>
-                              </div>
+                                
                             </div>
 
                           
 
                             <div class="row">
 
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-4">
+                                <label for="promotion">
+                                    Promotion
+                                </label>
+                                <select  
+                                    
+                                    class="form-control w-full border-gray-400" 
+                                    name="promotion"
+                                    id="promotion"
+                                >
+
+                                <option value="">Select Promotion</option>
+                           
+                                    @foreach ($promotions as $item)
+                                    <option 
+
+                                    @if ($product->promotion_id == $item->id)
+                                        selected
+                                    @endif
+                                    
+                                    
+                                    value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+
+                              <div class="form-group col-md-4">
                                 <label for="inputCity">Categories</label>
                                 <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
                                     @foreach ($product->categories as $addo)
@@ -416,7 +431,7 @@ $promotions = resolve('promotions');
                                 </select>
                               </div>
 
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-4">
                                 <label for="inputCity">Addon</label>
                                 <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
                                     @foreach ($product->addons as $addo)

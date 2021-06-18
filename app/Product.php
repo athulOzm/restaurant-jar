@@ -95,6 +95,11 @@ class Product extends Model
         return $this->qty;
     }
 
+    public function branch(){
+
+        return $this->belongsTo(Branch::class);
+    }
+
     public function orders(){
 
         return $this->belongsToMany(Order::class)

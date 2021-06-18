@@ -1,5 +1,6 @@
 
 <?php
+$branches = resolve('branches');
 $mcategories = resolve('mcategories');
 $promotions = resolve('promotions');
 $menutypes = resolve('menutypes');
@@ -237,6 +238,18 @@ select[data-multi-select-plugin] {
 
                             <div class="row">
 
+                              <div class="form-group col-md-4">
+                                <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                    Branches:
+                                </label>
+                                    <select required class="form-control w-full border-gray-400" name="branch_id">
+                                        <option value=""> Choose Branch</option>
+                                        @foreach ($branches as $item)
+                                        <option value="{{$item->id}}">{{$item->full_name}}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
+
                                 
 
 
@@ -303,31 +316,33 @@ select[data-multi-select-plugin] {
                                 </div>
 
 
-                                <div class="form-group col-md-4">
-                                  <label for="promotion">
-                                      Promotion
-                                  </label>
-                                  <select  
-                                      
-                                      class="form-control w-full border-gray-400" 
-                                      name="promotion"
-                                      id="promotion"
-                                  >
-                                  <option value="">Select Promotion</option>
-                                      @foreach ($promotions as $item)
-                                      <option 
-                                      @if (old('promotion') == $item->id)
-                                          selected
-                                      @endif
-                                      value="{{$item->id}}">{{$item->name}}</option>
-                                      @endforeach
-                                  </select>
-                                </div>
+                                
                             </div>
 
 
                             <div class="row">
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-4">
+                                <label for="promotion">
+                                    Promotion
+                                </label>
+                                <select  
+                                    
+                                    class="form-control w-full border-gray-400" 
+                                    name="promotion"
+                                    id="promotion"
+                                >
+                                <option value="">Select Promotion</option>
+                                    @foreach ($promotions as $item)
+                                    <option 
+                                    @if (old('promotion') == $item->id)
+                                        selected
+                                    @endif
+                                    value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+
+                              <div class="form-group col-md-4">
                                 <label for="addon">Categories</label>
                                     <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
                                       @foreach ($mcategories as $item)
@@ -336,7 +351,7 @@ select[data-multi-select-plugin] {
                                     </select>
                               </div>
 
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-4">
                                 <label for="addon">Addon</label>
                                     <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
                                         @foreach ($addons as $addon)
