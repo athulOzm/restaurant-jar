@@ -60,6 +60,9 @@ label {
 
 <div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 0px 0 20px">
 
+
+  
+
  
         <div style="
         
@@ -77,6 +80,7 @@ label {
     
     ">
 
+
     <div class="row">
 
       <div class="col-sm-2">
@@ -89,7 +93,12 @@ label {
       </div>
       
       <div class="col-sm-10">
-        <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" placeholder="Scan Bill Barcode">
+
+        <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" 
+        style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" 
+        placeholder="Scan Bill Barcode">
+
+
       </div>
     </div>
            
@@ -562,6 +571,23 @@ label {
  
 <script type="text/javascript">
 
+ //swich branch
+ const switchBranch = () => {
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/switchbranch`,
+      data: {
+          "branch_id": $('#branch_id').val(),
+          "_token": token,
+      },
+      success: function(res){
+      location.reload();  
+      }
+  });
+}
+
 
 //room services
 const roomservices = (memberid) => {
@@ -973,7 +999,6 @@ $(document).ready(() => {
         location.reload();  
         }
     });
-
   }
 
 

@@ -45,6 +45,15 @@
     padding-left: 1rem;
     padding-right: 1rem;
 }
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+  color: #d1d3e2;
+    background: #d9dfea;
+    border-radius: 50%;
+    width: 40px;
+    padding: 3px;
+    height: 40px;
+    margin: 15px 3px 0 15px;
+}
 </style>
 </head>
 
@@ -389,7 +398,7 @@
               margin-right: 15px;
               line-height: 17px;
               border-radius: 20px;
-          " class="btn btn-outline-warning tn-sm btn-rounded"><span class="ul-btn__text ml-1">Kitchen</span></a>
+          " class="btn btn-outline-warning tn-sm btn-rounded"><span class="ul-btn__text ml-1">KOT</span></a>
             </li>
 
 

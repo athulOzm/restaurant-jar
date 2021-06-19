@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
  
 use App\Order;
- 
+use Illuminate\Support\Facades\Session;
 
 class KitchenController extends Controller
 {
     public function index(){
+
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+        
 
         $orders = Order::with('products')->where('made', 0)->where('status', 3)->orWhere('status', 4)->get();
 

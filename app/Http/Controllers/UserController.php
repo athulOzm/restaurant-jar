@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Card;
+use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\Controller;
 use App\MemberCategory;
@@ -107,6 +108,16 @@ class UserController extends Controller
 
 
         return redirect()->route('member.index');
+    }
+
+
+    // switch branch
+
+    public function switchBranch(Request $request){
+
+        Session::forget('branch');
+        Session::put('branch', Branch::find($request->branch_id));
+        return 'done';
     }
 
 

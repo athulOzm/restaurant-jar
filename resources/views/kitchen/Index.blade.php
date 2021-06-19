@@ -1,4 +1,5 @@
  
+<?php $branches = resolve('branches');?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +53,26 @@ footer.sticky-footer {
   color: #000;
   font-size: 13px;
 }
-
+.bpic {
+    max-width: 150px;
+    margin-top: 14px;
+    margin-left: 30px; height: 33px;
+}
+.bpic select {
+    background: #ffffff;
+    font-size: 13px;
+    color: #2196F3;
+    height: 35px;
+    border: 1px solid;
+    border-radius: 20px; font-weight: 400
+}
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #d1d3e2;
+    background: #e5e9f1;
+    border-radius: 50%;
+    width: 40px;
+    padding: 3px;
+}
 </style>
 </head>
 
@@ -82,7 +102,7 @@ footer.sticky-footer {
            
 
 
-            <img src="{{asset('img/cooking.png')}}" width="30" alt=""> 
+            <a href="/"> <img src="{{asset('img/cooking.png')}}" width="30" alt=""> </a>
 
             <h3 class="h4 mb-1 mt-1 text-gray-900" style="
     text-transform: uppercase;
@@ -90,7 +110,18 @@ footer.sticky-footer {
     font-weight: 900;
     font-size: 22px;
     padding-top: 3px;
-"> KITCHEN DASHBOARD</h3>
+"> KITCHEN</h3>
+
+
+<div class="form-group bpic">
+  
+  <select onchange="switchBranch()" id="branch_id" class="form-control w-full border-gray-400" name="branch_id">
+      <option value="{{ Session::get('branch')->id}}" selected> {{ Session::get('branch')->name}}</option>
+      @foreach ($branches as $item)
+      <option value="{{$item->id}}">{{$item->full_name}}</option>
+      @endforeach
+  </select>
+</div>
 
 
 {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -137,18 +168,42 @@ footer.sticky-footer {
 
               
 
-              <a class="nav-link  " href="/"  role="button"   aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dashboard</span>
-                
-              </a>
-              <li class="nav-item dropdown no-arrow">
-                <a class="nav-link  " href="/logout" role="button"  aria-expanded="false">
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logout</span>
-                  
-                </a>
+              <li class="nav-item">
+                <a href="/">
+                <i class="fas fa-bars" style="
+                    font-size: 27px;
+                    color: #555;
+                    margin: 4px 15px 0 10px;
+                "></i></a>
+              </li>
 
+                <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                  <i class="fas fa-user" style="
+                    font-size: 22px;
+                    color: #4e72df;
+                "></i>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                  </a>
+                  {{-- <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Settings
+                  </a> --}}
+               
+                  <div class="dropdown-divider"></div>
+                   
+                    
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>{{ __('Logout') }} </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
                 
-                
+                </div>
               </li>
   
             </ul>
@@ -232,6 +287,24 @@ footer.sticky-footer {
 
 
   <script type="text/javascript">
+
+
+  //swich branch
+  const switchBranch = () => {
+
+var token = $("meta[name='csrf-token']").attr("content");
+$.ajax({
+    type: 'POST',
+    url: `/switchbranch`,
+    data: {
+        "branch_id": $('#branch_id').val(),
+        "_token": token,
+    },
+    success: function(res){
+    location.reload();  
+    }
+});
+}
 
     //display Images
     $(document).ready(() => {

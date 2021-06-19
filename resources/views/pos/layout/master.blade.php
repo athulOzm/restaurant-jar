@@ -1,3 +1,4 @@
+<?php $branches = resolve('branches');?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -99,7 +100,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
 
 #exTab2 ul li {
-      border-radius: 3px; padding: 3px 
+      border-radius: 3px; padding: 0px 
 }
 #exTab2 ul li.active {
     background: #ffffff;box-shadow: 0 .10rem 0.45rem 0 rgba(58,59,69,.15)!important 
@@ -674,8 +675,34 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     border-radius: 19px;
     height: 35px;
     border: 1px solid #2196F3;
-    margin-top: 11px;
     color: #2196F3!important;
+}
+
+.navbar-expand .navbar-nav {
+    flex-direction: row;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.bpic {
+    max-width: 150px;
+    margin-top: 14px;
+    margin-left: 30px; height: 33px;
+}
+.bpic select {
+    background: #ffffff;
+    font-size: 13px;
+    color: #2196F3;
+    height: 35px;
+    border: 1px solid;
+    border-radius: 20px; font-weight: 400
+}
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #d1d3e2;
+    background: #e5e9f1;
+    border-radius: 50%;
+    width: 40px;
+    padding: 3px;
 }
       </style>
    </head>
