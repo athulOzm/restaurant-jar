@@ -14,4 +14,15 @@ class Branch extends Model
 
         return $this->name. ' ('.$this->code.')';
     }
+
+    public function users(){
+
+        return $this->belongsToMany(User::class);
+    }
+
+    public function members(){
+
+        return $this->belongsToMany(User::class);
+    }
+
 }

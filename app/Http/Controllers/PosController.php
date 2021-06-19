@@ -303,10 +303,12 @@ class PosController extends Controller
         return response($token->gettotalprice(), 200);
     }
 
-
+    //pos messid field
     public function getmembers(){
 
-        return response(User::with('rank')->where('type', 3)->where('status', true)->get(), 200);
+       // $members = User::with('rank')->where('type', 3)->where('status', true)->get();
+        $members = Branch::find(Session::get('branch')->id)->members()->with('rank')->where('type', 3)->where('status', true)->get();
+        return response($members, 200);
     }
 
     public function getmember($user){
