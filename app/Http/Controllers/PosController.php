@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Branch;
 use Illuminate\Http\Request;
 
 use App\Deliverylocation;
@@ -51,6 +52,11 @@ class PosController extends Controller
         }
         else{
             $ct = Order::create(['status'   =>  1, 'reqfrom' => null]);
+        }
+
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
         }
 
         Session::forget('token');

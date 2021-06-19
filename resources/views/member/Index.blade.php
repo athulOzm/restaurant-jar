@@ -76,7 +76,6 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class="text-left text-blue-900">Branch</th>
                                          
                                             <th class="text-left text-blue-900">Mess ID</th>
                                             <th class="text-left text-blue-900">Service ID</th>
@@ -84,6 +83,7 @@
                                             <th class="text-left text-blue-900">Phone</th>
                                             <th class="text-left text-blue-900">Rank</th>
                                             <th class="text-left text-blue-900">Item Limit</th>
+                                            <th class="text-left text-blue-900">Branches</th>
                                             <th class="text-left text-blue-900">Category</th>
                                             <th class="text-left text-blue-900">Status</th>
                                             <th class="text-left text-blue-900" width="50">Member Card</th>
@@ -96,7 +96,7 @@
                                     <tbody>
                                         @forelse ($members as $member)
                                         <tr>
-                                            <td>{{$member->branch->full_name}}</td>
+                                          
                                        
                                             <td>{{$member->memberid}}</td>
                                             <td>{{$member->memberid}}</td>
@@ -108,6 +108,9 @@
                                                 @endif
                                             </td>
                                             <td>{{$member->item_limit}}</td>
+                                            <td> @foreach ($member->branches as $type)
+                                                {{$type->full_name}}, 
+                                            @endforeach </td>
                                             <td>
                                                 @if ($member->category_id != null)
                                                 {{$member->category->name}}

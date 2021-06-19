@@ -129,6 +129,11 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
+    public function branches(){
+
+        return $this->belongsToMany(Branch::class);
+    }
+
     public function getOrderStatus($dt){
 
         $date = explode('T', $dt);

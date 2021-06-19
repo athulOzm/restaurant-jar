@@ -72,7 +72,17 @@ class UserController extends Controller
 
         //dd($this->validateReq($request));
 
-        User::create($this->validateReq($request));
+        $user = User::create($this->validateReq($request));
+
+        $bra = $request->branch;
+        if($bra != ''){
+            $branches = Branch::all()->filter(function ($cat) use(&$bra){
+                if (in_array($cat->name, $bra)) {
+                    return $cat->id;
+                }
+            });
+            $user->branches()->attach($branches);
+        }
 
         return redirect()->route('member.index');
     }
@@ -82,6 +92,19 @@ class UserController extends Controller
         //dd($this->validateReq($request));
 
         User::find($request->id)->update($this->validateReqUpd($request));
+
+        $bra = $request->branch;
+        if($bra != ''){
+            $branches = Branch::all()->filter(function ($branch) use(&$bra){
+                if (in_array($branch->name, $bra)) {
+                    return $branch->id;
+                }
+            });
+        } else{
+            $branches = [];
+        }
+        User::find($request->id)->branches()->sync($branches);
+
 
         return redirect()->route('member.index');
     }
@@ -106,7 +129,7 @@ class UserController extends Controller
             'payment_type_id'   =>      'required',
             'room_address'      =>      'nullable',
             'location'          =>      'nullable',
-            'branch_id'         =>      'required',
+            //'branch_id'         =>      'required',
             'status'            =>      'nullable'
         ]);
     }
@@ -128,7 +151,7 @@ class UserController extends Controller
             'item_limit'        =>      'nullable',
             'payment_type_id'   =>      'required',
             'room_address'      =>      'nullable',
-            'branch_id'         =>      'required',
+           // 'branch_id'         =>      'required',
             'location'          =>      'nullable',
             'status'            =>      'nullable'
         ]);
