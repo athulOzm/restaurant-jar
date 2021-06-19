@@ -39,7 +39,7 @@
                                         
                                         <th>Price</th>
                                         <th>Tax</th>
-                                        <td>Branch</td>
+                                        <td>Branches</td>
                                        
 
                                         
@@ -87,7 +87,9 @@
                                        
                                         <td>{{$product->price}} </td>
                                         <td>{{$product->vat}}% </td>
-                                        <td>{{$product->branch->full_name}}</td>
+                                        <td> @foreach ($product->branches as $type)
+                                            {{$type->full_name}}, 
+                                        @endforeach </td>
 
                                        
 

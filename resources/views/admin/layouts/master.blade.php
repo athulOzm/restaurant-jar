@@ -375,13 +375,24 @@
             <!-- Nav Item - User Information -->
 
             <li>
-              <a href="/pos" style="
+              <a href="{{route('pos')}}" style="
               margin-top: 19px;
               margin-right: 15px;
               line-height: 17px;
               border-radius: 20px;
           " class="btn btn-outline-primary tn-sm btn-rounded"><span class="ul-btn__text ml-1">POS</span></a>
             </li>
+
+            <li>
+              <a href="{{route('kitchen')}}" style="
+              margin-top: 19px;
+              margin-right: 15px;
+              line-height: 17px;
+              border-radius: 20px;
+          " class="btn btn-outline-warning tn-sm btn-rounded"><span class="ul-btn__text ml-1">Kitchen</span></a>
+            </li>
+
+
             <li><i id="go-button" class="fa fa-arrows-alt" style="
               font-size: 22px;
               color: #999;line-height:70px

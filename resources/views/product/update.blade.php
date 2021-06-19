@@ -287,19 +287,7 @@ $branches = resolve('branches');
 
                             <div class="row">
 
-                              <div class="form-group  col-md-4">
-                                <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
-                                    Branches:
-                                </label>
-                                    <select required class="form-control w-full border-gray-400" name="branch_id">
-                                        <option value="{{$product->branch->id}}" selected> {{$product->branch->full_name}}</option>
-                                        @foreach ($branches as $item)
-                                        <option value="{{$item->id}}">{{$item->full_name}}</option>
-                                        @endforeach
-                                    </select>
-                            </div>
-
-                                
+                        
 
 
                                 <div class="form-group col-md-4">
@@ -384,6 +372,34 @@ $branches = resolve('branches');
                                 </div>
 
 
+                                <div class="form-group col-md-4">
+                                  <label for="promotion">
+                                      Promotion
+                                  </label>
+                                  <select  
+                                      
+                                      class="form-control w-full border-gray-400" 
+                                      name="promotion"
+                                      id="promotion"
+                                  >
+  
+                                  <option value="">Select Promotion</option>
+                             
+                                      @foreach ($promotions as $item)
+                                      <option 
+  
+                                      @if ($product->promotion_id == $item->id)
+                                          selected
+                                      @endif
+                                      
+                                      
+                                      value="{{$item->id}}">{{$item->name}}</option>
+                                      @endforeach
+                                      
+                                  </select>
+                              </div>
+
+
                                 
                             </div>
 
@@ -391,32 +407,7 @@ $branches = resolve('branches');
 
                             <div class="row">
 
-                              <div class="form-group col-md-4">
-                                <label for="promotion">
-                                    Promotion
-                                </label>
-                                <select  
-                                    
-                                    class="form-control w-full border-gray-400" 
-                                    name="promotion"
-                                    id="promotion"
-                                >
-
-                                <option value="">Select Promotion</option>
-                           
-                                    @foreach ($promotions as $item)
-                                    <option 
-
-                                    @if ($product->promotion_id == $item->id)
-                                        selected
-                                    @endif
-                                    
-                                    
-                                    value="{{$item->id}}">{{$item->name}}</option>
-                                    @endforeach
-                                    
-                                </select>
-                            </div>
+                              
 
                               <div class="form-group col-md-4">
                                 <label for="inputCity">Categories</label>
@@ -439,6 +430,19 @@ $branches = resolve('branches');
                                     @endforeach
 
                                     @foreach ($addons as $addon)
+                                        <option value="{{$addon['name']}}">jjj</option>
+                                    @endforeach
+                                </select>
+                              </div>
+
+                              <div class="form-group col-md-4">
+                                <label for="branches">Branches</label>
+                                <select multiple data-multi-select-plugin name="branch[]" class="form-control w-full border-gray-400">
+                                    @foreach ($product->branches as $addo)
+                                        <option value="{{$addo['name']}}" selected>jjj</option>
+                                    @endforeach
+
+                                    @foreach ($branches as $addon)
                                         <option value="{{$addon['name']}}">jjj</option>
                                     @endforeach
                                 </select>

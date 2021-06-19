@@ -20,9 +20,6 @@ class CreateProductsTable extends Migration
             $table->string('name_ar')->nullable();
             $table->boolean('status')->default(true);
 
-            $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
-
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 

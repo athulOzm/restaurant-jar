@@ -665,6 +665,18 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #FFC107;
     border-radius: 0;
 }
+
+
+.btnn1 {
+    background: #fff;
+    margin-right: 10px;
+    width: 130px;
+    border-radius: 19px;
+    height: 35px;
+    border: 1px solid #2196F3;
+    margin-top: 11px;
+    color: #2196F3!important;
+}
       </style>
    </head>
    <body id="page-top">

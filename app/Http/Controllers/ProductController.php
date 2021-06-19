@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Addon;
+use App\Branch;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
@@ -56,6 +57,7 @@ class ProductController extends Controller
 
         $pic = $request->addon;
         $cats = $request->cat;
+        $bra = $request->branch;
         
 
         $product = Product::create([
@@ -71,7 +73,7 @@ class ProductController extends Controller
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
             'status'    => $request->status,
-            'branch_id'    => $request->branch_id
+           // 'branch_id'    => $request->branch_id
 
         ]);
 
@@ -95,6 +97,15 @@ class ProductController extends Controller
                 }
             });
             $product->categories()->attach($categories);
+        }
+
+        if($bra != ''){
+            $branches = Branch::all()->filter(function ($cat) use(&$bra){
+                if (in_array($cat->name, $bra)) {
+                    return $cat->id;
+                }
+            });
+            $product->branches()->attach($branches);
         }
 
 
@@ -176,7 +187,7 @@ class ProductController extends Controller
            // 'category_id'   =>  $request->cat,
             'promotion_id'   =>  $request->promotion,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
-            'branch_id'    => $request->branch_id,
+           // 'branch_id'    => $request->branch_id,
             'status'    => $request->status
         ]);
 
@@ -210,10 +221,22 @@ class ProductController extends Controller
             $categories = [];
         }
 
+        $bra = $request->branch;
+        if($bra != ''){
+            $branches = Branch::all()->filter(function ($branch) use(&$bra){
+                if (in_array($branch->name, $bra)) {
+                    return $branch->id;
+                }
+            });
+        } else{
+            $branches = [];
+        }
+
         //dd($categories);
 
         Product::find($request->id)->addons()->sync($addonitems);
         Product::find($request->id)->categories()->sync($categories);
+        Product::find($request->id)->branches()->sync($branches);
         Product::find($request->id)->types()->sync($request->type);
        
 

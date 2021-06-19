@@ -15,6 +15,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'price' =>  rand(6, 25),
         'body'  =>  $faker->text(10),
         'category_id'   =>  $faker->randomElement(Category::where('parant_id', null)->pluck('id')->toArray()),
-        'branch_id'   =>  $faker->randomElement(Branch::all()->pluck('id')->toArray())
+       // 'branch_id'   =>  $faker->randomElement(Branch::all()->pluck('id')->toArray())
     ];
 });

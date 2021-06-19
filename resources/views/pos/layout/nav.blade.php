@@ -26,12 +26,11 @@
        <!-- Nav Item - User Information -->
        @if (auth()->user()->type == 1)
 
-       <button class="nav-link btn btn-primary btnc2"  
-       style="color: #1c1c1d;background: #e5e9f1;margin-right:10px;width:130px;border-radius: 3px;border: none;line-height: 12px;height: 30px;margin-top: 13px;"  id="pay2"  role="button"   aria-expanded="false">
+       <button class="nav-link btn btn-primary btnc2 btnn1"  id="pay2"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline">Order Source</span>
        </button>
 
-       <button class="nav-link btn btn-primary btnc2"  style="color: #1c1c1d;width:130px;background: #e5e9f1;border-radius: 3px;border: none;line-height: 12px;height: 30px;margin-top: 13px;"  id="pay"  role="button"   aria-expanded="false">
+       <button class="nav-link btn btn-primary btnc2 btnn1"   id="pay"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline">Sales Log</span>
        </button>
        
