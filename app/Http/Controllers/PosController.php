@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Deliverylocation;
 use App\Events\Checkout;
+use App\Invoice;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
@@ -343,10 +344,18 @@ class PosController extends Controller
 
     public function getprint($id){
 
-        $order = Order::with('orderproducts', 'user')->find($id);
+        $order = Order::with('orderproducts', 'user', 'branch', 'invoice')->find($id);
 
         //dd($order);
         return view('pos.Print', compact('order'));
+    }
+
+    public function getprintorder($id){
+
+        $order = Order::with('orderproducts', 'user', 'branch')->find($id);
+
+        //dd($order);
+        return view('pos.PrintOrder', compact('order'));
     }
 
     public function getprintA4($id){
@@ -427,6 +436,7 @@ class PosController extends Controller
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
+                'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id
             ]);
 
@@ -443,6 +453,7 @@ class PosController extends Controller
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
+                'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id
             ]);
 
@@ -460,7 +471,15 @@ class PosController extends Controller
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
+                'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id
+            ]);
+
+            Invoice::create([
+                'order_id'  =>  Session::get('token')->id,
+                'branch_id' =>  $request->branch_id,
+                'amount'    =>  222,
+                'status'    =>  1
             ]);
         }
 
@@ -487,7 +506,13 @@ class PosController extends Controller
 
             //Checkout::dispatch($tid);
             return redirect()->route('pos');
-       } else{
+       } else if($request->reqtype == 'kot'){
+
+            Checkout::dispatch($tid);
+            return redirect()->route('pos.print.order', $tid);
+       }
+       
+       else{
 
             Checkout::dispatch($tid);
             return redirect()->route('pos.print', $tid);

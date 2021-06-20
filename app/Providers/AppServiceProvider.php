@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Addon;
 use App\Branch;
 use App\Category;
+use App\Deliverylocation;
 use App\Menutype;
 use App\Order;
 use App\Product;
@@ -12,7 +13,9 @@ use App\Promotion;
 use App\Setting;
 use App\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use phpDocumentor\Reflection\Location;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +39,16 @@ class AppServiceProvider extends ServiceProvider
             return Menutype::whereHas('products', function($q){
                 $q->where('status', '=', 1);
             })->get();
+
+            // $re =  $bpro->each(function($bpro){
+                
+
+            //     return Branch::find(Session::get('branch')->id)->products()->where('id', $bpro->id);
+            // });
+
+            // return $re;
+
+        
         });
 
         app()->bind('mcategories', function(){
@@ -81,6 +94,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('branches', function(){
 
             return Branch::all();
+        });
+
+        app()->bind('locations', function(){
+
+            return Deliverylocation::all();
         });
     }
 

@@ -24,6 +24,16 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function branch(){
+
+        return $this->belongsTo(Branch::class);
+    }
+    
+    public function invoice(){
+
+        return $this->hasOne(Invoice::class);
+    }
+
     public function location(){
 
         return $this->belongsTo(Deliverylocation::class, 'deliverylocation_id', 'id');

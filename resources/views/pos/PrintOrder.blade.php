@@ -173,9 +173,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
             <div style="width: 100%; text-align:left; padding-top:10px" class="nn">
               <p>Date: <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
-              <p>Invoice No: <b>{{$order->branch->code}}{{$order->invoice->id}}</b></p>
-              {{-- ---
-              <p>Member No: <b>{{$order->user->memberid}}</b></p> --}}
+              <p>Order No: <b>{{$order->branch->code}}{{$order->id}}</b></p>
                
             </div>
 

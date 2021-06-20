@@ -22,9 +22,13 @@ class CreateOrdersTable extends Migration
                 ->onDelete('set null');
             $table->integer('status')->default(1);
             $table->time('dtime')->nullable();
+
+            $table->unsignedBigInteger('branch_id')->nullable();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
            
             $table->string('delivery_type')->nullable();
             $table->dateTime('delivery_time')->nullable();
+
 
             $table->unsignedBigInteger('payment_type_id')->nullable();
             $table->foreign('payment_type_id')

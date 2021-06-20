@@ -40,6 +40,7 @@ label {
  <input type="hidden" name="reqtype" value="pos" id="reqtype">
 <input type="hidden" name="subtt2" id="totcre" value="">
 <input type="hidden" name="subtt2" id="subtotal2" value="">
+<input type="hidden" name="branch_id" value="{{ Session::get('branch')->id}}">
 
 <div class="row">
 
@@ -444,7 +445,7 @@ label {
 
 
 
-
+                    {{-- for all --}}
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
@@ -461,7 +462,7 @@ label {
                     </div>
 
                      
-
+                    {{-- cat wise --}}
                     @foreach ($menutype->categories() as $cat)
                       <div class="tab-pane fade" id="v-pills-{{$cat->id}}{{$menutype->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}{{$menutype->id}}">
                         <div style="display: flex;flex-wrap: wrap;">
