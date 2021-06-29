@@ -117,9 +117,9 @@ label {
     border-bottom: 1px solid #353e56; padding-bottom:9px;
 ">
 
-          <div class="col-md-6">
+          {{-- <div class="col-md-6">
             <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
-          </div>
+          </div> --}}
 
           <div class="col-md-6">
             <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
