@@ -46,9 +46,9 @@
        <!-- Nav Item - User Information -->
        @if (auth()->user()->type == 1)
 
-       <button class="nav-link btn btn-primary btnc2 btnn1"  id="pay2"  role="button"   aria-expanded="false">
+       {{-- <button class="nav-link btn btn-primary btnc2 btnn1"  id="pay2"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline">Order Source</span>
-       </button>
+       </button> --}}
 
        <button class="nav-link btn btn-primary btnc2 btnn1"   id="pay"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline">Sales Log</span>
