@@ -55,10 +55,10 @@ class PosController extends Controller
             $ct = Order::create(['status'   =>  1, 'reqfrom' => null]);
         }
 
-        if (!Session::exists('branch')) {
-            
-            Session::put('branch', Branch::first());
-        }
+    if (!Session::exists('branch')) {
+        
+        Session::put('branch', Branch::first());
+    }
 
         Session::forget('token');
         Session::put('token', $ct);
@@ -414,13 +414,6 @@ class PosController extends Controller
         }
 
 
-        
-
-
-
-        
-
-
 
         if($request->reqtype == 'kot'){
 
@@ -497,6 +490,13 @@ class PosController extends Controller
             $id = Order::find(Session::get('token')->id)->update(['attachment' => $fpath]);
 
         endif;
+
+
+        //manage stock
+        // Order::find(Session::get('token')->id)->orderproducts()->each(function($product){
+
+
+        // });
 
 
 

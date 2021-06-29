@@ -124,6 +124,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('stock/menu/create/{product}', 'ProductController@createStock')->name('stock.menu.create');
     Route::post('stock/menu/store', 'ProductController@storeStock')->name('stock.menu.store');
     Route::get('stock/menu/update/{product}', 'ProductController@updateStock')->name('stock.menu.update');
+    Route::get('stock/menu/log/{product}', 'ProductController@logStock')->name('stock.menu.log');
     Route::patch('stock/menu/update', 'ProductController@updateStoreStock')->name('stock.menu.patch');
 
 

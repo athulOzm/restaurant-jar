@@ -34,6 +34,7 @@
                                         <th>Stock Available</th>
                                         <th>Add Stock</th>
                                         <th>Update Stock</th>
+                                        <th>Stock log</th>
                                         {{-- <th>Category</th>
                                         <th>Menu Type</th> --}}
                                        
@@ -57,6 +58,8 @@
                                         <th>{{$product->stock_available}}</th>
                                         <th><a  href="{{ route('stock.menu.create', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm " style="float:right"><i class="fas fa-fw fa-plus fa-sm text-white-50"></i> Add Stock</a></th>
                                         <th><a  href="{{ route('stock.menu.update', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm " style="float:right"><i class="fas fa-fw fa-retweet fa-sm text-white-50"></i> Update Stock</a></th>
+
+                                        <th><a  href="{{ route('stock.menu.log', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-retweet fa-sm text-white-50"></i> Stock log</a></th>
                                 @endforeach
                                 </tbody>
                             </table>

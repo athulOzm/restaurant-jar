@@ -62,6 +62,11 @@ class ProductController extends Controller
         return view('product.createStock', compact('product'));
     }
 
+    public function logStock(Product $product)
+    {
+        return view('product.logStock', compact('product'));
+    }
+
     public function storeStock(Request $request)
     {
 
@@ -77,7 +82,8 @@ class ProductController extends Controller
         Product::find($request->id)->menustocks()->create([
             'qty_added' =>  $request->qty,
             'branch_id' => Session::get('branch')->id,
-            'qty_total' =>  $tot
+            'qty_total' =>  $tot,
+            'body'      =>  $request->body
         ]);
         return back();
     }
