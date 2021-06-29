@@ -69,11 +69,53 @@ class ProductController extends Controller
             'branch_id' => Session::get('branch')->id,
             'qty_total' =>  $tot
         ]);
-
-        
-
         return back();
     }
+
+
+    public function updateStoreStock(Request $request)
+    {
+
+        if($cqtyl = Product::find($request->id)->menustocks()->latest()->first()){
+            $cqty = $cqtyl->qty_total;
+            
+        }else{
+            $cqty = 0;
+        }
+
+        if($cqty == $request->qty){
+
+            return back();
+
+        } elseif($cqty > $request->qty){
+
+            $tot = number_format($request->qty - $cqty, 1);
+
+            Product::find($request->id)->menustocks()->create([
+                'qty_reduced' =>  abs($tot),
+                'branch_id' => Session::get('branch')->id,
+                'qty_total' =>  $request->qty,
+                'body'      =>  $request->body
+            ]);
+
+        }else{
+            
+            $tot = number_format($request->qty - $cqty, 1);
+
+            Product::find($request->id)->menustocks()->create([
+                'qty_added' =>  $tot,
+                'branch_id' => Session::get('branch')->id,
+                'body'      =>  $request->body,
+                'qty_total' =>  $request->qty
+            ]);
+
+        
+        }
+
+        return back();  
+    }
+
+
 
     public function updateStock(Product $product)
     {

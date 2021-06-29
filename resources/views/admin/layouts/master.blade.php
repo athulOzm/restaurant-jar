@@ -131,6 +131,7 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('product.index')}}">Menus</a>
+            <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a>
             <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a>
             <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
             <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
@@ -141,26 +142,7 @@
           </div>
         </div>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1d" aria-expanded="true" aria-controls="collapsePages33">
-          <i class="fas fa-chart-pie"></i>
-          <span>Stocks</span>
-        </a>
-        <div id="collapsePages1d" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-primary py-2 collapse-inner ">
-       
-            <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a>
-            {{-- <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a>
-            <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
-            <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
-            <a class="collapse-item" href="{{route('promotion.index')}}">Promotions</a>
-            <a class="collapse-item" href="{{route('menu.barcode.index')}}">Print Barcode</a> --}}
-       
-    
-          </div>
-        </div>
-      </li>
+ 
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages74" aria-expanded="true" aria-controls="collapsePages33">
@@ -205,7 +187,7 @@
       
 
       
-
+{{-- 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages88" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-user-friends"></i>
@@ -214,14 +196,11 @@
         <div id="collapsePages88" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
-            <a class="collapse-item" href="{{route('user.index')}}">Users</a>
-            <a class="collapse-item" href="{{route('waiter.index')}}">Waiters</a>
-            <a class="collapse-item" href="{{route('member.index')}}">Members</a>
-            <a class="collapse-item" href="{{route('member.index')}}">Devices</a>
+            
     
           </div>
         </div>
-      </li>
+      </li> --}}
 
 
       <li class="nav-item">
@@ -257,7 +236,13 @@
             <a class="collapse-item" href="{{route('pos.table.index')}}">Tables</a>
             <a class="collapse-item" href="{{route('pos.deliverylocation.index')}}">Delivery Locations</a>
             <a class="collapse-item" href="">Language</a>
-            <a class="collapse-item" href="">User Management</a>
+         
+
+            <hr>
+            <a class="collapse-item" href="{{route('user.index')}}">Users</a>
+            <a class="collapse-item" href="{{route('waiter.index')}}">Waiters</a>
+            <a class="collapse-item" href="{{route('member.index')}}">Members</a>
+            <a class="collapse-item" href="{{route('member.index')}}">Devices</a>
     
           </div>
         </div>

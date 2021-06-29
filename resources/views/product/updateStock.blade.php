@@ -260,22 +260,24 @@ $branches = resolve('branches');
 
 
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Update Stock</h6>
  
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('stock.menu.store') }}" method="post" enctype='multipart/form-data'>
+                        <form action="{{ route('stock.menu.patch') }}" method="post" enctype='multipart/form-data'>
                             @csrf
-                            @method('POST')
+                            @method('PATCH')
 
                             <input type="hidden" value="{{$product->id}}" name="id">
                             <input type="hidden" value="{{$product->cover}}" name="curimage">
         
-                                <div class="form-group">
-                                    <label for="inputCity">Menu Name *</label>
+                            <div class="row">
+        
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">Menu Name </label>
                                     <input type="text" value="{{$product->name}}"
                                         class="form-control @error('name') is-invalid @enderror" readonly name="name">
                                     @error('name')
@@ -285,18 +287,38 @@ $branches = resolve('branches');
                                     @enderror
                                 </div>
 
+                                <div class="form-group col-md-6">
+                                  <label for="inputCity">Current Stock</label>
+                                  <input type="text" value="{{$product->stock_available}}"
+                                      class="form-control @error('name') is-invalid @enderror" readonly name="stoc">
+                                  @error('name')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                              </div>
+
+                            </div>
                              
 
                                 <div class="form-group">
-                                  <label for="inputCity">Add Stock </label>
+                                  <label for="inputCity">Update Stock </label>
                                   <input type="text" class="form-control @error('qty') is-invalid @enderror"
-                                      value="" name="qty">
+                                      value="{{$product->stock_available}}" name="qty">
                                   @error('qty')
                                   <span class="invalid-feedback" role="alert">
                                       <strong>Enter Price eg(5.50/ 50)</strong>
                                   </span>
                                   @enderror
                               </div>
+
+
+                              <div class="form-group">
+                                <label for="inputCity">Note </label>
+                                <input type="text" class="form-control @error('body') is-invalid @enderror"
+                                    value="" name="body">
+                               
+                            </div>
  
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
@@ -306,7 +328,7 @@ $branches = resolve('branches');
             </div>
 
 
-            <div class="col-md-6">
+            <div class="col-md-8">
               <div class="card shadow mb-12" style="width:100%">
                   <div class="card-header py-3">
                       <h6 class="m-0 font-weight-bold text-primary">Stock Log</h6>
@@ -318,9 +340,10 @@ $branches = resolve('branches');
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                               <tr>
-                                  <th class="text-left text-blue-900">Date</th>
-                                  <th style="width: 65px">Quantity Added</th>
-                                  <th style="width: 65px">Quantity Reduced</th>
+                                <th class="text-left text-blue-900">Date</th>
+                                <th>Quantity Added</th>
+                                <th>Quantity Reduced</th>
+                                <th>Note</th>
                              
                                   
           
@@ -335,6 +358,9 @@ $branches = resolve('branches');
                                   <td>@if ($stock->qty_added == '0.0') - @else  {{$stock->qty_added}} @endif </td>
 
                                   <td>@if ($stock->qty_reduced == '0.0') - @else  {{$stock->qty_reduced}} @endif </td>
+
+                                  <td>{{$stock->body}}</td>
+
                                    
           
                               </tr>

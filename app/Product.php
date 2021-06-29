@@ -12,7 +12,7 @@ class Product extends Model
 {
     protected $guarded = [];
 
-    protected $appends  = ['promotion_price', 'order_received'];
+    protected $appends  = ['promotion_price', 'order_received', 'stock_available'];
 
 
     public function types(){
@@ -127,6 +127,19 @@ class Product extends Model
     public function categories(){
 
         return $this->belongsToMany(Category::class);
+    }
+
+    //stock
+
+    public function getStockAvailableAttribute(){
+
+        //return 22;
+        if($cqtyl = $this->menustocks()->latest()->first()){
+            return $cqtyl->qty_total;
+            
+        }else{
+            return 0;
+        }
     }
 
     //ord rec
