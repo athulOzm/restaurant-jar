@@ -112,12 +112,19 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('menu/images/{product}', 'ProductController@productImages');
     Route::delete('menu/images/{image}', 'ProductController@imageDelete');
     Route::get('menus', 'ProductController@index')->name('product.index');
-    Route::get('stock/menu', 'ProductController@indexStock')->name('product.index.stock');
     Route::get('menus/create', 'ProductController@create')->name('product.create');
     Route::post('menu', 'ProductController@store')->name('product.store');
     Route::get('menus/{product}', 'ProductController@edit')->name('product.edit');
     Route::patch('menu', 'ProductController@update')->name('product.update');
     Route::delete('menu', 'ProductController@destroy')->name('product.destroy');
+
+
+    //stock
+    Route::get('stock/menu', 'ProductController@indexStock')->name('product.index.stock');
+    Route::get('stock/menu/create/{product}', 'ProductController@createStock')->name('stock.menu.create');
+    Route::post('stock/menu/store', 'ProductController@storeStock')->name('stock.menu.store');
+    Route::get('stock/menu/update/{product}', 'ProductController@updateStock')->name('stock.menu.update');
+
 
     //addon
     Route::get('addons', 'AddonController@index')->name('addon.index');

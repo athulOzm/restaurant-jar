@@ -55,8 +55,8 @@
                                         </td>
                                         <td>{{$product->name}}</td>
                                         <th>33</th>
-                                        <th><a  href="{{ route('product.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Add Stock</a></th>
-                                        <th><a  href="{{ route('product.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Update Stock</a></th>
+                                        <th><a  href="{{ route('stock.menu.create', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm " style="float:right"><i class="fas fa-fw fa-plus fa-sm text-white-50"></i> Add Stock</a></th>
+                                        <th><a  href="{{ route('stock.menu.update', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm " style="float:right"><i class="fas fa-fw fa-retweet fa-sm text-white-50"></i> Update Stock</a></th>
                                 @endforeach
                                 </tbody>
                             </table>

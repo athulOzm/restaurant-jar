@@ -19,7 +19,9 @@ class CreateMenuStocksTable extends Migration
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-            $table->decimal('qty', 8, 1)->nullable()->default(0);
+            $table->decimal('qty_added', 8, 1)->nullable()->default(0);
+            $table->decimal('qty_reduced', 8, 1)->nullable()->default(0);
+            $table->decimal('qty_total', 8, 1)->nullable()->default(0);
 
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');

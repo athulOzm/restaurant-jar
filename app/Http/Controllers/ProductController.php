@@ -13,6 +13,7 @@ use App\Media;
 use App\MenuPrice;
 use App\Menutype;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -44,6 +45,39 @@ class ProductController extends Controller
     public function create()
     {
         return view('product.create');
+    }
+
+    public function createStock(Product $product)
+    {
+        return view('product.createStock', compact('product'));
+    }
+
+    public function storeStock(Request $request)
+    {
+
+        if($cqtyl = Product::find($request->id)->menustocks()->latest()->first()){
+            $cqty = $cqtyl->qty_total;
+            
+        }else{
+            $cqty = 0;
+        }
+
+        $tot = number_format($request->qty + $cqty, 1);
+
+        Product::find($request->id)->menustocks()->create([
+            'qty_added' =>  $request->qty,
+            'branch_id' => Session::get('branch')->id,
+            'qty_total' =>  $tot
+        ]);
+
+        
+
+        return back();
+    }
+
+    public function updateStock(Product $product)
+    {
+        return view('product.updateStock', compact('product'));
     }
 
     /**
