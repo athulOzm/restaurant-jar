@@ -339,7 +339,7 @@ footer.sticky-footer {
                               font-size: 15px;
                               font-weight: bold;
                               color: #39a9f4; padding-bottom:0; margin-bottom:0
-                          ">{{$product->qty}}</h5>
+                          ">{{$product->qty}} <i style="color: #777">/</i> {{$product->order_received}}</h5>
                           <a href="#" style="font-size: 12px">Add stock</a>
                           </div>
                         @empty

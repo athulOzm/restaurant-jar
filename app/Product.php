@@ -11,7 +11,7 @@ class Product extends Model
 {
     protected $guarded = [];
 
-    protected $appends  = ['promotion_price'];
+    protected $appends  = ['promotion_price', 'order_received'];
 
 
     public function types(){
@@ -121,5 +121,38 @@ class Product extends Model
     public function categories(){
 
         return $this->belongsToMany(Category::class);
+    }
+
+    //ord rec
+    public function getOrderReceivedAttribute(){
+
+        $orders = Order::with(['products'])
+            ->where('made', 0)
+            ->where('status', '!=', 1)
+            ->where('branch_id', 1)
+            ->get();
+        $products = [];
+
+        // $orders->each(function($ord) use(&$products){
+
+        //     $ord->products()->where('id', $this->id)->get()->each(function($prod) use(&$products){
+
+        //         $products[] = $prod->
+        //     });
+        // });
+
+        $qty = [];
+
+         $this->orders()->where('made', 0)->get()->each(function($ord) use(&$qty){
+
+            $qty[] = $ord->orderproducts()->where('product_id', $this->id)->first()->quantity;
+
+        
+
+         });
+
+
+
+        return number_format(array_sum($qty), 1);
     }
 }
