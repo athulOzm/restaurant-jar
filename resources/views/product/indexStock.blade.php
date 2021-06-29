@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Menus </h6> 
+                        <h6 class="m-0 font-weight-bold text-primary">Menus Stocks </h6> 
                         
 
                     </div>
@@ -54,7 +54,7 @@
                                             @endif
                                         </td>
                                         <td>{{$product->name}}</td>
-                                        <th>33</th>
+                                        <th>{{$product->stock_available}}</th>
                                         <th><a  href="{{ route('stock.menu.create', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm " style="float:right"><i class="fas fa-fw fa-plus fa-sm text-white-50"></i> Add Stock</a></th>
                                         <th><a  href="{{ route('stock.menu.update', $product->id)}}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm " style="float:right"><i class="fas fa-fw fa-retweet fa-sm text-white-50"></i> Update Stock</a></th>
                                 @endforeach
