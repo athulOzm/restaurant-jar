@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Session;
 
 class Product extends Model
 {
@@ -134,21 +135,15 @@ class Product extends Model
         $orders = Order::with(['products'])
             ->where('made', 0)
             ->where('status', '!=', 1)
-            ->where('branch_id', 1)
+            ->where('branch_id', Session::get('branch')->id)
             ->get();
-        $products = [];
-
-        // $orders->each(function($ord) use(&$products){
-
-        //     $ord->products()->where('id', $this->id)->get()->each(function($prod) use(&$products){
-
-        //         $products[] = $prod->
-        //     });
-        // });
-
+ 
         $qty = [];
 
-         $this->orders()->where('made', 0)->get()->each(function($ord) use(&$qty){
+         $this->orders()
+            ->where('made', 0)
+            ->where('branch_id', Session::get('branch')->id)
+            ->get()->each(function($ord) use(&$qty){
 
             $qty[] = $ord->orderproducts()->where('product_id', $this->id)->first()->quantity;
 
@@ -156,8 +151,12 @@ class Product extends Model
 
          });
 
+         //return Session::get('branch')->id;
+
 
 
         return number_format(array_sum($qty), 1);
+
+        
     }
 }

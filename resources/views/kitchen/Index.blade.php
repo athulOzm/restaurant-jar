@@ -2,6 +2,7 @@
 <?php 
 $branches = resolve('branches');
 $menutypes = resolve('menutypesforkot');
+$allmenus = resolve('allmenus');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -294,27 +295,23 @@ footer.sticky-footer {
 
 <div class="row" style="
       padding: 0 12px;
-      background: #39a9f4;
+   
       border-top: 1px solid #eff2f7;
     ">
 
  
   <div class="col-xs-3" style="width: 150px">
-          <ul class="nav nav-tabs tabs-left">
+          {{-- <ul class="nav nav-tabs tabs-left">
 
             @foreach ($menutypes as $menutype)
               <li><a href="#tab{{$menutype->id}}" @if($loop->first) class="active" @endif data-toggle="tab">{{$menutype->name}}</a></li>
 
             @endforeach
 
-
-                {{-- <li ><a class="active" href="#ClientInfo" data-toggle="tab">Breakfast</a></li> --}}
-                {{-- <li><a href="#tab1" data-toggle="tab">Lunch</a></li>
-                <li><a href="#tab2" data-toggle="tab">Dinner</a></li> --}}
-         
+ 
             </ul>
-        </div>
-        <div class="col-xs-9" style="width: calc(100vw - 150px); background:#fff;display: inline-flex;
+        </div> --}}
+        <div class="col-xs-12" style="width: calc(100vw - 0px); background:#fff;display: inline-flex;
         overflow-x: scroll;">
             <!-- Tab panes -->
             <div class="tab-content">
@@ -325,45 +322,31 @@ footer.sticky-footer {
                   
                 <ul class="stock">
 
-                  @forelse ($menutype->products as $product)
-                          <div class="itembox" onclick="addtocart({{$product->id}});" 
-                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height: 110px;
-                            background-size: 100% 40%;
-                            background-repeat: no-repeat;
-                            padding-top: 50px;
-                            width: 80px;border:0; padding-left:3px; border-right: 1px solid #e9eef7; ">
-                             
-                            
-                              <h6 class="itemtitle" style="font-size: 12px;color: #000;font-weight: 500;margin-bottom:3px">{{$product->name}}</h6>
-                              <h5 style="
-                              font-size: 15px;
-                              font-weight: bold;
-                              color: #39a9f4; padding-bottom:0; margin-bottom:0
-                          ">{{$product->qty}} <i style="color: #777">/</i> {{$product->order_received}}</h5>
-                          <a href="#" style="font-size: 12px">Add stock</a>
-                          </div>
+                  @forelse ($allmenus as $product)
+
+                  @if ($product->order_received > 0)
+                  <div class="itembox" onclick="addtocart({{$product->id}});" 
+                    style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height: 110px;
+                    background-size: 100% 40%;
+                    background-repeat: no-repeat;
+                    padding-top: 50px;
+                    width: 80px;border:0; padding-left:3px; border-right: 1px solid #e9eef7; ">
+                     
+                    
+                      <h6 class="itemtitle" style="font-size: 12px;color: #000;font-weight: 500;margin-bottom:3px">{{$product->name}}</h6>
+                      <h5 style="
+                      font-size: 15px;
+                      font-weight: bold;
+                      color: #39a9f4; padding-bottom:0; margin-bottom:0
+                  ">  {{$product->order_received}}</h5>
+                  {{-- <a href="#" style="font-size: 12px">Add stock</a> --}}
+                  </div>
+                  @endif
+                         
                         @empty
                           No menu found!
                         @endforelse
-
-
-
-                  {{-- <li>
-                    <h6>{{$menutype->id}}   </h6>
-                    <p>asdf</p>
-                    <p>asdf</p>
-                  </li>
-               
-                  <li>
-                    <h6>asdfsadf</h6>
-                    <p>asdasdff</p>
-                    <p>asdf</p>
-                  </li>
-                  <li>
-                    <h6>asdfsadf</h6>
-                    <p>asdf</p>
-                    <p>asdf</p>
-                  </li> --}}
+ 
                 </ul>
 
 
