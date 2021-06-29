@@ -351,7 +351,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin: 6px 0;
     padding: 5px 0px;
     color: #1b1f32;
-    width: 100%;font-size: 13px; border-radius: 3px
+    width: 100%;font-size: 11px; border-radius: 3px
 }
 
 .p5{padding-left: 5px; padding-right: 5px}

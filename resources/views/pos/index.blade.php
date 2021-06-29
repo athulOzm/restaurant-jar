@@ -313,7 +313,7 @@ label {
           
 
           <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay </button>
           </div>
         </div>
       </div>
