@@ -24,6 +24,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+
         return view('product.index', ['products' => Product::get()]);
     }
 
@@ -34,6 +39,11 @@ class ProductController extends Controller
      */
     public function indexStock()
     {
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+        
         return view('product.indexStock', ['products' => Product::get()]);
     }
 
