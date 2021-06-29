@@ -360,7 +360,7 @@ $branches = resolve('branches');
                                         @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                {{-- <div class="form-group col-md-4">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
                                         value="{{$product->getAvailableQty()}}" name="qty">
@@ -369,7 +369,9 @@ $branches = resolve('branches');
                                         <strong>Enter Price eg(55.60)</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
+
+                                <input type="hidden" name="qty" value="0">
 
 
                                 <div class="form-group col-md-4">

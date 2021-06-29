@@ -289,7 +289,7 @@ select[data-multi-select-plugin] {
                                         @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                {{-- <div class="form-group col-md-4">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
                                         value="{{@old('qty')}}" name="qty">
@@ -298,7 +298,9 @@ select[data-multi-select-plugin] {
                                         <strong>Enter Stock Available</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
+
+                                <input type="hidden" name="qty" value="0">
 
                                 <div class="form-group col-md-4">
                                   <label for="promotion">

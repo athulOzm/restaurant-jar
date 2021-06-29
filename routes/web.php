@@ -112,6 +112,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('menu/images/{product}', 'ProductController@productImages');
     Route::delete('menu/images/{image}', 'ProductController@imageDelete');
     Route::get('menus', 'ProductController@index')->name('product.index');
+    Route::get('stock/menu', 'ProductController@indexStock')->name('product.index.stock');
     Route::get('menus/create', 'ProductController@create')->name('product.create');
     Route::post('menu', 'ProductController@store')->name('product.store');
     Route::get('menus/{product}', 'ProductController@edit')->name('product.edit');

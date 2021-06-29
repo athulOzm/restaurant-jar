@@ -27,6 +27,16 @@ class ProductController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexStock()
+    {
+        return view('product.indexStock', ['products' => Product::get()]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -80,6 +90,10 @@ class ProductController extends Controller
         $product->menuprices()->create([
             'price' =>  $request->price
         ]);
+
+        // $product->menustocks()->create([
+        //     'qty' =>  $request->qty
+        // ]);
 
         if($pic != ''){
             $addonitems = Addon::all()->filter(function ($addon) use(&$pic){
@@ -173,6 +187,7 @@ class ProductController extends Controller
         $product = Product::find($request->id);
 
         $product_price = $product->price;
+        $product_qty = $product->qty;
 
 
         $product->update([
@@ -194,6 +209,12 @@ class ProductController extends Controller
         if($product_price != $request->price){
             $product->menuprices()->create([
                 'price' =>  $request->price
+            ]);
+        }
+
+        if($product_qty != $request->qty){
+            $product->menustocks()->create([
+                'qty' =>  number_format($request->qty - $product_qty, 1)
             ]);
         }
 

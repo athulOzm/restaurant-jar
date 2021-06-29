@@ -112,6 +112,11 @@ class Product extends Model
         return $this->hasMany(MenuPrice::class);
     }
 
+    public function menustocks(){
+
+        return $this->hasMany(MenuStock::class);
+    }
+
     public function addons(){
 
         return $this->belongsToMany(Addon::class);
