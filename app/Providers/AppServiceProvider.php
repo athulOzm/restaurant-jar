@@ -51,6 +51,13 @@ class AppServiceProvider extends ServiceProvider
         
         });
 
+        app()->bind('menutypesforkot', function(){
+
+            return Menutype::whereHas('products', function($q){
+                $q->where('status', '=', 1);
+            })->where('id', '!=', 1)->get();
+        });
+
         app()->bind('mcategories', function(){
 
             return Category::where('parant_id', null)->get();

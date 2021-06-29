@@ -1,5 +1,8 @@
  
-<?php $branches = resolve('branches');?>
+<?php 
+$branches = resolve('branches');
+$menutypes = resolve('menutypesforkot');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,7 +94,7 @@ footer.sticky-footer {
         <div id="content" style="min-height: 100vh">
   
           <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-0 static-top">
   
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -244,13 +247,215 @@ footer.sticky-footer {
     width: 100%;
     line-height: 25px;
 }
+
+.stock{display: flex; padding: 0; margin: 0}
+.stock li{list-style: none; padding: 4px; border-right:1px solid #e9eef7}
+
+.tabs-left {
+    border-bottom: none;
+    display: flow-root;
+    background: #39a9f4;
+    height: 100%;
+}
+.tabs-left>li {
+    float: none;
+    background: #03A9F4;
+    
+}
+
+.tabs-left>li a {
+    padding: 7px 15px; text-decoration: none
+    
+}
+
+.tabs-left>li a.active {
+    background: #fff;
+    color: #3a3b45;
+    /* border-bottom-left-radius: 16px;
+    border-top-left-radius: 16px; */
+}
+.tabs-left>li.active>a,
+.tabs-left>li.active>a:hover,
+.tabs-left>li.active>a:focus {
+  border-bottom-color: #ddd;
+  border-right-color: transparent;
+}
+.tabs-left>li>a {
+    border-radius: 4px 0 0 4px;
+    margin-right: 0;
+    display: block;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;line-height: 24px;
+}
+
+ 
 </style>
+
+<div class="row" style="
+      padding: 0 12px;
+      background: #39a9f4;
+      border-top: 1px solid #eff2f7;
+    ">
+
+ 
+  <div class="col-xs-3" style="width: 150px">
+          <ul class="nav nav-tabs tabs-left">
+
+            @foreach ($menutypes as $menutype)
+              <li><a href="#tab{{$menutype->id}}" @if($loop->first) class="active" @endif data-toggle="tab">{{$menutype->name}}</a></li>
+
+            @endforeach
+
+
+                {{-- <li ><a class="active" href="#ClientInfo" data-toggle="tab">Breakfast</a></li> --}}
+                {{-- <li><a href="#tab1" data-toggle="tab">Lunch</a></li>
+                <li><a href="#tab2" data-toggle="tab">Dinner</a></li> --}}
+         
+            </ul>
+        </div>
+        <div class="col-xs-9" style="width: calc(100vw - 150px); background:#fff;display: inline-flex;
+        overflow-x: scroll;">
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+              @foreach ($menutypes as $menutype)
            
+              <div class="tab-pane @if($loop->first) active @endif" id="tab{{$menutype->id}}">
+                  
+                <ul class="stock">
+
+                  @forelse ($menutype->products as $product)
+                          <div class="itembox" onclick="addtocart({{$product->id}});" 
+                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height: 110px;
+                            background-size: 100% 40%;
+                            background-repeat: no-repeat;
+                            padding-top: 50px;
+                            width: 80px;border:0; padding-left:3px; border-right: 1px solid #e9eef7; ">
+                             
+                              @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
+                              <h6 class="itemtitle" style="font-size: 12px;color: #000;font-weight: 500;">{{$product->name}}</h6>
+                              <h5 style="
+                              font-size: 15px;
+                              font-weight: bold;
+                              color: #39a9f4;
+                          ">{{$product->qty}}</h5>
+                          </div>
+                        @empty
+                          No menu found!
+                        @endforelse
+
+
+
+                  {{-- <li>
+                    <h6>{{$menutype->id}}   </h6>
+                    <p>asdf</p>
+                    <p>asdf</p>
+                  </li>
+               
+                  <li>
+                    <h6>asdfsadf</h6>
+                    <p>asdasdff</p>
+                    <p>asdf</p>
+                  </li>
+                  <li>
+                    <h6>asdfsadf</h6>
+                    <p>asdf</p>
+                    <p>asdf</p>
+                  </li> --}}
+                </ul>
+
+
+              </div>
+
+            @endforeach 
+
+
+                
+
+
+
+            {{-- <div class="tab-pane" id="tab2">
+              <ul class="stock">
+                <li>
+                  <h6>dfdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+             
+                <li>
+                  <h6>asdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+                <li>
+                  <h6>asdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tab-pane" id="tab3">
+              <ul class="stock">
+                <li>
+                  <h6>3333333dfsdffsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+             
+                <li>
+                  <h6>asdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+                <li>
+                  <h6>asdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tab-pane" id="tab4">
+              <ul class="stock">
+                <li>
+                  <h6>44444</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+             
+                <li>
+                  <h6>asdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+                <li>
+                  <h6>asdfsadf</h6>
+                  <p>asdf</p>
+                  <p>asdf</p>
+                </li>
+              </ul>
+            </div> --}}
+                 
+            
+            </div>
+        </div>
+ 
+
+
+
+  
+
+
+</div>
+
+
   
   <!-- Begin Page Content -->
-  <div class="container-fluid">
+  <div class="container-fluid" style="padding: 0px 10px">
 
-    <div class="row" id="displayorders"></div>
+    <div class="row mt-2" id="displayorders"></div>
     
   </div>
  
@@ -360,7 +565,7 @@ $.ajax({
 
                         
                         <div class="col-md-4">
-    <div class="card shadow mb-4">
+    <div class="card mb-4">
         <div class="card-header py-1">
             <div class="row">
                 <div class="col-sm-7">

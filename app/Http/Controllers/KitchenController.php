@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Order;
 use Illuminate\Support\Facades\Session;
 
+use App\Branch;
+
 class KitchenController extends Controller
 {
     public function index(){
@@ -23,7 +25,14 @@ class KitchenController extends Controller
 
     public function getOrders(){
 
-        $orders = Order::with(['products', 'user', 'table', 'location'])->where('made', 0)->where('status', 3)->orWhere('status', 4)->get();
+        $orders = Order::with(['products', 'user', 'table', 'location'])
+            ->where('made', 0)
+            ->where('branch_id', 1)
+  //          ->where('status', 3)
+ //           ->orWhere('status', 4)
+              ->where('status', '!=', 1)
+            ->get();
+
         return  response()->json($orders);
     }
 
@@ -34,8 +43,12 @@ class KitchenController extends Controller
             'made' => 1
         ]);
 
-        $orders = Order::with(['products', 'user', 'table', 'location'])->where('made', 0)->where('status', 3)->where('status', 4)->get();
-        return  response()->json($orders);
+        $orders = Order::with(['products', 'user', 'table', 'location'])
+            ->where('made', 0)
+            ->where('status', '!=', 1)
+            ->where('branch_id', 1)
+            ->get();
+     return  response()->json($orders);
     }
 
 
