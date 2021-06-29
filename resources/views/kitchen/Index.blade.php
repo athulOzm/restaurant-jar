@@ -630,6 +630,7 @@ $.ajax({
                 "_token": token,
             },
             success: function(){
+              location.reload();
                 getOrders();
             }
         });
