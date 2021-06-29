@@ -27,7 +27,7 @@ class KitchenController extends Controller
 
         $orders = Order::with(['products', 'user', 'table', 'location'])
             ->where('made', 0)
-            ->where('branch_id', 1)
+            ->where('branch_id', Session::get('branch')->id)
   //          ->where('status', 3)
  //           ->orWhere('status', 4)
               ->where('status', '!=', 1)
