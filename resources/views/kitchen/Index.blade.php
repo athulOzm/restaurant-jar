@@ -333,13 +333,14 @@ footer.sticky-footer {
                             padding-top: 50px;
                             width: 80px;border:0; padding-left:3px; border-right: 1px solid #e9eef7; ">
                              
-                              @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle" style="font-size: 12px;color: #000;font-weight: 500;">{{$product->name}}</h6>
+                            
+                              <h6 class="itemtitle" style="font-size: 12px;color: #000;font-weight: 500;margin-bottom:3px">{{$product->name}}</h6>
                               <h5 style="
                               font-size: 15px;
                               font-weight: bold;
-                              color: #39a9f4;
+                              color: #39a9f4; padding-bottom:0; margin-bottom:0
                           ">{{$product->qty}}</h5>
+                          <a href="#" style="font-size: 12px">Add stock</a>
                           </div>
                         @empty
                           No menu found!
