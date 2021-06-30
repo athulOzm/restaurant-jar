@@ -550,11 +550,11 @@ label {
   </div>
 </div>
 
-<div class="boxordersource scro">
+{{-- <div class="boxordersource scro">
   <div class="p0">
   @include('pos.partials.ResourceLog')
   </div>
-</div>
+</div> --}}
 
 <div class="sales_return" style="max-height: 90vh; overflow-x:hidden; padding:0">
 

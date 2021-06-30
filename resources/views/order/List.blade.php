@@ -56,6 +56,8 @@ $locations = resolve('locations');
                                         Branches:
                                     </label>
                                         <select required class="form-control w-full border-gray-400" name="branch_id">
+                                        <option value="All">All Branches</option>
+
                                             @foreach ($branches as $item)
                                                 @if (isset($_GET['branch_id']) and $item->id == $_GET['branch_id'])
                                                 <option selected value="{{$item->id}}">{{$item->full_name}}</option>
@@ -138,12 +140,12 @@ $locations = resolve('locations');
 
                                 <div class="col-md-3 mt-2">
                                     <p class="la">Order Source</p>
-                                    <select name="delive" class="form-control  selectpicker" data-live-search="true" style="background: #fff">
+                                    <select name="ord_source" class="form-control  selectpicker" data-live-search="true" style="background: #fff">
 
                                         <option value="All">All Source</option>
-                                        <option value="All">Admin</option>
-                                        <option value="All">Apps</option>
-                                        <option value="All">Tablet</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">Apps</option>
+                                        <option value="3">Tablet</option>
 
                                     </select>
                                 </div>

@@ -26,7 +26,7 @@ class OrderController extends Controller
 
         $orderlist = Order::where('status', '!=', 1)->where('status', 4)->get();
 
-        if(isset($_GET['branch_id'])){
+        if(isset($_GET['branch_id']) && $_GET['branch_id'] != 'All'){
             $orderlist = $orderlist->where('branch_id', $_GET['branch_id']);
         }
 
@@ -37,6 +37,10 @@ class OrderController extends Controller
 
         if(isset($_GET['payment_type_id']) and $_GET['payment_type_id'] != 'All'){
             $orderlist = $orderlist->where('payment_type_id', $_GET['payment_type_id']);
+        }
+
+        if(isset($_GET['ord_source']) && $_GET['ord_source'] != 'All'){
+            $orderlist = $orderlist->where('reqfrom', $_GET['ord_source']);
         }
 
         if(isset($_GET['delivery_type']) and $_GET['delivery_type'] != 'All'){
@@ -56,13 +60,17 @@ class OrderController extends Controller
 
         $orderlist = Order::where('status', '!=', 1)->where('status', '!=', 4)->get();
 
-        if(isset($_GET['branch_id'])){
+        if(isset($_GET['branch_id']) && $_GET['branch_id'] != 'All'){
             $orderlist = $orderlist->where('branch_id', $_GET['branch_id']);
         }
 
     
         if(isset($_GET['memberid']) && $_GET['memberid'] != 'All Member'){
             $orderlist = $orderlist->where('user_id', $_GET['memberid']);
+        }
+
+        if(isset($_GET['ord_source']) && $_GET['ord_source'] != 'All'){
+            $orderlist = $orderlist->where('reqfrom', $_GET['ord_source']);
         }
 
         if(isset($_GET['payment_type_id']) and $_GET['payment_type_id'] != 'All'){
