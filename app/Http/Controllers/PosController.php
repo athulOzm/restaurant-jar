@@ -493,10 +493,17 @@ class PosController extends Controller
 
 
         //manage stock
-        // Order::find(Session::get('token')->id)->orderproducts()->each(function($product){
+        Order::find(Session::get('token')->id)->orderproducts()->each(function($product){
+
+            $mnustock = Product::find($product->product_id)->getmenustocks()->first()->qty_total;
+
+            $tot = number_format($mnustock - $product->quantity, 1);
+            Product::find($product->product_id)->getmenustocks()->first()->update([
+                'qty_total' => $tot
+            ]);
 
 
-        // });
+        });
 
 
 

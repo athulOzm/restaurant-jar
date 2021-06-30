@@ -338,9 +338,9 @@ label {
                     font-weight: 600;
                 ">
                 <div class="col-sm-1 p0">S.N</div>
-                <div class="col-sm-4 p0">Item</div>
-                <div class="col-sm-2 p0">Qty</div>
-                <div class="col-sm-2 p0">Unit.Price</div>
+                <div class="col-sm-4 p0">Item Name</div>
+                <div class="col-sm-2 p0">Quantity</div>
+                <div class="col-sm-2 p0">Unit Price</div>
                 <div class="col-sm-3 p0">Action</div>  
               </div>
       
@@ -425,7 +425,9 @@ label {
           @endforeach
         </ul>
 
-
+<style>
+  .phidden{cursor:inherit;filter: grayscale(0.90);}
+</style>
         <div class="tab-content scro2" style="min-height:calc(100vh - 130px);height:calc(100vh - 130px);overflow-y:scroll">
 
 
@@ -449,12 +451,21 @@ label {
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
-                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
+
+
+                          <div 
+                            @if ($product->stock_available != '0.0') onclick="addtocart({{$product->id}});" class="card itembox"   
+                            @else 
+                            class="card itembox phidden" onClick="alert('This item is currently out of stock, Add stock and continue.')"
+                            @endif 
+
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}}</h6>
+                              <h6 class="itemtitle">{{$product->name}} ({{$product->stock_available}})</h6>
                           </div>
+
+
                         @empty
                           No menu found!
                         @endforelse
@@ -1471,12 +1482,12 @@ const getTables = (memberid) => {
 
               $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
                 <div class="col-sm-1 " style="padding-left:25px">N</div>
-                <div class="col-sm-2 p0">Item</div>
-                <div class="col-sm-2 ">Qty</div>
-                <div class="col-sm-1 p0">Unit.Price</div>
-                <div class="col-sm-1 ">Dis</div>
+                <div class="col-sm-2 p0">Item Name</div>
+                <div class="col-sm-2 ">Quantity</div>
+                <div class="col-sm-1 p0">Unit Price</div>
+                <div class="col-sm-1 ">Discount</div>
                 <div class="col-sm-1 ">VAT</div>
-                <div class="col-sm-1 ">Cont</div>
+                <div class="col-sm-1 ">Container</div>
                 <div class="col-sm-2 ">Total</div>
                 <div class="col-sm-1" style="font-size:9px">Addon</div>
               </div>

@@ -628,7 +628,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
 .itemtitlebar {
     color: #4e72df;
-    font-size: 12px;
+    font-size: 11px;
     text-align: left;
     font-weight: 400;
     background: #1a1f32;

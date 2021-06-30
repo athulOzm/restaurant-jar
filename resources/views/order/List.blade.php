@@ -136,7 +136,20 @@ $locations = resolve('locations');
                                 </div>
 
 
-                                <div class="form-group col-md-3 mt-4">
+                                <div class="col-md-3 mt-2">
+                                    <p class="la">Order Source</p>
+                                    <select name="delive" class="form-control  selectpicker" data-live-search="true" style="background: #fff">
+
+                                        <option value="All">All Source</option>
+                                        <option value="All">Admin</option>
+                                        <option value="All">Apps</option>
+                                        <option value="All">Tablet</option>
+
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group col-md-12 mt-2">
                                     <button class="btn btn-primary btnc2 pull-right" style="float: right; font-size:11px; margin-top:5px" id="pay" type="submit">View Order Lists <i class="fas fa-arrow-right"></i></button>
                                 </div>
 
@@ -159,10 +172,10 @@ $locations = resolve('locations');
                                     <th width="30">Member ID</th>
                                     <th width="30">Receipt Id</th>
                                     <th width="30">User</th>
-                                    <th width="30">Ord. Source</th>
+                                    <th width="30">Order Source</th>
                                     
 
-                                    <th width="30">Amount Total</th>
+                                    <th width="30">Total Amount</th>
                                  
  
                                     <th width="30">Action</th>

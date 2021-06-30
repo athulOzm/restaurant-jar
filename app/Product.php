@@ -118,6 +118,11 @@ class Product extends Model
         return $this->hasMany(MenuStock::class);
     }
 
+    public function getmenustocks(){
+
+        return $this->menustocks()->where('branch_id', Session::get('branch')->id)->latest();
+    }
+
     public function addons(){
 
         return $this->belongsToMany(Addon::class);
@@ -134,7 +139,7 @@ class Product extends Model
     public function getStockAvailableAttribute(){
 
         //return 22;
-        if($cqtyl = $this->menustocks()->latest()->first()){
+        if($cqtyl = $this->getmenustocks()->first()){
             return $cqtyl->qty_total;
             
         }else{
