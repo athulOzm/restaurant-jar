@@ -60,11 +60,13 @@ body{font-family: 'Poppins', sans-serif;!important;}
         background-size: 60px 60px;
         border-radius: 50px;
       }
-      .info{
-        display: block;
-        //float:left;
-        margin-left: 0;
-      }
+      .info {
+    display: block;
+    margin-left: 0;
+    border-bottom: 2px dotted #333;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
       .title{
         float: right;
       }
@@ -105,53 +107,41 @@ body{font-family: 'Poppins', sans-serif;!important;}
 
       .info p {
     margin: 0;
-    line-height: 1.3em;
-    font-size: 1em;
+    line-height: 1.5em;
+    font-size: .9em;
 }
 
 
 .nn p {
     margin: 0;
     line-height: 1.3em;
-    font-size: .8em;
+    font-size: 1em;
 }
 
 
 .info {
     display: block;
     margin-left: 0;
-    border-bottom: 1px solid #000;
-    padding-bottom: 15px;
-    margin-bottom: 15px; 
+    border-bottom: 2px dotted #333;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 .tar{text-align: right}
 p{margin-block-end:.5em; margin-block-start:.5em}
 
 h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
- 
 
+.dot{width: 100%;height: 1px; border-bottom: 2px dotted #000; clear: both;}
+ 
+.info td b{padding: 0 10px; }
 
       </style>
  
   </head>
 <body>
 
-    {{-- <div class="backf" style="
-    max-width: 88mm;
-    margin: auto;
-    text-align: center;
-    background: #3F51B5;
-    padding: 10px 0;
-">
-        <a href="{{route('pos')}}" style="
-        width: 100%;
-        color: #fff;
-        text-decoration: none;
-    ">Back to POS</a>
-    </div> --}}
-
-
+ 
     <div id="invoice-POS">
     
 
@@ -159,28 +149,95 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
          
           <div class="info"> 
 
-            <div style="width: 38%; float:left; text-align:left"><img src="{{asset('img/cooking.png')}}" width="60" alt="">
+            {{-- <div style="width: 38%; float:left; text-align:left"><img src="{{asset('img/cooking.png')}}" width="60" alt="">
               <h2 style="margin: 0; font-size:1.3em"> </h2>
-            </div>
+            </div> --}}
 
-            <div style="width: 58%; float:right; text-align:right; padding-top:10px">
-              <p>CR No: 12345</p>
-              <p>AL AMARAT</p>
-              <p>Tel : (968) 0000-9999</p>
+            <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
+              <p>The Royal Guard of Oman</p>
+              <p>Al Husn Officers Mess</p>
+              <p style="margin-bottom: 6px">Al Husn Kitchen</p>  
+              <b style="padding: 6px 20px; background: #fff; font-weight: 400">FOOD ORDER</b>
+              <div class="dot" style="margin-top: -12px"></div>
             </div>
             
             <div style="clear: both"></div>
 
-            <div style="width: 100%; text-align:left; padding-top:10px" class="nn">
-              <p>Date: <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
-              <p>Order No: <b>{{$order->branch->code}}{{$order->id}}</b></p>
-               
-            </div>
+            <table style="font-size: .9em">
+              <tr>
+                <td>Order No</td>
+                <td><b>:</b>{{$order->branch->code}}{{$order->id}}</td>
+              </tr>
+              <tr>
+                <td>Order Date</td>
+                <td><b>:</b>{{Carbon\Carbon::now() }}<td>
+              </tr>
+            </table>
 
             <div style="clear: both"></div>
+          </div> 
 
 
-            </div> 
+          <div class="info">
+            <table style="font-size: .9em">
+              <tr>
+                <td>Member No</td>
+                <td><b>:</b>{{$order->user->memberid}}</td>
+              </tr>
+              <tr>
+                <td>OldMess No</td>
+                <td><b>:</b>{{$order->user->serviceid}}<td>
+              </tr>
+              <tr>
+                <td>Rank</td>
+                <td><b>:</b>{{$order->user->rank->name}}<td>
+              </tr>
+              <tr>
+              
+                <td colspan="1">{{$order->user->name}}<td>
+              </tr>
+            </table>
+          </div>
+
+
+          <div class="info">
+            <table style="font-size: .9em">
+              <tr>
+                <td>Order Type</td>
+                <td><b>:</b>{{$order->delivery_type}}</td>
+              </tr>
+              <tr>
+                <td>Delv Place</td>
+                <td><b>:</b>{{$order->delivery_type}}<td>
+              </tr>
+              <tr>
+                <td>Delv Date</td>
+                <td><b>:</b>{{$order->delivery_time}}<td>
+              </tr>
+              <tr>
+                <td>Delv Time</td>
+                <td><b>:</b>{{$order->delivery_time}}<td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td><b>:</b>Open<td>
+              </tr>
+              <tr>
+                <td>Room</td>
+                <td><b>:</b>{{$order->room_addr}}<td>
+              </tr>
+              <tr>
+                <td>Remark</td>
+                <td><b>:</b>{{$order->sn}}<td>
+              </tr>
+              
+            </table>
+          </div>
+
+ 
+      
+
+
         </center> 
         
      
@@ -194,15 +251,15 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                                     <td class="Hours"><h3>الكمية </h3></td>
                                     <td class="Rate"><h3>السعر </h3></td>
                                     <td class="Rate"><h3>خصم </h3></td>
-                                    <td class="Rate"><h3>ضريبة </h3></td>
+                                    {{-- <td class="Rate"><h3>ضريبة </h3></td> --}}
                                     <td class="Rate tar"><h3>اجمالي</h3></td>
                                 </tr>
                                 <tr class="tabletitle" style="text-align: left; ">
-                                    <td class="item"><h3>Item</h3></td>
+                                    <td class="item"><h3>Desc.</h3></td>
                                     <td class="Hours"><h3>Qty</h3></td>
                                     <td class="Rate"><h3>Rate</h3></td>
                                     <td class="Rate"><h3>Discount</h3></td>
-                                    <td class="Rate"><h3>VAT</h3></td>
+                                    {{-- <td class="Rate"><h3>VAT</h3></td> --}}
                                     <td class="Rate tar"><h3>Total</h3></td>
                                 </tr>
 
@@ -216,7 +273,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                                     <td class="tableitem"><p class="itemtext">{{$product->quantity}}</p></td>
                                     <td class="tableitem"><p class="itemtext2">{{$product->product->price}}</p></td>
                                     <td class="tableitem"><p class="itemtext2">{{$product->discount}}</p></td>
-                                    <td class="tableitem"><p class="itemtext2">{{$product->tax}}</p></td>
+                                    {{-- <td class="tableitem"><p class="itemtext2">{{$product->tax}}</p></td> --}}
                                     <td class="tableitem tar"><p class="itemtext"><b>{{$product->price_total_with_tax}}</b></p></td>
                                 </tr>
 
@@ -288,6 +345,16 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
                         <hr>
 
+                        <div style="text-align: center; margin:0; font-size:14px; text-align:left">
+                         
+                          Chief Cook : <BR>
+                          Member Sign : <BR>
+                      
+     
+                    </div>
+
+                    <hr>
+
                       <div style="text-align: center">
 
                         <img width="250mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG('RE-'.$order->id, 'C39', 2, 40)}}" alt="barcode" />
@@ -297,11 +364,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
                         
     
-                        <div id="legalcopy" style="text-align: center; margin:0">
-                            <p class="" style="line-height: .9em; margin:0"><strong style="font-size: .6em; line-height:.8em">شكر لحسن زيارتكم لنا</strong></p>
-                            {{-- <p>_</p>
-                            <p>_</p><p>_</p> --}}
-                        </div>
+                       
     
                     </div><!--End InvoiceBot-->
       </div><!--End Invoice-->
@@ -309,8 +372,8 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
 <script type="text/javascript">
     function auto_print() {     
-        window.print()
-        window.location.href = "/pos";
+       // window.print()
+       // window.location.href = "/pos";
 
     }
     setTimeout(auto_print, 1000);

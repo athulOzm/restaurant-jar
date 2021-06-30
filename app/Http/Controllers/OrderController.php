@@ -85,16 +85,12 @@ class OrderController extends Controller
         if(isset($_GET['df']) and $_GET['df'] !=''){
             $df = explode('T', $_GET['df']);
             $date_from = $df[0].' '.$df[1].':00';
-
-           // dd($date_from);
             $orderlist = $orderlist->where('delivery_time', '>=', $date_from);
         }
 
         if(isset($_GET['dt']) and $_GET['dt'] !=''){
             $df = explode('T', $_GET['dt']);
             $date_from = $df[0].' '.$df[1].':00';
-
-           // dd($date_from);
             $orderlist = $orderlist->where('delivery_time', '<=', $date_from);
         }
 
