@@ -203,7 +203,7 @@ $locations = resolve('locations');
                                         
                                 <th style="font-size: 10px">
                                     <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
-                        <a target="_blank" href="{{route('pos.print', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
+                        <a target="_blank" href="{{route('pos.print.order', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
                         <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
                         <a href="{{route('pos.update', $order->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit</a>
 
