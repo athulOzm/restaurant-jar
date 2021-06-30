@@ -204,7 +204,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
             <table style="font-size: .9em">
               <tr>
                 <td>Order Type</td>
-                <td><b>:</b>{{$order->delivery_type}}</td>
+                <td><b>:</b>{{$order->menutype->name}}</td>
               </tr>
               <tr>
                 <td>Delv Place</td>
@@ -212,11 +212,11 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
               </tr>
               <tr>
                 <td>Delv Date</td>
-                <td><b>:</b>{{$order->delivery_time}}<td>
+                <td><b>:</b>{{ \Carbon\Carbon::parse($order->delivery_time)->format('d-m-Y') }}<td>
               </tr>
               <tr>
                 <td>Delv Time</td>
-                <td><b>:</b>{{$order->delivery_time}}<td>
+                <td><b>:</b>{{ \Carbon\Carbon::parse($order->delivery_time)->format('i') }}<td>
               </tr>
               <tr>
                 <td>Status</td>
@@ -348,10 +348,7 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                         <div style="text-align: center; margin:0; font-size:14px; text-align:left">
                          
                           Chief Cook : <BR>
-                          Member Sign : <BR>
-                      
-     
-                    </div>
+                          Member Sign : <BR></div>
 
                     <hr>
 

@@ -25,6 +25,9 @@ class CreateOrdersTable extends Migration
 
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+
+            $table->unsignedBigInteger('menutype_id')->nullable();
+            $table->foreign('menutype_id')->references('id')->on('menutypes')->onDelete('set null');
            
             $table->string('delivery_type')->nullable();
             $table->dateTime('delivery_time')->nullable();

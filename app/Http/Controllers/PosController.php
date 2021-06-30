@@ -26,6 +26,7 @@ use Carbon\Carbon;
 // use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
 
 use App\Item;
+use App\Menutype;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -387,6 +388,15 @@ class PosController extends Controller
     public function checkout(Request $request) {
 
 
+        $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
+     
+        if($cmtt = Menutype::where('id', '!=', 1)->where('from', '<', $tn)->where('to', '>', $tn)->first()){
+            $cmt = $cmtt;
+        } else {
+            $cmt = Menutype::fint(2);
+        }
+   
+
         $id = explode('|', $request->memberid);
 
         $memberid = $id[0];
@@ -430,7 +440,8 @@ class PosController extends Controller
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
-                'reqfrom'    =>  auth()->user()->id
+                'reqfrom'    =>  auth()->user()->id,
+                'menutype_id'   =>  $cmt->id
             ]);
 
         } else if($request->reqtype == 'hold'){
@@ -447,7 +458,8 @@ class PosController extends Controller
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
-                'reqfrom'    =>  auth()->user()->id
+                'reqfrom'    =>  auth()->user()->id,
+                'menutype_id'   =>  $cmt->id
             ]);
 
         } else{
@@ -465,7 +477,8 @@ class PosController extends Controller
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
-                'reqfrom'    =>  auth()->user()->id
+                'reqfrom'    =>  auth()->user()->id,
+                'menutype_id'   =>  $cmt->id
             ]);
 
             Invoice::create([

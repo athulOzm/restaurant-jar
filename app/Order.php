@@ -28,6 +28,11 @@ class Order extends Model
 
         return $this->belongsTo(Branch::class);
     }
+
+    public function menutype(){
+
+        return $this->belongsTo(Menutype::class);
+    }
     
     public function invoice(){
 
