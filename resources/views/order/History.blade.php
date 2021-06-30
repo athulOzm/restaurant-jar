@@ -179,7 +179,8 @@ $locations = resolve('locations');
                                     <th width="30">Total Amount</th>
                                  
  
-                                    <th width="30">Action</th>
+                                    <th width="250">Action</th>
+                                    <th width="30">Date Delivered</th>
                                     </tr>
                                 </thead>
 
@@ -200,7 +201,7 @@ $locations = resolve('locations');
                                        
  
                                         
-                                <th style="font-size: 10px">
+                                <td style="font-size: 10px">
                                     <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
                         <a target="_blank" href="{{route('pos.print', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
                         <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
@@ -213,7 +214,10 @@ $locations = resolve('locations');
                                         <input type="hidden" name="id" value="{{$order->id}}">
                                     </form>
 
-                                </th>
+                                </td>
+
+                                <td>{{$order->delivery_time}}</td>
+
                                     
                                     </tr>
                                     @endforeach
