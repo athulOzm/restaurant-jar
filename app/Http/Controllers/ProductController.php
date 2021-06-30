@@ -304,11 +304,11 @@ class ProductController extends Controller
             ]);
         }
 
-        if($product_qty != $request->qty){
-            $product->menustocks()->create([
-                'qty' =>  number_format($request->qty - $product_qty, 1)
-            ]);
-        }
+        // if($product_qty != $request->qty){
+        //     $product->menustocks()->create([
+        //         'qty' =>  number_format($request->qty - $product_qty, 1)
+        //     ]);
+        // }
 
         
 
