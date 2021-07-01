@@ -481,12 +481,12 @@ class PosController extends Controller
                 'menutype_id'   =>  $cmt->id
             ]);
 
-        
+            
 
             Invoice::create([
                 'order_id'  =>  Session::get('token')->id,
                 'branch_id' =>  $request->branch_id,
-                'amount'    =>  Session::get('token')->id)->total_price,
+                'amount'    =>  Order::find(Session::get('token')->id)->total_price,
                 'status'    =>  1
             ]);
         }
