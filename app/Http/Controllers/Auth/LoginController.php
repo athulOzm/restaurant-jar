@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Branch;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -9,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\User;
-
-
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -91,6 +91,13 @@ class LoginController extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 
             if(auth()->user()->type == 1):
+
+                if (!Session::exists('branch')) {
+        
+                    Session::put('branch', Branch::first());
+                }
+                
+                
 
                 return redirect()->route('home');
 

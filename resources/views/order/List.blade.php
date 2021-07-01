@@ -180,7 +180,7 @@ $locations = resolve('locations');
                                     <th width="30">Total Amount</th>
                                  
  
-                                    <th width="30">Action</th>
+                                    <th width="230">Action</th>
                                     </tr>
                                 </thead>
 
@@ -201,13 +201,13 @@ $locations = resolve('locations');
                                        
  
                                         
-                                <th style="font-size: 10px">
+                                <th style="font-size: 9px">
                                     <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
-                        <a target="_blank" href="{{route('pos.print.order', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
-                        <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
-                        <a href="{{route('pos.update', $order->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit</a>
+                        {{-- <a target="_blank" href="{{route('pos.print.order', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a> --}}
+                        <a href="{{route('pos.update', $order->id)}}" class="btn btn-success btn-sm"> <i class="fas fa-clone"></i> Confirm & Pay</a>
+                        {{-- <a href="{{route('pos.update', $order->id)}}" class="btn btn-warning btn-sm"> <i class="fas fa-pen-square"></i> Edit</a> --}}
 
-                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-sm btn-danger "><i class="fas fa-trash"></i></a>
                                     <form id="delfrm{{$order->id}}" action="{{route('order.destroy')}}" method="post">
                                         @csrf
                                         @method('DELETE')

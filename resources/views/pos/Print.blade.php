@@ -187,7 +187,7 @@
                 <td><b>:</b>{{$order->user->memberid}}</td>
               </tr>
               <tr>
-                <td>Name</td>
+                <td>Member Name</td>
                 <td><b>:</b>{{$order->user->name}}<td>
               </tr>
             </table>
@@ -211,7 +211,7 @@
                                     <td class="Rate tar"><h3>اجمالي</h3></td>
                                 </tr>
                                 <tr class="tabletitle" style="text-align: left; ">
-                                    <td class="item"><h3>Desc</h3></td>
+                                    <td class="item"><h3>Item</h3></td>
                                     <td class="Hours"><h3>Qty</h3></td>
                                     <td class="Rate"><h3>Rate</h3></td>
                                     <td class="Rate"><h3>Discount</h3></td>
