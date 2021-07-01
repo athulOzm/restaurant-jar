@@ -1,5 +1,7 @@
+<?php 
+$branches = resolve('branches');
+?>
 @extends('admin.layouts.master')
-
 
 @section('head', 'Dashboard')
 
@@ -18,82 +20,113 @@
     <form action="{{route('report.sale.search')}}" method="POST">
         @csrf()
         @method('POST')
-    <div class="row mb-3">
-        
-        <div class="col-md-3">
+    <div class="row py-3" style="margin: 0; background:white; border-radius:6px">
+
+        <div class="form-group col-md-3">
+            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                Branches:
+            </label>
+                <select required class="form-control w-full border-gray-400" name="branch_id">
+                <option value="All">All Branches</option>
+
+                    @foreach ($branches as $item)
+                        @if (isset($_GET['branch_id']) and $item->id == $_GET['branch_id'])
+                        <option selected value="{{$item->id}}">{{$item->full_name}}</option>
+                        @else
+                        <option value="{{$item->id}}">{{$item->full_name}}</option>
+                        @endif
+                    @endforeach
+                </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                Date From:
+            </label>
             <input name="df"  step="any" required  type="datetime-local" class="form-control border-gray-400 txtb">
         </div>
-        <div class="col-md-3">
+        <div class="form-group col-md-3">
+            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                Date To:
+            </label>
             <input name="dt"  step="any" required type="datetime-local" class="form-control border-gray-400 txtb">
         </div>
-        <div class="col-md-4">
+      
+       
+        <div class="col-md-2 mt-4 pt-1">
             <button class="btn btn-primary btnc1" id="pay" type="submit">View Report <i class="fas fa-arrow-right"></i></button>
         </div>
    
     </div>
 </form>
 <br> 
-    
-<div class="row" style="background: #fff; padding:20px">
-    <h5 style="width: 100%">Sales Last 30 Days</h5>
-
-    <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
-        
-        <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot}}</b> & 
-            <b style="color: blue">{{$tord}}</b> Token used </span> </h5>
-</div>
-
-
-    <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
-        
-        <div class="col-md-8">
-            <canvas id="barChartmonth" style="width: 100%"></canvas>
-        </div>
-    
-        <div class="col-md-4">
-            {{-- <h5 style="width: 100%">Source</h5> --}}
-
-            <canvas id="cer1" style="width: 600px"></canvas>
-        </div>
-    </div>
-
-    <br> <br>
-
-    <div class="row" style="background: #fff; padding:20px">
-        <h5 style="width: 100%">Sales Current Financial Year</h5>
-    
-        <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
-            
-            <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot2}}</b> & 
-                <b style="color: blue">{{$tord2}}</b> Token used </span> </h5>
-    </div>
-    <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
-        
-        <div class="col-md-8">
-            <canvas id="barChart" style="width: 100%"></canvas>
-        </div>
-    
-        <div class="col-md-4">
-            {{-- <h5 style="width: 100%">Source</h5> --}}
-            <canvas id="cer2" style="width: 600px"></canvas>
-        </div>
-    </div>
-
-    <br> <br> 
-
-
-  </div>
  
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow mb-12" style="width:100%">
+            <div class="card-header py-3">
+             
 
+                <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
+        
+                    <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot}}</b> <br>
+                         Token used  <b style="color: blue">{{$tord}}</b></span> </h5>
+                
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                            <th width="30">Menu Name</th>
+                            <th width="30">Sold Qty</th>
+                            <th width="30">Sold Price</th>
+                            <th width="30">In Stock</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {{-- @foreach($orders as $order)
+                            <tr>
+                                 
+                                <td>@if ($order->user)
+                                    {{$order->user->memberid}}
+                                @endif</td>
+                                <td>{{$order->id}}</td>
+                               
+                                <td>@if ($order->user)
+                                    {{$order->user->name}}
+                                @endif</td>
+                                <td>{{$order->getReqByAttribute()}}</td>
+                               
+                            
+                            </tr>
+                            @endforeach --}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+ 
+
+  
+
+</div>
+{{-- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 var DEFAULT_DATASET_SIZE = 3,
     addedCount = 0,
     color = Chart.helpers.color;
-
 var chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
@@ -248,7 +281,7 @@ var	myNewChartB = new Chart(ctx, {
   data: data2,
   options: {}
 });
-</script>
+</script> --}}
 
  
  

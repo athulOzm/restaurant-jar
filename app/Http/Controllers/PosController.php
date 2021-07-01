@@ -389,11 +389,13 @@ class PosController extends Controller
 
 
         $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
+
+        //dd($request->dtime);
      
         if($cmtt = Menutype::where('id', '!=', 1)->where('from', '<', $tn)->where('to', '>', $tn)->first()){
             $cmt = $cmtt;
         } else {
-            $cmt = Menutype::fint(2);
+            $cmt = Menutype::find(2);
         }
    
 

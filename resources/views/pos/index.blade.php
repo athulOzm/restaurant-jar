@@ -4,7 +4,8 @@
 $menutypes = resolve('menutypesforpos');
 $waiter = resolve('waiter');
 $allmenus = resolve('allmenus');
-$mcategories = resolve('mcategories');
+$mcategories = resolve('mcategories'); 
+$daten =  str_replace(' ', 'T', Carbon\Carbon::now());
 ?>
 
  
@@ -911,14 +912,16 @@ td{
 
 }
 
-
+ 
 
 $(document).ready(() => {
 
   //set time
   var dtimee = $('#dtimee').val();
+
+  
   if(dtimee == ''){
-    $('#dtimee').val('2021-05-29T00:00:00')
+    $('#dtimee').val(`<?=$daten;?>`)
   }
 
   //items

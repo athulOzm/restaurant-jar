@@ -138,7 +138,7 @@ class ReportController extends Controller
         $tot = number_format(array_sum($days_total), 3);
         $tord = array_sum($days_order);
 
-        return view('report.SaleSearch', 
+        return view('report.SaleReport', 
         compact('days', 'days_order', 'days_total', 'ta1', 'di1', 'de1', 'date_from', 'date_to', 'tot', 'tord'));
     }
 

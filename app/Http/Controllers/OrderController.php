@@ -76,7 +76,7 @@ class OrderController extends Controller
 
     public function list(){
 
-        $orderlist = Order::where('status', '!=', 1)->where('status', '!=', 4)->get();
+        $orderlist = Order::where('status', '!=', 1)->where('status', '!=', 4)->where('status', '!=', 2)->get();
 
         if(isset($_GET['branch_id']) && $_GET['branch_id'] != 'All'){
             $orderlist = $orderlist->where('branch_id', $_GET['branch_id']);
