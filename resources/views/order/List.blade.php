@@ -205,9 +205,12 @@ $locations = resolve('locations');
                                     <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
                         {{-- <a target="_blank" href="{{route('pos.print.order', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a> --}}
                         <a href="{{route('pos.update', $order->id)}}" class="btn btn-success btn-sm"> <i class="fas fa-clone"></i> Confirm & Pay</a>
-                        {{-- <a href="{{route('pos.update', $order->id)}}" class="btn btn-warning btn-sm"> <i class="fas fa-pen-square"></i> Edit</a> --}}
+                        <a href="{{route('pos.update', $order->id)}}" class="btn btn-warning btn-sm"> <i class="fas fa-pen-square"></i> Edit</a>
+                        <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
 
-                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-sm btn-danger "><i class="fas fa-trash"></i></a>
+
+                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-sm btn-danger "><i class="fas fa-trash"></i> Cancel</a>
+                                    
                                     <form id="delfrm{{$order->id}}" action="{{route('order.destroy')}}" method="post">
                                         @csrf
                                         @method('DELETE')
