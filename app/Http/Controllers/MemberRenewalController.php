@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MemberRenewal;
+use App\Order;
 use App\User;
 
 use Carbon\Carbon;
@@ -41,13 +42,9 @@ class MemberRenewalController extends Controller
 
         return view('member.Renewal', ['members' => $members, 'pt' => $pt]);
     }
-
-
+ 
     public function renewnow(Request $request){
 
-        // User::whereIn('id', $request->id)->update([
-        //     'renewal_at' => DB::raw( 'column * 2' ) Carbon::parse($this->renewal_at)->addYear()
-        // ]);
         foreach(explode(',', $request->id[0]) as $id) {
 
             if($user = User::find($id)):
@@ -71,6 +68,45 @@ class MemberRenewalController extends Controller
          return $pdf->download($user->memberid.'.pdf');
         //return view('pdf.Memberid', compact('user'));
         
+    }
+
+
+    //memeber pay
+    public function payStore(Request $request){
+
+        foreach(explode(',', $request->id[0]) as $id) {
+
+            if($user = Order::find($id)):
+            
+                $user->update(['payment_status' => true]);
+
+                $orders[] = $user;
+                $price[] = $user->amount;
+            
+            endif;
+        }
+
+       
+
+        $tot = number_format(array_sum($price), 3);
+
+       
+ 
+
+        return view('pos.PrintPay', ['orders' => $orders, 'user' => User::find($request->member_id), 'toty'=> $tot]);
+        //return back();
+    }
+
+    public function pay(User $user){
+
+        $orders = Order::where('user_id', $user->id)
+        ->where('payment_type_id', 2)
+        ->where('status', 4)
+        ->where('payment_status', false)
+        ->get();
+
+
+        return view('member.Pay', ['orders' => $orders, 'user' => $user]);
     }
 
     

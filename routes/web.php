@@ -219,6 +219,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
     //sale report
     Route::get('/report/sale', 'ReportController@sale')->name('report.sale');
+    Route::get('/report/salef', 'ReportController@salef')->name('report.salef');
+    Route::get('/report/sales', 'ReportController@sales')->name('report.sales');
+    Route::get('/report/sale/member', 'ReportController@saleMem')->name('report.salemem');
+    Route::get('/report/sale/user', 'ReportController@saleUser')->name('report.saleuser');
     Route::post('/report/sale/search', 'ReportController@saleSearch')->name('report.sale.search');
 
     //fastmoving
@@ -236,8 +240,11 @@ Route::middleware(['auth:admin'])->group(function () {
 
     //member report status
     Route::get('/report/members', 'ReportController@member')->name('report.member');
-    Route::get('/report/members/balance', 'ReportController@memberbalance')->name('report.members.balance');
+    Route::get('/members/balance', 'ReportController@memberbalance')->name('report.members.balance');
+    Route::get('/member/pay/{user}', 'MemberRenewalController@pay')->name('member.pay');
+    Route::patch('member/pay', 'MemberRenewalController@payStore')->name('member.pay.store');
     Route::post('/report/member/search', 'ReportController@memberSearch')->name('report.member.search');
+
 
 
 
@@ -259,8 +266,17 @@ Route::middleware(['auth:admin'])->group(function () {
 
 
 
-//waiter dash board area
 
+
+
+
+
+
+
+
+
+
+//waiter dash board area
 Route::get('waiter/login', 'WaiterController@login')->name('waiter.login');
 Route::post('waiter/login', 'Auth\LoginController@waiterlogin')->name('waiter.login.create');
 

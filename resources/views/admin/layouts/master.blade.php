@@ -173,12 +173,15 @@
        
            
             <a class="collapse-item" href="{{route('member.index')}}">Members</a>
-            <a class="collapse-item" href="{{route('report.members.balance')}}">Member Balance</a>
+            {{-- <a class="collapse-item" href="{{route('member.pay')}}">Member Pay</a> --}}
+            <a class="collapse-item" href="{{route('report.members.balance')}}">Member Balance/ Pay</a>
             <a class="collapse-item" href="{{route('member.ledger')}}">Ledger</a>
             <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
             <a class="collapse-item" href="{{route('member.category.index')}}">Member Category</a>
             <a class="collapse-item" href="{{route('member.renewals')}}">Member Renewal</a>
             <a class="collapse-item" href="{{route('report.member')}}">Member Report</a>
+      
+
     
           </div>
         </div>
@@ -211,12 +214,18 @@
         <div id="collapsePages8r" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
-            <a class="collapse-item" href="{{route('report.sale')}}">Sale Report</a>
-            <a class="collapse-item" href="{{route('report.fastmoving')}}">Fast Moving</a>
+            <a class="collapse-item" href="{{route('report.sale')}}">Sale Report by Item</a>
+            <a class="collapse-item" href="{{route('report.salemem')}}">Sale Report by Member</a>
+            <a class="collapse-item" href="{{route('report.saleuser')}}">Sale Report by User</a>
+
+            <a class="collapse-item" href="{{route('report.salef')}}">Fast Moving Items</a>
+            <a class="collapse-item" href="{{route('report.sales')}}">Slow Mooving Items</a>
+
+            {{-- <a class="collapse-item" href="{{route('report.fastmoving')}}">Fast Moving</a>
             <a class="collapse-item" href="{{route('report.slowmoving')}}">Slow Moviing</a>
             <a class="collapse-item" href="{{route('report.settlement')}}">Settlement Report</a>
             <a class="collapse-item" href="{{route('order.all')}}">Orders History</a>
-            <a class="collapse-item" href="{{route('report.member')}}">Member Status</a>
+            <a class="collapse-item" href="{{route('report.member')}}">Member Status</a> --}}
     
           </div>
         </div>

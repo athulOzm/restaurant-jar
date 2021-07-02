@@ -52,6 +52,7 @@ class CreateOrdersTable extends Migration
                 ->onDelete('set null');
 
             $table->boolean('payment_status')->default(false);
+            $table->decimal('amount', 8, 3)->nullable();
 
             $table->text('sn')->nullable();
             $table->integer('made')->default(0);

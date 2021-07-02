@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -72,50 +72,20 @@ class User extends Authenticatable
     }
 
     public function getCreditAmount(){
-
         
-        $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
+        $credit_orders = Order::where('user_id', $this->id)
+            ->where('payment_type_id', 2)
+            ->where('status', 4)
+            ->where('payment_status', false)
+            ->select('amount', DB::raw('sum(amount) as amount_sum'))
+            ->get();
 
-        
-        
-
-        $credit_total = [];
-
-        $credit_orders->each(function($item) use(&$credit_total){
-
-            $credit_total[] = $item->gettotalprice()['subtotal'];
-        });
-
-        $deb_total = $this->debits()->pluck('amount')->toArray();
-
-        return number_format(array_sum($credit_total) - array_sum($deb_total), 3);
-
-        //return 45.500;
+        return number_format($credit_orders[0]->amount_sum, 3);
     }
 
     public function getTotalCreditAttribute(){
 
-        // if($this->debits()->exists()){
-        //     $da = $this->debits()->latest('created_at')->first()->created_at;
-        //     $credit_orders = $this->orders()->where('payment_type_id', 2)->where('delivery_time', '=>', $da)->get();
-        // } else{
-            $credit_orders = $this->orders()->where('payment_type_id', 2)->get();
-       // }
-
-        $credit_total = [];
-
-        $credit_orders->each(function($item) use(&$credit_total){
-
-            $credit_total[] = $item->gettotalprice()['subtotal'];
-        });
-
-        $deb_total = $this->debits()->pluck('amount')->toArray();
-
-        $tcredit = number_format(array_sum($credit_total) - array_sum($deb_total), 3);
-
-        return number_format($this->limit - $tcredit , 3);
-
-        //return 45.500;
+        return number_format($this->limit - $this->getCreditAmount() , 3);
     }
 
     public function category(){

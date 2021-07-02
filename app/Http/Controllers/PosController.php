@@ -437,7 +437,7 @@ class PosController extends Controller
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $location,
                 'room_addr'  =>  $room_addr,
-                'payment_status' =>  true,
+               // 'payment_status' =>  false,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
@@ -455,7 +455,6 @@ class PosController extends Controller
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $location,
                 'room_addr'  =>  $room_addr,
-                'payment_status' =>  true,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
@@ -466,6 +465,12 @@ class PosController extends Controller
 
         } else{
 
+            if($payment_type == 1): 
+                $pt = true;
+            else: 
+                $pt = false;
+            endif;
+
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  4,
                 'user_id'    =>  User::where('memberid', $memberid)->first()->id,
@@ -474,13 +479,14 @@ class PosController extends Controller
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $location,
                 'room_addr'  =>  $room_addr,
-                'payment_status' =>  true,
+                'payment_status' =>  $pt,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  $cmt->id
+                'menutype_id'   =>  $cmt->id,
+                'amount'    =>  Order::find(Session::get('token')->id)->total_price
             ]);
 
             

@@ -16,93 +16,216 @@ class ReportController extends Controller
     //sale index
     public function sale(){
 
-        // $ord = Order::where('status', 4)
-        //            ->whereDate('delivery_time', '>', Carbon::now()->subDays(30))
-        //            ->get()
-        //            ->groupBy(function($val) {
-        //                 return Carbon::parse($val->delivery_time)->format('d');
-        //            });
-
-        $current_date = Carbon::now()->toDateString();
-        $sub_month_date = Carbon::now()->subMonth()->toDateString();
-        $sub_year_date = Carbon::now()->subYear()->toDateString();
-
-        $period = CarbonPeriod::create($sub_month_date, $current_date);
-        $days=[];
-        $days_order=[];
-        foreach ($period as $date) {
-
-            $days[] =  $date->format('Y-m-d');
-            $days_order[] = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
-            $tot = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
-            $days_tot=[];
-            $tot->each(function($ord) use(&$days_tot){
-                $days_tot[] = $ord->total_price;
-            });
-            $days_total[] = number_format(array_sum($days_tot), 3);
+        if(isset($_GET['df']) and $_GET['df'] !=''){
+            $df = explode('T', $_GET['df']);
+            $date_from = $df[0].' '.$df[1].':00';
+        } else{
+            $date_from = '2011-06-30 17:03:07';
         }
 
-        //take away
-        $ta1 = Order::where('status', 4)
-            ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', [$sub_month_date, $current_date])
-            ->count();
-        $ta2 = Order::where('status', 4)
-            ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', [$sub_year_date, $current_date])
-            ->count();
-
-        //dine in
-        $di1 = Order::where('status', 4)
-            ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', [$sub_month_date, $current_date])
-            ->count();
-        $di2 = Order::where('status', 4)
-            ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', [$sub_year_date, $current_date])
-            ->count();
-
-        //dine in
-        $de1 = Order::where('status', 4)
-            ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', [$sub_month_date, $current_date])
-            ->count();
-        $de2 = Order::where('status', 4)
-            ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', [$sub_year_date, $current_date])
-            ->count();
-
-
-        $period = CarbonPeriod::create('2020-05-30', '1 month', $current_date);
-        $month=[];
-        $month_order=[];
-        foreach ($period as $date) {
-
-            $month[] =  $date->format('Y-M');
-            $month_order[] = Order::where('status', 4)
-                ->whereYear('delivery_time', '=', $date->format('Y'))
-                ->whereMonth('delivery_time', '=', $date->format('m'))
-                ->count();
-
-            $tot = Order::where('status', 4)
-                ->whereYear('delivery_time', '=', $date->format('Y'))
-                ->whereMonth('delivery_time', '=', $date->format('m'))
-                ->get();
-            $days_tot2=[];
-            $tot->each(function($ord) use(&$days_tot2){
-                $days_tot2[] = $ord->total_price;
-            });
-            $days_total2[] = number_format(array_sum($days_tot2), 3);
+        if(isset($_GET['dt']) and $_GET['dt'] !=''){
+            $df = explode('T', $_GET['dt']);
+            $date_to = $df[0].' '.$df[1].':00';
+        } else{
+            $date_to = '2041-06-30 17:03:07';
         }
 
-        $tot = number_format(array_sum($days_total), 3);
-        $tord = array_sum($days_order);
+        $items = OrderProduct::whereHas('order', function($q){
 
-        $tot2 = number_format(array_sum($days_total2), 3);
-        $tord2 = array_sum($month_order);
+            $q->where('status', 4);
 
-        return view('report.SaleReport', compact('days', 'tot', 'tord', 'tot2', 'tord2', 'days_order', 'days_total', 'month', 'month_order', 'days_total2', 'ta1', 'ta2', 'de1', 'de2', 'di1', 'di2'));
+            if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+                
+                $q->where('branch_id', $_GET['branch_id']);
+            }
+            
+            if(isset($_GET['menutype_id']) and $_GET['menutype_id'] != 'All'){
+
+                $q->where('menutype_id', $_GET['menutype_id']);
+            }
+        })
+        ->whereHas('categories', function($q){
+            if(isset($_GET['menucat_id']) and $_GET['menucat_id'] != 'All'){
+
+                $q->where('categories.id', $_GET['menucat_id']);
+            }
+        })
+        ->where('updated_at', '>=', $date_from)
+        ->where('updated_at', '<=', $date_to)
+        ->groupBy('product_id')
+        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
+        ->get();
+
+        return view('report.SaleReport', compact('items'));
     }
+
+    public function salef(){
+
+        if(isset($_GET['df']) and $_GET['df'] !=''){
+            $df = explode('T', $_GET['df']);
+            $date_from = $df[0].' '.$df[1].':00';
+        } else{
+            $date_from = '2011-06-30 17:03:07';
+        }
+
+        if(isset($_GET['dt']) and $_GET['dt'] !=''){
+            $df = explode('T', $_GET['dt']);
+            $date_to = $df[0].' '.$df[1].':00';
+        } else{
+            $date_to = '2041-06-30 17:03:07';
+        }
+
+        if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+
+            $items = OrderProduct::whereHas('order', function($q){
+                $q->where('status', 4)->where('branch_id', $_GET['branch_id']);
+            })
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
+            ->groupBy('product_id')
+            ->orderBy('quantity')
+            ->get();
+
+        } else {
+
+            $items = OrderProduct::whereHas('order', function($q){
+                $q->where('status', 4);
+            })
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
+            ->groupBy('product_id')
+            ->orderBy('quantity')
+            ->get();
+        }
+        return view('report.SaleReportF', compact('items'));
+    }
+
+    public function sales(){
+
+        if(isset($_GET['df']) and $_GET['df'] !=''){
+            $df = explode('T', $_GET['df']);
+            $date_from = $df[0].' '.$df[1].':00';
+        } else{
+            $date_from = '2011-06-30 17:03:07';
+        }
+
+        if(isset($_GET['dt']) and $_GET['dt'] !=''){
+            $df = explode('T', $_GET['dt']);
+            $date_to = $df[0].' '.$df[1].':00';
+        } else{
+            $date_to = '2041-06-30 17:03:07';
+        }
+
+        if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+
+            $items = OrderProduct::whereHas('order', function($q){
+                $q->where('status', 4)->where('branch_id', $_GET['branch_id']);
+            })
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
+            ->groupBy('product_id')
+            ->orderBy('quantity')
+            ->get();
+
+        } else {
+
+            $items = OrderProduct::whereHas('order', function($q){
+                $q->where('status', 4);
+            })
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
+            ->groupBy('product_id')
+            ->orderBy('quantity')
+            ->get();
+        }
+        return view('report.SaleReportS', compact('items'));
+    }
+
+
+    //sale index
+    public function saleMem(){
+
+        if(isset($_GET['df']) and $_GET['df'] !=''){
+            $df = explode('T', $_GET['df']);
+            $date_from = $df[0].' '.$df[1].':00';
+        } else{
+            $date_from = '2011-06-30 17:03:07';
+        }
+
+        if(isset($_GET['dt']) and $_GET['dt'] !=''){
+            $df = explode('T', $_GET['dt']);
+            $date_to = $df[0].' '.$df[1].':00';
+        } else{
+            $date_to = '2041-06-30 17:03:07';
+        }
+
+        if(isset($_GET['user_id']) and $_GET['user_id'] != 'All'){
+
+            $items = Order::where('status', 4)
+            ->where('user_id', $_GET['user_id'])
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('user_id', DB::raw('count(*) as totbill'))
+            ->groupBy('user_id')
+            ->get();
+
+        } else {
+
+            $items = Order::where('status', 4)
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('user_id', DB::raw('count(*) as totbill'))
+            ->groupBy('user_id')
+            ->get();
+        }
+        return view('report.SaleReportMem', compact('items'));
+    }
+
+    //sale index
+    public function saleUser(){
+
+        if(isset($_GET['df']) and $_GET['df'] !=''){
+            $df = explode('T', $_GET['df']);
+            $date_from = $df[0].' '.$df[1].':00';
+        } else{
+            $date_from = '2011-06-30 17:03:07';
+        }
+
+        if(isset($_GET['dt']) and $_GET['dt'] !=''){
+            $df = explode('T', $_GET['dt']);
+            $date_to = $df[0].' '.$df[1].':00';
+        } else{
+            $date_to = '2041-06-30 17:03:07';
+        }
+
+        if(isset($_GET['user_id']) and $_GET['user_id'] != 'All'){
+
+            $items = Order::where('status', 4)
+            ->where('reqfrom', $_GET['req_id'])
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('reqfrom', DB::raw('count(*) as totbill'))
+            ->groupBy('reqfrom')
+            ->get();
+
+        } else {
+
+            $items = Order::where('status', 4)
+            ->where('updated_at', '>=', $date_from)
+            ->where('updated_at', '<=', $date_to)
+            ->select('reqfrom', DB::raw('count(*) as totbill'))
+            ->groupBy('reqfrom')
+            ->get();
+        }
+        return view('report.SaleReportUser', compact('items'));
+    }
+
+
+
 
     //sale search
     public function saleSearch(Request $request){

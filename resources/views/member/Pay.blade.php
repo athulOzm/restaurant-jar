@@ -47,26 +47,47 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+ 
+
 
     <div class="pull-right" style="height: 70vh;">
         <div class="card-body p-0">
             <div class="row">
+
+              
     
          
   
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Member Balance
+                            <h6 class="m-0 font-weight-bold text-primary">Member Pay
                                 
-                               
 
-                                
+                                <a  href="#" id="delete" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm mr-3"  style="float:right; "><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Pay Now</a>
                             
                             </h6> 
 
- 
+
                             
-    
+                                {{-- <form action="" method="GET">
+                                    <div class="row">
+                                    <div class="col-md-4 mt-2 " style="margin-left: -15px">
+                                        <select  class="form-control " name="payment_type" id="category_id">
+                                            <option value="">Filter by Payment Type</option>
+                                            <option @if ($pt == 1) selected @endif value="1">Card</option>
+                                            <option @if ($pt == 2) selected @endif value="2">Credit</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4 mt-2 " style="margin-left: -15px">
+                                        <input type="submit" value="Filter" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                </form> --}}
+
+                                Member Name : {{$user->name}}
+                            
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -74,58 +95,37 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                         
-                                            <th class="text-left text-blue-900">Mess ID</th>
+                                            <th class="text-left text-blue-900"><input type="checkbox" id="chk"></th>
+                                            <th class="text-left text-blue-900">Inv</th>
+                                            <th class="text-left text-blue-900">No</th>
+                                            <th class="text-left text-blue-900">Date</th>
+                                            <th class="text-left text-blue-900">Menu Type</th>
+                                      
+                                            <th class="text-left text-blue-900">Amount</th>
+                                           
+                                           
                                             
-                                            <th class="text-left text-blue-900">Full Name</th>
-                                             
-                                            <th class="text-left text-blue-900">Used Credit</th>
-                                            <th class="text-left text-blue-900">Balance Credit</th>
-
-                                         
-                                            <th class="text-left text-blue-900" width="130">Action</th>
                                         
     
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        @forelse ($members as $member)
+                                        @forelse ($orders as $order)
                                         <tr>
-                                       
-                                            <td>{{$member->memberid}}</td>
-                                           
-                                            <td>{{$member->name}} <span style="text-align: right">{{$member->ar_name}}</span></td>
-                                            <td>{{$member->getCreditAmount()}}</td>
-                                            <td>{{$member->getTotalCreditAttribute()}}</td>
+                                            <td> <input type="checkbox" id="del_{{$order->id}}" /></td>
+                                            <td>{{$order->branch->code}}{{$order->invoice->id}}</td>
+                                            <td>{{$order->id}}</td>
+                                            <td>{{$order->delivery_time}}</td>
 
-                                            <td>
+                                            <td>{{$order->menutype->name}}</td>
                                             
-                                                <a style="margin-left: 10px" href="{{route('member.pay', $member->id)}}" class="btn btn-primary btn-sm">
-                                                    Pay Now</a> 
-                                               
-                                                
-                                                </td>
-        
-                                            </tr>
+                                            <td>{{$order->amount}}</td>
+                                         
+                                        </tr>
+                                         
 
-                                          
-
-                                        {{-- <td>
-                                            
-                                            <button style="margin-left: 10px"  onclick="deleteCon('deb{{$member->id}}');" class="btn btn-primary btn-sm">
-                                                Pay Now</button> 
-                                            <form id="deb{{$member->id}}" method="POST" action="{{ route('member.debit') }}">
-
-                                                <input type="hidden" name="amount" value="{{$member->getCreditAmount()}}">
-                                                @csrf
-                                                @method('POST')
-                                                <input type="hidden" name="id" value="{{$member->id}}">
-                                            </form>
-                                            
-                                            </td>
-    
-                                        </tr> --}}
+                                     
                                         @empty
                                             <tr><td>No found</td></tr>
                                         @endforelse
@@ -166,14 +166,10 @@
 <div class="backDrop"></div>
 
 <div class="box scro" style="max-height: 90vh; padding-bottom:0">
-        <form action="{{route('member.renew')}}" method="POST">
+        <form id="rnw" action="{{route('member.pay.store')}}" method="POST">
             @csrf()
             @method('PATCH')
-    <p style="font-size: 13px">Payment Type</p>
-    <select required="" class="form-control " name="payment_type" id="paymenttype">  
-        <option value="1">Cash</option>
-        <option value="2">Card</option>
-    </select>
+    <input type="hidden" name="member_id" value="{{$user->id}}">
 
     <input type="hidden" name="id[]" id="memid" >
 
@@ -221,18 +217,17 @@ $('#delete').click(function(){
 
   if(post_arr.length <= 0){
 
-     var isDelete = confirm("Please choose Members");
+     var isDelete = confirm("Please choose Bills");
   }
 
 
 
   if(post_arr.length > 0){
 
-    $(".backDrop").animate({"opacity": ".80"}, 300);
-    $(".box").animate({"opacity": "1.0"}, 300);
-    $(".backDrop, .box").css("display", "block");
 
     $('#memid').val(post_arr);
+
+    $('#rnw').submit();
 
      // var isDelete = confirm("Do you really want to delete records?");
     //   if (isDelete == true) {

@@ -1,5 +1,5 @@
 <?php 
-$branches = resolve('branches');
+$members = resolve('members');
 $menutypes = resolve('menutypesforrep');
 $menucat = resolve('mcategories');
 ?>
@@ -14,28 +14,24 @@ $menucat = resolve('mcategories');
  
 
 <div class="container">
-    <h4 class="mb-3">Sales Report by Item</h4>
-    <form action="{{route('report.sale')}}" method="GET">
+    <h4 class="mb-3">Sales Report by User</h4>
+    <form action="{{route('report.saleuser')}}" method="GET">
       
     <div class="row py-3" style="margin: 0; background:white; border-radius:6px">
 
-        <div class="form-group col-md-4">
-            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
-                Branches:
+        <div class="col-md-4">
+            <label for="req_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                User:
             </label>
-                <select required class="form-control w-full border-gray-400" name="branch_id">
-                <option value="All">All Branches</option>
+            <select name="ord_source" class="form-control  selectpicker" data-live-search="true" style="background: #fff">
 
-                    @foreach ($branches as $item)
-                        @if (isset($_GET['branch_id']) and $item->id == $_GET['branch_id'])
-                        <option selected value="{{$item->id}}">{{$item->full_name}}</option>
-                        @else
-                        <option value="{{$item->id}}">{{$item->full_name}}</option>
-                        @endif
-                    @endforeach
-                </select>
+                <option value="All">All Source</option>
+                <option value="1">Admin</option>
+                <option value="2">Apps</option>
+                <option value="3">Tablet</option>
+
+            </select>
         </div>
-
         <div class="form-group col-md-4">
             <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                 Menu Type:
@@ -63,14 +59,13 @@ $menucat = resolve('mcategories');
 
                     @foreach ($menucat as $item)
                         @if (isset($_GET['menucat_id']) and $item->id == $_GET['menucat_id'])
-                        <option selected value="{{$item->id}}">{{$item->name}}</option>
+                        <option selected value="{{$item->id}}">{{$item->full_name}}</option>
                         @else
                         <option value="{{$item->id}}">{{$item->name}}</option>
                         @endif
                     @endforeach
                 </select>
         </div>
-
         <div class="form-group col-md-4">
             <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                 Date From:
@@ -114,21 +109,20 @@ $menucat = resolve('mcategories');
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                            <th width="30">Item</th>
-                            <th width="30">Sold Qty</th>
-                            <th width="30">Sold Amount</th>
-                            <th width="30">Promotion Amount</th>
+                            <th width="30">User</th>
+                            <th width="30">Bill Count</th>
+                            <th width="30">Sales</th>
                             {{-- <th width="30">In Stock</th> --}}
                             </tr>
                         </thead>
 
                         <tbody>
                         @foreach($items as $item)
+                        
                             <tr>
-                                <th width="30">{{$item->product->name}}</th>
-                                <th width="30">{{$item->quantity_sum}}</th>
-                                <th width="30">{{$item->price_sum}}</th>
-                                <th width="30">{{$item->promotion_sum}}</th>
+                                <th width="30">Admin</th>
+                                <th width="30">{{$item->totbill}}</th>
+                                <th width="30">RO : 243.000</th>
                             </tr>
                         @endforeach
                         </tbody>

@@ -36,6 +36,24 @@ class OrderProduct extends Model
         return $this->belongsTo(Product::class);
     }
 
+    //categories
+    public function categories(){
+
+        return $this->belongsToMany(
+            Category::class,
+            'category_product',
+            'product_id',
+            'category_id',
+            'product_id',
+            'id'
+        );
+    }
+
+    public function order(){
+
+        return $this->belongsTo(Order::class);
+    }
+
     public function getAddonTotalAttribute()
     {
         $tprice = [];

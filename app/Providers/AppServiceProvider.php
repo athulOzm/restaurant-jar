@@ -58,6 +58,11 @@ class AppServiceProvider extends ServiceProvider
             })->where('id', '!=', 1)->get();
         });
 
+        app()->bind('menutypesforrep', function(){
+
+            return Menutype::where('id', '!=', 1)->get();
+        });
+
         app()->bind('mcategories', function(){
 
             return Category::where('parant_id', null)->get();
