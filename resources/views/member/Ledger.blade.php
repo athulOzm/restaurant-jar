@@ -40,6 +40,7 @@
                                             <th class="text-left text-blue-900">Rank</th>
                                             
                                             <th class="text-left text-blue-900">Balance Amount</th>
+                                            <th width="200" class="text-left text-blue-900">Action</th>
                                           
                                         
     
@@ -60,6 +61,10 @@
                                                 @endif
                                                 </td>
                                             <td>{{$member->getCreditAmount()}}</td>
+                                            <td>
+                                                <a target="_blank"  style="font-size: 11px" href="" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+                        <a target="_blank"  style="font-size: 11px" href="" class="btn btn-info"> <i class="fas fa-print"></i> Print</a>
+                                            </td>
  
     
                                         </tr>
