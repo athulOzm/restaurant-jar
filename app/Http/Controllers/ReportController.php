@@ -75,30 +75,32 @@ class ReportController extends Controller
             $date_to = '2041-06-30 17:03:07';
         }
 
-        if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+        $items = OrderProduct::whereHas('order', function($q){
 
-            $items = OrderProduct::whereHas('order', function($q){
-                $q->where('status', 4)->where('branch_id', $_GET['branch_id']);
-            })
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
-            ->groupBy('product_id')
-            ->orderBy('quantity')
-            ->get();
+            $q->where('status', 4);
 
-        } else {
+            if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+                
+                $q->where('branch_id', $_GET['branch_id']);
+            }
+            
+            if(isset($_GET['menutype_id']) and $_GET['menutype_id'] != 'All'){
 
-            $items = OrderProduct::whereHas('order', function($q){
-                $q->where('status', 4);
-            })
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
-            ->groupBy('product_id')
-            ->orderBy('quantity')
-            ->get();
-        }
+                $q->where('menutype_id', $_GET['menutype_id']);
+            }
+        })
+        ->whereHas('categories', function($q){
+            if(isset($_GET['menucat_id']) and $_GET['menucat_id'] != 'All'){
+
+                $q->where('categories.id', $_GET['menucat_id']);
+            }
+        })
+        ->where('updated_at', '>=', $date_from)
+        ->where('updated_at', '<=', $date_to)
+        ->groupBy('product_id')
+        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
+        ->get();
+
         return view('report.SaleReportF', compact('items'));
     }
 
@@ -118,30 +120,32 @@ class ReportController extends Controller
             $date_to = '2041-06-30 17:03:07';
         }
 
-        if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+        $items = OrderProduct::whereHas('order', function($q){
 
-            $items = OrderProduct::whereHas('order', function($q){
-                $q->where('status', 4)->where('branch_id', $_GET['branch_id']);
-            })
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
-            ->groupBy('product_id')
-            ->orderBy('quantity')
-            ->get();
+            $q->where('status', 4);
 
-        } else {
+            if(isset($_GET['branch_id']) and $_GET['branch_id'] != 'All'){
+                
+                $q->where('branch_id', $_GET['branch_id']);
+            }
+            
+            if(isset($_GET['menutype_id']) and $_GET['menutype_id'] != 'All'){
 
-            $items = OrderProduct::whereHas('order', function($q){
-                $q->where('status', 4);
-            })
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('product_id', DB::raw('quantity, price, count(*) as totalll'))
-            ->groupBy('product_id')
-            ->orderBy('quantity')
-            ->get();
-        }
+                $q->where('menutype_id', $_GET['menutype_id']);
+            }
+        })
+        ->whereHas('categories', function($q){
+            if(isset($_GET['menucat_id']) and $_GET['menucat_id'] != 'All'){
+
+                $q->where('categories.id', $_GET['menucat_id']);
+            }
+        })
+        ->where('updated_at', '>=', $date_from)
+        ->where('updated_at', '<=', $date_to)
+        ->groupBy('product_id')
+        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
+        ->get();
+
         return view('report.SaleReportS', compact('items'));
     }
 
@@ -163,25 +167,27 @@ class ReportController extends Controller
             $date_to = '2041-06-30 17:03:07';
         }
 
-        if(isset($_GET['user_id']) and $_GET['user_id'] != 'All'){
+        $items = Order::where(function($q){
 
-            $items = Order::where('status', 4)
-            ->where('user_id', $_GET['user_id'])
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('user_id', DB::raw('count(*) as totbill'))
-            ->groupBy('user_id')
-            ->get();
+            $q->where('status', 4);
 
-        } else {
+            if(isset($_GET['user_id']) and $_GET['user_id'] != 'All'){
+                
+                $q->where('user_id', $_GET['user_id']);
+            }
+            
+            if(isset($_GET['menutype_id']) and $_GET['menutype_id'] != 'All'){
 
-            $items = Order::where('status', 4)
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('user_id', DB::raw('count(*) as totbill'))
-            ->groupBy('user_id')
-            ->get();
-        }
+                $q->where('menutype_id', $_GET['menutype_id']);
+            }
+        })
+        ->where('updated_at', '>=', $date_from)
+        ->where('updated_at', '<=', $date_to)
+        ->groupBy('user_id')
+        ->select('*', DB::raw('count(id) as bill_sum, sum(amount) as amount_sum'))
+        ->get();
+
+   
         return view('report.SaleReportMem', compact('items'));
     }
 
@@ -202,25 +208,26 @@ class ReportController extends Controller
             $date_to = '2041-06-30 17:03:07';
         }
 
-        if(isset($_GET['user_id']) and $_GET['user_id'] != 'All'){
+        $items = Order::where(function($q){
 
-            $items = Order::where('status', 4)
-            ->where('reqfrom', $_GET['req_id'])
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('reqfrom', DB::raw('count(*) as totbill'))
-            ->groupBy('reqfrom')
-            ->get();
+            $q->where('status', 4);
 
-        } else {
+            if(isset($_GET['ord_source']) and $_GET['ord_source'] != 'All'){
+                
+                $q->where('reqfrom', $_GET['ord_source']);
+            }
+            
+            if(isset($_GET['menutype_id']) and $_GET['menutype_id'] != 'All'){
 
-            $items = Order::where('status', 4)
-            ->where('updated_at', '>=', $date_from)
-            ->where('updated_at', '<=', $date_to)
-            ->select('reqfrom', DB::raw('count(*) as totbill'))
-            ->groupBy('reqfrom')
-            ->get();
-        }
+                $q->where('menutype_id', $_GET['menutype_id']);
+            }
+        })
+        ->where('updated_at', '>=', $date_from)
+        ->where('updated_at', '<=', $date_to)
+        ->groupBy('reqfrom')
+        ->select('*', DB::raw('count(id) as bill_sum, sum(amount) as amount_sum'))
+        ->get();
+
         return view('report.SaleReportUser', compact('items'));
     }
 

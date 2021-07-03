@@ -120,9 +120,20 @@ $menucat = resolve('mcategories');
                         @foreach($items as $item)
                         
                             <tr>
-                                <th width="30">Admin</th>
-                                <th width="30">{{$item->totbill}}</th>
-                                <th width="30">RO : 243.000</th>
+                                <th width="30">@switch($item->reqfrom)
+                                    @case(1)
+                                        Admin
+                                        @break
+
+                                    @case(3)
+                                        Tablet
+                                        @break
+                                
+                                    @default
+                                        Apps
+                                @endswitch</th>
+                                <th width="30">{{$item->bill_sum}}</th>
+                                <th width="30">{{$item->amount_sum}}</th>
                             </tr>
                         @endforeach
                         </tbody>

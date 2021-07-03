@@ -109,7 +109,7 @@ $menucat = resolve('mcategories');
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dtable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                             <th width="30">Item</th>
@@ -143,174 +143,17 @@ $menucat = resolve('mcategories');
   
 
 </div>
-{{-- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-var DEFAULT_DATASET_SIZE = 3,
-    addedCount = 0,
-    color = Chart.helpers.color;
-var chartColors = {
-    red: 'rgb(255, 99, 132)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 205, 86)',
-    green: 'rgb(75, 192, 192)',
-    blue: 'rgb(54, 162, 235)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(231,233,237)'
-};
-
-function randomScalingFactor() {
-    return Math.round(Math.random() * 960);
-}
-
-//var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-var barData = {
-    labels: @json($month),
-    datasets: [{
-        label: 'Total Order',
-        backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-        borderColor: chartColors.red,
-        borderWidth: 1,
-        data: @json($month_order)
-    }, {
-        label: 'Total Amount',
-        backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-        borderColor: chartColors.blue,
-        borderWidth: 1,
-        data: @json($days_total2)
-    }]
-};
-
-var index = 11;
-var ctx = document.getElementById("barChart").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'bar',
-    data: barData,
-    options: {
-        responsive: false,
-        maintainAspectRation: false,
-        legend: {
-            position: 'top',
-        },
-        title: {
-            display: true,
-            text: 'Bar Chart'
-        },
-        
-    }
-});
-
-
  
-var barData2 = {
-    labels: @json($days),
-    datasets: [{
-        label: 'Total Orders',
-        backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-        borderColor: chartColors.red,
-        borderWidth: 1,
-        data: @json($days_order)
-    }, {
-        label: 'Total Amount',
-        backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-        borderColor: chartColors.blue,
-        borderWidth: 1,
-        data: @json($days_total)
-    }]
-};
-
-var index = 11;
-var ctx = document.getElementById("barChartmonth").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'bar',
-    data: barData2,
-    options: {
-        responsive: true,
-        maintainAspectRation: true,
-        legend: {
-            position: 'top',
-        },
-        title: {
-            display: true,
-            text: 'Bar Chart'
-        },
-        
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-const data = {
-  labels: [
-    'Take Away',
-    'Dinein',
-    'Delivery'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [{{$ta1}}, {{$di1}}, {{$de1}}],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(75, 192, 192)',
-      'rgb(255, 205, 86)',
-      'rgb(201, 203, 207)',
-      'rgb(54, 162, 235)'
-    ]
-  }]
-};
-
-const data2 = {
-  labels: [
-    'Take Away',
-    'Dinein',
-    'Delivery'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [{{$ta2}}, {{$di2}}, {{$de2}}],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(75, 192, 192)',
-      'rgb(255, 205, 86)',
-      'rgb(201, 203, 207)',
-      'rgb(54, 162, 235)'
-    ]
-  }]
-};
-
-var index = 11;
-var ctx = document.getElementById("cer1").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'polarArea',
-  data: data,
-  options: {}
-});
-
- 
-var index = 11;
-var ctx = document.getElementById("cer2").getContext("2d");
-var	myNewChartB = new Chart(ctx, {
-    type: 'polarArea',
-  data: data2,
-  options: {}
-});
-</script> --}}
-
- 
- 
-
-
 @endsection
 
 
-
+@section('script')
+<script>
+$(document).ready(function() {
+    $('#dtable').dataTable( {
+        "aaSorting": [[ 1, "desc" ]]
+    } );
+} );
+</script>
+@endsection
 
