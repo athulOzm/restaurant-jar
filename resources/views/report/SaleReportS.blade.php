@@ -122,9 +122,10 @@ $menucat = resolve('mcategories');
                         <tbody>
                         @foreach($items as $item)
                             <tr>
-                                <th width="30">{{$item->product->name}}</th>
-                                <th width="30">{{$item->quantity}}</th>
-                                <th width="30">RO : {{number_format($item->price * $item->quantity, 3)}}</th>
+                                <th width="30">{{$item->product->name}}<p style="float: right; margin-bottom:0">{{$item->product->name_ar}}</p></th>
+                                <th width="30">{{$item->quantity_sum}}</th>
+                                <th width="30">{{$item->price_sum}}</th>
+                                
                             </tr>
                         @endforeach
                         </tbody>
