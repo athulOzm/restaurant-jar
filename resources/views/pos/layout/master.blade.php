@@ -633,7 +633,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 400;
     background: #1a1f32;
     padding: 5px 0;
-    border-top: 1px solid #363e54;
+    border-top: 1px solid #363e54; white-space: nowrap
 }
 
 .btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {

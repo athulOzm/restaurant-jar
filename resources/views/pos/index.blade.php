@@ -1484,7 +1484,7 @@ const getTables = (memberid) => {
               $('#cart').empty();
 
               $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
-                <div class="col-sm-1 " style="padding-left:25px">N</div>
+                <div class="col-sm-1 " style="padding-left:25px">No</div>
                 <div class="col-sm-2 p0">Item Name</div>
                 <div class="col-sm-2 ">Quantity</div>
                 <div class="col-sm-1 p0">Unit Price</div>
