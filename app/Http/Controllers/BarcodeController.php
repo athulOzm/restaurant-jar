@@ -9,7 +9,7 @@ class BarcodeController extends Controller
 {
     public function index()
     {
-        return view('barcode.index', ['menus' => Product::where('status', 1)->get()]);
+        return view('barcode.Index', ['menus' => Product::where('status', 1)->get()]);
     }
 
     public function code(Request $request)
