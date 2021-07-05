@@ -206,7 +206,7 @@ $locations = resolve('locations');
                         <a target="_blank" href="{{route('pos.print', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Print</a>
                         <a onclick="deleteCon('ss{{$order->id}}');" href="#" class="btn btn-info"> <i class="fas fa-clone"></i> Refined</a>
                     
-                        <form id="ss{{$order->id}}" action="http://mess.link/pos/gettoken" method="post">
+                        <form id="ss{{$order->id}}" action="/pos/gettoken" method="post">
                             @csrf
                             @method('POST')
                             <input type="hidden" name="token_id" value="{{$order->id}}">
