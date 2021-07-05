@@ -147,8 +147,8 @@ label {
             <div id="pt">
               <div class="bgh p0">
               <div class="flex">
-              <label class="box3"><input type="radio" onclick="getDelTime()" required="" @if($cur_token->payment_type_id == 1) checked @endif name="pt" value="1"> <b class="lab1a">Card</b></label>
-              <label class="box3"  style="margin-right: 0"><input type="radio" onclick="getDelTime()" id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
+              <label class="box3"><input type="radio"  required="" @if($cur_token->payment_type_id == 1) checked @endif name="pt" value="1"> <b class="lab1a">Card</b></label>
+              <label class="box3"  style="margin-right: 0"><input type="radio"  id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
               </div></div>
             </div>
 
@@ -166,9 +166,9 @@ label {
          
               <div id="delivery">
                 <div class=" flex">
-                <label class="box3"><input type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
-                <label class="box3"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
-                <label class="box3" style="margin-right: 0"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('@if($cur_token->user){{$cur_token->user->memberid}}@endif')"> <b class="lab1a">Delivery</b></label>
+                <label class="box3"><input @if($cur_token->delivery_type == 'Take away') checked @endif type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
+                <label class="box3"><input @if($cur_token->delivery_type == 'Dinein') checked @endif type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
+                <label class="box3" style="margin-right: 0"><input @if($cur_token->delivery_type == 'Delivery') checked @endif type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('@if($cur_token->user){{$cur_token->user->memberid}}@endif')"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
           
@@ -642,7 +642,7 @@ $('#sermenus').keyup(function(){
             "_token": token,
         },
         success: function(res){
-          $('#crepay').prop('checked', false);
+         // $('#crepay').prop('checked', false);
           $('#sermenus').val(null);
           getOrders();
         }
@@ -658,7 +658,7 @@ $('#sermenus').keyup(function(){
             "_token": token,
         },
         success: function(res){
-          $('#crepay').prop('checked', false);
+         // $('#crepay').prop('checked', false);
           $('#sermenus').val(null);
           getOrders();
         }
@@ -935,11 +935,11 @@ $(document).ready(() => {
   });
 
   //lightbox 
-  $("#pay2").on("click", function(){
-    $(".backDrop").animate({"opacity": ".80"}, 300);
-    $(".boxordersource").animate({"opacity": "1.0"}, 300);
-    $(".backDrop, .boxordersource").css("display", "block");
-  });
+  // $("#pay2").on("click", function(){
+  //   $(".backDrop").animate({"opacity": ".80"}, 300);
+  //   $(".boxordersource").animate({"opacity": "1.0"}, 300);
+  //   $(".backDrop, .boxordersource").css("display", "block");
+  // });
 
   $(".close, .backDrop").on("click", function(){
     closeBox();
@@ -1365,22 +1365,22 @@ const getlimitbydate = () => {
               case 1:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></label></div>
+                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  type="radio"  required name="pt" value="1"> <b class="lab1a">Card</b></label></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></label></div></div>`);
+                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  id="crepay" type="radio"  required name="pt" value="2"> <b class="lab1a">Credit</b></label></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
                   <div class="flex">
-                  <label class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></label>
-                  <label class="box3 checkbx"  style="margin-right: 0"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  <label class="box3"><input type="radio"  required name="pt" value="1"> <b class="lab1a">Card</b></label>
+                  <label class="box3 checkbx"  style="margin-right: 0"><input type="radio"  id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </label></div>`);
                  break;
              }
@@ -1677,7 +1677,7 @@ const updqty = (cart_item) =>  {
             // if(res[0] != ''){
             //   cartcontinuebymid(res[0]);
             // }
-            $('#crepay').prop('checked', false);
+           // $('#crepay').prop('checked', false);
             getOrders();
           }
       });
@@ -1858,36 +1858,69 @@ const getDeliverylocations = (memberid) => {
     
 }
 
-const getDelTime = () => {
 
-//alert('asdf');
+$('#mform').on('submit', function() {
 
-    var avcre = $('#subtotal2').val();
-    var ccre = $('#totcre').val();
-    $('#vallimit').empty();
+  if($('#reqtype').val() == 'hold'){
+  return true;
+  }
 
-//     var a='1,125'
-// a=a.replace(/\,/g,'')
-// a=Number(a)
+  if($("input[name='pt']:checked").val() == 1){
+  return true;
+  }
 
-ccre = ccre.replace(/\,/g,'');
-ccre = Number(ccre);
-avcre = Number(avcre);
+  
+
+  var avcre = $('#subtotal2').val();
+  var ccre = $('#totcre2').val();
+  $('#vallimit').empty();
+
+  //console.log(ccre);
 
 
-    if(Math.floor(avcre) < Math.floor(ccre)){
+  ccre = ccre.replace(/\,/g,'');
+  ccre = ccre.replace(',', '');
+  ccre = Number(ccre);
+  avcre = Number(avcre);
 
-    
-    } else{
-      $('#crepay').prop('checked', false);
-      $('#vallimit').append('Credit Limit Exced!');
-    }
-    //alert(avcre);
-    // $('#dtime').append(`<div class="bgh2"><b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb"></div>`);
+  //console.log(ccre);
 
-    // $("#ctime").val(new Date().toJSON().slice(0,19));
+  if(Math.floor(avcre) < Math.floor(ccre)){
+    return true;
+  
+  } else{
+   // $('#crepay').prop('checked', false);
+    $('#vallimit').append('Credit Limit Exced!');
+    alert('Credit Limit Exced');
+    return false;
+  }
 
-}
+
+});
+
+// const getDelTime = () => {
+
+//   console.log($('#reqtype').val());
+
+ 
+
+//   var avcre = $('#subtotal2').val();
+//   var ccre = $('#totcre').val();
+//   $('#vallimit').empty();
+
+//   ccre = ccre.replace(/\,/g,'');
+//   ccre = Number(ccre);
+//   avcre = Number(avcre);
+
+//   if(Math.floor(avcre) < Math.floor(ccre)){
+//     return true;
+  
+//   } else{
+//     $('#crepay').prop('checked', false);
+//     $('#vallimit').append('Credit Limit Exced!');
+//     return false;
+//   }
+// }
  
 
  

@@ -16,16 +16,32 @@ class Menutype extends Model
 
     public function categories(){
 
-        $products =  $this->belongsToMany(Product::class)->with('categories');
+        $products =  $this->products()->with('categories');
 
         $cat = [];
 
         $products->each(function($product) use(&$cat){
+ 
+
+            $product->categories()->each(function($ca) use(&$cat){
+                //dd($cat);
+                $cat[] = $ca;
             
-            $cat[] = $product->category;
+            });
+
+
+            
+            
         });
 
+     
+
+
         $collection = collect($cat);
+
+        
+
+        
 
         $collection = $collection->filter(function ($value) { return !is_null($value); });
 
