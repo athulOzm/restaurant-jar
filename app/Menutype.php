@@ -45,7 +45,12 @@ class Menutype extends Model
 
         $collection = $collection->filter(function ($value) { return !is_null($value); });
 
-        return $collection->unique();
+        
+        $ddd = (new \Illuminate\Database\Eloquent\Collection($collection))->unique();
+
+        return $ddd;
+
+       // return $collection->unique();
 
     }
  
