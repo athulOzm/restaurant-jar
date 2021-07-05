@@ -1,77 +1,65 @@
-<?php 
-$saleslog = resolve('saleslog');
- 
-?>
- 
- 
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable5" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+               
 
 
+                <th width="30">Member ID</th>
+                <th width="30">Receipt Id</th>
+                <th width="30">User</th>
+                <th width="30">Order Source</th>
+                
 
+                <th width="30">Total Amount</th>
+             
+
+                <th width="230">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach($orders as $order)
+
+                @if ($order->reqfrom == 3)
+                <tr>
+                         
+                    <td>@if ($order->user)
+                        {{$order->user->memberid}}
+                    @endif</td>
+                    <td>{{$order->id}}</td>
+                   
+                    <td>@if ($order->user)
+                        {{$order->user->name}}
+                    @endif</td>
+                    <td>{{$order->getReqByAttribute()}}</td>
+                    <td>{{$order->gettotalprice()['subtotal']}}</td>
+                   
     
- 
-
-
-<div class="col-md-12">
-    <div class="card mb-12" style="width:100%">
-     
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bsaleed" id="dataTablea3" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                       
-
-
-                        
-                            <th>Id</th>
-                            <th>Receipt No</th>
-                            <th>Member ID</th>
-                            <th>Date</th>
-                            <th>TOTAL</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    @foreach($saleslog->ordersPosted()->where('reqfrom', 3)->take(50)->get() as $sale)
-                        <tr>
-                            <td>{{$sale->id}}</td>
-                            <td>RE-{{$sale->id}}</td>
-                            <td>@if ($sale->user)
-                                {{$sale->user->memberid}}
-                            @endif</td>
-                            <td>{{$sale->updated_at}}</td>
-                      
-                            
-                            <td>{{$sale->gettotalprice()['subtotal']}}</td>
-                           
-                           
-                            
-
-                            
-                    <td>
-                        <a target="_blank" href="{{route('pos.view', $sale->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
-                        <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
-                        <a href="{{route('pos.clone', $sale->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a>
-                        <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit</a>
-
-                        {{-- <a onclick="deleteCon('delfrm{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
-                        <form id="delfrm{{$sale->id}}" action="" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="id" value="{{$sale->id}}">
-                        </form> --}}
-
-                    </td>
-                        
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    
+            <th style="font-size: 9px">
+                <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
+    {{-- <a target="_blank" href="{{route('pos.print.order', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a> --}}
+    <a href="{{route('pos.update', $order->id)}}" class="btn btn-success btn-sm"> <i class="fas fa-clone"></i> Confirm & Pay</a>
+    <a href="{{route('pos.update', $order->id)}}" class="btn btn-warning btn-sm"> <i class="fas fa-pen-square"></i> Edit</a>
+    <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
+    
+    
+                <a onclick="deleteCon('delfrmt{{$order->id}}');" class="btn btn-sm btn-danger "><i class="fas fa-trash"></i> Cancel</a>
+                
+                <form id="delfrmt{{$order->id}}" action="{{route('order.destroy')}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" name="id" value="{{$order->id}}">
+                </form>
+    
+            </th>
+                
+                </tr>
+                @endif
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
-
-
-

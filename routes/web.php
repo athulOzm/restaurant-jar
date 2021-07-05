@@ -177,12 +177,15 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/pos/creditstatus2/{user}', 'PosController@memberstatus2');
     Route::get('pos/getmenus', 'PosController@getmenus');
     Route::get('pos/print/{coupon}', 'PosController@getprint')->name('pos.print');
+    Route::get('pos/print2/{coupon}', 'PosController@getprint2')->name('pos.print2');
     Route::get('pos/printorder/{coupon}', 'PosController@getprintorder')->name('pos.print.order');
     Route::get('pos/printa4/{coupon}', 'PosController@getprintA4')->name('pos.print.a4');
     Route::get('pos/update/{order}', 'PosController@update')->name('pos.update');
     Route::get('pos/view/{coupon}', 'PosController@getview')->name('pos.view');
     Route::get('pos/clone/{order}', 'PosController@clone')->name('pos.clone');
     Route::get('pos/refundprint/{coupon}', 'PosController@getprintrefund')->name('pos.refundprint');
+    Route::patch('/pos/order/pay', 'PosController@ordPay')->name('pos.order.pay');
+
 
     //branch
     Route::post('/switchbranch', 'UserController@switchBranch');

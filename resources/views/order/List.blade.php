@@ -10,10 +10,48 @@ $locations = resolve('locations');
 @section('content')
 
 
-
-
 <style>
 
+    .box{
+     border: 2px solid #237ef7;
+      
+      display: none;
+     
+      left: 50%;
+      margin-left: -200px;
+      opacity: 0;
+      position: fixed;
+      top: 4%;
+      z-index: 51; width: 400px;
+      
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;  overflow-y: scroll;
+      background: #ffffff;
+        padding: 20px; height: auto; padding-bottom: 20px;
+    }
+    
+    .backDrop{
+      background-color: #000;
+      display: none;
+      filter: alpha(opacity=0);
+      height: 100%;
+      left: 0px;
+      opacity: .0;
+      position: fixed;
+      top: 0px;
+      width: 100%;
+      z-index: 50;
+    }
+    
+    </style>
+
+<style>
+.nav-pills {
+    border-top: 2px solid #f5f6fa;
+    border-radius: 0;
+    background: #f5f6fa;
+}
 .btn-info {
     color: #fff;
     background-color: #36b9cc;
@@ -100,7 +138,7 @@ $locations = resolve('locations');
                                     <p class="la">
                                         Payment Type:
                                     </p>
-                                    <select  class="form-control " name="payment_type_id" id="paymenttype">
+                                    <select  class="form-control " name="payment_type_id">
                                         <option value="All">All</option>
                                         <option @if (isset($_GET['payment_type_id']) and $_GET['payment_type_id'] == 1) selected @endif value="1">Card</option>
                                         <option @if (isset($_GET['payment_type_id']) and $_GET['payment_type_id'] == 2) selected @endif value="2">Credit</option>         
@@ -111,7 +149,7 @@ $locations = resolve('locations');
                                     <p class="la">
                                         Delivery Type:
                                     </p>
-                                    <select  class="form-control " name="delivery_type" id="paymenttype">
+                                    <select  class="form-control " name="delivery_type">
                                         <option value="All">All</option>
                                             <option @if (isset($_GET['delivery_type']) and $_GET['delivery_type'] == 'Dinein') selected @endif value="Dinein">Dinein</option>
                                             <option @if (isset($_GET['delivery_type']) and $_GET['delivery_type'] == 'Take away') selected @endif value="Take away">Takeaway</option>
@@ -138,7 +176,7 @@ $locations = resolve('locations');
                                 </div>
 
 
-                                <div class="col-md-3 mt-2">
+                                {{-- <div class="col-md-3 mt-2">
                                     <p class="la">Order Source</p>
                                     <select name="ord_source" class="form-control  selectpicker" data-live-search="true" style="background: #fff">
 
@@ -148,10 +186,10 @@ $locations = resolve('locations');
                                         <option value="3">Tablet</option>
 
                                     </select>
-                                </div>
+                                </div> --}}
 
 
-                                <div class="form-group col-md-12 mt-2">
+                                <div class="form-group col-md-3 mt-4">
                                     <button class="btn btn-primary btnc2 pull-right" style="float: right; font-size:11px; margin-top:5px" id="pay" type="submit">View Order Lists <i class="fas fa-arrow-right"></i></button>
                                 </div>
 
@@ -163,72 +201,115 @@ $locations = resolve('locations');
                         
 
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                   
 
 
-                                    <th width="30">Member ID</th>
-                                    <th width="30">Receipt Id</th>
-                                    <th width="30">User</th>
-                                    <th width="30">Order Source</th>
-                                    
-
-                                    <th width="30">Total Amount</th>
-                                 
- 
-                                    <th width="230">Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                @foreach($orders as $order)
-                                    <tr>
-                                         
-                                        <td>@if ($order->user)
-                                            {{$order->user->memberid}}
-                                        @endif</td>
-                                        <td>{{$order->id}}</td>
-                                       
-                                        <td>@if ($order->user)
-                                            {{$order->user->name}}
-                                        @endif</td>
-                                        <td>{{$order->getReqByAttribute()}}</td>
-                                        <td>{{$order->gettotalprice()['subtotal']}}</td>
-                                       
- 
-                                        
-                                <th style="font-size: 9px">
-                                    <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
-                        {{-- <a target="_blank" href="{{route('pos.print.order', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a> --}}
-                        <a href="{{route('pos.update', $order->id)}}" class="btn btn-success btn-sm"> <i class="fas fa-clone"></i> Confirm & Pay</a>
-                        <a href="{{route('pos.update', $order->id)}}" class="btn btn-warning btn-sm"> <i class="fas fa-pen-square"></i> Edit</a>
-                        <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
+                    @include('pos.partials.ResourceLog')
 
 
-                                    <a onclick="deleteCon('delfrm{{$order->id}}');" class="btn btn-sm btn-danger "><i class="fas fa-trash"></i> Cancel</a>
-                                    
-                                    <form id="delfrm{{$order->id}}" action="{{route('order.destroy')}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="id" value="{{$order->id}}">
-                                    </form>
+                    
 
-                                </th>
-                                    
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+
+
+
+
                 </div>
             </div>
         </div>
     </div>
     </div></div>
 
+
+    <div class="backDrop"></div>
+
+<div class="box scro" style="max-height: 90vh; padding-bottom:0">
+        <form id="rnw" action="{{route('pos.order.pay')}}" method="POST">
+            @csrf()
+            @method('PATCH')
+    <input type="hidden" name="order_id" value="" id="order_id">
+
+    Receipt ID : <input type="text" name="receipt_id" value="">
+
+
+<button type="submit" class="btn1 btn btn-primary" style="margin: 20px 0; width:100%">
+    Pay
+</button>
+</form>
+</div>
+
+
+ 
+
+@endsection
+
+
+@section('script')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+
+    $('#dataTable').DataTable();
+    $('#dataTable2').DataTable();
+    $('#dataTable3').DataTable();
+    $('#dataTable4').DataTable();
+
+    $('#dataTablea').DataTable();
+    $('#dataTablea2').DataTable();
+    $('#dataTablea3').DataTable();
+
+} );
+
+
+
+
+const cpay = (order, pt) => {
+
+    if(pt == 2){
+
+        $('#order_id').val(order);
+        $('#rnw').submit();
+    } else {
+
+
+        $('#order_id').val(order);
+
+
+
+        $(".backDrop").animate({"opacity": ".80"}, 300);
+    $(".box").animate({"opacity": "1.0"}, 300);
+    $(".backDrop, .box").css("display", "block");
+    }
+
+}
+
+
+$(".close, .backDrop").on("click", function(){
+    closeBox();
+  });
+  function closeBox(){
+    $(".backDrop, .box").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box").css("display", "none");
+    });
+  }
+
+
+
+
+
+</script>
+{{-- <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script> --}}
+
+
+
+{{-- <script src="{{asset('dashboard/js/jQuery.print.js')}}"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+{{-- <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
+
+  <!-- Page level plugins -->
+<script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 @endsection

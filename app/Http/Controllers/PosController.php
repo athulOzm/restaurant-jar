@@ -351,6 +351,14 @@ class PosController extends Controller
         return view('pos.Print', compact('order'));
     }
 
+    public function getprint2($id){
+
+        $order = Order::with('orderproducts', 'user', 'branch', 'invoice')->find($id);
+
+        //dd($order);
+        return view('pos.Print2', compact('order'));
+    }
+
     public function getprintorder($id){
 
         $order = Order::with('orderproducts', 'user', 'branch')->find($id);
@@ -381,6 +389,31 @@ class PosController extends Controller
 
         //dd($order);
         return view('pos.View', compact('order'));
+    }
+
+
+    //order pay
+    public function ordPay(Request $request) {
+
+        $ord = Order::find($request->order_id);
+
+        $ord->update([
+            'receipt_id'    =>  $request->receipt_id,
+            'payment_status'    =>  true,
+            'status'    =>  4
+        ]);
+
+        Invoice::create([
+            'order_id'  =>  $ord->id,
+            'branch_id' =>  $ord->branch_id,
+            'amount'    =>  $ord->total_price,
+            'status'    =>  1
+        ]);
+
+
+
+        return redirect()->route('pos.print2', $ord->id);
+
     }
 
 
