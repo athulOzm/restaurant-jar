@@ -204,15 +204,15 @@ $locations = resolve('locations');
                                 <td style="font-size: 10px">
                                     <a target="_blank" href="{{route('pos.view', $order->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
                         <a target="_blank" href="{{route('pos.print', $order->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Print</a>
-                        <a href="{{route('pos.clone', $order->id)}}" class="btn btn-info"> <i class="fas fa-clone"></i> Copy</a>
+                        <a onclick="deleteCon('ss{{$order->id}}');" href="#" class="btn btn-info"> <i class="fas fa-clone"></i> Refined</a>
                     
-
+                        <form id="ss{{$order->id}}" action="http://mess.link/pos/gettoken" method="post">
+                            @csrf
+                            @method('POST')
+                            <input type="hidden" name="token_id" value="{{$order->id}}">
+                        </form>
                                   
-                                    <form id="delfrm{{$order->id}}" action="{{route('order.destroy')}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="id" value="{{$order->id}}">
-                                    </form>
+                                   
 
                                 </td>
 
