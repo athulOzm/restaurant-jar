@@ -71,9 +71,10 @@ class UserController extends Controller
 
     public function storeWeb(Request $request){
 
-        //dd($this->validateReq($request));
+        $mem = $this->validateReq($request);
+        $mem['code'] = rand(1111,9999);
 
-        $user = User::create($this->validateReq($request));
+        $user = User::create($mem);
 
         $bra = $request->branch;
         if($bra != ''){

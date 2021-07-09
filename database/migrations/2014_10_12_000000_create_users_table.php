@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('renewal_at')->default(Carbon::now()->addyear())->nullable();
             $table->string('password')->nullable();
+            $table->string('code')->nullable();
             $table->string('memberid')->nullable();
             $table->string('serviceid')->nullable();
             $table->string('phone')->unique()->nullable();

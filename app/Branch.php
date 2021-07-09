@@ -12,7 +12,9 @@ class Branch extends Model
 
     public function getFullNameAttribute(){
 
-        return $this->name. ' ('.$this->code.')';
+        //return $this->name. ' ('.$this->code.')';
+        return $this->code;
+
     }
 
     public function users(){
