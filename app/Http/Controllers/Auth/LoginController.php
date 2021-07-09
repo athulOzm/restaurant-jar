@@ -49,6 +49,7 @@ class LoginController extends Controller
 
         $validation  =   Validator::make($request->all(), [
             'memberid'          =>      'required|min:6',
+            'code'  =>  'required'
         ]);
 
         if($validation->fails()) {
@@ -57,21 +58,30 @@ class LoginController extends Controller
 
         if(!is_null($user = User::where('memberid', $request->memberid)->first())) {
 
-            if(Auth::loginUsingId($user->id, true)){
-                
-                $user = Auth::user();
-                $token                  =       $user->createToken('token')->accessToken;
-                $success['success']     =       true;
-                $success['message']     =       "Success! you are logged in successfully";
-                $success['token']       =       $token;
-                $success['user']        =       $user;
-    
-                return response(['status' => true, 'data' => $success], 200);
-            } 
+            if($user->code != $request->code){
+                return response(['status' => false, 'validation' => 'Invalid Code, Please try again'], 401);
+
+            }else{
+
+                if(Auth::loginUsingId($user->id, true)){
+                    
+                    $user = Auth::user();
+                    $token                  =       $user->createToken('token')->accessToken;
+                    $success['success']     =       true;
+                    $success['message']     =       "Success! you are logged in successfully";
+                    $success['token']       =       $token;
+                    $success['user']        =       $user;
+        
+                    return response(['status' => true, 'data' => $success], 200);
+                } 
+
+            }
+
+
         }
         else{
 
-            return response(['status' => false, 'validation' => 'Invalid login, Please try again'], 401);
+            return response(['status' => false, 'validation' => 'Invalid Member ID, Please try again'], 401);
         }
  
     }
