@@ -416,6 +416,11 @@ class ProductController extends Controller
 
     public function getInit(){
 
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+
         $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
         $mt = Menutype::get();
         if($cmtt = Menutype::where('from', '<', $tn)->where('to', '>', $tn)->first()){
