@@ -70,8 +70,8 @@ Route::middleware([Cors::class])->group(function () {
     Route::post('checkout', 'UserController@checkout');
     Route::post('addtocart', 'UserController@addToCart');
 
+    Route::post('checkout', 'UserController@checkout');
 
-    
 
     
     Route::middleware('auth:userapi')->get('/user', 
@@ -79,6 +79,16 @@ Route::middleware([Cors::class])->group(function () {
             return $request->user();
         }
     );
+
+});
+
+//admin.
+Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
+    
+    Route::post('/checkoutapp', 'PosController@checkoutApp');
+ 
+    
+    
 });
 
 

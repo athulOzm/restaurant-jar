@@ -417,6 +417,13 @@ class PosController extends Controller
     }
 
 
+    //checkout app
+    public function checkoutApp(Request $request) {
+
+        return $request;
+    }
+
+
     //checkout pos
     public function checkout(Request $request) {
 
