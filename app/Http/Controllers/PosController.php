@@ -420,7 +420,23 @@ class PosController extends Controller
     //checkout app
     public function checkoutApp(Request $request) {
 
-        return $request;
+
+        $ord = Order::create([
+            'status'   =>  1, 
+            'reqfrom' => 2, 
+            'branch_id' =>  Branch::first()->id,
+            'menutype_id'   =>  $request->cart->menutype,
+            'delivery_type' =>   'Take away',
+            'delivery_time' => str_replace('T', ' ', $request->cart->time),
+            'payment_type_id'   =>  1
+        ]);
+
+        
+
+        return $request->cart;
+
+        
+
     }
 
 
