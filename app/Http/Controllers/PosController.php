@@ -425,9 +425,9 @@ class PosController extends Controller
             'status'   =>  1, 
             'reqfrom' => 2, 
             'branch_id' =>  Branch::first()->id,
-            'menutype_id'   =>  $request->cart->menutype,
-            'delivery_type' =>   'Take away',
-            'delivery_time' => str_replace('T', ' ', $request->cart->time),
+            // 'menutype_id'   =>  $request->cart->menutype,
+            // 'delivery_type' =>   'Take away',
+            // 'delivery_time' => str_replace('T', ' ', $request->cart->time),
             'payment_type_id'   =>  1
         ]);
 
