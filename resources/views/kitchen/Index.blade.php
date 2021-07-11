@@ -723,7 +723,9 @@ $.ajax({
       
       
         document.getElementById('xyz').play();
+
         getOrders();
+        location.reload(); 
 
 
 
