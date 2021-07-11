@@ -474,7 +474,7 @@ label {
                     </div>
 
                      
-                    {{-- cat wise --}}
+                    
                     @foreach ($menutype->categories() as $cat)
                       <div class="tab-pane fade" id="v-pills-{{$cat->id}}{{$menutype->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}{{$menutype->id}}">
                         <div style="display: flex;flex-wrap: wrap;">

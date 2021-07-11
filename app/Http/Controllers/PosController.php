@@ -898,5 +898,11 @@ return $ord;
 
         return response('done' , 200);
     }
+
+
+    public function getCatApp(Menutype $menutype){
+
+        return response($menutype->categories(), 200);
+    }
 }
  

@@ -83,6 +83,10 @@ Route::middleware([Cors::class])->group(function () {
 });
 
 //admin.
+
+Route::get('getcat/{menutype}', 'PosController@getCatApp');
+
+
 Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
     
     Route::post('/checkoutapp', 'PosController@checkoutApp');
