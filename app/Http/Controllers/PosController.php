@@ -902,7 +902,12 @@ return $ord;
 
     public function getCatApp(Menutype $menutype){
 
-        return response($menutype->categories(), 200);
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+
+        return response(['categories' => $menutype->categories(), 'products' => $menutype->products], 200);
     }
 }
  
