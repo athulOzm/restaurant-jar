@@ -395,6 +395,8 @@ class PosController extends Controller
     //order pay
     public function ordPay(Request $request) {
 
+
+
         $ord = Order::find($request->order_id);
 
         $ord->update([
@@ -420,24 +422,51 @@ class PosController extends Controller
     //checkout app
     public function checkoutApp(Request $request) {
 
+	if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
 
+ 
         $ord = Order::create([
             'status'   =>  1, 
             'reqfrom' => 2, 
             'branch_id' =>  Branch::first()->id,
-            // 'menutype_id'   =>  $request->cart->menutype,
-            // 'delivery_type' =>   'Take away',
-            // 'delivery_time' => str_replace('T', ' ', $request->cart->time),
-            'payment_type_id'   =>  1
+             'menutype_id'   =>  $request->cart['menutype'],
+             'delivery_type' =>   'Take away',
+             'delivery_time' => str_replace('T', ' ', $request->cart['time']),
+            'payment_type_id'   =>  1,
+	    'user_id' => $request->user()->id
         ]);
 
+
+	
+
+foreach($request->cart['items'] as $item){
+
+ 
+ 
+$product = Product::find($item['id']);
+
+$product = [
+    'product_id' => $item['id'], 
+    'quantity' =>  $item['qty'],
+    'price' => $product->price,
+    'vat' => $product->vat,
+    'promotion' => $product->promotion_price
+];
+$ord->products()->attach([$product]);
+
+
+}
+
+$ord->update([
+	'status' => 3
+]);
+ Checkout::dispatch($ord);
+return $ord;
         
-
-        return $request->cart;
-
-        
-
-    }
+}
 
 
     //checkout pos
