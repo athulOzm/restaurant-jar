@@ -152,10 +152,22 @@ class Order extends Model
     public function getReqByAttribute(){
 
         //return $this->belongsTo(User::class, 'reqfrom', 'id')->name;
-        if($re = User::where('id', $this->reqfrom)->first()){
+        $user = User::find($this->user_id);
+        
 
-            return $re->name;
-        } else { return '';}
+        switch ($this->reqfrom) {
+            case 1:
+                return 'Admin POS';
+                break;
+
+            case 2:
+                return 'App('.$user['name'].')';
+                break;
+            
+            default:
+                return '';
+                break;
+        }
     }
 
     public function getTotalPriceAttribute(){
