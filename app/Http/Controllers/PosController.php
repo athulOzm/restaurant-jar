@@ -464,7 +464,9 @@ $ord->update([
 	'status' => 3
 ]);
  Checkout::dispatch($ord);
-return $ord;
+
+ 
+return response($request->user()->orders, 200);
         
 }
 
