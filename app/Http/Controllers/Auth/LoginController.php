@@ -58,6 +58,12 @@ class LoginController extends Controller
 
         if(!is_null($user = User::where('memberid', $request->memberid)->first())) {
 
+            if (!Session::exists('branch')) {
+            
+                Session::put('branch', Branch::first());
+            
+            }
+
             if($user->code != $request->code){
                 return response(['status' => false, 'validation' => 'Invalid Code, Please try again'], 401);
 
@@ -71,6 +77,7 @@ class LoginController extends Controller
                     $success['message']     =       "Success! you are logged in successfully";
                     $success['token']       =       $token;
                     $success['user']        =       $user;
+                    $success['orders']        =       $user->orders;
         
                     return response(['status' => true, 'data' => $success], 200);
                 } 
