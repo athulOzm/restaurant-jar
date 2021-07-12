@@ -471,6 +471,15 @@ return response($request->user()->orders, 200);
 }
 
 
+    //cancel order app 
+
+    public function cancelorderApp(Request $request) {
+
+        Order::find($request->order)->delete();
+        return response($request->user()->orders, 200);
+    }
+
+
     //checkout pos
     public function checkout(Request $request) {
 

@@ -70,7 +70,7 @@ Route::middleware([Cors::class])->group(function () {
     Route::post('checkout', 'UserController@checkout');
     Route::post('addtocart', 'UserController@addToCart');
 
-    Route::post('checkout', 'UserController@checkout');
+  
 
 
     
@@ -90,6 +90,7 @@ Route::get('getcat/{menutype}', 'PosController@getCatApp');
 Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
     
     Route::post('/checkoutapp', 'PosController@checkoutApp');
+    Route::post('/cancelorder', 'PosController@cancelorderApp');
  
     
     
