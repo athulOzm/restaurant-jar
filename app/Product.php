@@ -12,7 +12,7 @@ class Product extends Model
 {
     protected $guarded = [];
 
-    protected $appends  = ['promotion_price', 'order_received', 'stock_available'];
+    protected $appends  = ['promotion_price', 'order_received', 'stock_available', 'all_cat'];
 
 
     public function types(){
@@ -145,6 +145,12 @@ class Product extends Model
         }else{
             return 0;
         }
+    }
+
+    //get category attribute
+    public function getAllCatAttribute(){
+
+        return $this->categories->pluck('id')->toArray();
     }
 
     //ord rec
