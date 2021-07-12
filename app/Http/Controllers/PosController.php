@@ -475,6 +475,12 @@ return response($request->user()->orders, 200);
 
     public function cancelorderApp(Request $request) {
 
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+
+
         Order::find($request->order)->delete();
         return response($request->user()->orders, 200);
     }
