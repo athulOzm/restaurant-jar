@@ -423,21 +423,25 @@ class ProductController extends Controller
 
         $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
         $mt = Menutype::get();
-        if($cmtt = Menutype::where('from', '<', $tn)->where('to', '>', $tn)->first()){
+        if($cmtt = Menutype::where('from', '<', $tn)->where('to', '>', $tn)->where('id', '!=', 1)->first()){
             $cmt = $cmtt;
         } else {
-            $cmt = Menutype::first();
+            $cmt = Menutype::where('id', '!=', 1)->first();
         }
         
-        $menus= $cmt->products()->where('status', 1)->get();
+        //$menus= $cmt->products()->where('status', 1)->get();
+
+
+      
+        //return response(['categories' => $menutype->categories(), 'products' => $menutype->products], 200);
 
         return response([
             'status'=>true, 
             'data' => [
                 'cur_menu_type' => $cmt,
                 'menu_type' => $mt,
-                'menus' => $menus,
-                'categories' => Category::has('products')->with('childs')->get()
+                'menus' => $cmt->products,
+                'categories' => $cmt->categories()
                 ]
         ], 201);
     }
