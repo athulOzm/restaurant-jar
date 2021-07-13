@@ -48,7 +48,7 @@ class LoginController extends Controller
     public function userlogin(Request $request){
 
         $validation  =   Validator::make($request->all(), [
-            'memberid'          =>      'required|min:6',
+            'memberid'          =>      'required',
             'code'  =>  'required'
         ]);
 
@@ -97,7 +97,7 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'email'   => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required'
         ]);
 
         // if(!is_null($user = User::where('email', $request->email)->first())) {
