@@ -38,7 +38,7 @@ label {
 <form action="{{route('waiter.pos.checkout')}}" method="POST" id="mform" autocomplete="off" enctype="multipart/form-data">
   @csrf
 
- <input type="hidden" name="reqtype" value="pos" id="reqtype">
+ <input type="hidden" name="reqtype" value="kot" id="reqtype">
 <input type="hidden" name="subtt2" id="totcre" value="">
 <input type="hidden" name="subtt2" id="subtotal2" value="">
 <input type="hidden" name="branch_id" value="{{ Session::get('branch')->id}}">
@@ -305,18 +305,18 @@ label {
 
           <div class="col-sm-2 p5">
             <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
-          </div>
+          </div>--}}
 
-          <div class="col-sm-2 p5">
+          <div class="col-sm-6 p5">
             <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Print & Save</button>
-          </div> --}}
+          </div> 
 
 
           
 
-          <div class="col-sm-6 p5">
+          {{-- <div class="col-sm-6 p5">
             <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay </button>
-          </div>
+          </div> --}}
         </div>
       </div>
 

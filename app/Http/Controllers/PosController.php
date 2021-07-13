@@ -9,6 +9,8 @@ use App\Deliverylocation;
 use App\Events\Checkout;
 use App\Invoice;
 use App\Order;
+use Illuminate\Support\Facades\Auth;
+
 use App\OrderProduct;
 use App\Product;
 use App\Settlement;
@@ -639,6 +641,13 @@ return response($request->user()->orders, 200);
             //Checkout::dispatch($tid);
             return redirect()->route('pos');
        } else if($request->reqtype == 'kot'){
+
+        if(auth()->user()->type == 4){
+            Auth::guard('waiter')->logout();
+            Auth::logout();
+    Session::flush();
+    return redirect()->route('waiter.login');
+        }
 
             Checkout::dispatch($tid);
             return redirect()->route('pos.print.order', $tid);
