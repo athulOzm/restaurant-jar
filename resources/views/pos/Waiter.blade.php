@@ -1302,7 +1302,7 @@ const getlimitbydate = () => {
           //console.log(res.msg);
 
           if(res.msg == 'ok'){
-            $('#delivery').empty();
+           // $('#delivery').empty();
             $('#alert').empty();
             $('#pay').prop('disabled', false);
             $('#delivery').append(`
