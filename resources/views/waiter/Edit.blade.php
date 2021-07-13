@@ -1,4 +1,6 @@
 
+<?php $branches = resolve('branches');?>
+
 @extends('admin.layouts.master')
 
 @section('head', 'Edit Member')
@@ -31,6 +33,18 @@
                     <input type="hidden" value="{{$user->id}}" name="id">
 
                     <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                Branches:
+                            </label>
+                                <select required class="form-control w-full border-gray-400" name="branch_id">
+                                    <option value="{{$user->branch->id}}" selected> {{$user->branch->full_name}}</option>
+                                    @foreach ($branches as $item)
+                                    <option value="{{$item->id}}">{{$item->full_name}}</option>
+                                    @endforeach
+                                </select>
+                        </div>
 
                     <div class="form-group col-md-4">
                         <label for="name" class="block  text-sm font-bold mb-2 sm:mb-4">Full Name:</label>

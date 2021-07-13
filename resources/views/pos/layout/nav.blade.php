@@ -17,15 +17,19 @@
        "> POS</h3>
 
  
-   <div class="form-group bpic">
+@if (auth()->user()->type == 1)
+<div class="form-group bpic">
   
-          <select onchange="switchBranch()" id="branch_id" class="form-control w-full border-gray-400" name="branch_id">
-              <option value="{{ Session::get('branch')->id}}" selected> {{ Session::get('branch')->name}}</option>
-              @foreach ($branches as $item)
-              <option value="{{$item->id}}">{{$item->full_name}}</option>
-              @endforeach
-          </select>
-  </div>
+  <select onchange="switchBranch()" id="branch_id" class="form-control w-full border-gray-400" name="branch_id">
+      <option value="{{ Session::get('branch')->id}}" selected> {{ Session::get('branch')->name}}</option>
+      @foreach ($branches as $item)
+      <option value="{{$item->id}}">{{$item->full_name}}</option>
+      @endforeach
+  </select>
+</div>
+@endif
+
+  
  
 
        <div id="alert"></div>

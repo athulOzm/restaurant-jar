@@ -163,9 +163,13 @@ class Order extends Model
             case 2:
                 return 'App('.$user['name'].')';
                 break;
+
+            // case 4:
+            //     return 'Waiter('.$user['name'].')';
+            //     break;
             
             default:
-                return '';
+                return 'Waiter';
                 break;
         }
     }

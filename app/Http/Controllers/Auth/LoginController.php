@@ -61,7 +61,6 @@ class LoginController extends Controller
             if (!Session::exists('branch')) {
             
                 Session::put('branch', Branch::first());
-            
             }
 
             if($user->code != $request->code){
@@ -124,6 +123,7 @@ class LoginController extends Controller
     
             elseif(auth()->user()->type == 5):
 
+                Session::put('branch', Branch::find(auth()->user()->branch_id));
                 return redirect()->route('pos');
             endif;
         }
@@ -149,8 +149,11 @@ class LoginController extends Controller
                 // $success['message']     =       "Success! you are logged in successfully";
                 // $success['token']       =       $token;
                 // $success['user']        =       $user;
+
+                //dd(auth('waiter')->user());
     
                 //return response(['status' => true, 'data' => $success], 200);
+                Session::put('branch', Branch::find(auth('waiter')->user()->branch_id));
                 return redirect()->route('waiter');
             } 
         }

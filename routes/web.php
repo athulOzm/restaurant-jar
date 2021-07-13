@@ -309,6 +309,9 @@ Route::middleware(['auth:waiter'])->group(function () {
     Route::get('waiter/pos/getmenus', 'PosController@getmenus');
     Route::get('waiter/pos/print/{coupon}', 'PosController@getprint');
 
+    Route::get('waiter/get/members/{user}', 'PosController@getmember')->name('get.member');
+
+
     //logout
     Route::get('waiter/logout', 'WaiterController@logout');
 

@@ -41,13 +41,16 @@ class WaiterController extends Controller
         if(Auth::guard('waiter')->check()) // this means that the admin was logged in.
         {
             Auth::guard('waiter')->logout();
-            return redirect()->route('waiter.login');
+            
         }
 
-        $this->guard()->logout();
-        $request->session()->invalidate();
+        Auth::logout();
+    Session::flush();
+    return redirect()->route('waiter.login');
+        // $this->guard()->logout();
+        // $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        // return $this->loggedOut($request) ?: redirect('/');
     }
 
 

@@ -4,7 +4,8 @@
 $menutypes = resolve('menutypesforpos');
 $waiter = resolve('waiter');
 $allmenus = resolve('allmenus');
-$mcategories = resolve('mcategories');
+$mcategories = resolve('mcategories'); 
+$daten =  str_replace(' ', 'T', Carbon\Carbon::now());
 ?>
 
  
@@ -19,13 +20,28 @@ $mcategories = resolve('mcategories');
     padding: 10px 10px 0;
     border-radius: 6px;
 }
+.btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {
+    height: 1.6rem;
+
+}
+label {
+    display: inline-block;
+    margin-bottom: .1rem;
+}
+
+.form-control {
+    height: 28px;
+    padding: 3px 10px;
+}
 </style>
 
-<form action="{{route('waiter.pos.checkout')}}" method="POST" id="mform">
+<form action="{{route('waiter.pos.checkout')}}" method="POST" id="mform" autocomplete="off" enctype="multipart/form-data">
   @csrf
 
- 
-
+ <input type="hidden" name="reqtype" value="pos" id="reqtype">
+<input type="hidden" name="subtt2" id="totcre" value="">
+<input type="hidden" name="subtt2" id="subtotal2" value="">
+<input type="hidden" name="branch_id" value="{{ Session::get('branch')->id}}">
 
 <div class="row">
 
@@ -38,42 +54,92 @@ $mcategories = resolve('mcategories');
 
 
       
+ <style>
+   .nns::placeholder{color:#4e72df; font-weight: 300;font-size:13px}
+ </style>
+
+
+
+<div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 0px 0 20px">
+
+
+  
+
+ 
+        <div style="
+        
+        
+        position: absolute;
+        right: 0;
+        margin-left: -150px;
+        width: 300px;
+        background: #2c3346;
+        margin-top: -45px;
+        padding:0;
+        border-top-left-radius: 6px;
+        height: 41px;
+    
+    
+    ">
+
+
+    <div class="row">
+
+      <div class="col-sm-2">
+        <i class="fas fa-barcode" style="
+            color: #717994;
+            font-size: 40px;
+            line-height: 1px;
+            margin: 21px 0 0;
+        "></i>
+      </div>
+      
+      <div class="col-sm-10">
+
+        <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" 
+        style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" 
+        placeholder="Scan Bill Barcode">
+
+
+      </div>
+    </div>
+           
+  </div>
  
 
 
 
-      <div class="card  shadow-xs my-1" id="leftpanel" style="padding: 0 0px 0 20px">
         
 
 
         <div class="row" style="
     background: #1b1f32;
     margin-right: 2px;
-    border-bottom: 1px solid #353e56; padding-bottom:5px
+    border-bottom: 1px solid #353e56; padding-bottom:9px;
 ">
 
-          <div class="col-md-6 my-2">
+          <div class="col-md-6">
             <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
-          <div class="col-md-6 my-2">
+          <div class="col-md-6">
             <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
           </div>
           
-    
+        
           <div class="col-md-6">
-            <p class="lab1b">MISS ID</p>
-            <input type="text" name="memberid" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
+            <p class="lab1b">MESS ID</p>
+            <input type="text" name="memberid" value="" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
             <p class="lab1b">Member Name</p>
-            <input type="text" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb">
+            <input type="text" value="" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb" >
           </div>
 
           <div class="col-md-6">
             <p class="lab1b">Member Balance</p>
-            <input type="text" id="totcre2" readonly style="background: #424961" class="form-control w-full txtb">
+            <input type="text" id="totcre2" readonly value="" style="background: #424961" class="form-control w-full txtb">
           </div>
     
           <div class="col-md-6">
@@ -81,28 +147,28 @@ $mcategories = resolve('mcategories');
             <div id="pt">
               <div class="bgh p0">
               <div class="flex">
-              <label class="box3"><input type="radio" onclick="getDelTime()" required="" name="pt" value="1"> <b class="lab1a">Card</b></label>
-              <label class="box3"><input type="radio" onclick="getDelTime()" id="crepay" required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
+              <label class="box3"><input type="radio"  required=""   name="pt" value="1"> <b class="lab1a">Card</b></label>
+              <label class="box3"  style="margin-right: 0"><input type="radio"  id="crepay"   required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
               </div></div>
             </div>
 
           </div>
 
-          <div class="col-md-6 my-2">
+          <div class="col-md-6">
             <div id="dtime">
               <p class="lab1b">Delivery Time</p>
               <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
             </div>
           </div>
     
-          <div class="col-md-6 my-1">
+          <div class="col-md-6">
             <p class="lab1b">Delivery Type</p>
          
               <div id="delivery">
                 <div class=" flex">
-                <label class="box3"><input type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
-                <label class="box3"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
-                <label class="box3"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></label>
+                <label class="box3"><input   type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
+                <label class="box3"><input     type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
+                <label class="box3" style="margin-right: 0"><input  type="radio" required="" name="del" value="Delivery" onclick="ShowDelType()"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
           
@@ -110,8 +176,22 @@ $mcategories = resolve('mcategories');
 
        
 
-          <div class="col-md-6">
-            
+          <div class="col-md-12">
+            <div id="tables"></div>
+            <div class="row">
+              <div class="col-md-6">
+            <div id="dt"></div>
+
+              </div>
+              <div class="col-md-6">
+            <div id="locations"></div>
+
+              </div>
+            </div>
+            <div id="vallimit" style="
+            font-size: 13px;
+            color: #e65776;
+        "></div>
           </div>
 
           
@@ -121,129 +201,131 @@ $mcategories = resolve('mcategories');
 
 
 
-        <div id="itembox" class="scro" style="height:calc(100vh - 495px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 390px); margin-top:5px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
       </div>
-
+<style>
+  .custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Attach";
+    background: #2c3346;
+    margin: 0;
+    color: #4e72df; left: 0px
+}
+</style>
     
-      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 15px;min-height:230px; ">
+      <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:150px; position: absolute; bottom:0; width:100% ">
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-6 " style="padding-right: 0">
         
               <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
                 <div class="flex">
-                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; margin-bottom:6px"></textarea>
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; "></textarea>
+
+                
+
+                <div class="input-group " style="width: 70px;margin-left:3px;background: #2c3346;border-radius: 3px;">
+                  <div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input form-control w-full txtb" id="inputGroupFile01">
+                    <label class="custom-file-label" for="inputGroupFile01" style="
+                        
+                        
+                        
+                        width: auto;
+                        font-size: 10px;
+                        line-height: 90px;
+                        border:0;
+                        margin-top: 29px;
+                        background: #2c3346
+                 
+                    
+                    
+                    
+                    "></label>
+                  </div>
                 </div>
+
               </div>
+
+
+              </div>
+
+              
+
          
           </div>
 
-          <div class="col-md-5">
-            <div class="row" style="font-size: 14px">
-                <div class="col-sm-5">Sub Total:</div>
-                <div class="col-sm-7" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
-                <div class="col-sm-5">VAT:</div>
-                <div class="col-sm-7" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
-                <div class="col-sm-5">Discount:</div>
-                <div class="col-sm-7" ><label id="discount" style="font-weight: 600;">0.000</label></div>
-            </div>
+          <div class="col-md-6" style="font-size: 14px">
+            
+                <div class="row">
+                  <div class="col-sm-6">Sub Total:</div>
+                  <div class="col-sm-6" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
+                </div>
+                
+                <div class="row" id="vat"></div>
+                <div class="row" id="discount"></div>
+                <div class="row" id="container"></div>
+                <div class="row" id="promotion"></div>
+
+                <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
+                  <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
+                  <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:0px"></label></div>
+                </div>
+
+
+           
           </div>
  
         </div>
         
-        <div class="row totalamd tar">
-          <div class="col-sm-5"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-7" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
-        </div>
+        {{-- <div class="row totalamd tar">
+          <div class="col-sm-9" style="text-align: right"><b class="lab1">Total Amount:</b></div>
+          <div class="col-sm-3" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
+        </div> --}}
 
         <div class="row">
-         <div class="col-sm-6">
-            <a class="btn btn-primary btnc2" href="/waiter/logout" type="button"><i class="fas fa-user"></i> Logout</a>
-          </div>
-           {{-- <div class="col-sm-2">
-            <button class="btn btn-primary btnc2" style="
-            background: #6e89e4;
-            border: 1px solid #6e89e4;" onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
+
+          <div class="col-sm-6 p5">
+            <a class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  href="/waiter/logout" type="button" ><i class="fas fa-sign-out-alt"></i> Logout</a>
+            
           </div>
 
-          <div class="col-sm-3">
-            <button class="btn btn-primary btnc2" style="
-            background: #6c759c;
-    border: 1px solid #424962;" id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
+          {{-- <div class="col-sm-2 p5">
+            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
           </div>
 
-          <div class="col-sm-3">
-            <button class="btn btn-primary btnc2" style="
-            background: #00BCD4;
-    border: 1px solid #03A9F4;" onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
+          <div class="col-sm-2 p5">
+            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
+          </div>
+
+  
+          
+
+          <div class="col-sm-2 p5">
+            <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
+          </div>
+
+          <div class="col-sm-2 p5">
+            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Print & Save</button>
           </div> --}}
 
-          <div class="col-sm-6" style="float: right">
-            <button class="btn btn-primary btnc1" id="pay" type="button" style="padding: 8px 0; width:100%">Submit <i class="fas fa-arrow-right"></i></button>
+
+          
+
+          <div class="col-sm-6 p5">
+            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay </button>
           </div>
         </div>
       </div>
 
       <div class="backDrop"></div>
-        <div class="box scro" style="max-height: 90vh; padding-bottom:0">
-          <div class="p0">
-            <div class="p0" style="display: flex">
-              <div class="col-sm-9 p0">
-                <div class="bgh">
-                  <div id="tables"></div>
-                  <div id="dt"></div>
-                  <div id="locations"></div>
-                  <div id="vallimit" style="
-                  font-size: 13px;
-                  color: #e65776;
-              "></div>
-
-                  
 
 
+      
 
-                </div>
-              </div>
-              <div class="col-sm-3 p0" style="float: right; padding-top:20px">
-                <div class="bgh2" style="max-height: calc(100vh - 100px); min-height:55vh; padding:0px">
-                  <div style="padding: 10px">
-
-                        OMR 
-                    <input type="text" readonly id="subtotal2"  style="
-                        font-size: 33px;
-                        color: #e65776;
-                        background: #2c3346;
-                        border: none;width:170px
-                    "> <br> <br>
-
-                    Name <br>
-                    <b id="totcrename" style="color: white"></b>
-                    <hr>
-                    Credit Balance<br> <input type="text" readonly style="color: white;background: #2c3346;border: none;width:170px" id="totcre">
-
-
-                  </div>
-                
-
-<button class="btn btn-primary btnc1"    type="submit" style="padding: 30px 0px;
-width: 100%;
-
-margin: 0;
-border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
-
-
-                </div>
-              </div>
-            </div>
-            
-            
-
-            
-        </div>
-      </div>
+      {{-- end sales log --}}
 
   
       <div class="box2 scro " style="max-height: 90vh; overflow-x:hidden">
@@ -258,9 +340,9 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
                     font-weight: 600;
                 ">
                 <div class="col-sm-1 p0">S.N</div>
-                <div class="col-sm-4 p0">Item</div>
-                <div class="col-sm-2 p0">Qty</div>
-                <div class="col-sm-2 p0">Unit.Price</div>
+                <div class="col-sm-4 p0">Item Name</div>
+                <div class="col-sm-2 p0">Quantity</div>
+                <div class="col-sm-2 p0">Unit Price</div>
                 <div class="col-sm-3 p0">Action</div>  
               </div>
       
@@ -328,16 +410,12 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
         
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
           <li class="nav-item" style="width: 40%">
-            <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu" style="margin: 7px 3px;
+            <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Items/ Add by Barcode" style="margin: 7px 3px;
             width: 96%;
             font-size: 14px;
             padding: 20px 15px;">
           </li>
-
-          {{-- <li class="nav-item">
-            <a class="nav-link active" id="all" data-toggle="pill" href="#pall" role="tab" aria-controls="all" aria-selected="true">All Category</a>
-          </li> --}}
-
+ 
           @foreach ($menutypes as $menutype)
           <?php $nub = 1; ?>
             <li class="nav-item">
@@ -349,77 +427,14 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
           @endforeach
         </ul>
 
-
+<style>
+  .phidden{cursor:inherit;filter: grayscale(0.90);}
+</style>
         <div class="tab-content scro2" style="min-height:calc(100vh - 130px);height:calc(100vh - 130px);overflow-y:scroll">
 
 
         <div class="tab-content" id="pills-tabContent">
-
-          {{-- <div class="tab-pane fade show active" id="pall" role="tabpanel" aria-labelledby="all">
-            <div class="row">
-
-              <div class="col-10 p0">
-                <div class="tab-content" id="v-pills-tabContent">
-                  
-                  
-                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                    <div style="display: flex;flex-wrap: wrap;">
-                      @forelse ($allmenus as $product)
-
-                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                        style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
-                          <h5>{{$product->price}}</h5>
-                          @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                          <h6 class="itemtitle">{{$product->name}}</h6>
-                        </div>
-
-                      @empty
-                        No menu found!
-                      @endforelse
-                    </div> 
-                  </div>
-
-                  @foreach ($mcategories as $cat)
-                    <div class="tab-pane fade" id="v-pills-{{$cat->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}">
-                      <div style="display: flex;flex-wrap: wrap;">
-                      @forelse ($cat->products as $product)
-                        <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
-                            <h5>{{$product->price}}</h5>
-                            @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                            <h6 class="itemtitle">{{$product->name}}</h6>
-                        </div>
-                      @empty
-                        No menu found!
-                      @endforelse
-                    </div>
-                    </div>
-                  @endforeach
-
-               
-                </div>
-              </div>
-
-
-              <div class="col-2 p0">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
-
-                  @foreach ($mcategories as $cat)
-                  
-                  <a class="nav-link" id="v-pills-profile-tab{{$cat->id}}" data-toggle="pill" href="#v-pills-{{$cat->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
-
-                @endforeach
-
-                
-                </div>
-              </div>
-              
-            </div>
-          </div>  --}}
-          {{-- end - all cat tab --}}
-
-
+ 
           @foreach ($menutypes as $menutype)
 
           
@@ -434,22 +449,33 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 
 
-
+                    {{-- for all --}}
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
-                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
+
+
+                          <div 
+                            @if ($product->stock_available != '0.0') onclick="addtocart({{$product->id}});" class="card itembox"   
+                            @else 
+                            class="card itembox phidden" onClick="alert('This item is currently out of stock, Add stock and continue.')"
+                            @endif 
+
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}}</h6>
+                              <h6 class="itemtitle">{{$product->name}} ({{$product->stock_available}})</h6>
                           </div>
+
+
                         @empty
                           No menu found!
                         @endforelse
                       </div> 
                     </div>
 
+                     
+                    
                     @foreach ($menutype->categories() as $cat)
                       <div class="tab-pane fade" id="v-pills-{{$cat->id}}{{$menutype->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}{{$menutype->id}}">
                         <div style="display: flex;flex-wrap: wrap;">
@@ -502,7 +528,7 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 
 
 
-        
+
 
 
 
@@ -520,7 +546,17 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
 </div>
 </form>
 
+<div class="box scro">
+  <div class="p0">
+  @include('pos.partials.SalesLog')
+  </div>
+</div>
 
+{{-- <div class="boxordersource scro">
+  <div class="p0">
+  @include('pos.partials.ResourceLog')
+  </div>
+</div> --}}
 
 <div class="sales_return" style="max-height: 90vh; overflow-x:hidden; padding:0">
 
@@ -539,39 +575,128 @@ border-radius: 0;">Pay Now <i class="fas fa-arrow-right"></i></button>
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
-
 @endsection
 
 
 
 
 @section('script')
-
+ 
 <script type="text/javascript">
 
+ //swich branch
+ const switchBranch = () => {
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/switchbranch`,
+      data: {
+          "branch_id": $('#branch_id').val(),
+          "_token": token,
+      },
+      success: function(res){
+      location.reload();  
+      }
+  });
+}
+
+
+//room services
+const roomservices = (memberid) => {
+  hideloc();
+  $.ajax({
+    type: 'GET',
+    url: `/waiter/get/members/${memberid}`,
+    success: function(res){
+      //console.log(res);
+      $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" class="form-control w-full txtb mt-2">`);
+
+    }
+  });
+}
  
+//update token
+$('#sbc').keyup(function(){
+  if($('#sbc').val().length > 3){
+    var sid = $('#sbc').val();
+    
+    window.location.href = "/waiter/pos/update/"+sid.replace('RE-', '');
+  }
+});
+
+
+//add cart from barcode
+$('#sermenus').keyup(function(){
+
+  var sid = $('#sermenus').val();
+
+  if(sid.includes('ME-')){
+
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        type: 'POST',
+        url: `/waiter/pos/addtocartbybarcode`,
+        data: {
+            "item": sid,
+            "_token": token,
+        },
+        success: function(res){
+         // $('#crepay').prop('checked', false);
+          $('#sermenus').val(null);
+          getOrders();
+        }
+    });
+  } else if(sid.includes('RE-')){
+
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        type: 'POST',
+        url: `/waiter/pos/addtocartbyreceipt`,
+        data: {
+            "item": sid,
+            "_token": token,
+        },
+        success: function(res){
+         // $('#crepay').prop('checked', false);
+          $('#sermenus').val(null);
+          getOrders();
+        }
+    });
+  }
+
+});
+
+
+
+//open and submit kot
+const kot = () =>  {
+
+if($('#autocomplete').val() == ''){
+
+  alert('Please Choose Member');
+} else{
+  $('#reqtype').val('kot');
+  $('#mform').submit();
+}
+
+}
+
+
+//open and submit hold
+const hold = () =>  {
+
+if($('#autocomplete').val() == ''){
+
+    alert('Please Choose Member');
+  } else{
+    $('#reqtype').val('hold');
+    $('#mform').submit();
+  }
+
+}
+
 
 const paynow = () => {
 
@@ -788,14 +913,16 @@ td{
 
 }
 
-
+ 
 
 $(document).ready(() => {
 
   //set time
   var dtimee = $('#dtimee').val();
+
+  
   if(dtimee == ''){
-    $('#dtimee').val('2021-05-29T00:00:00')
+    $('#dtimee').val(`<?=$daten;?>`)
   }
 
   //items
@@ -808,13 +935,20 @@ $(document).ready(() => {
     $(".backDrop, .box").css("display", "block");
   });
 
+  //lightbox 
+  // $("#pay2").on("click", function(){
+  //   $(".backDrop").animate({"opacity": ".80"}, 300);
+  //   $(".boxordersource").animate({"opacity": "1.0"}, 300);
+  //   $(".backDrop, .boxordersource").css("display", "block");
+  // });
+
   $(".close, .backDrop").on("click", function(){
     closeBox();
   });
 
   function closeBox(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3").animate({"opacity": "0"}, 300, function(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3").css("display", "none");
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").css("display", "none");
     });
   }
 
@@ -848,7 +982,7 @@ $(document).ready(() => {
         type: 'GET',
         url: `/waiter/pos/getsettlement`,
         success: function(res){
-          console.log(res);
+          //console.log(res);
           $('#settle_total').empty();
           $('#settle_total_cash').empty();
           $('#settle_total_credit').empty();
@@ -881,7 +1015,6 @@ $(document).ready(() => {
         location.reload();  
         }
     });
-
   }
 
 
@@ -978,7 +1111,7 @@ $(document).ready(() => {
 
 	var members = [];
 	$.ajax({
-		url: "/pos/getmembers",
+		url: "/waiter/pos/getmembers",
    // /pos/getmember
 		async: true,
 		dataType: 'json',
@@ -987,7 +1120,7 @@ $(document).ready(() => {
 			for (var i = 0, len = data.length; i < len; i++) {
 				var id = (data[i].id).toString();
 				members.push({
-          'value' : data[i].memberid +` - `+ data[i].phone +` - `+ data[i].name, 
+          'value' : data[i].memberid +` | `+ data[i].phone +` | `+ data[i].name +` | `+ data[i].ar_name +` | `+ data[i].rank.name +` | `+ data[i].serviceid +` | `+ data[i].room_address, 
           'data' : id, 
           'name' : data[i].name, 
           'pty' : data[i].payment_type_id, 
@@ -1000,7 +1133,7 @@ $(document).ready(() => {
 
   var menus = [];
 	$.ajax({
-		url: "/pos/getmenus",
+		url: "/waiter/pos/getmenus",
 		async: true,
 		dataType: 'json',
 		success: function (data) {
@@ -1047,7 +1180,7 @@ $(document).ready(() => {
 			lookup: options,
 			onSelect: function (member) {
 
-        console.log(member);
+        //console.log(member);
         //console.log();
         $('#totcre').val(null);
         $('#totcre2').val(null);
@@ -1058,23 +1191,23 @@ $(document).ready(() => {
 
         getPaymenttype(member.data);
 
-        var res2 = member.value.split(" - ");
+        var res2 = member.value.split(" | ");
 
-        switch (member.pty) {
-          case 1:
-            var pty = 'Cash';
-            break;
+        // switch (member.pty) {
+        //   case 1:
+        //     var pty = 'Cash';
+        //     break;
 
-          case 2:
-            var pty = 'Credit';
-            break;
+        //   case 2:
+        //     var pty = 'Credit';
+        //     break;
         
-          default:
-            var pty = 'Cash / Credit';
-            break;
-        }
+        //   default:
+        //     var pty = 'Cash / Credit';
+        //     break;
+        // }
 
-        $('#autocomplete2').val(res2[2] + ` (${pty})`);
+        $('#autocomplete2').val(res2[2]);
 
         var dtimee = $('#dtimee').val();
 
@@ -1093,7 +1226,7 @@ const getlimitbydate = () => {
 
     var dtimee = $('#dtimee').val();
     
-    var res = $('#autocomplete').val().split(" - ");
+    var res = $('#autocomplete').val().split(" | ");
 
     if(dtimee != '' & res[0] != ''){
       cartcontinue(res[0], dtimee, 'withmid');
@@ -1133,19 +1266,19 @@ const getlimitbydate = () => {
           //console.log(res.msg);
 
           if(res.msg == 'ok'){
-            $('#delivery').empty();
+           // $('#delivery').empty();
             $('#alert').empty();
             $('#pay').prop('disabled', false);
             $('#delivery').append(`
             <div class=" flex">
             <label class="box3"><input type="radio" required name="del" value="Take away" onClick="takeaway()"> <b class="lab1a">Take away</b></label>
             <label class="box3"><input type="radio" required name="del" value="Dinein" onClick="getTables('${data}')"> <b class="lab1a">Dinein</b></label>
-            <label class="box3"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></label>
+            <label class="box3" style="margin-right:0"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${data}')"> <b class="lab1a">Delivery</b></label>
             </div>`);
           }
           else{
 
-            $('#delivery').empty();
+          //  $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
             //$('#pt').empty();
@@ -1176,12 +1309,12 @@ const getlimitbydate = () => {
             <div class=" flex">
             <label class="box1a"><input type="radio" required name="del" value="Take away" onClick="takeaway()"> <b class="lab1a">Take away</b></label>
             <label class="box1a"><input type="radio" required name="del" value="Dinein" onClick="getTables('${res.id}')"> <b class="lab1a">Dinein</b></label>
-            <label class="box1a"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></label>
+            <label class="box1a" style="margin-right:0"><input type="radio" required name="del" value="Delivery" onClick="ShowDelType('${res.id}')"> <b class="lab1a">Delivery</b></label>
             </div>`);
           }
           else{
 
-            $('#delivery').empty();
+         //   $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
            // $('#pt').empty();
@@ -1213,9 +1346,9 @@ const getlimitbydate = () => {
     //$('#pt').empty();
     /////$('#dtime').empty();
 
-    $('#dt').append(`<div class="bgh flex p0">
-    <label class="box3"><input type="radio"  required onClick="hideloc()" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
-    <label class="box3"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
+    $('#dt').append(`<div class="bgh flex p0" style="margin-top:8px">
+    <label class="box3"><input type="radio"  required onClick="roomservices('${memberid}')" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
+    <label class="box3" style="margin-right:0"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
                      </div>`);
   }
 
@@ -1233,22 +1366,22 @@ const getlimitbydate = () => {
               case 1:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><div class="box3"><input checked type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></div></div>
+                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  type="radio"  required name="pt" value="1"> <b class="lab1a">Card</b></label></div>
                 </div>`);
                  break;
 
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
-                  <div class="flex"><div class="box3"><input checked id="crepay" type="radio" onClick="getDelTime()" required name="pt" value="2"> <b class="lab1a">Credit</b></div></div></div>`);
+                  <div class="flex"><label class="box3"  style="margin-right: 0"><input  id="crepay" type="radio"  required name="pt" value="2"> <b class="lab1a">Credit</b></label></div></div>`);
                  break;
              
                default:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
                   <div class="flex">
-                  <label class="box3"><input type="radio" onClick="getDelTime()" required name="pt" value="1"> <b class="lab1a">Card</b></label>
-                  <label class="box3 checkbx"><input type="radio" onClick="getDelTime()" id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
+                  <label class="box3"><input type="radio"  required name="pt" value="1"> <b class="lab1a">Card</b></label>
+                  <label class="box3 checkbx"  style="margin-right: 0"><input type="radio"  id="crepay" required name="pt" value="2"> <b class="lab1a">Credit</b></div>
                   </label></div>`);
                  break;
              }
@@ -1272,13 +1405,13 @@ const getTables = (memberid) => {
         $('#locations').empty();
 
         $('#tables').append(`<div>
-                    <div class="bgh p0 mt-2">
-                      <b class="lab1a">Waiter</b>
+                    <div class="bgh p0">
+                      <b class="lab1b">Waiter</b>
                       <div class="flex">
-                        <select required="" name="waiter" class="form-control mb-3" name="rank_id" id="rank_id" style="
-    background: #2c3346;
+                        <select required="" name="waiter" class="form-control mb-1" name="rank_id" id="rank_id" style="
+    background: #424961;
     color: #fff;
-    font-size: 13px;border:1px solid #2c3346
+    font-size: 13px;border:1px solid #424961
 ">
                             <option value="">Select Waiter</option>
 
@@ -1296,7 +1429,7 @@ const getTables = (memberid) => {
                     
                   </div>
                   
-                  <b class="lab1a">Tables</b>
+                  <b class="lab1b">Tables</b>
                   `)
 
 
@@ -1307,7 +1440,7 @@ const getTables = (memberid) => {
           if(item.status == 1){
           
             $('#tdd').append(`
-              <div class="col-md-2" style="padding:2px;"  >
+              <div class="col-md-1" style="padding:2px;"  >
 
                 <div class="form-check">
                   <input class="form-check-input" type="radio" value="${item.id}" name="table" required id="flexRadioDefault2">
@@ -1321,7 +1454,7 @@ const getTables = (memberid) => {
               </div>`);
           } else{ 
             $('#tdd').append(`
-                <div class="col-md-2" style="padding:2px;">
+                <div class="col-md-1" style="padding:2px;">
                   <div class="tablepic" style="background:#9a291e">
                   <h5>${item.name}</h5>
                   <p>Seat: ${item.chair}</p>
@@ -1345,19 +1478,20 @@ const getTables = (memberid) => {
   const getOrders = () => {
           $.ajax({
           type: 'GET',
-          url: '/pos/getcart',
+          url: '/waiter/pos/getcart',
           success: function(res){
 
             //console.log(res);
               $('#cart').empty();
 
               $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
-                <div class="col-sm-1 " style="padding-left:25px">N</div>
-                <div class="col-sm-2 p0">Item</div>
-                <div class="col-sm-2 ">Qty</div>
-                <div class="col-sm-2 p0">Unit.Price</div>
+                <div class="col-sm-1 " style="padding-left:25px">No</div>
+                <div class="col-sm-2 p0">Item Name</div>
+                <div class="col-sm-2 ">Quantity</div>
+                <div class="col-sm-1 p0">Unit Price</div>
+                <div class="col-sm-1 ">Discount</div>
                 <div class="col-sm-1 ">VAT</div>
-                <div class="col-sm-1 ">Dis</div>
+                <div class="col-sm-1 ">Container</div>
                 <div class="col-sm-2 ">Total</div>
                 <div class="col-sm-1" style="font-size:9px">Addon</div>
               </div>
@@ -1402,10 +1536,22 @@ const getTables = (memberid) => {
             
             
             </div>
-            <div class="col-sm-2 price p0">${item.product.promotion_price}</div>
+            <div class="col-sm-1 price p0">${item.unit_price_with_promotion}</div>
+            <div class="col-sm-1 p0">
+              <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" 
+              id="itemd${item.product.id}" class="itemdis" type="text">
+            </div>
+
             <div class="col-sm-1 ttl p0" >${item.tax}</div>
-            <div class="col-sm-1 p0"><input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" id="itemd${item.product.id}" class="itemdis" type="text"></div>
-            <div class="col-sm-2 ttl " >${item.sub_price}</div>
+
+
+            <div class="col-sm-1 p0">
+              <input value="${item.container}" style="font-size:14px" onChange="addcontainer('${item.id}', '${item.product.id}');" 
+              id="itemc${item.product.id}" class="itemdis" type="text">
+            </div>
+
+
+            <div class="col-sm-2 ttl p0" >${item.sub_price}</div>
             
             <div class="col-sm-1 act p0">
               <div style="display: flex">
@@ -1434,7 +1580,7 @@ const getTables = (memberid) => {
 
     $.ajax({
         type: 'GET',
-        url: "/pos/totalprice",
+        url: "/waiter/pos/totalprice",
         success: function(res) {
           //console.log(res);
 
@@ -1442,13 +1588,31 @@ const getTables = (memberid) => {
           $('#vat').empty();
           $('#subtotal').empty();
           $('#discount').empty();
+          $('#promotion').empty();
+          $('#container').empty();
           $('#subtotal2').val(null);
 
+
           $('#st').append(res.price);
-          $('#vat').append(res.tax);
+
+          if(res.tax != '0.000'){
+            $('#vat').append(`<div class="col-sm-6">VAT:</div><div class="col-sm-6" ><label  style="font-weight: 600;">${res.tax}</label></div>`);
+          }
+
           $('#subtotal').append(res.subtotal);
           $('#subtotal2').val(res.subtotal);
-          $('#discount').append(res.discount);
+
+          if(res.discount != '0.000'){
+            $('#discount').append(`<div class="col-sm-6">Discount:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.discount}</label></div>`);
+          }
+
+          if(res.promotion != '0.000'){
+            $('#promotion').append(`<div class="col-sm-6">Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.promotion}</label></div>`);
+          }
+
+          if(res.container != '0.000'){
+            $('#container').append(`<div class="col-sm-6">Container:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.container}</label></div>`);
+          }
  
         }
     })
@@ -1480,7 +1644,7 @@ const updqty = (cart_item) =>  {
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/waiter/pos/updqty`,
+      url: `/pos/updqty`,
       data: {
           "_token": token,
           "cart_item": cart_item,
@@ -1514,7 +1678,7 @@ const updqty = (cart_item) =>  {
             // if(res[0] != ''){
             //   cartcontinuebymid(res[0]);
             // }
-            $('#crepay').prop('checked', false);
+           // $('#crepay').prop('checked', false);
             getOrders();
           }
       });
@@ -1534,7 +1698,7 @@ const updqty = (cart_item) =>  {
             "_token": token,
         },
         success: function(res){
-         console.log(res);
+         //console.log(res);
           getaddon(pitem);
           getOrders();
 
@@ -1548,7 +1712,7 @@ const removecart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/waiter/pos/removecart`,
+      url: `/pos/removecart`,
       data: {
           "id": item,
           "_token": token,
@@ -1588,7 +1752,7 @@ const downcart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/waiter/pos/downcart`,
+      url: `/pos/downcart`,
       data: {
           "id": item,
           "_token": token,
@@ -1630,10 +1794,32 @@ const adddiscount = (item, id) => {
 var dis = $(`#itemd${id}`).val();
 
 
-var token = $("meta[name='csrf-token']").attr("content");
+  var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
       url: `/waiter/pos/adddiscount`,
+      data: {
+          "id": item,
+          "dis": dis,
+          "_token": token,
+      },
+      success: function(){
+        getOrders();
+      }
+  });
+}
+
+
+//container
+const addcontainer = (item, id) => {
+
+var dis = $(`#itemc${id}`).val();
+
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/addcontainer`,
       data: {
           "id": item,
           "dis": dis,
@@ -1651,12 +1837,12 @@ const getDeliverylocations = (memberid) => {
   
     $.ajax({
         type: 'GET',
-        url: "/pos/locations",
+        url: "/waiter/pos/locations",
         success: function(res) {
           //console.log(res);
 
           $('#locations').empty();
-          $('#locations').append(`<div class="bgh2 mt-3"><b class="lab1a">Location</b>
+          $('#locations').append(`<div class="bgh1 mt-2">
           <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
 
 
@@ -1673,31 +1859,69 @@ const getDeliverylocations = (memberid) => {
     
 }
 
-const getDelTime = () => {
 
-//alert('asdf');
+$('#mform').on('submit', function() {
 
-    var avcre = $('#subtotal2').val();
-    var ccre = $('#totcre').val();
-    $('#vallimit').empty();
+  if($('#reqtype').val() == 'hold'){
+  return true;
+  }
 
-    console.log(avcre);
-    console.log(ccre);
+  if($("input[name='pt']:checked").val() == 1){
+  return true;
+  }
+
+  
+
+  var avcre = $('#subtotal2').val();
+  var ccre = $('#totcre2').val();
+  $('#vallimit').empty();
+
+  //console.log(ccre);
 
 
-    if(Math.floor(avcre) < Math.floor(ccre)){
+  ccre = ccre.replace(/\,/g,'');
+  ccre = ccre.replace(',', '');
+  ccre = Number(ccre);
+  avcre = Number(avcre);
 
-    
-    } else{
-      $('#crepay').prop('checked', false);
-      $('#vallimit').append('Credit Limit Exced!');
-    }
-    //alert(avcre);
-    // $('#dtime').append(`<div class="bgh2"><b class="lab1a">Delivery Time</b><input name="dtime" type="datetime-local" class="form-control border-gray-400 txtb"></div>`);
+  //console.log(ccre);
 
-    // $("#ctime").val(new Date().toJSON().slice(0,19));
+  if(Math.floor(avcre) < Math.floor(ccre)){
+    return true;
+  
+  } else{
+   // $('#crepay').prop('checked', false);
+    $('#vallimit').append('Credit Limit Exced!');
+    alert('Credit Limit Exced');
+    return false;
+  }
 
-}
+
+});
+
+// const getDelTime = () => {
+
+//   console.log($('#reqtype').val());
+
+ 
+
+//   var avcre = $('#subtotal2').val();
+//   var ccre = $('#totcre').val();
+//   $('#vallimit').empty();
+
+//   ccre = ccre.replace(/\,/g,'');
+//   ccre = Number(ccre);
+//   avcre = Number(avcre);
+
+//   if(Math.floor(avcre) < Math.floor(ccre)){
+//     return true;
+  
+//   } else{
+//     $('#crepay').prop('checked', false);
+//     $('#vallimit').append('Credit Limit Exced!');
+//     return false;
+//   }
+// }
  
 
  

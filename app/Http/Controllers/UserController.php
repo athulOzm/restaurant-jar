@@ -367,6 +367,7 @@ class UserController extends Controller
 
         User::create([
             'name'              =>      $request->name,
+            'branch_id'         =>  $request->branch_id,
             'email'             =>      $request->email,
             'phone'             =>      $request->phone,
             'memberid'          =>      $request->memberid,
