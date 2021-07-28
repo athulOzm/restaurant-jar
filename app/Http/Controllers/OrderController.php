@@ -81,6 +81,7 @@ class OrderController extends Controller
         if(isset($_GET['branch_id']) && $_GET['branch_id'] != 'All'){
             $orderlist = $orderlist->where('branch_id', $_GET['branch_id']);
         }
+        
 
         if(isset($_GET['df']) and $_GET['df'] !=''){
             $df = explode('T', $_GET['df']);

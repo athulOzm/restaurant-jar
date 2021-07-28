@@ -27,6 +27,8 @@ use App\Http\Middleware\Cors;
 // });
 //admin.
 Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
+
+    Route::get('/init', 'ProductController@getInit');
     
     // Route::post('/makeurl', 'CardController@makeUrl');
     // Route::post('/addcard', 'CardController@add');
@@ -63,7 +65,7 @@ Route::middleware([Cors::class])->group(function () {
 
     // Route::get('/card/{card}', 'CardController@show');
 
-    Route::get('/init', 'ProductController@getInit');
+    
     Route::get('/menu/{menutype}', 'ProductController@getByMenutype');
 
 

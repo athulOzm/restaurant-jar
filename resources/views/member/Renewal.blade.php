@@ -112,7 +112,7 @@
                                     <tbody>
                                         @forelse ($members as $member)
                                         <tr>
-                                            <td> <input type="checkbox" id="del_{{$member->id}}" /></td>
+                                            <td> <input type="checkbox" id="del_{{$->id}}" /></td>
                                             <td>{{$member->memberid}}</td>
                                             <td>{{$member->serviceid}}</td>
                                             <td>{{ Carbon\Carbon::parse($member->renewal_at)->format('d M Y') }}</td>
