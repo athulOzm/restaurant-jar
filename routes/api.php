@@ -35,7 +35,7 @@ Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
     // Route::get('/fetchaddcard', 'CardController@fetchAddCard');
     // Route::get('/fetchcards', 'CardController@all');
     // Route::get("/fetchtype/{card}", 'CardController@type');
-    // Route::post('/card/upddp', 'CardController@upddp');
+     Route::post('/card/upddp', 'UserController@upddp');
 
     // Route::get("/fetchcontact/{card}", 'ContactController@contact');
     // Route::post('/card/updcontact', 'ContactController@updcontact');

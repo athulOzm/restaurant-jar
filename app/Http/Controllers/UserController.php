@@ -287,6 +287,33 @@ class UserController extends Controller
     }
 
 
+    public function upddp(Request $request){
+
+      
+
+            $rname = rand(24335, 93355);
+            Image::make($request->dp)
+            ->save(storage_path('app/public/cover').'/'.$rname.'.jpg');
+
+
+            // if ($request->type == 'dp') {
+            //     $card = Card::find($request->id)->update([
+            //         'dp' => $rname.'.jpg'
+            //     ]);
+            // } else {
+            //     $card = Card::find($request->id)->update([
+            //         'cover' => $rname.'.jpg'
+            //     ]);
+            // }
+
+            //$card = Card::find($request->id);
+
+            return response()->json(['response' => true, 'img' => $rname.'.jpg']);
+
+         
+    }
+
+
 
 
 
