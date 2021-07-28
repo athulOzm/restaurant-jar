@@ -442,7 +442,7 @@ class ProductController extends Controller
                 'menu_type' => $mt,
                 'menus' => $cmt->products,
                 'categories' => $cmt->categories(),
-                'branches'  =>  $request->user()->branches
+                //'branches'  =>  $request->user()->branches
                 ]
         ], 201);
     }
