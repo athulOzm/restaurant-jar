@@ -100,13 +100,19 @@ body { margin: 0px; }
 		</div>
 
         <div class="image-container">
-            <img src="{{asset('img/cooking.png')}}" width="60" alt="">
+            
+			@if ($user->cover != null)
+                            <img   width="60" src="https://restourent.signcard.net/{{env('IMAGE_PATH')}}{{ $user->cover}}"  />
+							@else
+							<img src="{{asset('img/cooking.png')}}" width="60" alt="">
+                          @endif
         </div>
 
 		<div class="lower-container">
 			<div>
 				<h3>Name : {{$user->name}}</h3>
 				<h4>Member ID : {{$user->memberid}}</h4>
+				<h4>Pass Code : {{$user->code}}</h4>
 			</div>
 			<div>
 				<p style="color: #222; font-size:13px">Member ID card for Club name</p>

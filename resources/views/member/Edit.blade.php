@@ -218,10 +218,12 @@
                     <div class="card-body">
        
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.update') }}">
+                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8"  enctype='multipart/form-data' method="POST" action="{{ route('member.update') }}">
                     @csrf
                     @method('PATCH')
                     <input type="hidden" value="{{$user->id}}" name="id">
+                    <input type="hidden" value="{{$user->cover}}" name="curimage">
+
 
                     <div class="row">
 
@@ -476,6 +478,33 @@
                             </div>
                         </label>
                     </div>
+
+
+                    <div class="form-group col-md-4">
+
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          @if ($user->cover != null)
+                            <img class="img-thumbnail " width="90" src="{{env('IMAGE_PATH')}}{{ $user->cover}}"  style="float: left"/>
+                          @endif
+                        </div>
+                        <div class="col-md-9">
+
+                          <label for="inputCity">Image</label>
+                          <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                              id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                          @error('cover')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+
+                        </div>
+                      </div>
+                    </div>
+
+
 
                 </div>
 

@@ -211,7 +211,7 @@
         <div class="card-body">
  
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('member.store') }}">
+                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST"  enctype='multipart/form-data' action="{{ route('member.store') }}">
                     @csrf
 
                     <div class="row">
@@ -469,6 +469,17 @@
                             </div>
                         </label>
                     </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">Photo</label>
+                      <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                          id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                      @error('cover')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{$message}}</strong>
+                      </span>
+                      @enderror
+                  </div>
 
 
 

@@ -101,7 +101,11 @@
                                        
                                             <td>{{$member->memberid}}</td>
                                             <td>{{$member->memberid}}</td>
-                                            <td>{{$member->name}} <span style="text-align: right">{{$member->ar_name}}</span></td>
+                                            <td>
+                                                @if ($member->cover != null)
+                            <img class="img-thumbnail " width="40" src="{{env('IMAGE_PATH')}}{{ $member->cover}}"  style="float: left"/>
+                          @endif
+                                                {{$member->name}} <span style="text-align: right">{{$member->ar_name}}</span></td>
                                         <td>{{$member->code}}</td>
 
                                             <td>{{$member->phone}}</td>

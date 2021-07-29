@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Card;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 use App\Http\Controllers\Controller;
 use App\MemberCategory;
@@ -71,8 +72,16 @@ class UserController extends Controller
 
     public function storeWeb(Request $request){
 
+        if($request->hasfile('cover')):
+
+            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+            $img = Image::make($request->cover->path());
+            $img->resize(300, 300)->save(storage_path('app/public/cover').'/'.$fname);
+        endif;
+
         $mem = $this->validateReq($request);
         $mem['code'] = rand(1111,9999);
+        $mem['cover'] =  @$fname ? $fname : null;
 
         $user = User::create($mem);
 
@@ -93,7 +102,18 @@ class UserController extends Controller
 
         //dd($this->validateReq($request));
 
-        User::find($request->id)->update($this->validateReqUpd($request));
+        if($request->hasfile('cover')):
+
+            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+            $img = Image::make($request->cover->path());
+            $img->resize(300, 300)->save(storage_path('app/public/cover').'/'.$fname);
+        endif;
+
+        $mem = $this->validateReqUpd($request);
+    //    $mem['code'] = rand(1111,9999);
+        $mem['cover'] =  @$fname ? $fname : $request->curimage;
+
+        User::find($request->id)->update($mem);
 
         $bra = $request->branch;
         if($bra != ''){
