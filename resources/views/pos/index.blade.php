@@ -240,7 +240,7 @@ label {
               </select>
 
               <p class="lab1b">Delivery Location</p>
-              <input type="text" name="del_loc" id="" class="form-control">
+              <input type="text" name="del_loc"   class="form-control">
 
               <p class="lab1b">Delivery Time</p>
               <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control  ">
@@ -746,13 +746,10 @@ if($('#autocomplete').val() == ''){
 //open and submit hold
 const hold = () =>  {
 
-if($('#autocomplete').val() == ''){
-
-    alert('Please Choose Member');
-  } else{
+ 
     $('#reqtype').val('hold');
     $('#mform').submit();
-  }
+ 
 
 }
 
@@ -1665,22 +1662,22 @@ $('#mform').on('submit', function() {
   //console.log(ccre);
 
 
-  ccre = ccre.replace(/\,/g,'');
-  ccre = ccre.replace(',', '');
-  ccre = Number(ccre);
-  avcre = Number(avcre);
+  // ccre = ccre.replace(/\,/g,'');
+  // ccre = ccre.replace(',', '');
+  // ccre = Number(ccre);
+  // avcre = Number(avcre);
 
   //console.log(ccre);
 
-  if(Math.floor(avcre) < Math.floor(ccre)){
+  //if(Math.floor(avcre) < Math.floor(ccre)){
     return true;
   
-  } else{
-   // $('#crepay').prop('checked', false);
-    $('#vallimit').append('Credit Limit Exced!');
-    alert('Credit Limit Exced');
-    return false;
-  }
+  // } else{
+  //  // $('#crepay').prop('checked', false);
+  //   $('#vallimit').append('Credit Limit Exced!');
+  //   alert('Credit Limit Exced');
+  //   return false;
+  // }
 
 
 });
