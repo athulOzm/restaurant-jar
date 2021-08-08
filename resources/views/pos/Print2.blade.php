@@ -164,9 +164,8 @@
           <div class="info"> 
 
             <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
-              <p>The Royal Guard of Oman</p>
-              <p>Al Husn Officers Mess</p>
-              <p style="margin-bottom: 6px">Al Husn Kitchen</p>  
+              <img src="/img/cooking.png" style="width: 30%; margin-left:30%" alt="">
+              <p>Jar Cookies</p>
               <b style="padding: 6px 20px; background: #fff; font-weight: 400">INVOICE</b>
               <div class="dot" style="margin-top: -12px"></div>
             </div>
@@ -182,14 +181,14 @@
                 <td>Order Date</td>
                 <td><b>:</b>{{Carbon\Carbon::now() }}<td>
               </tr>
-              <tr>
+              {{-- <tr>
                 <td>Member No</td>
                 <td><b>:</b>{{$order->user->memberid}}</td>
               </tr>
               <tr>
                 <td>Member Name</td>
                 <td><b>:</b>{{$order->user->name}}<td>
-              </tr>
+              </tr> --}}
             </table>
 
           <div style="clear: both"></div>

@@ -51,7 +51,7 @@ input[type=search]{
       <li class="active"><a href="#2a" data-toggle="tab">Hold Bills</a>
       </li>
       <li><a href="#3a" data-toggle="tab">Open Bills</a></li>
-      <li><a href="#4a" data-toggle="tab">Kitchen Log</a></li>
+      {{-- <li><a href="#4a" data-toggle="tab">Kitchen Log</a></li> --}}
         
     </ul>
 

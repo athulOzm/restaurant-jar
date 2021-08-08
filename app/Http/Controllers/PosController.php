@@ -579,7 +579,7 @@ return response($request->user()->orders, 200);
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  7
+                'menutype_id'   =>  1
             ]);
 
         } else if($request->reqtype == 'hold'){
@@ -596,7 +596,7 @@ return response($request->user()->orders, 200);
                 'waiter_id'  => $waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  7
+                'menutype_id'   =>  1
             ]);
 
         } else{
@@ -621,7 +621,7 @@ return response($request->user()->orders, 200);
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  7,
+                'menutype_id'   =>  1,
                 'amount'    =>  Order::find(Session::get('token')->id)->total_price
             ]);
 
