@@ -166,20 +166,20 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages7" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-user-friends"></i>
-          <span>Members</span>
+          <span>Customers</span>
         </a>
         <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
            
-            <a class="collapse-item" href="{{route('member.index')}}">Members</a>
+            <a class="collapse-item" href="{{route('member.index')}}">Customers</a>
             {{-- <a class="collapse-item" href="{{route('member.pay')}}">Member Pay</a> --}}
-            <a class="collapse-item" href="{{route('report.members.balance')}}">Member Balance/ Pay</a>
-            <a class="collapse-item" href="{{route('member.ledger')}}">Ledger</a>
-            <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
-            <a class="collapse-item" href="{{route('member.category.index')}}">Member Category</a>
-            <a class="collapse-item" href="{{route('member.renewals')}}">Member Renewal</a>
-            <a class="collapse-item" href="{{route('report.member')}}">Member Report</a>
+            {{-- <a class="collapse-item" href="{{route('report.members.balance')}}">Customer Balance/ Pay</a>
+            <a class="collapse-item" href="{{route('member.ledger')}}">Ledger</a> --}}
+            {{-- <a class="collapse-item" href="{{route('member.rank.index')}}">Member Ranks</a>
+            <a class="collapse-item" href="{{route('member.category.index')}}">Member Category</a> --}}
+            {{-- <a class="collapse-item" href="{{route('member.renewals')}}">Member Renewal</a> --}}
+            <a class="collapse-item" href="{{route('report.member')}}">Customer Report</a>
       
 
     
@@ -243,7 +243,7 @@
             <a class="collapse-item" href="{{route('settings.vat')}}">Tax</a>
             <a class="collapse-item" href="{{route('pos.paymenttype.index')}}">Payment Type</a>
             <a class="collapse-item" href="{{route('pos.table.index')}}">Tables</a>
-            <a class="collapse-item" href="{{route('pos.deliverylocation.index')}}">Delivery Locations</a>
+            <a class="collapse-item" href="{{route('pos.deliverylocation.index')}}">Delivery Type</a>
             <a class="collapse-item" href="">Language</a>
          
 

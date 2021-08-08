@@ -2,13 +2,18 @@
 
 <?php 
 $menutypes = resolve('menutypesforpos');
-$waiter = resolve('waiter');
+$waiters = resolve('waiter');
+$tables = resolve('tables');
+$deltypes = resolve('locations');
+$members = resolve('members');
 $allmenus = resolve('allmenus');
 $mcategories = resolve('mcategories'); 
 $daten =  str_replace(' ', 'T', Carbon\Carbon::now());
 ?>
 
  
+ 
+
 
 @section('content')
 
@@ -119,7 +124,7 @@ label {
 ">
 
           <div class="col-md-6">
-            <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
+            <p class="lab1b" >Order Code: <b style="font-size: 15px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
           <div class="col-md-6">
@@ -127,7 +132,7 @@ label {
           </div>
           
         
-          <div class="col-md-6">
+          {{-- <div class="col-md-6">
             <p class="lab1b">MESS ID</p>
             <input type="text" name="memberid" value="@if($cur_token->user){{$cur_token->user->memberid}}@endif" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
           </div>
@@ -152,46 +157,100 @@ label {
               </div></div>
             </div>
 
-          </div>
+          </div> --}}
 
-          <div class="col-md-6">
+          {{-- <div class="col-md-6">
             <div id="dtime">
               <p class="lab1b">Delivery Time</p>
               <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
             </div>
-          </div>
+          </div> --}}
     
-          <div class="col-md-6">
-            <p class="lab1b">Delivery Type</p>
+          <div class="col-md-6 ">
+            {{-- <p class="lab1b">Delivery Type</p> --}}
          
               <div id="delivery">
                 <div class=" flex">
+                  <label class="box3"><input @if($cur_token->delivery_type == 'Dinein') checked @endif  checked type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
+
                 <label class="box3"><input @if($cur_token->delivery_type == 'Take away') checked @endif type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
-                <label class="box3"><input @if($cur_token->delivery_type == 'Dinein') checked @endif type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
+                
                 <label class="box3" style="margin-right: 0"><input @if($cur_token->delivery_type == 'Delivery') checked @endif type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('@if($cur_token->user){{$cur_token->user->memberid}}@endif')"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
-          
+
+              <p class="lab1b">Customer</p>
+
+
+              <select data-live-search="true" name="customer" class="form-control mb-1 mt-1" name="rank_id"  style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+            
+                  @foreach ($members as $member)
+                  <option @if ($loop->first) selected @endif value="{{$member->id}}">{{$member->name}}</option>
+                  @endforeach                        
+              </select>
           </div>
 
        
 
-          <div class="col-md-12">
-            <div id="tables"></div>
-            <div class="row">
-              <div class="col-md-6">
-            <div id="dt"></div>
+          <div class="col-md-6">
 
-              </div>
-              <div class="col-md-6">
-            <div id="locations"></div>
+          
 
-              </div>
+
+          
+            <div class="flex" style="flex-direction: column" id="dineinwrap">
+              <p class="lab1b">Waiter</p>
+              <select data-live-search="true" name="dine_waiter" class="form-control mb-1"    style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+                  @foreach ($waiters as $waiter)
+                  <option @if ($loop->first) selected @endif value="{{$waiter->id}}">{{$waiter->name}}</option>
+                  @endforeach                        
+              </select>
+
+              <p class="lab1b">Select Table</p>
+              <select data-live-search="true" required name="dine_table" class="form-control mb-1"  style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+                  @foreach  ($tables as $table)
+                  <option @if ($loop->first) selected @endif value="{{$table->id}}">{{$table->name}}</option>
+                  @endforeach                        
+              </select>
             </div>
-            <div id="vallimit" style="
+
+
+            <div class="row" id="deliverywrap" style="display: none">
+              <p class="lab1b">Delivery Type</p>
+              <select  data-live-search="true" required name="del_type" class="form-control mb-1"  style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+                  @foreach  ($deltypes as $deltype)
+                  <option @if ($loop->first) selected @endif value="{{$deltype->id}}">{{$deltype->name}}</option>
+                  @endforeach                        
+              </select>
+
+              <p class="lab1b">Delivery Location</p>
+              <input type="text" name="del_loc" id="" class="form-control">
+
+              <p class="lab1b">Delivery Time</p>
+              <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control  ">
+           
+               
+            </div>
+            {{-- <div id="vallimit" style="
             font-size: 13px;
             color: #e65776;
-        "></div>
+        "></div> --}}
           </div>
 
           
@@ -226,7 +285,7 @@ label {
 
                 
 
-                <div class="input-group " style="width: 70px;margin-left:3px;background: #2c3346;border-radius: 3px;">
+                {{-- <div class="input-group " style="width: 70px;margin-left:3px;background: #2c3346;border-radius: 3px;">
                   <div class="custom-file">
                     <input type="file" name="file" class="custom-file-input form-control w-full txtb" id="inputGroupFile01">
                     <label class="custom-file-label" for="inputGroupFile01" style="
@@ -245,7 +304,7 @@ label {
                     
                     "></label>
                   </div>
-                </div>
+                </div> --}}
 
               </div>
 
@@ -287,35 +346,38 @@ label {
 
         <div class="row">
 
-          <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
-          </div>
+          
+
+         
 
           <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
-          </div>
-
-          <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
+            <button class="btn btn-primary btnc22"    onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
           </div>
 
   
           
 
           <div class="col-sm-2 p5">
-            <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
+            <button onclick="hold()" class="btn btn-primary btnc22" type="button"><i class="fas fa-pause-circle"></i> Hold</button>
           </div>
 
           <div class="col-sm-2 p5">
-            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Print & Save</button>
+            <button onclick="kot()"  class="btn btn-primary btnc22" type="button"><i class="fas fa-fw fa-print"></i> Print & Save</button>
           </div>
 
 
           
 
-          <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay </button>
+          
+
+          <div class="col-sm-3 p5">
+            <button class="btn btn-primary btnc22" id="pay2" type="submit" style="width:100%; background:#7594f1; border:1px solid #7594f1"> <i class="fas fa-fw fa-credit-card"></i> Card </button>
           </div>
+          <div class="col-sm-3 p5">
+            <button class="btn btn-primary btnc22" id="pay32" type="submit" style="width:100%; background:#8BC34A; border:1px solid #8BC34A"> <i class="fas fa-fw fa-money-bill-wave-alt"></i> Cash </button>
+          </div>
+
+
         </div>
       </div>
 
@@ -710,207 +772,19 @@ const paynow = () => {
 
 }
 
-function printDiv() 
-{
+// function printDiv() 
+// {
 
-  var divToPrint=document.getElementById('printarea');
+//   var divToPrint=document.getElementById('printarea');
 
-  var newWin=window.open('','Print-Window');
+//   var newWin=window.open('','Print-Window');
 
-  newWin.document.open();
+//   newWin.document.open();
+//   newWin.document.close();
 
-  
+//   setTimeout(function(){newWin.close();},10);
 
-  newWin.document.write(`<!DOCTYPE html><html>
-    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       
-      <meta name="description" content="">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="robots" content="all,follow">
-  
-      <style type="text/css">
-          #invoice-POS{
- 
-  padding:2mm;
-  margin: 0 auto;
-  width: 88mm;
-  background: #FFF;
-  
-  
-::selection {background: #f31544; color: #FFF;}
-::moz-selection {background: #f31544; color: #FFF;}
-h1{
-  font-size: 1.5em;
-  color: #222;
-}
-h2{font-size: .9em;}
-h3{
-  font-size: 1.2em;
-  font-weight: 300;
-  line-height: 2em;
-}
-p{
-  font-size: .7em;
-  color: #666;
-  line-height: 1.2em;
-}
- 
-#top, #mid,#bot{ /* Targets all id with 'col-' */
-  border-bottom: 1px solid #EEE;
-}
-
-#top{min-height: 100px;}
-#mid{min-height: 80px;} 
-#bot{ min-height: 50px;}
-
-#top .logo{
-  //float: left;
-	height: 60px;
-	width: 60px;
-	background: url(http://restoapp.link/img/cooking.png) no-repeat;
-	background-size: 60px 60px;
-}
-.clientlogo{
-  float: left;
-	height: 60px;
-	width: 60px;
-	background: url(http://restoapp.link/img/cooking.png) no-repeat;
-	background-size: 60px 60px;
-  border-radius: 50px;
-}
-.info{
-  display: block;
-  //float:left;
-  margin-left: 0;
-}
-.title{
-  float: right;
-}
-.title p{text-align: right;} 
-table{
-  width: 100%;
-  border-collapse: collapse;
-}
-td{
-  //padding: 5px 0 5px 15px;
-  //border: 1px solid #EEE
-}
-.tabletitle{
-  //padding: 5px;
-  font-size: .5em;
-  background: #EEE;
-}
-.service{border-bottom: 1px solid #EEE;}
-.item{width: 24mm;}
-.itemtext{font-size: .5em;}
-
-#legalcopy{
-  margin-top: 5mm;
-}
-
-  
-  
-}
-      </style>
-    </head>
-  <body onload="window.print()">
-  
-  
-    <div id="invoice-POS">
-    
-      <center id="top">
-        <div class="logo"></div>
-        <div class="info"> 
-          <h2>SBISTechs Inc</h2>
-        </div><!--End Info-->
-      </center><!--End InvoiceTop-->
-      
-      <div id="mid">
-        <div class="info">
-          <h2>Contact Info</h2>
-          <p> 
-              Address : street city, state 0000</br>
-              Email   : JohnDoe@gmail.com</br>
-              Phone   : 555-555-5555</br>
-          </p>
-        </div>
-      </div><!--End Invoice Mid-->
-      
-      <div id="bot">
-  
-            <div id="table">
-              <table>
-                <tr class="tabletitle">
-                  <td class="item"><h2>Item</h2></td>
-                  <td class="Hours"><h2>Qty</h2></td>
-                  <td class="Rate"><h2>Sub Total</h2></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Communication</p></td>
-                  <td class="tableitem"><p class="itemtext">5</p></td>
-                  <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Asset Gathering</p></td>
-                  <td class="tableitem"><p class="itemtext">3</p></td>
-                  <td class="tableitem"><p class="itemtext">$225.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Design Development</p></td>
-                  <td class="tableitem"><p class="itemtext">5</p></td>
-                  <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Animation</p></td>
-                  <td class="tableitem"><p class="itemtext">20</p></td>
-                  <td class="tableitem"><p class="itemtext">$1500.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Animation Revisions</p></td>
-                  <td class="tableitem"><p class="itemtext">10</p></td>
-                  <td class="tableitem"><p class="itemtext">$750.00</p></td>
-                </tr>
-  
-  
-                <tr class="tabletitle">
-                  <td></td>
-                  <td class="Rate"><h2>tax</h2></td>
-                  <td class="payment"><h2>$419.25</h2></td>
-                </tr>
-  
-                <tr class="tabletitle">
-                  <td></td>
-                  <td class="Rate"><h2>Total</h2></td>
-                  <td class="payment"><h2>$3,644.25</h2></td>
-                </tr>
-  
-              </table>
-            </div><!--End Table-->
-  
-            <div id="legalcopy">
-              <p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices. 
-              </p>
-            </div>
-  
-          </div><!--End InvoiceBot-->
-    </div><!--End Invoice-->
-  
- 
-  </body>
-  </html>`);
-
-  newWin.document.close();
-
-  setTimeout(function(){newWin.close();},10);
-
-}
+// }
 
  
 
@@ -1328,27 +1202,22 @@ const getlimitbydate = () => {
   }
 
   const takeaway = () => {
-    $('#tables').empty();
-    //$('#dtime').empty();
-    $('#locations').empty();
-    $('#dt').empty();
+    $('#dineinwrap').css({display : 'none'});
+$('#deliverywrap').css({display : 'none'});
   }
+
+ 
+
+
 
   const hideloc = () =>  {
     $('#locations').empty();
   }
 
   const ShowDelType = (memberid) =>  {
-
-    $('#dt').empty();
-    $('#tables').empty();
-    //$('#pt').empty();
-    /////$('#dtime').empty();
-
-    $('#dt').append(`<div class="bgh flex p0" style="margin-top:8px">
-    <label class="box3"><input type="radio"  required onClick="roomservices('${memberid}')" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
-    <label class="box3" style="margin-right:0"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
-                     </div>`);
+    $('#dineinwrap').css({display : 'none'});
+$('#deliverywrap').css({display : 'block'});
+    
   }
 
 
@@ -1392,85 +1261,8 @@ const getlimitbydate = () => {
 
 const getTables = (memberid) => {
 
-  //$('#pt').empty();
-  //$('#dtime').empty();
-  $('#dt').empty();
-
-  $.ajax({
-      type: 'GET',
-      url: `/pos/gettables`,
-      success: function(res){
-        $('#tables').empty();
-        $('#locations').empty();
-
-        $('#tables').append(`<div>
-                    <div class="bgh p0">
-                      <b class="lab1b">Waiter</b>
-                      <div class="flex">
-                        <select required="" name="waiter" class="form-control mb-1" name="rank_id" id="rank_id" style="
-    background: #424961;
-    color: #fff;
-    font-size: 13px;border:1px solid #424961
-">
-                            <option value="">Select Waiter</option>
-
-                            @foreach ($waiter as $waiter)
-                            <option value="{{$waiter->id}}">{{$waiter->name}}</option>
-                            @endforeach
-
-                
-                                                    
-                          </select>
-
-
-                      </div>
-                    </div>
-                    
-                  </div>
-                  
-                  <b class="lab1b">Tables</b>
-                  `)
-
-
-
-        $('#tables').append(`<div class="bgh flex p0" style="flex-wrap: wrap;" id="tdd">`)
-
-        res.map(item => {
-          if(item.status == 1){
-          
-            $('#tdd').append(`
-              <div class="col-md-1" style="padding:2px;"  >
-
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" value="${item.id}" name="table" required id="flexRadioDefault2">
-                </div>
-
-                <div class="tablepic" style="background:#216d40">
-                <h5>${item.name}</h5>
-                <p>Seat: ${item.chair}</p>
-                
-                </div>
-              </div>`);
-          } else{ 
-            $('#tdd').append(`
-                <div class="col-md-1" style="padding:2px;">
-                  <div class="tablepic" style="background:#9a291e">
-                  <h5>${item.name}</h5>
-                  <p>Seat: ${item.chair}</p>
-                  </div>
-                </div>`)
-          }
-
-        })
-
-      
-
-      }
-
-      
-
-
-  });
+  $('#dineinwrap').css({display : 'block'});
+  $('#deliverywrap').css({display : 'none'});
 }
   
   
@@ -1488,11 +1280,11 @@ const getTables = (memberid) => {
                 <div class="col-sm-2 p0">Item Name</div>
                 <div class="col-sm-2 ">Quantity</div>
                 <div class="col-sm-1 p0">Unit Price</div>
-                <div class="col-sm-1 ">Discount</div>
-                <div class="col-sm-1 ">VAT</div>
-                <div class="col-sm-1 ">Container</div>
+                <div class="col-sm-2 ">Discount</div>
+             
+               
                 <div class="col-sm-2 ">Total</div>
-                <div class="col-sm-1" style="font-size:9px">Addon</div>
+                <div class="col-sm-2" style="font-size:9px">Addon</div>
               </div>
               `)
 
@@ -1536,23 +1328,20 @@ const getTables = (memberid) => {
             
             </div>
             <div class="col-sm-1 price p0">${item.unit_price_with_promotion}</div>
-            <div class="col-sm-1 p0">
+            <div class="col-sm-2 p0">
               <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" 
               id="itemd${item.product.id}" class="itemdis" type="text">
             </div>
 
-            <div class="col-sm-1 ttl p0" >${item.tax}</div>
+        
 
 
-            <div class="col-sm-1 p0">
-              <input value="${item.container}" style="font-size:14px" onChange="addcontainer('${item.id}', '${item.product.id}');" 
-              id="itemc${item.product.id}" class="itemdis" type="text">
-            </div>
+          
 
 
             <div class="col-sm-2 ttl p0" >${item.sub_price}</div>
             
-            <div class="col-sm-1 act p0">
+            <div class="col-sm-2 act p0">
               <div style="display: flex">
    
                 ${btn}

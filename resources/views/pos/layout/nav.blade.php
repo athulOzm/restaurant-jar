@@ -43,20 +43,26 @@
        
 
 
+       
 
+      <div class="p5">
+        <button class="nav-link btn btn-primary btnc2 btnn1"    id="salesreturn" type="button" > <span class="mr-2 d-none d-lg-inline">Sales Return</span></button>
+      </div>
 
-
-       <div class="topbar-divider d-none d-sm-block"></div>
+{{-- 
+       <div class="topbar-divider d-none d-sm-block"></div> --}}
        <!-- Nav Item - User Information -->
        @if (auth()->user()->type == 1)
 
-       {{-- <button class="nav-link btn btn-primary btnc2 btnn1"  id="pay2"  role="button"   aria-expanded="false">
-         <span class="mr-2 d-none d-lg-inline">Order Source</span>
-       </button> --}}
+        
 
        <button class="nav-link btn btn-primary btnc2 btnn1"   id="pay"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline">Sales Log</span>
        </button>
+
+       <div class=" p5">
+        <button class="nav-link btn btn-primary btnc2 btnn1"   onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i>  <span class="mr-2 d-none d-lg-inline">Settlement</span></button>
+      </div>
        
      
 

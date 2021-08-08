@@ -204,7 +204,7 @@
             <div class="col-md-12">
                 <div class="card shadow mb-12">
                     <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Members</h6> 
+            <h6 class="m-0 font-weight-bold text-primary">Add Customer</h6> 
             
 
         </div>

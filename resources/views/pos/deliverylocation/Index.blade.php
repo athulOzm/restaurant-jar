@@ -25,7 +25,7 @@
                 <div class="col-md-8">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">All Delivery Locations</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Delivery Types</h6> 
                             
     
                         </div>
@@ -93,7 +93,7 @@
                 <div class="col-md-4">
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Add New table</h6> 
+                            <h6 class="m-0 font-weight-bold text-primary">Add New</h6> 
                             
     
                         </div>

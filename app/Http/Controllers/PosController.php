@@ -495,7 +495,7 @@ return response($request->user()->orders, 200);
 
         $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
 
-        //dd($request->dtime);
+        // //dd($request->dtime);
      
         if($cmtt = Menutype::where('id', '!=', 1)->where('from', '<', $tn)->where('to', '>', $tn)->first()){
             $cmt = $cmtt;
@@ -504,31 +504,62 @@ return response($request->user()->orders, 200);
         }
    
 
-        $id = explode('|', $request->memberid);
+       // $id = explode('|', $request->memberid);
 
-        $memberid = $id[0];
+       // $memberid = $id[0];
+
+       
         $delivery_type = $request->del;
+
+        if($request->del == 'Dinein'){
+            
+            $table = $request->dine_table;
+            $waiter = $request->dine_waiter;
+            $del_type = null;
+            $del_loc = null;
+
+        }
+        if($request->del == 'Delivery'){
+
+            $del_type = $request->del_type;
+            $del_loc = $request->del_loc;
+            $table = null;
+            $waiter = null;
+
+        } else{
+            $table = null;
+            $waiter = null;
+            $del_type = null;
+            $del_loc = null;
+
+        }
+
+
         $payment_type = $request->pt;
         $delivery_time = $request->dtime;
 
-        if(isset($request->table)){
-            $table = $request->table;
-            Table::find($table)->update(['status' => false]);
-        } else {
-            $table = null;
-        }
+        // if(isset($request->table)){
+        //     $table = $request->table;
+        // //    Table::find($table)->update(['status' => false]);
+        // } else {
+        //     $table = null;
+        // }
 
-        if(isset($request->location)){
-            $location = $request->location;
-        } else {
-            $location = null;
-        }
+        // if(isset($request->location)){
+        //     $location = $request->location;
+        // } else {
+        //     $location = null;
+        // }
 
-        if(isset($request->room_address)){
-            $room_addr = $request->room_address;
-        } else {
-            $room_addr = null;
-        }
+        // if(isset($request->room_address)){
+        //     $room_addr = $request->room_address;
+        // } else {
+        //     $room_addr = null;
+        // }
+
+        $memberid = $request->customer;
+
+        //dd($memberid);
 
 
 
@@ -536,7 +567,7 @@ return response($request->user()->orders, 200);
 
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  3,
-                'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+                'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
                 'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
@@ -554,15 +585,15 @@ return response($request->user()->orders, 200);
         } else if($request->reqtype == 'hold'){
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  2,
-                'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+                'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
                 'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
-                'deliverylocation_id'  =>  $location,
-                'room_addr'  =>  $room_addr,
+                'deliverylocation_id'  =>  $del_type,
+                'room_addr'  =>  $del_loc,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
-                'waiter_id'  => $request->waiter,
+                'waiter_id'  => $waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
                 'menutype_id'   =>  $cmt->id
@@ -578,12 +609,12 @@ return response($request->user()->orders, 200);
 
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  4,
-                'user_id'    =>  User::where('memberid', $memberid)->first()->id,
+                'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
-                'payment_type_id'    =>  $payment_type,
+                'payment_type_id'    =>  1,
                 'delivery_time'  =>  $delivery_time,
-                'deliverylocation_id'  =>  $location,
-                'room_addr'  =>  $room_addr,
+                'deliverylocation_id'  =>  $del_type,
+                'room_addr'  =>  $del_loc,
                 'payment_status' =>  $pt,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
@@ -611,13 +642,13 @@ return response($request->user()->orders, 200);
        $tid = Session::get('token')->id;
 
 
-       if($request->hasfile('file')):
+    //    if($request->hasfile('file')):
 
-            $fpath = Storage::putFile('pospdf', $request->file('file'));
+    //         $fpath = Storage::putFile('pospdf', $request->file('file'));
 
-            $id = Order::find(Session::get('token')->id)->update(['attachment' => $fpath]);
+    //         $id = Order::find(Session::get('token')->id)->update(['attachment' => $fpath]);
 
-        endif;
+    //     endif;
 
 
         //manage stock

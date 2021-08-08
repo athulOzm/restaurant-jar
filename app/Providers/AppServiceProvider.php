@@ -11,6 +11,7 @@ use App\Order;
 use App\Product;
 use App\Promotion;
 use App\Setting;
+use App\Table;
 use App\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
@@ -111,6 +112,11 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('locations', function(){
 
             return Deliverylocation::all();
+        });
+
+        app()->bind('tables', function(){
+
+            return Table::all();
         });
     }
 

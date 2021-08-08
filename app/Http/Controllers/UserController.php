@@ -72,16 +72,16 @@ class UserController extends Controller
 
     public function storeWeb(Request $request){
 
-        if($request->hasfile('cover')):
+        // if($request->hasfile('cover')):
 
-            $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
-            $img = Image::make($request->cover->path());
-            $img->resize(300, 300)->save(storage_path('app/public/cover').'/'.$fname);
-        endif;
+        //     $fname = Str::slug($request->name, '-').rand(100,999).'.'.$request->file('cover')->extension();
+        //     $img = Image::make($request->cover->path());
+        //     $img->resize(300, 300)->save(storage_path('app/public/cover').'/'.$fname);
+        // endif;
 
         $mem = $this->validateReq($request);
-        $mem['code'] = rand(1111,9999);
-        $mem['cover'] =  @$fname ? $fname : null;
+        // $mem['code'] = rand(1111,9999);
+        // $mem['cover'] =  @$fname ? $fname : null;
 
         $user = User::create($mem);
 

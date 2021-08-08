@@ -10,7 +10,9 @@
       <title>POS</title>
       <link rel="icon" id="favicon" href="{{asset('img/logo.png')}}" sizes="16x16">
       <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
       <!-- Custom fonts for this template-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"   />
       <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -46,7 +48,7 @@
 }
 .nav-pills .nav-link {
     border-radius: 3px;
-    font-size: 13px;color: #1b1f32
+    font-size: 14px;color: #1b1f32; padding: .8em; font-weight: 600; border-bottom: 1px solid #fff
 }
          .cart {
           font-family: Arial, Helvetica, sans-serif;
@@ -231,16 +233,22 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 } */
 
 .box3 {
-    padding: 2px 0px;
-    background: #2c3346;
+    padding: 11px 0px;
+    background: #424962;
     margin-right: 5px;
     margin-top: 0px;
-    width: 100%;
     border-radius: 3px;
     cursor: pointer;
+    display: flex;
     margin-bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
 }
-.box3 input {opacity: .5; margin-left: 15px}
+.box3 input {opacity: 0;  }
+.box3 input:checked {opacity: 1;  }
+
 .box1 input[type=radio]{ margin-right: 10px}
 
 .flex{display: flex}
@@ -250,9 +258,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 200; 
 }
 .lab1a {
-    font-size: 12px;
-    color: #acb5ca;
-    font-weight: 600;
+    font-size: 14px;
+    color: #f8f9fc;
+    font-weight: 300;
     display: inline-block;
     margin-left: 0;
     margin-bottom: 1px;
@@ -326,6 +334,12 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-size: 13px;
     color: #e6ebf3; font-weight: 600; line-height: 26px
 }
+.btn-light {
+    color: #3a3b45;
+    background-color: #e5e9f1;
+    border-color: #e5e9f1;
+    padding: 3px 15px;
+}
 .txtb {
     background: #424962;
     border: 0;
@@ -351,8 +365,25 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin: 6px 0;
     padding: 5px 0px;
     color: #1b1f32;
-    width: 100%;font-size: 11px; border-radius: 3px
+    width: 100%;font-size: 14px; border-radius: 3px
 }
+
+.btnc22 {
+    height: auto;
+    background: #424962;
+    border-color: #424962;
+    margin: 6px 0;
+    padding: 12px 0px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.btnc22 i {font-size: 23px; color: white}
 
 .p5{padding-left: 5px; padding-right: 5px}
 .tar{text-align: right}
@@ -742,6 +773,10 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
    
 
 
+    
+      
+
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
@@ -777,6 +812,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 </script>
   
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+ 
+
+<script>
+    $('select').selectpicker();
+</script>
 
   
       @yield('script')

@@ -1,7 +1,7 @@
 
 @extends('admin.layouts.master')
 
-@section('head', 'Members')
+@section('head', 'Customers')
 
 @section('content')
 
@@ -56,7 +56,7 @@
   
                     <div class="card shadow mb-12" style="width:100%">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Members 
+                            <h6 class="m-0 font-weight-bold text-primary">Customers 
                                 
                                 <a  href="{{ route('member.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " style="float:right"><i class="fas fa-fw fa-table fa-sm text-white-50"></i> Create New</a>  
                                 
@@ -77,17 +77,18 @@
                                     <thead>
                                         <tr>
                                          
-                                            <th class="text-left text-blue-900">Mess ID</th>
-                                            <th class="text-left text-blue-900">Service ID</th>
+                                            {{-- <th class="text-left text-blue-900">Mess ID</th>
+                                            <th class="text-left text-blue-900">Service ID</th> --}}
                                             <th class="text-left text-blue-900">Full Name</th>
-                                            <th class="text-left text-blue-900">Code</th>
+                                            {{-- <th class="text-left text-blue-900">Code</th> --}}
                                             <th class="text-left text-blue-900">Phone</th>
-                                            <th class="text-left text-blue-900">Rank</th>
-                                            <th class="text-left text-blue-900">Item Limit</th>
+                                            {{-- <th class="text-left text-blue-900">Rank</th>
+                                            <th class="text-left text-blue-900">Item Limit</th> --}}
+                                            {{-- <th class="text-left text-blue-900">Branches</th> --}}
+                                            {{-- <th class="text-left text-blue-900">Category</th> --}}
                                             <th class="text-left text-blue-900">Branches</th>
-                                            <th class="text-left text-blue-900">Category</th>
-                                            <th class="text-left text-blue-900">Status</th>
-                                            <th class="text-left text-blue-900" width="50">Member Card</th>
+                                            {{-- <th class="text-left text-blue-900">Status</th> --}}
+                                            {{-- <th class="text-left text-blue-900" width="50">Member Card</th> --}}
                                             <th class="text-left text-blue-900" width="60">Action</th>
                                         
     
@@ -99,38 +100,38 @@
                                         <tr>
                                           
                                        
-                                            <td>{{$member->memberid}}</td>
-                                            <td>{{$member->memberid}}</td>
+                                            {{-- <td>{{$member->memberid}}</td>
+                                            <td>{{$member->memberid}}</td> --}}
                                             <td>
                                                 @if ($member->cover != null)
                             <img class="img-thumbnail " width="40" src="{{env('IMAGE_PATH')}}{{ $member->cover}}"  style="float: left"/>
                           @endif
                                                 {{$member->name}} <span style="text-align: right">{{$member->ar_name}}</span></td>
-                                        <td>{{$member->code}}</td>
+                                        {{-- <td>{{$member->code}}</td> --}}
 
                                             <td>{{$member->phone}}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($member->rank_id != null)
                                                 {{$member->getrank()->name}}
                                                 @endif
-                                            </td>
-                                            <td>{{$member->item_limit}}</td>
+                                            </td>--}}
+                                            {{-- <td>{{$member->item_limit}}</td> --}}
                                             <td> @foreach ($member->branches as $type)
                                                 {{$type->full_name}}, 
-                                            @endforeach </td>
-                                            <td>
+                                            @endforeach </td> 
+                                            {{-- <td>
                                                 @if ($member->category_id != null)
                                                 {{$member->category->name}}
                                                 @endif
-                                            </td>
-
+                                            </td> --}}
+{{-- 
                                         <td style="padding-bottom: 0"> <p style="font-size: 11px; line-height:12px; margin-bottom:0"> @if ($member->status) <span style="color: green"> Active <br>{{ Carbon\Carbon::parse($member->renewal_at)->format('d M Y') }}</span> @else Inactive <br>{{ Carbon\Carbon::parse($member->renewal_at)->format('d M Y') }} @endif </p>
                                         <br>
-                                            {{-- <p style="font-size: 12px">()</p> --}}
-                                        </td>
+                                            
+                                        </td> --}}
 
 
-
+{{-- 
 
                                         <td>
                                             
@@ -139,7 +140,7 @@ font-size: 12px;
 padding: 0 5px;
 "> Download</a> 
 
-</td>
+</td> --}}
 
                                          
 
@@ -262,7 +263,7 @@ $('#delete').click(function(){
 
   if(post_arr.length <= 0){
 
-     var isDelete = confirm("Please choose Members");
+     var isDelete = confirm("Please choose Customers");
   }
 
 
