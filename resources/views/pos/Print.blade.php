@@ -183,10 +183,20 @@
                 <td>Order Date</td>
                 <td><b>:</b>{{Carbon\Carbon::now() }}<td>
               </tr>
-              {{-- <tr>
+
+              @if ($order->user != '')
+              <tr>
+                <td>Member Name</td>
+                <td><b>:</b>{{$order->vn}}<td>
+              </tr>
+              @endif
+               <tr>
                 <td>Member No</td>
                 <td><b>:</b>{{$order->user->memberid}}</td>
               </tr>
+
+
+              {{--
               <tr>
                 <td>Member Name</td>
                 <td><b>:</b>{{$order->user->name}}<td>
