@@ -362,7 +362,7 @@ label {
           </div>
 
           <div class="col-sm-2 p5">
-            <button onclick="kot()"  class="btn btn-primary btnc22" type="button"><i class="fas fa-fw fa-print"></i> Print & Save</button>
+            <button onclick="kot()"  class="btn btn-primary btnc22" type="button"><i class="fas fa-fw fa-print"></i> Save</button>
           </div>
 
 
