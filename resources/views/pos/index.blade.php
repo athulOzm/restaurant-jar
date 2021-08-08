@@ -517,10 +517,8 @@ label {
 
 
                           <div 
-                            @if ($product->stock_available != '0.0') onclick="addtocart({{$product->id}});" class="card itembox"   
-                            @else 
-                            class="card itembox phidden" onClick="alert('This item is currently out of stock, Add stock and continue.')"
-                            @endif 
+                           onclick="addtocart({{$product->id}});" class="card itembox"   
+                            
 
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
