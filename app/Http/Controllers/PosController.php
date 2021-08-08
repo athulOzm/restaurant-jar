@@ -652,17 +652,17 @@ return response($request->user()->orders, 200);
 
 
         //manage stock
-        Order::find(Session::get('token')->id)->orderproducts()->each(function($product){
+        // Order::find(Session::get('token')->id)->orderproducts()->each(function($product){
 
-            $mnustock = Product::find($product->product_id)->getmenustocks()->first()->qty_total;
+        //     $mnustock = Product::find($product->product_id)->getmenustocks()->first()->qty_total;
 
-            $tot = number_format($mnustock - $product->quantity, 1);
-            Product::find($product->product_id)->getmenustocks()->first()->update([
-                'qty_total' => $tot
-            ]);
+        //     $tot = number_format($mnustock - $product->quantity, 1);
+        //     Product::find($product->product_id)->getmenustocks()->first()->update([
+        //         'qty_total' => $tot
+        //     ]);
 
 
-        });
+        // });
 
 
 
