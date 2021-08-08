@@ -164,7 +164,7 @@
           <div class="info"> 
 
             <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
-              <img src="/img/cooking.png" style="width: 30%; margin-left:30%" alt="">
+              <img src="/img/cooking.png" style="width: 30%; margin-left:20%" alt="">
               <p>Jar Cookies</p>
             
               {{-- <p style="margin-bottom: 6px">Al Husn Kitchen</p>   --}}
@@ -186,7 +186,7 @@
 
               @if ($order->user != '')
               <tr>
-                <td>Member Name</td>
+                <td>Vehicle Number</td>
                 <td><b>:</b>{{$order->vn}}<td>
               </tr>
               @endif
@@ -326,7 +326,7 @@
 
                       <div style="text-align: center; margin:0; font-size:14px; text-align:left">
                        
-                        Pripared By : <BR>
+                        User : <BR>
                         Date and Time : {{Carbon\Carbon::now() }}<BR></div>
     
                     </div><!--End InvoiceBot-->

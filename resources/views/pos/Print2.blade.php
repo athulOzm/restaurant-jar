@@ -164,7 +164,7 @@
           <div class="info"> 
 
             <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
-              <img src="/img/cooking.png" style="width: 30%; margin-left:30%" alt="">
+              <img src="/img/cooking.png" style="width: 30%; margin-left:20%" alt="">
               <p>Jar Cookies</p>
               <b style="padding: 6px 20px; background: #fff; font-weight: 400">INVOICE</b>
               <div class="dot" style="margin-top: -12px"></div>
@@ -183,7 +183,7 @@
               </tr>
               @if ($order->user != '')
               <tr>
-                <td>Member Name</td>
+                <td>Vehicle Number</td>
                 <td><b>:</b>{{$order->vn}}<td>
               </tr>
               @endif
