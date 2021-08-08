@@ -573,6 +573,8 @@ return response($request->user()->orders, 200);
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
+                'table_id'  =>  $request->vn,
+
                // 'payment_status' =>  false,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
@@ -591,6 +593,8 @@ return response($request->user()->orders, 200);
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
+                'table_id'  =>  $request->vn,
+
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $waiter,
@@ -617,6 +621,7 @@ return response($request->user()->orders, 200);
                 'room_addr'  =>  $del_loc,
                 'payment_status' =>  $pt,
                 'table_id'  =>  $table,
+                'table_id'  =>  $request->vn,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,

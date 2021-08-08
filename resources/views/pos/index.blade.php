@@ -247,6 +247,16 @@ label {
            
                
             </div>
+
+
+            <div class="row" id="dtawrap" style="display: none">
+            
+              <p class="lab1b">Vehicle Number</p>
+              <input name="vn"   step="any" type="text"   class="form-control  ">
+           
+               
+            </div>
+
             {{-- <div id="vallimit" style="
             font-size: 13px;
             color: #e65776;
@@ -1199,10 +1209,11 @@ const getlimitbydate = () => {
   const takeaway = () => {
     $('#dineinwrap').css({display : 'none'});
 $('#deliverywrap').css({display : 'none'});
+$('#dtawrap').css({display : 'block'});
   }
 
  
-
+  
 
 
   const hideloc = () =>  {
@@ -1212,6 +1223,8 @@ $('#deliverywrap').css({display : 'none'});
   const ShowDelType = (memberid) =>  {
     $('#dineinwrap').css({display : 'none'});
 $('#deliverywrap').css({display : 'block'});
+$('#dtawrap').css({display : 'none'});
+
     
   }
 
@@ -1258,6 +1271,8 @@ const getTables = (memberid) => {
 
   $('#dineinwrap').css({display : 'block'});
   $('#deliverywrap').css({display : 'none'});
+$('#dtawrap').css({display : 'none'});
+
 }
   
   
