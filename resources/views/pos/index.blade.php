@@ -229,13 +229,13 @@ label {
 
             <div class="row" id="deliverywrap" style="display: none">
               <p class="lab1b">Delivery Type</p>
-              <select  data-live-search="true" required name="del_type" class="form-control mb-1"  style="
+              <select  data-live-search="true"  name="del_type" class="form-control mb-1"  style="
                 background: #424961;
                 color: #fff;
                 font-size: 13px;border:1px solid #424961
                 ">
                   @foreach  ($deltypes as $deltype)
-                  <option @if ($loop->first) selected @endif value="{{$deltype->id}}">{{$deltype->name}}</option>
+                  <option  value="{{$deltype->id}}">{{$deltype->name}}</option>
                   @endforeach                        
               </select>
 
