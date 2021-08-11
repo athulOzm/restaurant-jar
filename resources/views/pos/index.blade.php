@@ -54,7 +54,7 @@ label {
 
 
 
-  <div class="col-sm-6 p0" style="background: #2c3346;">
+  <div class="col-sm-5 p0" style="background: #2c3346;">
     
 
 
@@ -467,7 +467,7 @@ label {
 
 
 
-  <div class="col-sm-6 mt-4">
+  <div class="col-sm-7 mt-4">
     <div class="card  shadow-xs mt-1" >
 
       
@@ -480,22 +480,16 @@ label {
       <div id="exTab2">
         
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
-          <li class="nav-item" style="width: 40%">
+          <li class="nav-item" style="width: 100%">
             <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Items/ Add by Barcode" style="margin: 7px 3px;
-            width: 96%;
+            width: 99%;
             font-size: 14px;
             padding: 20px 15px;">
           </li>
  
-          @foreach ($menutypes as $menutype)
-          <?php $nub = 1; ?>
-            <li class="nav-item">
-              <a class="nav-link @if($loop->first) active @endif" id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
-            </li>
-            <?php 
-            $nub = 2;
-            ?>
-          @endforeach
+          {{-- menutype here --}}
+          
+          
         </ul>
 
 <style>
@@ -525,15 +519,36 @@ label {
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
 
+                        <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
+
+                          @if ($product->v1_price != '')
+                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                          @endif
+
+                          @if ($product->v2_price != '')
+                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                          @endif
+
+                          @if ($product->v3_price != '')
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          @endif
+                           
+
+                        </div>
+
 
                           <div 
-                           onclick="addtocart({{$product->id}});" class="card itembox"   
-                            
+                          @if ($product->variant)
+                            onclick="showvariant({{$product->id}});"  
+                          @else
+                            onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                          @endif
 
-                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                          class="card itembox"
+                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}} ({{$product->stock_available}})</h6>
+                              <h6 class="itemtitle">{{$product->name}} </h6>
                           </div>
 
 
@@ -791,9 +806,20 @@ const paynow = () => {
 
 // }
 
+
+const showvariant = (id) => {
+
+$(".backDrop").animate({"opacity": ".80"}, 300);
+$(`#variants${id}`).animate({"opacity": "1.0"}, 300);
+$(".backDrop, .variant").css("display", "block");
+
+}
  
 
 $(document).ready(() => {
+
+
+
 
   //set time
   var dtimee = $('#dtimee').val();
@@ -825,8 +851,8 @@ $(document).ready(() => {
   });
 
   function closeBox(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").animate({"opacity": "0"}, 300, function(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").css("display", "none");
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
     });
   }
 
@@ -836,6 +862,9 @@ $(document).ready(() => {
     $(".sales_return").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .sales_return").css("display", "block");
   });
+
+ 
+ 
 
 
 
@@ -1313,11 +1342,34 @@ $('#dtawrap').css({display : 'none'});
                 var btn = ''
               }
 
+      
+
+            
+                switch (item.variant) {
+                  case 1:
+                    var vv = '('+item.product.v1_name+')';
+                    break;
+                  
+                  case 2:
+                    var vv = '('+item.product.v2_name+')';;
+                    break;
+
+                  case 3:
+                    var vv = '('+item.product.v3_name+')';;
+                    break;
+                
+                  default:
+                    var vv = '';
+                    break;
+                }
+
+ 
+
                   $('#cart').append(
                     `<div class="item">
           <div class="row">
             <div class="col-sm-1 price " style="padding-left:25px">${n}</div>
-            <div class="col-sm-2 price p0">${item.product.name} </div>
+            <div class="col-sm-2 price p0">${item.product.name} ${vv} </div>
             <div class="col-sm-2 p0">
 
               <div style="display: flex">
@@ -1339,8 +1391,8 @@ $('#dtawrap').css({display : 'none'});
             </div>
             <div class="col-sm-1 price p0">${item.unit_price_with_promotion}</div>
             <div class="col-sm-2 p0">
-              <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" 
-              id="itemd${item.product.id}" class="itemdis" type="text">
+              <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}${item.variant}');" 
+              id="itemd${item.product.id}${item.variant}" class="itemdis" type="text">
             </div>
 
         
@@ -1456,10 +1508,10 @@ const updqty = (cart_item) =>  {
 }
 
 
-
+ 
 
   // addtocart main items
-  const addtocart = (item) => {
+  const addtocart = (item, va, price, vat, promotion_price) => {
   
       var token = $("meta[name='csrf-token']").attr("content");
       $.ajax({
@@ -1467,20 +1519,39 @@ const updqty = (cart_item) =>  {
           url: `/pos/addtocart`,
           data: {
               "id": item,
+              "va": va,
+              "price": price,
+              "vat": vat,
+              "promotion_price": promotion_price,
               "_token": token,
           },
-          success: function(res){
-
-            
-            // var res = $('#autocomplete').val().split(" - ");
-            // if(res[0] != ''){
-            //   cartcontinuebymid(res[0]);
-            // }
-           // $('#crepay').prop('checked', false);
+            success: function(res){
             getOrders();
           }
       });
   }
+
+
+// addtocart main items
+const addtocartvariant = (item, va) => {
+  
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/addtocartvariant`,
+      data: {
+          "id": item,
+          "v": va,
+          "_token": token,
+      },
+      success: function(res){
+
+        getOrders();
+      }
+  });
+}
+
+
 
 
   // addtocart addon items

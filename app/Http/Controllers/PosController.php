@@ -105,26 +105,34 @@ class PosController extends Controller
     public function addtocart(Request $request){
 
        $pid = $request->id;
+       $va = $request->va;
+       $price = $request->price;
+       $vat = $request->vat;
+       $promotion_price = $request->promotion_price;
 
-       $product = Product::find($request->id);
+       //$product = Product::find($request->id);
 
 
 
        $token = Order::find(Session::get('token')->id);
 
-       $status = Order::whereHas('products', function($q) use($pid){
+       $status = Order::whereHas('orderproducts', function($q) use($pid, $va, $token){
                         $q->where('product_id', $pid);
+                        $q->where('order_id', $token->id);
+                        $q->where('variant', $va);
                     })
-                 ->with('products')->where('id', $token->id)->first();
+                 ->with('products')
+                 ->first();
       
         if($status == ''){
 
             $product = [
                 'product_id' => $request->id, 
                 'quantity' =>  1,
-                'price' => $product->price,
-                'vat' => $product->vat,
-                'promotion' => $product->promotion_price,
+                'price' => $price,
+                'variant' => $va,
+                'vat' => $vat,
+                'promotion' => $promotion_price,
             ];
             $token->products()->attach([$product]);
         } 
@@ -132,12 +140,52 @@ class PosController extends Controller
 
            DB::table('order_product')
             ->where('order_id', $token->id)
+            ->where('variant', $va)
             ->where('product_id', $pid)
             ->increment('quantity');
         }
 
         return response(['message' => 'product added successfully'], 201);
     }
+
+
+        //add to cart va pos
+        public function addtocartvariant(Request $request){
+
+            $pid = $request->id;
+     
+            $product = Product::find($request->id);
+     
+     
+     
+            $token = Order::find(Session::get('token')->id);
+     
+            $status = Order::whereHas('products', function($q) use($pid){
+                             $q->where('product_id', $pid);
+                         })
+                      ->with('products')->where('id', $token->id)->first();
+           
+             if($status == ''){
+     
+                 $product = [
+                     'product_id' => $request->id, 
+                     'quantity' =>  1,
+                     'price' => $product->price,
+                     'vat' => $product->vat,
+                     'promotion' => $product->promotion_price,
+                 ];
+                 $token->products()->attach([$product]);
+             } 
+             else {
+     
+                DB::table('order_product')
+                 ->where('order_id', $token->id)
+                 ->where('product_id', $pid)
+                 ->increment('quantity');
+             }
+     
+             return response(['message' => 'product added successfully'], 201);
+         }
 
     //add to cart pos
     public function addtocartByBarcode(Request $request){
@@ -561,6 +609,12 @@ return response($request->user()->orders, 200);
 
         //dd($memberid);
 
+        if(isset($request->vn)){
+            $vn = $request->vn;
+        } else {
+            $vn = null;
+        }
+
 
 
         if($request->reqtype == 'kot'){
@@ -573,7 +627,7 @@ return response($request->user()->orders, 200);
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
-                'vn'  =>  $request->vn,
+                'vn'  =>  $vn,
 
                // 'payment_status' =>  false,
                 'table_id'  =>  $table,
@@ -581,7 +635,7 @@ return response($request->user()->orders, 200);
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  7
+                'menutype_id'   =>  MenuType::first()->id
             ]);
 
         } else if($request->reqtype == 'hold'){
@@ -593,14 +647,14 @@ return response($request->user()->orders, 200);
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
-                'vn'  =>  $request->vn,
+                'vn'  =>  $vn,
 
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  7
+                'menutype_id'   =>  MenuType::first()->id
             ]);
 
         } else{
@@ -621,12 +675,12 @@ return response($request->user()->orders, 200);
                 'room_addr'  =>  $del_loc,
                 'payment_status' =>  $pt,
                 'table_id'  =>  $table,
-                'vn'  =>  $request->vn,
+                'vn'  =>  $vn,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
-                'menutype_id'   =>  7,
+                'menutype_id'   =>  MenuType::first()->id,
                 'amount'    =>  Order::find(Session::get('token')->id)->total_price
             ]);
 
@@ -682,17 +736,17 @@ return response($request->user()->orders, 200);
         if(auth()->user()->type == 4){
             Auth::guard('waiter')->logout();
             Auth::logout();
-    Session::flush();
-    return redirect()->route('waiter.login');
+            Session::flush();
+            return redirect()->route('waiter.login');
         }
 
-            Checkout::dispatch($tid);
+            //Checkout::dispatch($tid);
             return redirect()->route('pos.print.order', $tid);
        }
        
        else{
 
-            Checkout::dispatch($tid);
+            //Checkout::dispatch($tid);
             return redirect()->route('pos.print', $tid);
        }
        

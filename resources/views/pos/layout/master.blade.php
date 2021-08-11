@@ -596,13 +596,28 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   opacity: 0;
   position: fixed;
   top: 50%;
-  z-index: 51; width: 350px; margin-top: -150px;
+  z-index: 51; width: 350px; margin-top: -175px;
   
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; background: #fff; overflow-y: scroll; padding-bottom: 20px
 }
-
+.variant{
+ border:1px solid #424962;
+  padding: 20px;
+  display: none;
+   
+  left: 50%;
+  margin-left: -170px;
+  opacity: 0;
+  position: fixed;
+  top: 50%;
+  z-index: 51; width: 450px; margin-top: -150px;
+  
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; background: #fff; overflow-y: scroll; padding-bottom: 20px
+}
 .boxsett3{
  border: 1px solid #656f9e;
   padding: 0;
@@ -649,7 +664,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin: 6px;
     margin-top: 90px;
     color: black!important;
-    font-size: 12px!important;
+    font-size: 14px!important;
 }
 
 .clear{
@@ -709,6 +724,16 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #2196F3!important;
 }
 
+.btnn1v {
+    background: #fff;
+    margin-right: 10px;
+    width: 100%;
+    border-radius: 19px; line-height: 30px;
+    height: 45px;
+    border: 1px solid #2196F3;
+    color: #2196F3!important; font-size: 16px
+}
+.btnn1v:hover {color: white!important}
 .navbar-expand .navbar-nav {
     flex-direction: row;
     vertical-align: middle;

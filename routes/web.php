@@ -158,6 +158,7 @@ Route::middleware(['auth:admin'])->group(function () {
     //pos pos/
     Route::get('pos', 'PosController@pos')->name('pos');
     Route::post('pos/addtocart', 'PosController@addtocart')->name('pos.addtocart');
+    Route::post('pos/addtocartvariant', 'PosController@addtocartvariant')->name('pos.addtocartvariant');
     Route::post('pos/addtocartbybarcode', 'PosController@addtocartByBarcode');
     Route::post('pos/addtocartbyreceipt', 'PosController@addtocartByReceipt');
     Route::post('pos/downcart', 'PosController@downcart')->name('pos.downcart');

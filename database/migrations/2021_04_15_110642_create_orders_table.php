@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('menutype_id')->references('id')->on('menutypes')->onDelete('set null');
            
             $table->string('delivery_type')->nullable();
+            $table->string('vn')->nullable();
             $table->dateTime('delivery_time')->nullable();
 
 
