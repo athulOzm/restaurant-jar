@@ -12,6 +12,6 @@ class BranchSeeder extends Seeder
      */
     public function run()
     {
-        factory(Branch::class, 3)->create();
+        factory(Branch::class, 1)->create();
     }
 }

@@ -324,6 +324,16 @@ select[data-multi-select-plugin] {
                                 </div>
 
 
+                                <div class="form-group col-md-4">
+                                  <label for="addon">Categories</label>
+                                      <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
+                                        @foreach ($mcategories as $item)
+                                          <option @if (old('cat') == $item->id) selected @endif value="{{$item->name}}">{{$item->name}}</option>
+                                        @endforeach
+                                      </select>
+                                </div>
+
+
                                 
                             </div>
 
@@ -331,14 +341,7 @@ select[data-multi-select-plugin] {
                             <div class="row">
                               
 
-                              <div class="form-group col-md-4">
-                                <label for="addon">Categories</label>
-                                    <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
-                                      @foreach ($mcategories as $item)
-                                        <option @if (old('cat') == $item->id) selected @endif value="{{$item->name}}">{{$item->name}}</option>
-                                      @endforeach
-                                    </select>
-                              </div>
+                              
 
                               <div class="form-group col-md-4">
                                 <label for="addon">Addon</label>
@@ -349,20 +352,20 @@ select[data-multi-select-plugin] {
                                     </select>
                               </div>
 
-                              <div class="form-group col-md-4">
+                              {{-- <div class="form-group col-md-4">
                                 <label for="branch">Branches</label>
                                     <select multiple data-multi-select-plugin name="branch[]" class="form-control w-full border-gray-400">
                                       @foreach ($branches as $item)
                                         <option @if (old('branch') == $item->id) selected @endif value="{{$item->name}}">{{$item->name}}</option>
                                       @endforeach
                                     </select>
-                              </div>
+                              </div> --}}
+
+                              <input type="hidden" name="branch[]" value="1">
 
 
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-3">
+                            
+                                {{-- <div class="form-group col-md-3">
                                     <label for="inputCity">Menu Type  </label>
                                      
                                     <label class="flex flex-col items-center mt-3">
@@ -376,8 +379,11 @@ select[data-multi-select-plugin] {
 
                                         
                                     </label>
-                                </div>
-                                <div class="form-group col-md-3">
+                                </div> --}}
+                                <input type="hidden" name="type[]" value="1">
+
+
+                                <div class="form-group col-md-4">
                                     <label for="inputCity">Status</label>
                                     <label class="flex flex-row items-center mt-3">
                                         <div>
@@ -402,8 +408,90 @@ select[data-multi-select-plugin] {
                                     @enderror
                                 </div>
 
-                                <input type="hidden" name="images">
 
+                                
+
+                            </div>
+
+                            <hr>
+
+                            <div class="row"> 
+
+
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Product Variant</label>
+
+
+                                  <select class="form-control" name="variant" id="variantc">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                  </select>
+
+                                  @error('cover')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{$message}}</strong>
+                                  </span>
+                                  @enderror
+                              </div>
+                              
+                              <div class="form-group  col-md-8">
+                                <div class="container" id="pass" style="background: #e7e7e7; border-radius:6px;display:none">
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="S"
+                                          class="form-control @error('v1_name') is-invalid @enderror" name="v1_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v1_price') is-invalid @enderror"
+                                        value="{{@old('v1_price')}}" name="v1_price">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="M"
+                                          class="form-control @error('v2_name') is-invalid @enderror" name="v2_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v2_price') is-invalid @enderror"
+                                        value="{{@old('v2_price')}}" name="v2_price">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="L"
+                                          class="form-control @error('v3_name') is-invalid @enderror" name="v3_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v3_price') is-invalid @enderror"
+                                        value="{{@old('v3_price')}}" name="v3_price">
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+
+                     
+                                
+
+
+                          
+
+
+ 
+
+                                <input type="hidden" name="images">
                                 {{-- <div class="form-group col-md-4">
                                     <label for="inputCity">Gallery Images</label>
                                     <input type="file" class="form-control-file  @error('images') is-invalid @enderror"
@@ -475,6 +563,20 @@ select[data-multi-select-plugin] {
 @section('script')
 
 <script type="text/javascript">
+
+
+$('#variantc').on('change', function() {
+
+    
+if(this.value == 1){
+    $('#pass').css('display', 'block');
+} else {
+
+    $('#pass').css('display', 'none');
+
+}
+
+});
 
 
 // Initialize function, create initial tokens with itens that are already selected by the user

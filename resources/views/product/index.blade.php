@@ -32,14 +32,14 @@
 
                                         <th>Name</th>
                                         <th>Category</th>
-                                        <th>Menu Type</th>
+                                        {{-- <th>Menu Type</th> --}}
                                         <th>Stock</th>
                                         <th>Promotion</th>
 
                                         
                                         <th>Price</th>
                                         <th>Tax</th>
-                                        <td>Branches</td>
+                                        {{-- <td>Branches</td> --}}
                                        
 
                                         
@@ -71,10 +71,10 @@
                                                 {{$type->name}}, 
                                             @endforeach 
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             @foreach ($product->types as $type)
                                                 {{$type->name}}, 
-                                            @endforeach </td>
+                                            @endforeach </td> --}}
 
                                         <td>{{$product->getAvailableQty()}} </td>
 
@@ -87,9 +87,9 @@
                                        
                                         <td>{{$product->price}} </td>
                                         <td>{{$product->vat}}% </td>
-                                        <td> @foreach ($product->branches as $type)
+                                        {{-- <td> @foreach ($product->branches as $type)
                                             {{$type->full_name}}, 
-                                        @endforeach </td>
+                                        @endforeach </td> --}}
 
                                        
 

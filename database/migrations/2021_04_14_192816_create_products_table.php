@@ -33,6 +33,17 @@ class CreateProductsTable extends Migration
             $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('set null');
 
             $table->decimal('price', 8, 3)->nullable();
+
+            $table->boolean('variant')->default(false);
+
+            $table->string('v1_name');
+            $table->string('v2_name');
+            $table->string('v3_name');
+            $table->decimal('v1_price', 8, 3)->nullable();
+            $table->decimal('v2_price', 8, 3)->nullable();
+            $table->decimal('v3_price', 8, 3)->nullable();
+
+
             $table->decimal('vat', 8, 2)->default(0);
             $table->decimal('qty', 8, 1)->nullable()->default(10);
             $table->longText('body')->nullable();

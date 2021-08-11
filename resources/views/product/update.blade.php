@@ -411,7 +411,7 @@ $branches = resolve('branches');
 
                               
 
-                              <div class="form-group col-md-4">
+                              <div class="form-group col-md-6">
                                 <label for="inputCity">Categories</label>
                                 <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
                                     @foreach ($product->categories as $addo)
@@ -424,7 +424,7 @@ $branches = resolve('branches');
                                 </select>
                               </div>
 
-                              <div class="form-group col-md-4">
+                              <div class="form-group col-md-6">
                                 <label for="inputCity">Addon</label>
                                 <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
                                     @foreach ($product->addons as $addo)
@@ -437,7 +437,7 @@ $branches = resolve('branches');
                                 </select>
                               </div>
 
-                              <div class="form-group col-md-4">
+                              {{-- <div class="form-group col-md-4">
                                 <label for="branches">Branches</label>
                                 <select multiple data-multi-select-plugin name="branch[]" class="form-control w-full border-gray-400">
                                     @foreach ($product->branches as $addo)
@@ -448,7 +448,9 @@ $branches = resolve('branches');
                                         <option value="{{$addon['name']}}">jjj</option>
                                     @endforeach
                                 </select>
-                              </div>
+                              </div> --}}
+
+                              <input type="hidden" name="branch[]" value="1">
 
 
                             </div>
@@ -460,7 +462,7 @@ $branches = resolve('branches');
 
                                 
 
-                                <div class="form-group col-md-3">
+                                {{-- <div class="form-group col-md-3">
                                     <label for="inputCity">Menu Type  </label>
                                      
                                     <label class="flex flex-col items-center mt-3">
@@ -477,16 +479,9 @@ $branches = resolve('branches');
                                             <span class="ml-2 text-gray-700">{{$type->name}}</span>
                                         </div>
                                         @endforeach
-
-                                        
-
-                                      
-
-                                      
-
-                                        
                                     </label>
-                                </div>
+                                </div> --}}
+                                <input type="hidden" name="type[]" value="1">
                                 <div class="form-group col-md-3">
                                     <label for="inputCity">Status  </label>
                                      
@@ -531,6 +526,89 @@ $branches = resolve('branches');
                                     </div>
                                   </div>
                                 </div>
+
+
+                            </div>
+
+                            <hr>
+
+                            <div class="row"> 
+
+
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Product Variant</label>
+
+ 
+                                  <select class="form-control" name="variant" id="variantc">
+                                    <option  @if ($product->variant == 0)
+                                      selected
+                                    @endif value="0">No</option>
+                                    <option @if ($product->variant == true)
+                                      selected
+                                    @endif value="1">Yes</option>
+                                  </select>
+
+                                  @error('cover')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{$message}}</strong>
+                                  </span>
+                                  @enderror
+                              </div>
+                              
+                              <div class="form-group  col-md-8">
+                                <div class="container" id="pass" 
+                                @if ($product->variant == true)
+                                style="background: #e7e7e7; border-radius:6px;display:block"
+                                @else
+                                style="background: #e7e7e7; border-radius:6px;display:none"
+                                @endif
+                                >
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="{{$product->v1_name}}"
+                                          class="form-control @error('v1_name') is-invalid @enderror" name="v1_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v1_price') is-invalid @enderror"
+                                        value="{{$product->v1_price}}" name="v1_price">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="{{$product->v2_name}}"
+                                          class="form-control @error('v2_name') is-invalid @enderror" name="v2_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v2_price') is-invalid @enderror"
+                                        value="{{$product->v2_price}}" name="v2_price">
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="{{$product->v3_name}}"
+                                          class="form-control @error('v3_name') is-invalid @enderror" name="v3_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v3_price') is-invalid @enderror"
+                                        value="{{$product->v3_price}}" name="v3_price">
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+
 
                                 {{-- <div class="form-group col-md-4">
                                     <label for="inputCity">Gallery Images</label>
@@ -664,6 +742,22 @@ $branches = resolve('branches');
 
 
 <script type="text/javascript">
+
+
+$('#variantc').on('change', function() {
+
+    
+if(this.value == 1){
+    $('#pass').css('display', 'block');
+} else {
+
+    $('#pass').css('display', 'none');
+
+}
+
+});
+
+
 // Initialize function, create initial tokens with itens that are already selected by the user
 function init(element) {
   // Create div that wroaps all the elements inside (select, elements selected, search div) to put select inside
