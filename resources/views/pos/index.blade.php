@@ -521,6 +521,8 @@ label {
 
                         <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
 
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+
                           @if ($product->v1_price != '')
                           <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
                           @endif
@@ -533,7 +535,6 @@ label {
                           <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
                           @endif
                            
-
                         </div>
 
 
@@ -566,7 +567,36 @@ label {
                         @forelse ($cat->productsbytype($menutype->id) as $product)
 
                         
-                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                        <div id="variants{{$product->id}}aa{{$cat->id}}" class="variant" style="border-radius:6px">
+
+                   
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+                         
+
+                          @if ($product->v1_price != '')
+                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                          @endif
+
+                          @if ($product->v2_price != '')
+                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                          @endif
+
+                          @if ($product->v3_price != '')
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          @endif
+                           
+                        </div>
+
+
+                          <div 
+                          @if ($product->variant)
+                            onclick="showvariant2({{$product->id}}, {{$cat->id}});"  
+                          @else
+                            onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                          @endif
+                          
+                          class="card itembox" 
+                          
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
@@ -811,7 +841,17 @@ const showvariant = (id) => {
 
 $(".backDrop").animate({"opacity": ".80"}, 300);
 $(`#variants${id}`).animate({"opacity": "1.0"}, 300);
-$(".backDrop, .variant").css("display", "block");
+$(`#variants${id}`).css("display", "block");
+$(".backDrop").css("display", "block");
+
+}
+
+const showvariant2 = (id, cat) => {
+
+$(".backDrop").animate({"opacity": ".80"}, 300);
+$(`#variants${id}aa${cat}`).animate({"opacity": "1.0"}, 300);
+$(`#variants${id}aa${cat}`).css("display", "block");
+$(".backDrop").css("display", "block");
 
 }
  
@@ -1512,7 +1552,12 @@ const updqty = (cart_item) =>  {
 
   // addtocart main items
   const addtocart = (item, va, price, vat, promotion_price) => {
-  
+   
+   
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
+    });
+
       var token = $("meta[name='csrf-token']").attr("content");
       $.ajax({
           type: 'POST',
@@ -1526,6 +1571,7 @@ const updqty = (cart_item) =>  {
               "_token": token,
           },
             success: function(res){
+            
             getOrders();
           }
       });
