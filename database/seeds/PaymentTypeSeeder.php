@@ -17,11 +17,11 @@ class PaymentTypeSeeder extends Seeder
         ]);
 
         factory(PaymentType::class)->create([
-            'name' => 'Credit'
+            'name' => 'Cash'
         ]);
 
         factory(PaymentType::class)->create([
-            'name' => 'Both'
+            'name' => 'Online'
         ]);
     }
 }

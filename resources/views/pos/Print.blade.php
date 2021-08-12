@@ -164,7 +164,10 @@
           <div class="info"> 
 
             <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
-              <img src="/img/cooking.png" style="width: 30%; margin-left:20%" alt="">
+              <div style="display: flex;align-items: center;
+              justify-content: center;">
+               <img src="/img/cooking.png" style="height:60px" alt="">
+              </div>
               <p>Jar Cookies</p>
             
               {{-- <p style="margin-bottom: 6px">Al Husn Kitchen</p>   --}}
@@ -184,16 +187,13 @@
                 <td><b>:</b>{{Carbon\Carbon::now() }}<td>
               </tr>
 
-              @if ($order->user != '')
+              @if ($order->vn != '')
               <tr>
                 <td>Vehicle Number</td>
                 <td><b>:</b>{{$order->vn}}<td>
               </tr>
               @endif
-               <tr>
-                <td>Member No</td>
-                <td><b>:</b>{{$order->user->memberid}}</td>
-              </tr>
+              
 
 
               {{--
@@ -326,7 +326,7 @@
 
                       <div style="text-align: center; margin:0; font-size:14px; text-align:left">
                        
-                        User : <BR>
+                        Payment Type : {{$order->paymenttypef->name}} <BR>
                         Date and Time : {{Carbon\Carbon::now() }}<BR></div>
     
                     </div><!--End InvoiceBot-->

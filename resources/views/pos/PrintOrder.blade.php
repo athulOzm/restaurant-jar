@@ -154,85 +154,42 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
             </div> --}}
 
             <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
-              <p>The Royal Guard of Oman</p>
-              <p>Al Husn Officers Mess</p>
-              <p style="margin-bottom: 6px">Al Husn Kitchen</p>  
-              <b style="padding: 6px 20px; background: #fff; font-weight: 400">FOOD ORDER</b>
+              <div style="display: flex;align-items: center;
+              justify-content: center;">
+               <img src="/img/cooking.png" style="height:60px" alt="">
+              </div>
+              <p>Jar Cookies</p>
+            
+              {{-- <p style="margin-bottom: 6px">Al Husn Kitchen</p>   --}}
+              <b style="padding: 6px 20px; background: #fff; font-weight: 400">ORDER</b>
               <div class="dot" style="margin-top: -12px"></div>
             </div>
             
             <div style="clear: both"></div>
 
             <table style="font-size: .9em">
-              <tr>
-                <td>Order No</td>
-                <td><b>:</b>{{$order->branch->code}}{{$order->id}}</td>
-              </tr>
+              
               <tr>
                 <td>Order Date</td>
                 <td><b>:</b>{{Carbon\Carbon::now() }}<td>
               </tr>
+
+              @if ($order->vn != '')
+              <tr>
+                <td>Vehicle Number</td>
+                <td><b>:</b>{{$order->vn}}<td>
+              </tr>
+              @endif
             </table>
 
             <div style="clear: both"></div>
           </div> 
 
 
-          <div class="info">
-            <table style="font-size: .9em">
-              <tr>
-                <td>Member No</td>
-                <td><b>:</b>{{$order->user->memberid}}</td>
-              </tr>
-              <tr>
-                <td>OldMess No</td>
-                <td><b>:</b>{{$order->user->serviceid}}<td>
-              </tr>
-              <tr>
-                <td>Rank</td>
-                <td><b>:</b>{{$order->user->rank->name}}<td>
-              </tr>
-              <tr>
-              
-                <td colspan="1">{{$order->user->name}}<td>
-              </tr>
-            </table>
-          </div>
+        
 
 
-          <div class="info">
-            <table style="font-size: .9em">
-              <tr>
-                <td>Order Type</td>
-                <td><b>:</b>{{$order->menutype->name}}</td>
-              </tr>
-              <tr>
-                <td>Delv Place</td>
-                <td><b>:</b>{{$order->delivery_type}}<td>
-              </tr>
-              <tr>
-                <td>Delv Date</td>
-                <td><b>:</b>{{ \Carbon\Carbon::parse($order->delivery_time)->format('d-m-Y') }}<td>
-              </tr>
-              <tr>
-                <td>Delv Time</td>
-                <td><b>:</b>{{ \Carbon\Carbon::parse($order->delivery_time)->format('i') }}<td>
-              </tr>
-              <tr>
-                <td>Status</td>
-                <td><b>:</b>Open<td>
-              </tr>
-              <tr>
-                <td>Room</td>
-                <td><b>:</b>{{$order->room_addr}}<td>
-              </tr>
-              <tr>
-                <td>Remark</td>
-                <td><b>:</b>{{$order->sn}}<td>
-              </tr>
-              
-            </table>
-          </div>
+    
 
  
       
@@ -346,9 +303,13 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
                         <hr>
 
                         <div style="text-align: center; margin:0; font-size:14px; text-align:left">
-                         
-                          Chief Cook : <BR>
-                          Member Sign : <BR></div>
+                       
+                          
+                          Date and Time : {{Carbon\Carbon::now() }}<BR>
+                          
+                          
+                          
+                          </div>
 
                     <hr>
 
@@ -368,12 +329,12 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
     
 
 <script type="text/javascript">
-    function auto_print() {     
-       window.print()
-       window.location.href = "/pos";
+    // function auto_print() {     
+    //    window.print()
+    //    window.location.href = "/pos";
 
-    }
-    setTimeout(auto_print, 1000);
+    // }
+    // setTimeout(auto_print, 1000);
 </script>
 </body>
 </html>

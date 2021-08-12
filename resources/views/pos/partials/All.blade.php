@@ -6,7 +6,7 @@
                
 
 
-                <th width="30">Member ID</th>
+                <th width="30">Vehicle No</th>
                 <th width="30">Receipt Id</th>
                 <th width="30">User</th>
                 <th width="30">Order Source</th>
@@ -23,9 +23,8 @@
             @foreach($orders as $order)
                 <tr>
                      
-                    <td>@if ($order->user)
-                        {{$order->user->memberid}}
-                    @endif</td>
+                    <td>{{$order->vn}}</td>
+
                     <td>{{$order->id}}</td>
                    
                     <td>@if ($order->user)

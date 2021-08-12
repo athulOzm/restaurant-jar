@@ -21,7 +21,7 @@ $saleslog = resolve('saleslog');
                         <tr>
                             <th>Id</th>
                             <th>Receipt No</th>
-                            <th>Member ID</th>
+                            <th>Vehicle No</th>
                             <th>Date</th>
                             <th>TOTAL</th>
                             <th>Action</th>
@@ -33,9 +33,8 @@ $saleslog = resolve('saleslog');
                         <tr>
                             <td>{{$sale->id}}</td>
                             <td>RE-{{$sale->id}}</td>
-                            <td>@if ($sale->user)
-                                {{$sale->user->memberid}}
-                            @endif</td>
+                            <td>{{$sale->vn}}</td>
+
                             <td>{{$sale->updated_at}}</td>
                       
                             

@@ -43,7 +43,8 @@ label {
 <form action="{{route('pos.checkout')}}" method="POST" id="mform" autocomplete="off" enctype="multipart/form-data">
   @csrf
 
- <input type="hidden" name="reqtype" value="pos" id="reqtype">
+<input type="hidden" name="reqtype" value="pos" id="reqtype">
+<input type="hidden" name="paymenttype" value="" id="paymenttype">
 <input type="hidden" name="subtt2" id="totcre" value="">
 <input type="hidden" name="subtt2" id="subtotal2" value="">
 <input type="hidden" name="branch_id" value="{{ Session::get('branch')->id}}">
@@ -220,8 +221,22 @@ label {
                 color: #fff;
                 font-size: 13px;border:1px solid #424961
                 ">
+                @if($cur_token->table)
+                  <option value="{{$cur_token->table->id}}" selected>{{$cur_token->table->name}} - {{$cur_token->table->chair}}</option>
+                  @else
+                  <option value="">Select Table</option>
+
+                @endif
+ 
+
+                
                   @foreach  ($tables as $table)
-                  <option @if ($loop->first) selected @endif value="{{$table->id}}">{{$table->name}}</option>
+
+                  @if ($table->status == 1)
+                  <option value="{{$table->id}}">{{$table->name}} - {{$table->chair}} Chair</option>
+                  @endif
+
+                  
                   @endforeach                        
               </select>
             </div>
@@ -235,6 +250,7 @@ label {
                 font-size: 13px;border:1px solid #424961
                 ">
                   @foreach  ($deltypes as $deltype)
+                  <option value="">Select</option>
                   <option  value="{{$deltype->id}}">{{$deltype->name}}</option>
                   @endforeach                        
               </select>
@@ -381,10 +397,10 @@ label {
           
 
           <div class="col-sm-3 p5">
-            <button class="btn btn-primary btnc22" id="pay2" type="submit" style="width:100%; background:#7594f1; border:1px solid #7594f1"> <i class="fas fa-fw fa-credit-card"></i> Card </button>
+            <button onclick="pcard()"  class="btn btn-primary btnc22" id="pay2" type="submit" style="width:100%; background:#7594f1; border:1px solid #7594f1"> <i class="fas fa-fw fa-credit-card"></i> Card </button>
           </div>
           <div class="col-sm-3 p5">
-            <button class="btn btn-primary btnc22" id="pay32" type="submit" style="width:100%; background:#8BC34A; border:1px solid #8BC34A"> <i class="fas fa-fw fa-money-bill-wave-alt"></i> Cash </button>
+            <button onclick="pcash()"  class="btn btn-primary btnc22" id="pay32" type="submit" style="width:100%; background:#8BC34A; border:1px solid #8BC34A"> <i class="fas fa-fw fa-money-bill-wave-alt"></i> Cash </button>
           </div>
 
 
@@ -795,6 +811,20 @@ if($('#autocomplete').val() == ''){
   $('#mform').submit();
 }
 
+}
+
+
+//open and submit kot
+const pcard = () =>  {
+
+  $('#paymenttype').val(1);
+  $('#mform').submit();
+}
+
+const pcash = () =>  {
+
+$('#paymenttype').val(2);
+$('#mform').submit();
 }
 
 

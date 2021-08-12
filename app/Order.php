@@ -179,6 +179,11 @@ class Order extends Model
         return $this->gettotalprice()['subtotal'];
     }
 
+    public function paymenttypef(){
+
+        return $this->belongsTo(PaymentType::class, 'payment_type_id');
+    }
+
     public function getRefundBalanceAttribute(){
         
      

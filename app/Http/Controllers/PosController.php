@@ -582,16 +582,17 @@ return response($request->user()->orders, 200);
 
         }
 
+        if($request->del_type != ''){
+            $payment_type = 3;
+        }else{
+            $payment_type = $request->paymenttype;
+        }
 
-        $payment_type = $request->pt;
+
+        
         $delivery_time = $request->dtime;
 
-        // if(isset($request->table)){
-        //     $table = $request->table;
-        // //    Table::find($table)->update(['status' => false]);
-        // } else {
-        //     $table = null;
-        // }
+        
 
         // if(isset($request->location)){
         //     $location = $request->location;
@@ -619,6 +620,13 @@ return response($request->user()->orders, 200);
 
         if($request->reqtype == 'kot'){
 
+            if(isset($request->dine_table)){
+                $table = $request->dine_table;
+                Table::find($table)->update(['status' => false]);
+            } else {
+                $table = null;
+            }
+
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  3,
                 'user_id'    =>  User::find($memberid)->id,
@@ -628,8 +636,7 @@ return response($request->user()->orders, 200);
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
                 'vn'  =>  $vn,
-
-               // 'payment_status' =>  false,
+                'payment_status' =>  false,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $request->waiter,
@@ -639,6 +646,15 @@ return response($request->user()->orders, 200);
             ]);
 
         } else if($request->reqtype == 'hold'){
+
+            if(isset($request->dine_table)){
+                $table = $request->dine_table;
+               // Table::find($table)->update(['status' => false]);
+            } else {
+                $table = null;
+            }
+
+
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  2,
                 'user_id'    =>  User::find($memberid)->id,
@@ -648,7 +664,7 @@ return response($request->user()->orders, 200);
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
                 'vn'  =>  $vn,
-
+                'payment_status' =>  false,
                 'table_id'  =>  $table,
                 'sn' =>  $request->sn,
                 'waiter_id'  => $waiter,
@@ -659,21 +675,23 @@ return response($request->user()->orders, 200);
 
         } else{
 
-            if($payment_type == 1): 
-                $pt = true;
-            else: 
-                $pt = false;
-            endif;
+            if(isset($request->dine_table)){
+                $table = $request->dine_table;
+                Table::find($table)->update(['status' => true]);
+            } else {
+                $table = null;
+            }
+ 
 
             $id = Order::find(Session::get('token')->id)->update([
                 'status' =>  4,
                 'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
-                'payment_type_id'    =>  1,
+                'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
-                'payment_status' =>  $pt,
+                'payment_status' =>  true,
                 'table_id'  =>  $table,
                 'vn'  =>  $vn,
                 'sn' =>  $request->sn,

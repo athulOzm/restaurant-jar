@@ -102,8 +102,8 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
         <a  href="#1aa" data-toggle="tab">ADMIN</a>
       </li>
       
-      <li><a href="#2aa" data-toggle="tab">APPS</a>
-      </li>
+      {{-- <li><a href="#2aa" data-toggle="tab">APPS</a>
+      </li> --}}
       <li><a href="#3aa" data-toggle="tab">TABLET</a></li>
   
         
@@ -116,9 +116,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       <div class="tab-pane" id="1aa">
         @include('pos.partials.Admin')
       </div>
-      <div class="tab-pane" id="2aa">
+      {{-- <div class="tab-pane" id="2aa">
         @include('pos.partials.Apps')
-      </div>
+      </div> --}}
       <div class="tab-pane" id="3aa">
         @include('pos.partials.Tablet')
       </div>
