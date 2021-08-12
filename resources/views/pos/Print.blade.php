@@ -166,9 +166,9 @@
             <div style="width: 100%; float:right; text-align:center; padding-top:10px; margin-bottom:10px">
               <div style="display: flex;align-items: center;
               justify-content: center;">
-               <img src="/img/cooking.png" style="height:60px" alt="">
+               <img src="/img/cooking.png" style="height:80px" alt="">
               </div>
-              <p>Jar Cookies</p>
+             
             
               {{-- <p style="margin-bottom: 6px">Al Husn Kitchen</p>   --}}
               <b style="padding: 6px 20px; background: #fff; font-weight: 400">INVOICE</b>
