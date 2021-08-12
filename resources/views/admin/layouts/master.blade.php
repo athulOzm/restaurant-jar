@@ -105,7 +105,7 @@
         </div>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages16" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-utensils"></i>
           <span>Kitchen Display</span>
@@ -117,7 +117,7 @@
     
           </div>
         </div>
-      </li>
+      </li> --}}
 
       
 
@@ -406,14 +406,14 @@
           " class="btn btn-outline-primary tn-sm btn-rounded"><span class="ul-btn__text ml-1">POS</span></a>
             </li>
 
-            <li>
+            {{-- <li>
               <a href="{{route('kitchen')}}" style="
               margin-top: 19px;
               margin-right: 15px;
               line-height: 17px;
               border-radius: 20px;
           " class="btn btn-outline-warning tn-sm btn-rounded"><span class="ul-btn__text ml-1">KOT</span></a>
-            </li>
+            </li> --}}
 
 
             <li><i id="go-button" class="fa fa-arrows-alt" style="
