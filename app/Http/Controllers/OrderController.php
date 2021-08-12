@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -124,6 +126,14 @@ class OrderController extends Controller
     public function destroy(Request $request)
     {
         Order::find($request->id)->delete();
+
+        $ct = Order::create(['status'   =>  1, 'reqfrom' => auth()->user()->id]);
+        
+
+        Session::forget('token');
+        
+        Session::put('token', $ct);
+
         return back();
     }
 }
