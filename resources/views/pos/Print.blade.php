@@ -327,7 +327,11 @@
                       <div style="text-align: center; margin:0; font-size:14px; text-align:left">
                        
                         Payment Type : {{$order->paymenttypef->name}} <BR>
-                        Date and Time : {{Carbon\Carbon::now() }}<BR></div>
+                        Date and Time : {{Carbon\Carbon::now() }}<BR>
+                        
+                        
+                        
+                        </div>
     
                     </div><!--End InvoiceBot-->
       </div><!--End Invoice-->

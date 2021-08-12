@@ -329,12 +329,12 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
     
 
 <script type="text/javascript">
-    // function auto_print() {     
-    //    window.print()
-    //    window.location.href = "/pos";
+    function auto_print() {     
+       window.print()
+       window.location.href = "/pos";
 
-    // }
-    // setTimeout(auto_print, 1000);
+    }
+    setTimeout(auto_print, 1000);
 </script>
 </body>
 </html>
