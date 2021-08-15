@@ -1873,7 +1873,7 @@ $('#mform').on('submit', function() {
 
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script>
+<script src="{{asset('dashboard/js/jquery.autocomplete.min.js')}}"></script>
 
 @endsection
 

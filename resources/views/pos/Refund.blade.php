@@ -1,10 +1,18 @@
 @extends('pos.layout.master')
 
 <?php 
-$menutypes = resolve('menutypesforpos');
-$waiter = resolve('waiter');
+ 
 $allmenus = resolve('allmenus');
 $mcategories = resolve('mcategories');
+
+$menutypes = resolve('menutypesforpos');
+$waiters = resolve('waiter');
+$tables = resolve('tables');
+$deltypes = resolve('locations');
+$members = resolve('members');
+$allmenus = resolve('allmenus');
+$mcategories = resolve('mcategories'); 
+$daten =  str_replace(' ', 'T', Carbon\Carbon::now());
 ?>
 
  
@@ -34,7 +42,7 @@ $mcategories = resolve('mcategories');
 
 
 
-  <div class="col-sm-6 p0" style="background: #2c3346;">
+  <div class="col-sm-5 p0" style="background: #2c3346;">
     
 
 
@@ -54,81 +62,23 @@ $mcategories = resolve('mcategories');
 ">
 
           <div class="col-md-6 my-2">
-            <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
+              <p class="lab1b">Delivery Type : <b style="font-size: 14px; color:#4e72df; font-weight:500">{{$cur_token->delivery_type}}</b></p> <br>
+              <p class="lab1b">Customer : <b style="font-size: 14px; color:#4e72df; font-weight:500">{{$cur_token->user->name}}</b></p>
           </div>
 
           <div class="col-md-6 my-2">
-            <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
-          </div>
-          
-        
-          <div class="col-md-6">
-            <p class="lab1b">MISS ID</p>
-            <input type="text" name="memberid" value="@if($cur_token->user){{$cur_token->user->memberid}}@endif" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
-          </div>
-    
-          <div class="col-md-6">
-            <p class="lab1b">Member Name</p>
-            <input type="text" value="@if($cur_token->user){{$cur_token->user->name}}@endif" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb" >
-          </div>
-
-          <div class="col-md-6">
-            <p class="lab1b">Member Balance</p>
-            <input type="text" id="totcre2" readonly style="background: #424961" class="form-control w-full txtb">
-          </div>
-    
-          <div class="col-md-6">
-            <p class="lab1b">Payment Type</p>
-            <div id="pt">
-              <div class="bgh p0">
-              <div class="flex">
-              <label class="box3"><input type="radio" onclick="getDelTime()" required="" @if($cur_token->payment_type_id == 1) checked @endif name="pt" value="1"> <b class="lab1a">Card</b></label>
-              <label class="box3"><input type="radio" onclick="getDelTime()" id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
-              </div></div>
-            </div>
+            <p class="lab1b" >Order Code: <b style="font-size: 14px; color:#4e72df; font-weight:500">{{ Session::get('token')->id}}</b></p> 
+            <p class="lab1b" >Date: <b style="font-size: 14px; color:#4e72df; font-weight:500">{{Carbon\Carbon::parse($cur_token->created_at)->isoFormat('LLLL') }}</b></p>
 
           </div>
-
-          <div class="col-md-6 my-2">
-            <div id="dtime">
-              <p class="lab1b">Delivery Time</p>
-              <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
-            </div>
-          </div>
-    
-          <div class="col-md-6 my-1">
-            <p class="lab1b">Delivery Type</p>
-         
-              <div id="delivery">
-                <div class=" flex">
-                <label class="box3"><input type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
-                <label class="box3"><input type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
-                <label class="box3"><input type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('9')"> <b class="lab1a">Delivery</b></label>
-                </div>
-              </div>
-          
-          </div>
-
-       
-
-          <div class="col-md-12">
-            <div id="tables"></div>
-            <div id="dt"></div>
-            <div id="locations"></div>
-            <div id="vallimit" style="
-            font-size: 13px;
-            color: #e65776;
-        "></div>
-          </div>
-
-          
-
+ 
         </div>
 
+       
+ 
 
 
-
-        <div id="itembox" class="scro" style="height:calc(100vh - 535px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
+        <div id="itembox" class="scro" style="height:calc(100vh - 155px); margin-top:10px; overflow:hidden;  overflow-y: scroll;">
           <div class="cart"  style="width:99%" id="cart">
           </div>
         </div>
@@ -156,56 +106,25 @@ $mcategories = resolve('mcategories');
                 <div class="col-sm-6" ><label id="vat"  style="font-weight: 600;">0.000</label></div>
                 <div class="col-sm-6">Discount:</div>
                 <div class="col-sm-6" ><label id="discount" style="font-weight: 600;">0.000</label></div>
-
-                <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
-                <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:10px"></label></div>
-        </div>
-
-
             </div>
           </div>
  
         </div>
-        
-        {{-- <div class="row totalamd tar">
-          <div class="col-sm-9" style="text-align: right"><b class="lab1">Total Amount:</b></div>
-          <div class="col-sm-3" style="color:#e65776; line-height:20px; padding-left:25px">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 30px;"></label></div>
-        </div> --}}
+
+  
+          <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
+            
+      <div class="col-sm-12 p0" style="color:#fff; text-align:right"><label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:0px"></label></div>
+   
+        </div>
+     
 
         <div class="row">
 
-          {{-- <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Settlement</button>
-          </div>
+           
 
-          <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
-          </div> --}}
-
-          {{-- <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
-          </div> --}}
-
-  
-          
-
-          {{-- <div class="col-sm-2 p5">
-            <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
-          </div> --}}
-
-          <div class="col-sm-4"></div>
-
-          <div class="col-sm-4">
-            <select required="" class="form-control mt-2" name="category_id" id="category_id">
-              
-                                              <option value="1">Cash</option>
-                                              <option value="2">Credit</option>
-              
-                                      </select>
-          </div>
-
-
+          <div class="col-sm-8"></div>
+ 
           
 
           <div class="col-sm-4 p5">
@@ -290,140 +209,204 @@ $mcategories = resolve('mcategories');
 
 
 
-  <div class="col-sm-6 mt-4">
-    <div class="card  shadow-xs mt-1" >
-
-      
- 
-
-
-
-
-
-      <div id="exTab2">
+    <div class="col-sm-7 mt-4">
+      <div class="card  shadow-xs mt-1" >
+  
         
-        <ul class="nav nav-pills" id="pills-tab" role="tablist">
-          <li class="nav-item" style="width: 40%">
-            <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Menu" style="margin: 7px 3px;
-            width: 96%;
-            font-size: 14px;
-            padding: 20px 15px;">
-          </li>
- 
-          @foreach ($menutypes as $menutype)
-          <?php $nub = 1; ?>
-            <li class="nav-item">
-              <a class="nav-link @if($loop->first) active @endif" id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
-            </li>
-            <?php 
-            $nub = 2;
-            ?>
-          @endforeach
-        </ul>
-
-
-        <div class="tab-content scro2" style="min-height:calc(100vh - 130px);height:calc(100vh - 130px);overflow-y:scroll">
-
-
-        <div class="tab-content" id="pills-tabContent">
- 
-          @foreach ($menutypes as $menutype)
-
+   
+  
+  
+  
+  
+  
+        <div id="exTab2">
           
-            <div class="tab-pane fade @if($loop->first) show active @endif" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
-
-              <div class="row">
-
-                <div class="col-10 p0">
-                  <div class="tab-content" id="v-pills-tabContent">
-
-
-
-
-
-
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                      <div style="display: flex;flex-wrap: wrap;">
-                        @forelse ($menutype->products as $product)
-                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
-                              <h5>{{$product->price}}</h5>
-                              @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}}</h6>
-                          </div>
-                        @empty
-                          No menu found!
-                        @endforelse
-                      </div> 
-                    </div>
-
-                    @foreach ($menutype->categories() as $cat)
-                      <div class="tab-pane fade" id="v-pills-{{$cat->id}}{{$menutype->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}{{$menutype->id}}">
-                        <div style="display: flex;flex-wrap: wrap;">
-                        @forelse ($cat->productsbytype($menutype->id) as $product)
-
-                        
-                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
-                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
-                              <h5>{{$product->price}}</h5>
-                              @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}}</h6>
-                          </div>
-                        @empty
-                          No menu found!
-                        @endforelse
-                      </div>
-                      </div>
-                    @endforeach
-
-                 
-                  </div>
-                </div>
-
-
-                <div class="col-2 p0">
-                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
-
-                    @foreach ($menutype->categories() as $cat)
-                    
-                    <a class="nav-link" id="v-pills-{{$cat->id}}{{$menutype->id}}-tab" data-toggle="pill" href="#v-pills-{{$cat->id}}{{$menutype->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
-
-                  @endforeach
-
-                  
-                  </div>
-                </div>
-                
-              </div>
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item" style="width: 100%">
+              <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Items/ Add by Barcode" style="margin: 7px 3px;
+              width: 99%;
+              font-size: 14px;
+              padding: 20px 15px;">
+            </li>
+   
+            {{-- menutype here --}}
             
-
-            </div>
-          @endforeach
+            
+          </ul>
+  
+  <style>
+    .phidden{cursor:inherit;filter: grayscale(0.90);}
+  </style>
+          <div class="tab-content scro2" style="min-height:calc(100vh - 130px);height:calc(100vh - 130px);overflow-y:scroll">
+  
+  
+          <div class="tab-content" id="pills-tabContent">
+   
+            @foreach ($menutypes as $menutype)
+  
+            
+              <div class="tab-pane fade @if($loop->first) show active @endif" id="p{{$menutype->id}}" role="tabpanel" aria-labelledby="{{$menutype->id}}">
+  
+                <div class="row">
+  
+                  <div class="col-10 p0">
+                    <div class="tab-content" id="v-pills-tabContent">
+  
+  
+  
+  
+  
+                      {{-- for all --}}
+                      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div style="display: flex;flex-wrap: wrap;">
+                          @forelse ($menutype->products as $product)
+  
+                          <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
+  
+                            <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+  
+                            @if ($product->v1_price != '')
+                            <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                            @endif
+  
+                            @if ($product->v2_price != '')
+                              <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                            @endif
+  
+                            @if ($product->v3_price != '')
+                            <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                            @endif
+                             
+                          </div>
+  
+  
+                            <div 
+                            @if ($product->variant)
+                              onclick="showvariant({{$product->id}});"  
+                            @else
+                              onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                            @endif
+  
+                            class="card itembox"
+                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                                <h5>{{$product->price}}</h5>
+                                @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
+                                <h6 class="itemtitle">{{$product->name}} </h6>
+                            </div>
+  
+  
+                          @empty
+                            No menu found!
+                          @endforelse
+                        </div> 
+                      </div>
+  
+                       
+                      
+                      @foreach ($menutype->categories() as $cat)
+                        <div class="tab-pane fade" id="v-pills-{{$cat->id}}{{$menutype->id}}" role="tabpanel" aria-labelledby="v-pills-profile-tab{{$cat->id}}{{$menutype->id}}">
+                          <div style="display: flex;flex-wrap: wrap;">
+                          @forelse ($cat->productsbytype($menutype->id) as $product)
+  
+                          
+                          <div id="variants{{$product->id}}aa{{$cat->id}}" class="variant" style="border-radius:6px">
+  
+                     
+                            <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+                           
+  
+                            @if ($product->v1_price != '')
+                            <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                            @endif
+  
+                            @if ($product->v2_price != '')
+                              <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                            @endif
+  
+                            @if ($product->v3_price != '')
+                            <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                            @endif
+                             
+                          </div>
+  
+  
+                            <div 
+                            @if ($product->variant)
+                              onclick="showvariant2({{$product->id}}, {{$cat->id}});"  
+                            @else
+                              onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                            @endif
+                            
+                            class="card itembox" 
+                            
+                              style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                                <h5>{{$product->price}}</h5>
+                                @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
+                                <h6 class="itemtitle">{{$product->name}}</h6>
+                            </div>
+                          @empty
+                            No menu found!
+                          @endforelse
+                        </div>
+                        </div>
+                      @endforeach
+  
+                   
+                    </div>
+                  </div>
+  
+  
+                  <div class="col-2 p0">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">All</a>
+  
+                      @foreach ($menutype->categories() as $cat)
+                      
+                      <a class="nav-link" id="v-pills-{{$cat->id}}{{$menutype->id}}-tab" data-toggle="pill" href="#v-pills-{{$cat->id}}{{$menutype->id}}" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{$cat->name}}</a>
+  
+                    @endforeach
+  
+                    
+                    </div>
+                  </div>
+                  
+                </div>
+              
+  
+              </div>
+            @endforeach
+          </div>
+  
+  
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+          </div>
+  
         </div>
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-
+  
       </div>
-
     </div>
-  </div>
+
+
+
+
+
+
+
+
 </div>
 </form>
 
@@ -882,7 +865,23 @@ $(document).ready(() => {
     });
   }
 
- 
+  const showvariant = (id) => {
+
+$(".backDrop").animate({"opacity": ".80"}, 300);
+$(`#variants${id}`).animate({"opacity": "1.0"}, 300);
+$(`#variants${id}`).css("display", "block");
+$(".backDrop").css("display", "block");
+
+}
+
+const showvariant2 = (id, cat) => {
+
+$(".backDrop").animate({"opacity": ".80"}, 300);
+$(`#variants${id}aa${cat}`).animate({"opacity": "1.0"}, 300);
+$(`#variants${id}aa${cat}`).css("display", "block");
+$(".backDrop").css("display", "block");
+
+}
 
 
   $(document).ready(function(){	
@@ -1186,65 +1185,10 @@ const getTables = (memberid) => {
         $('#tables').empty();
         $('#locations').empty();
 
-        $('#tables').append(`<div>
-                    <div class="bgh p0">
-                      <b class="lab1b">Waiter</b>
-                      <div class="flex">
-                        <select required="" name="waiter" class="form-control mb-1" name="rank_id" id="rank_id" style="
-    background: #424961;
-    color: #fff;
-    font-size: 13px;border:1px solid #424961
-">
-                            <option value="">Select Waiter</option>
-
-                            @foreach ($waiter as $waiter)
-                            <option value="{{$waiter->id}}">{{$waiter->name}}</option>
-                            @endforeach
-
-                
-                                                    
-                          </select>
+        
 
 
-                      </div>
-                    </div>
-                    
-                  </div>
-                  
-                  <b class="lab1b">Tables</b>
-                  `)
-
-
-
-        $('#tables').append(`<div class="bgh flex p0" style="flex-wrap: wrap;" id="tdd">`)
-
-        res.map(item => {
-          if(item.status == 1){
-          
-            $('#tdd').append(`
-              <div class="col-md-1" style="padding:2px;"  >
-
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" value="${item.id}" name="table" required id="flexRadioDefault2">
-                </div>
-
-                <div class="tablepic" style="background:#216d40">
-                <h5>${item.name}</h5>
-                <p>Seat: ${item.chair}</p>
-                
-                </div>
-              </div>`);
-          } else{ 
-            $('#tdd').append(`
-                <div class="col-md-1" style="padding:2px;">
-                  <div class="tablepic" style="background:#9a291e">
-                  <h5>${item.name}</h5>
-                  <p>Seat: ${item.chair}</p>
-                  </div>
-                </div>`)
-          }
-
-        })
+ 
 
       
 
@@ -1414,29 +1358,32 @@ const updqty = (cart_item) =>  {
 
 
 
-  // addtocart main items
-  const addtocart = (item) => {
-  
-      var token = $("meta[name='csrf-token']").attr("content");
-      $.ajax({
-          type: 'POST',
-          url: `/pos/addtocart`,
-          data: {
-              "id": item,
-              "_token": token,
-          },
-          success: function(res){
+// addtocart main items
+const addtocart = (item, va, price, vat, promotion_price) => {
+   
+   
+   $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
+   $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
+   });
 
-            
-            // var res = $('#autocomplete').val().split(" - ");
-            // if(res[0] != ''){
-            //   cartcontinuebymid(res[0]);
-            // }
-            $('#crepay').prop('checked', false);
-            getOrders();
-          }
-      });
-  }
+     var token = $("meta[name='csrf-token']").attr("content");
+     $.ajax({
+         type: 'POST',
+         url: `/pos/addtocart`,
+         data: {
+             "id": item,
+             "va": va,
+             "price": price,
+             "vat": vat,
+             "promotion_price": promotion_price,
+             "_token": token,
+         },
+           success: function(res){
+           
+           getOrders();
+         }
+     });
+ }
 
 
   // addtocart addon items
@@ -1622,7 +1569,8 @@ const getDelTime = () => {
 
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script>
+<script src="{{asset('dashboard/js/jquery.autocomplete.min.js')}}"></script>
+
 
 @endsection
 

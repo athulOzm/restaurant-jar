@@ -12,8 +12,8 @@
   <title>@yield('head')</title>
 
   <!-- Custom fonts for this template-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.min.css"  />
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('dashboard/vendor/fontawesome/css/all.min.css')}}"  />
+ 
 
   <!-- Custom styles for this template-->
   <link href="{{asset('dashboard/css/admin-2.css')}}" rel="stylesheet">
@@ -33,7 +33,7 @@ form.user .form-control-user {
 @endif
   <div class="container">
 
-    <div style="text-align:center;margin: auto;margin-top: 50px; max-width: 140px;"><img style="max-width: 70px;"  src="{{asset('img/logo.png')}}"></div>
+    <div style="text-align:center;margin: auto;margin-top: 50px; max-width: 140px;"><img style="max-width: 170px;"  src="{{asset('img/cooking.png')}}"></div>
     
   
     <!-- Outer Row -->
@@ -53,7 +53,7 @@ form.user .form-control-user {
                 <div class="p-5">
                   <div class="text-center">
 
-                    <h1 class="h4 text-gray-900 mb-4">Admin Login..</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Admin Login</h1>
 
                   </div>
 
@@ -64,7 +64,7 @@ form.user .form-control-user {
                         <div class="form-group row">
                           
                             
-                                <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus="" placeholder="Enter Email Address..." autofocus>
+                                <input id="email" type="text" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required  autofocus="" placeholder="Enter Username" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -132,7 +132,7 @@ form.user .form-control-user {
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="{{asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"   crossorigin="anonymous"></script>
 
 
   <!-- Core plugin JavaScript-->

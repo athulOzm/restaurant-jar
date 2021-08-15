@@ -855,52 +855,20 @@ return response($request->user()->orders, 200);
     //checkout refund
     public function checkoutrefund(Request $request) {
 
-
-        $id = explode('-', $request->memberid);
-
-        $memberid = $id[0];
-        $delivery_type = $request->del;
-        $payment_type = $request->pt;
-        $delivery_time = $request->dtime;
-
-        if(isset($request->table)){
-            $table = $request->table;
-            Table::find($table)->update(['status' => false]);
-        } else {
-            $table = null;
-        }
-
-        if(isset($request->location)){
-            $location = $request->location;
-        } else {
-            $location = null;
-        }
+        //dd($request);
 
         $id = Order::find(Session::get('token')->id)->update([
             'status' =>  4,
-            'user_id'    =>  User::where('memberid', $memberid)->first()->id,
-            'delivery_type' => $delivery_type,
-            'payment_type_id'    =>  $payment_type,
-            'delivery_time'  =>  $delivery_time,
-            'deliverylocation_id'  =>  $location,
-            'payment_status' =>  true,
-            'table_id'  =>  $table,
-            'sn' =>  $request->sn,
-            'waiter_id'  => $request->waiter,
+            //'user_id'    =>  User::where('memberid', $memberid)->first()->id,
             'reqfrom'    =>  auth()->user()->id
         ]);
         
-       $tid = Session::get('token')->id;
-       Session::forget('token');
+        $tid = Session::get('token')->id;
+        Session::forget('token');
 
-       if($request->reqtype == 'hold'){
 
-            return redirect()->route('pos');
-       } else{
-
-            Checkout::dispatch($tid);
-            return redirect()->route('pos.refundprint', $tid);
-       }
+        //Checkout::dispatch($tid);
+        return redirect()->route('pos.refundprint', $tid);
     }
 
 

@@ -245,8 +245,9 @@ $locations = resolve('locations');
 
 @section('script')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('dashboard/js/bootstrap.min.js')}}"></script>
+
 <script>
     $(document).ready(function() {
 
@@ -305,7 +306,8 @@ $(".close, .backDrop").on("click", function(){
 
 
 {{-- <script src="{{asset('dashboard/js/jQuery.print.js')}}"></script> --}}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"   crossorigin="anonymous"></script>
+
 <!-- Core plugin JavaScript-->
 {{-- <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
 

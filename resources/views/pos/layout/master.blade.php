@@ -11,12 +11,12 @@
       <link rel="icon" id="favicon" href="{{asset('img/logo.png')}}" sizes="16x16">
       <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="{{asset('dashboard/js/bootstrap-select.min.css')}}">
 
       <!-- Custom fonts for this template-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"   />
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{{asset('dashboard/vendor/fontawesome/css/all.css')}}"   />
+  
+{{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet"> --}}
       <!-- Custom styles for this template-->
       <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
       
@@ -802,15 +802,15 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
       
 
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
+      <script src="{{asset('dashboard/js/bootstrap.min.js')}}"></script>
 
       <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
 
     
 
       {{-- <script src="{{asset('dashboard/js/jQuery.print.js')}}"></script> --}}
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="{{asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
       <!-- Core plugin JavaScript-->
       {{-- <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script> --}}
 
@@ -838,7 +838,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="{{asset('dashboard/js/bootstrap-select.min.js')}}"></script>
  
 
 <script>

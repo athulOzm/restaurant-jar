@@ -6,26 +6,23 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" id="favicon" href="{{asset('img/logo.png')}}" sizes="16x16">
-
+  <link rel="shortcut icon"  href="{{asset('img/cooking.png')}}" >
 
   <title>@yield('head')</title>
 
-
-
   <!-- Custom fonts for this template-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"   />
- 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('dashboard/vendor/fontawesome/css/all.css')}}"   />
+
+  {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet"> --}}
 
   <link href="{{asset('dashboard/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="{{asset('dashboard/css/admin-2.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('dashboard/css/admin-2.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('dashboard/css/jquery-ui.css')}}" rel="stylesheet">
 
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  {{-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> --}}
 
   <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
 
@@ -550,7 +547,8 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"   crossorigin="anonymous"></script>
+
  
   <!-- Core plugin JavaScript-->
   <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -559,7 +557,7 @@
   <script src="{{asset('dashboard/js/sb-admin-2.min.js')}}"></script>
 
   <!-- Page level plugins -->
-  {{-- <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script> --}}
+  <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script>
 
   <!-- Page level plugins -->
   <script src="{{asset('dashboard/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -567,10 +565,16 @@
 
 
 <!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
-  {{-- <!-- Page level custom scripts -->
-  <script src="{{asset('dashboard/js/demo/chart-area-demo.js')}}"></script>
+{{-- <link href="https://cdn.jsdelivr.net/npm/summernote/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote/dist/summernote.min.js"></script>  --}}
+<link href="{{asset('dashboard/vendor/summernote/summernote.min.css')}}" rel="stylesheet">
+<script src="{{asset('dashboard/vendor/summernote/summernote.min.js')}}"></script> 
+
+
+
+  <!-- Page level custom scripts -->
+  <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script>
+  {{-- <script src="{{asset('dashboard/js/demo/chart-area-demo.js')}}"></script>
   <script src="{{asset('dashboard/js/demo/chart-pie-demo.js')}}"></script> --}}
 
   <!-- Page level custom scripts -->
@@ -579,9 +583,9 @@
 
 
  
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <script src="{{asset('dashboard/js/jquery-ui.js')}}"></script>
 
-  <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js" integrity="sha256-JklDYODbg0X+8sPiKkcFURb5z7RvlNMIaE3RA2z97vw=" crossorigin="anonymous"></script>
+  <script src="{{asset('dashboard/js/jquery-migrate-3.0.0.min.js')}}" integrity="sha256-JklDYODbg0X+8sPiKkcFURb5z7RvlNMIaE3RA2z97vw=" crossorigin="anonymous"></script>
 
 @yield('script')
 
