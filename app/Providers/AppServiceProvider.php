@@ -99,6 +99,11 @@ class AppServiceProvider extends ServiceProvider
             return User::with('ordersPosted')->find(auth()->user()->id);
         });
 
+        app()->bind('saleslog2', function(){
+
+            return Order::where('status', 3)->take(50)->get();
+        });
+
         app()->bind('members', function(){
 
             return User::where('type', 3)->get();

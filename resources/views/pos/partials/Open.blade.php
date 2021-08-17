@@ -1,5 +1,5 @@
 <?php 
-$saleslog = resolve('saleslog');
+$saleslog = resolve('saleslog2');
  
 ?>
  
@@ -30,7 +30,7 @@ $saleslog = resolve('saleslog');
                     </thead>
 
                     <tbody>
-                    @foreach($saleslog->ordersPosted()->where('status', 3)->take(50)->get() as $sale)
+                    @foreach($saleslog as $sale)
                         <tr>
                             <td>{{$sale->id}}</td>
                             <td>{{$sale->branch->code}}{{$sale->id}}</td>
