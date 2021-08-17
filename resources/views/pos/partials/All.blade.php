@@ -7,7 +7,7 @@
 
 
                 <th width="30">Vehicle No</th>
-                <th width="30">Receipt Id</th>
+                <th width="30">Order ID</th>
                 <th width="30">User</th>
                 <th width="30">Order Source</th>
                 
@@ -25,7 +25,7 @@
                      
                     <td>{{$order->vn}}</td>
 
-                    <td>{{$order->id}}</td>
+                    <td>{{$order->branch->code}}{{$order->id}}</td>
                    
                     <td>@if ($order->user)
                         {{$order->user->name}}

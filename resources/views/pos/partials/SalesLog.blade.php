@@ -48,9 +48,9 @@ input[type=search]{
       {{-- <li class="active">
         <a  href="#1a" data-toggle="tab">Sales Log</a>
       </li> --}}
-      <li class="active"><a href="#2a" data-toggle="tab">Hold Bills</a>
-      </li>
-      <li><a href="#3a" data-toggle="tab">Open Bills</a></li>
+      <li class="active"><a href="#3a" data-toggle="tab">Open Bills</a></li>
+      <li><a href="#2a" data-toggle="tab">Hold Bills</a></li>
+      
       {{-- <li><a href="#4a" data-toggle="tab">Kitchen Log</a></li> --}}
         
     </ul>
@@ -59,12 +59,13 @@ input[type=search]{
       {{-- <div class="tab-pane active" id="1a">
         @include('pos.partials.Sales')
       </div> --}}
-      <div class="tab-pane active" id="2a">
-        @include('pos.partials.Hold')
-      </div>
-      <div class="tab-pane" id="3a">
+      <div class="tab-pane  active" id="3a">
         @include('pos.partials.Open')
       </div>
+      <div class="tab-pane" id="2a">
+        @include('pos.partials.Hold')
+      </div>
+      
       <div class="tab-pane" id="4a">
         @include('pos.partials.KitchenLog')
       </div>

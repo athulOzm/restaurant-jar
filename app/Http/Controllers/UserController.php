@@ -459,7 +459,7 @@ class UserController extends Controller
     public function userstoreWeb(Request $request){
 
         $request->validate([
-            'email' => 'unique:users|email',
+            'email' => 'unique:users',
            'password'          =>      'required|alpha_num|min:4'
 
         ]);
@@ -471,7 +471,7 @@ class UserController extends Controller
             'name'              =>      $request->name,
             'email'             =>      $request->email,
             'password'          =>  Hash::make($request->password),
-            'type'              =>      5,
+            'type'              =>      $request->type,
             'branch_id'         =>  $request->branch_id
         ]);
 
@@ -482,12 +482,13 @@ class UserController extends Controller
 
         $request->validate([
            'password'          =>      'required|alpha_num|min:4',
-           'email'             =>      'email|unique:users,email,'.$request->id,
+           'email'             =>      'unique:users,email,'.$request->id,
         ]);
 
         User::find($request->id)->update([
             'name'              =>      $request->name,
             'email'             =>      $request->email,
+            'type'             =>      $request->type,
             'password'          =>  Hash::make($request->password),
             'branch_id'         =>  $request->branch_id
         ]);

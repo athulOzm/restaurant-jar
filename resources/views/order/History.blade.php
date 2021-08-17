@@ -170,8 +170,9 @@ $locations = resolve('locations');
                                    
 
 
-                                    <th width="30">Member ID</th>
                                     <th width="30">Receipt Id</th>
+
+                                    <th width="30">Vehicle No</th>
                                     <th width="30">User</th>
                                     <th width="30">Order Source</th>
                                     
@@ -188,11 +189,11 @@ $locations = resolve('locations');
                                 @foreach($orders as $order)
                                     <tr>
                                          
-                                        <td>@if ($order->user)
-                                            {{$order->user->memberid}}
-                                        @endif</td>
-                                        <td>{{$order->id}}</td>
                                        
+                                        <td>{{$order->branch->code}}{{$order->invoice->id}}</td>
+                                        <td>@if ($order->vn)
+                                            {{$order->vn}}
+                                        @endif</td>
                                         <td>@if ($order->user)
                                             {{$order->user->name}}
                                         @endif</td>

@@ -44,7 +44,7 @@
                                 <tbody>
                                 @foreach($orders as $order)
                                     <tr>
-                                        <td>{{$order->id}}</td>
+                                        <td>{{$order->branch->code}}{{$order->invoice->id}}</td>
                                         <td>{{$order->user->name}}</td>
                                         <td>30.400</td>
                                         <td>Not Paid</td>

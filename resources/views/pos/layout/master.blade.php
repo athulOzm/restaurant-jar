@@ -824,14 +824,14 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     
 <script>
     $(document).ready(function() {
-    $('#dataTable').DataTable();
-    $('#dataTable2').DataTable();
-    $('#dataTable3').DataTable();
-    $('#dataTable4').DataTable();
+    $('#dataTable').DataTable({"order": [[ 1, "desc" ]]} );
+    $('#dataTable2').DataTable({"order": [[ 1, "desc" ]]} );
+    $('#dataTable3').DataTable( {"order": [[ 1, "desc" ]]} );
+    $('#dataTable4').DataTable({"order": [[ 1, "desc" ]]} );
 
-    $('#dataTablea').DataTable();
-    $('#dataTablea2').DataTable();
-    $('#dataTablea3').DataTable();
+    $('#dataTablea').DataTable({"order": [[ 1, "desc" ]]} );
+    $('#dataTablea2').DataTable({"order": [[ 1, "desc" ]]} );
+    $('#dataTablea3').DataTable({"order": [[ 1, "desc" ]]} );
 
 } );
 </script>

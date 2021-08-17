@@ -33,7 +33,7 @@ $saleslog = resolve('saleslog');
                     @foreach($saleslog->ordersPosted()->where('status', 3)->take(50)->get() as $sale)
                         <tr>
                             <td>{{$sale->id}}</td>
-                            <td>RE-{{$sale->id}}</td>
+                            <td>{{$sale->branch->code}}{{$sale->id}}</td>
                             <td>{{$sale->vn}}</td>
                             <td> @if ($sale->table)
                                 {{$sale->table->name}} ({{$sale->table->chair}})

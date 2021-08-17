@@ -51,11 +51,11 @@ class PosController extends Controller
 
             $ct = Order::find(Session::get('token')->id);
             if($ct->status != 1){
-                $ct = Order::create(['status'   =>  1, 'reqfrom' => null]);
+                $ct = Order::create(['status'   =>  1, 'reqfrom' => auth()->user()->id]);
             }
         }
         else{
-            $ct = Order::create(['status'   =>  1, 'reqfrom' => null]);
+            $ct = Order::create(['status'   =>  1, 'reqfrom' => auth()->user()->id]);
         }
 
     if (!Session::exists('branch')) {

@@ -31,15 +31,30 @@
 
                     <div class="row">
 
+
+
                         <div class="form-group  col-md-6">
                             <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
                                 Branches:
                             </label>
                                 <select required class="form-control w-full border-gray-400" name="branch_id">
-                                    <option value=""> Choose Branch</option>
+                       
                                     @foreach ($branches as $item)
                                     <option value="{{$item->id}}">{{$item->full_name}}</option>
                                     @endforeach
+                                </select>
+                        </div>
+
+                        <div class="form-group  col-md-6">
+                            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                Type:
+                            </label>
+                                <select required class="form-control w-full border-gray-400" name="type">
+                                    
+                                
+                                    <option value="5">Staff</option>
+                                    <option value="5">Admin</option>
+                                
                                 </select>
                         </div>
 
@@ -59,9 +74,9 @@
 
                     <div class="form-group col-md-6">
                         <label for="email" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Email:
+                            Username:
                         </label>
-                        <input id="email" type="email"
+                        <input id="email" type="text"
                             class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}"   autofocus>
 

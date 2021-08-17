@@ -118,7 +118,9 @@
 
       
 
-
+      @if (auth()->user()->type == 1)
+          
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-calendar-minus"></i>
@@ -139,6 +141,8 @@
           </div>
         </div>
       </li>
+
+      
  
 
       <li class="nav-item">
@@ -254,7 +258,7 @@
         </div>
       </li>
 
-
+      @endif
       {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages15" aria-expanded="true" aria-controls="collapsePages33">
           <i class="fas fa-fw fa-folder"></i>

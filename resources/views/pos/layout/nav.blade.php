@@ -4,9 +4,10 @@
     <i class="fa fa-bars"></i>
     </button>
 
+    @if (auth()->user()->type == 1)
     <a href="/"> <img src="{{asset('img/cooking.png')}}" width="30" alt=""> </a>
 
-
+@endif
  
     <h3 class="h4 mb-1 mt-1 text-gray-900" style="
        text-transform: uppercase;
@@ -52,13 +53,15 @@
 {{-- 
        <div class="topbar-divider d-none d-sm-block"></div> --}}
        <!-- Nav Item - User Information -->
-       @if (auth()->user()->type == 1)
+      
 
         
 
        <button class="nav-link btn btn-primary btnc2 btnn1"   id="pay"  role="button"   aria-expanded="false">
          <span class="mr-2 d-none d-lg-inline">Sales Log</span>
        </button>
+
+       @if (auth()->user()->type == 1)
 
        <div class=" p5">
         <button class="nav-link btn btn-primary btnc2 btnn1"   onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i>  <span class="mr-2 d-none d-lg-inline">Settlement</span></button>
@@ -67,10 +70,10 @@
      
 
        
-       @endif
+    
        
 
-     
+ 
        <li class="nav-item">
          <a href="/">
          <i class="fas fa-bars" style="
@@ -79,6 +82,8 @@
              margin: 4px 15px 0 10px;
          "></i></a>
        </li>
+
+       @endif
 
        <li class="nav-item dropdown no-arrow">
          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

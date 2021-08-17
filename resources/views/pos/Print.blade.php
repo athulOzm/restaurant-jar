@@ -236,7 +236,30 @@
 
                           
                                 <tr >
-                                    <td class="tableitem"><p class="itemtext">{{$product->product->name}}<br>{{$product->product->name_ar}}</p></td>
+                                    <td class="tableitem"><p class="itemtext">
+
+                                      @switch($product->product->variant)
+                                        @case(1)
+                                          {{$product->product->name}} ({{$product->product->v1_name}}) <br>
+                                          {{$product->product->name_ar}} 
+                                          @break
+
+                                        @case(2)
+                                          {{$product->product->name}} ({{$product->product->v2_name}}) <br>
+                                          {{$product->product->name_ar}} 
+                                          @break
+
+                                        @case(3)
+                                          {{$product->product->name}} ({{$product->product->v3_name}}) <br>
+                                          {{$product->product->name_ar}} 
+                                          @break
+                                      
+                                        @default
+                                        {{$product->product->name}}  <br>
+                                        {{$product->product->name_ar}} 
+                                      @endswitch
+                                      
+                                    </p></td>
                                     <td class="tableitem"><p class="itemtext">{{$product->quantity}}</p></td>
                                     <td class="tableitem"><p class="itemtext2">{{$product->product->price}}</p></td>
                                     <td class="tableitem"><p class="itemtext2">{{$product->discount}}</p></td>
@@ -314,7 +337,7 @@
 
                       <div style="text-align: center">
 
-                        <img width="250mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG('RE-'.$order->id, 'C39', 2, 40)}}" alt="barcode" />
+                        <img width="250mm" src="data:image/png;base64,{{DNS1D::getBarcodePNG($order->branch->code.$order->invoice->id, 'C39', 2, 40)}}" alt="barcode" />
 
                       </div>
 

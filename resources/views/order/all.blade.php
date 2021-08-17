@@ -59,7 +59,7 @@
                                     <tr>
                                          
                                         <td>{{$order->vn}}</td>
-                                        <td>{{$order->id}}</td>
+                                        <td>{{$order->branch->code}}{{$order->invoice->id}}</td>
                                        
                                         <td>@if ($order->user)
                                             {{$order->user->name}}

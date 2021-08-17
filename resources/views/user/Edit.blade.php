@@ -45,6 +45,20 @@
                                 </select>
                         </div>
 
+
+                        <div class="form-group  col-md-6">
+                            <label for="branch_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4 ">
+                                Type:
+                            </label>
+                                <select required class="form-control w-full border-gray-400" name="type">
+                                    
+                                
+                                    <option value="5">Staff</option>
+                                    <option value="5">Admin</option>
+                                
+                                </select>
+                        </div>
+
                     <div class="form-group col-md-6">
                         <label for="name" class="block  text-sm font-bold mb-2 sm:mb-4">Full Name:</label>
                         <input id="name" type="text"
@@ -60,9 +74,9 @@
 
                     <div class="form-group col-md-6">
                         <label for="email" class="block  text-sm font-bold mb-2 sm:mb-4 ">
-                            Email:
+                            Username:
                         </label>
-                        <input id="email" type="email"
+                        <input id="email" type="text"
                             class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ $user->email }}" required  autofocus>
 
