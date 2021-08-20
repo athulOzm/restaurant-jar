@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Branch::class, function (Faker $faker) {
     return [
-        'name'  =>  'Main Branch',
+        'name'  =>  'Branch 1',
         'code'  =>  'BR'.$faker->stateAbbr()
     ];
 });

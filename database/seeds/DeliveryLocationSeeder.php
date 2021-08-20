@@ -2,6 +2,7 @@
 
 use App\Deliverylocation;
 use Illuminate\Database\Seeder;
+use App\Branch;
 
 class DeliveryLocationSeeder extends Seeder
 {
@@ -12,7 +13,20 @@ class DeliveryLocationSeeder extends Seeder
      */
     public function run()
     {
-        factory(Deliverylocation::class, 19)
-            ->create();
+        factory(Deliverylocation::class)->create([
+            'name'  =>  'Talabat',
+            'branch_id'   =>  Branch::first()->id
+        ]);
+
+        factory(Deliverylocation::class)->create([
+            'name'  =>  'Akeed',
+            'branch_id'   =>  Branch::first()->id
+        ]);
+
+        factory(Deliverylocation::class)->create([
+            'name'  =>  'Other',
+            'branch_id'   =>  Branch::first()->id
+        
+        ]);
     }
 }

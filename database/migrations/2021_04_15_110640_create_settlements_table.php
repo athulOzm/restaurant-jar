@@ -15,8 +15,20 @@ class CreateSettlementsTable extends Migration
     {
         Schema::create('settlements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->dateTime('closed_at')->nullable();
-            $table->unsignedBigInteger('owner_id');
+            $table->decimal('cash_in_hand', 8, 3)->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->on('users')
+                ->references('id')
+                ->onDelete('set null');
+
+            $table->unsignedBigInteger('branch_id')->nullable();
+            $table->foreign('branch_id')
+                    ->on('branches')
+                    ->references('id')
+                    ->onDelete('set null');
+                    
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

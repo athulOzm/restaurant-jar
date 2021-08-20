@@ -20,6 +20,13 @@ class CreateOrdersTable extends Migration
                 ->on('users')
                 ->references('id')
                 ->onDelete('set null');
+
+            $table->unsignedBigInteger('settlement_id')->nullable();
+            $table->foreign('settlement_id')
+                ->on('settlements')
+                ->references('id')
+                ->onDelete('set null');
+
             $table->integer('status')->default(1);
             $table->time('dtime')->nullable();
 
@@ -69,6 +76,8 @@ class CreateOrdersTable extends Migration
                 ->on('users')
                 ->references('id')
                 ->onDelete('set null');
+
+            
 
             $table->string('attachment')->nullable();
             $table->string('room_addr')->nullable();

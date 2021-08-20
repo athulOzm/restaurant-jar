@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class User extends Authenticatable
 {
@@ -132,5 +133,24 @@ class User extends Authenticatable
     public function renewals(){
 
         return $this->hasMany(MemberRenewal::class);
+    }
+
+    public function settlements(){
+
+        return $this->hasMany(Settlement::class);
+
+        
+    }
+
+
+    //selletment biller
+    public function biller(){
+
+        return $this->settlements()
+        ->where('status', true)
+        ->where('branch_id', Session::get('branch')->id)
+        ->get();
+
+        
     }
 }

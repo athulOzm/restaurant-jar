@@ -527,8 +527,21 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 
 
-.backDrop{
+    .backDrop{
   background-color: #000;
+  display: none;
+  filter: alpha(opacity=0);
+  height: 100%;
+  left: 0px;
+  opacity: .0;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 50;
+}
+
+.backDrop2{
+  background-color: #fff;
   display: none;
   filter: alpha(opacity=0);
   height: 100%;
@@ -619,16 +632,16 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   border-radius: 2px; background: #fff; overflow-y: scroll; padding-bottom: 20px
 }
 .boxsett3{
- border: 1px solid #656f9e;
+ border: 5px solid #fff;
   padding: 0;
   display: none;
    
   left: 50%;
-  margin-left: -260px;
+  margin-left: -430px;
   opacity: 0;
   position: fixed;
   top: 4%;
-  z-index: 51; width: 500px;
+  z-index: 51; width: 860px;
   
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;

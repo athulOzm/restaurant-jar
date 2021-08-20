@@ -9,6 +9,8 @@ $members = resolve('members');
 $allmenus = resolve('allmenus');
 $mcategories = resolve('mcategories'); 
 $daten =  str_replace(' ', 'T', Carbon\Carbon::now());
+$branches = resolve('branches');
+
 ?>
 
  
@@ -250,16 +252,16 @@ label {
                 font-size: 13px;border:1px solid #424961
                 ">
                   @foreach  ($deltypes as $deltype)
-                  <option value="">Select</option>
+                 
                   <option  value="{{$deltype->id}}">{{$deltype->name}}</option>
                   @endforeach                        
               </select>
 
-              <p class="lab1b">Delivery Location</p>
-              <input type="text" name="del_loc"   class="form-control">
+              {{-- <p class="lab1b">Delivery Location</p> --}}
+              <input type="hidden" name="del_loc"   class="form-control">
 
-              <p class="lab1b">Delivery Time</p>
-              <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control  ">
+              {{-- <p class="lab1b">Delivery Time</p> --}}
+              <input name="dtime" id="dtimee" step="any" type="hidden"  class="form-control  ">
            
                
             </div>
@@ -383,9 +385,9 @@ label {
   
           
 
-          <div class="col-sm-2 p5">
+          {{-- <div class="col-sm-2 p5">
             <button onclick="hold()" class="btn btn-primary btnc22" type="button"><i class="fas fa-pause-circle"></i> Hold</button>
-          </div>
+          </div> --}}
 
           <div class="col-sm-2 p5">
             <button onclick="kot()"  class="btn btn-primary btnc22" type="button"><i class="fas fa-fw fa-print"></i> Save</button>
@@ -395,13 +397,17 @@ label {
           
 
           
-
-          <div class="col-sm-3 p5">
-            <button onclick="pcard()"  class="btn btn-primary btnc22" id="pay2" type="submit" style="width:100%; background:#7594f1; border:1px solid #7594f1"> <i class="fas fa-fw fa-credit-card"></i> Card </button>
+          <div class="col-sm-2 p5">
+            <button onclick="ponline()"  class="btn btn-primary btnc22" id="pay4" type="submit" style="width:100%; background:#7594f1; border:1px solid #7594f1"> <i class="fas fa-fw fa-globe-americas"></i> Online Pay </button>
           </div>
-          <div class="col-sm-3 p5">
+          <div class="col-sm-3 p5 op">
+            <button onclick="pcard()"  class="btn btn-primary btnc22" id="pay2" type="submit" style="width:100%; background:#2196F3; border:1px solid #2196F3"> <i class="fas fa-fw fa-credit-card"></i> Card </button>
+          </div>
+          <div class="col-sm-3 p5 op">
             <button onclick="pcash()"  class="btn btn-primary btnc22" id="pay32" type="submit" style="width:100%; background:#8BC34A; border:1px solid #8BC34A"> <i class="fas fa-fw fa-money-bill-wave-alt"></i> Cash </button>
           </div>
+
+          
 
 
         </div>
@@ -446,9 +452,26 @@ label {
 
       
 
-      <div class="boxsett3 scro " style="max-height: 90vh; overflow-x:hidden">
+      <div class="boxsett3 scro3 " style="max-height: 90vh; overflow-x:hidden">
         <div class="row">
-          <div class="bgh2 setle" style="background: #4dbdd5">Settlement</div>
+          <div class="bgh2 setle" style="background: #2196F3">Settlement</div>
+        </div>
+
+        
+
+        <div class="row sitem">
+          <div class="col-md-8">Cash Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_cash"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Card Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_card"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Online Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_online"></b></div>
         </div>
 
         <div class="row sitem">
@@ -457,23 +480,52 @@ label {
         </div>
 
         <div class="row sitem">
-          <div class="col-md-8">Cash Payment</div>
-          <div class="col-md-4">RO: <b id="settle_total_cash"></b></div>
+          <div class="col-md-8">Cash in Drawer</div>
+          <div class="col-md-4">RO: <b id="settle_total_drawer"></b></div>
+        </div>
+
+        <div class="row">
+          <div class="bgh2 setle" style="background: #515151;padding: 3px;">Soled Items</div>
+        </div>
+
+        <div class="row">
+          <div class="container " id="sold_items">
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="bgh2 setle" style="background: #515151;padding: 3px;">Online Order</div>
         </div>
 
         <div class="row sitem">
-          <div class="col-md-8">Credit Payment</div>
-          <div class="col-md-4">RO: <b id="settle_total_credit"></b></div>
+          <div class="col-md-8">Talabat</div>
+          <div class="col-md-4">RO: <b id="settle_t"></b></div>
         </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Akeed</div>
+          <div class="col-md-4">RO: <b id="settle_a"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Other</div>
+          <div class="col-md-4">RO: <b id="settle_o"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8"><button class="btn btn-secondary w-full" onclick="donsettlement()" type="button" ><i class="fas fa-print"></i> Print </button></div>
+          <div class="col-md-4"><button class="btn btn-primary w-full"  onclick="donsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
+        </div>
+
+       
+
+
+        
 
     
-
-        <div class="row">
-          
-          <div class="col-md-12" style="text-align: center"><button class="btn btn-primary btnc2" style="
-            background: #00BCD4;
-    border: 1px solid #03A9F4;margin: 25px 2% 10px; width:96%; color:white" onclick="donsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
-        </div>
+ 
 
 
       </div>
@@ -705,6 +757,52 @@ label {
   </div>
 </div>
 
+
+
+
+ 
+
+@if (!auth()->user()->biller()->count())
+<div style="position: fixed;z-index: 99999;width: 500px;background: #fff;top: 20%;left: 50%;margin-left: -250px;padding: 30px;border-radius: 6px;border: 2px solid #2196F3;">
+
+<form action="{{route('user.cashregister')}}" method="post" style="
+font-size: 14px;
+color: #111;
+">
+  @csrf
+<div class="form-group">
+  <label for="inputCity">Branch: *</label>
+  
+  <select  required class="form-control w-full border-gray-400" name="branch_id">
+
+ 
+      @foreach ($branches as $item)
+      <option @if (Session::get('branch')->id == $item->id)
+          selected
+      @endif value="{{$item->id}}">{{$item->name}}</option>
+      @endforeach
+  </select>
+
+</div><div class="form-group">
+
+  <label for="inputCity">Cash in hand: *</label>
+
+
+  
+  <input type="text" name="cash_in_hand" required class="form-control w-full" id="">
+</div>
+
+<div class="form-group">
+<input type="submit" value="Submit" class="btn btn-primary">  
+</div>
+</form>
+
+</div> 
+
+  <div class="backDrop2" style="display: block!important; opacity:.8!important; "></div>
+@endif
+
+
  
 @endsection
 
@@ -824,6 +922,12 @@ const pcard = () =>  {
 const pcash = () =>  {
 
 $('#paymenttype').val(2);
+//$('#mform').submit();
+}
+
+const ponline = () =>  {
+
+$('#paymenttype').val(3);
 $('#mform').submit();
 }
 
@@ -959,16 +1063,44 @@ $(document).ready(() => {
         type: 'GET',
         url: `/pos/getsettlement`,
         success: function(res){
-          //console.log(res);
+          console.log(res);
           $('#settle_total').empty();
           $('#settle_total_cash').empty();
-          $('#settle_total_credit').empty();
-          //$('#settle_total_cashindrower').empty();
+          $('#settle_total_card').empty();
+          $('#settle_total_online').empty();
+          $('#settle_total_cash').empty();
+          $('#settle_total_drawer').empty();
+          $('#settle_t').empty();
+          $('#settle_a').empty();
+          $('#settle_o').empty();
+          $('#sold_items').empty();
+       
 
           $('#settle_total').append(res.st);
           $('#settle_total_cash').append(res.cash);
-          $('#settle_total_credit').append(res.credit);
-          //$('#settle_total_cashindrower').append(res.drawer);
+          $('#settle_total_card').append(res.card);
+          $('#settle_total_online').append(res.online);
+          $('#settle_total_drawer').append(res.drawer);
+
+          $('#settle_t').append(res.talabat);
+          $('#settle_a').append(res.akeed);
+          $('#settle_o').append(res.other);
+
+
+          res.items.map(item => {
+
+
+            $('#sold_items').append(`
+            <div class="row sitem">
+              <div class="col-sm-4">${item.product.name}</div>
+              <div class="col-sm-4">${item.quantity_sum}</div>
+              <div class="col-sm-4">RO: ${item.price_sum}</div>
+            </div>
+            `);
+          })
+
+
+ 
         }
     });
    

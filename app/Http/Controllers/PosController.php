@@ -40,12 +40,12 @@ class PosController extends Controller
 
     public function pos(){
 
-        if(!Settlement::where('owner_id', auth()->user()->id)->where('closed_at', null)->first()){
+        // if(!Settlement::where('owner_id', auth()->user()->id)->where('closed_at', null)->first()){
 
-            Settlement::create([
-                'owner_id' => auth()->user()->id
-            ]);
-        }
+        //     Settlement::create([
+        //         'owner_id' => auth()->user()->id
+        //     ]);
+        // }
 
         if (Session::exists('token')) {
 
@@ -58,16 +58,18 @@ class PosController extends Controller
             $ct = Order::create(['status'   =>  1, 'reqfrom' => auth()->user()->id]);
         }
 
-    if (!Session::exists('branch')) {
-        
-        Session::put('branch', Branch::first());
+        if (!Session::exists('branch')) {
+            
+            Session::put('branch', Branch::first());
+        }
+
+            Session::forget('token');
+            Session::put('token', $ct);
+            $cur_token = Order::with('user', 'table', 'location')->where('id', $ct->id)->first();
+            return view('pos.index', compact('cur_token'));
     }
 
-        Session::forget('token');
-        Session::put('token', $ct);
-        $cur_token = Order::with('user', 'table', 'location')->where('id', $ct->id)->first();
-        return view('pos.index', compact('cur_token'));
-    }
+
 
     //update order
     public function update(Order $order){
@@ -543,7 +545,7 @@ return response($request->user()->orders, 200);
 
         $tn = Carbon::now()->timezone('Asia/Dubai')->format('H:i:s');
 
-        // //dd($request->dtime);
+        //dd($request->paymenttype);
      
         if($cmtt = Menutype::where('id', '!=', 1)->where('from', '<', $tn)->where('to', '>', $tn)->first()){
             $cmt = $cmtt;
@@ -582,11 +584,11 @@ return response($request->user()->orders, 200);
 
         }
 
-        if($request->del_type != ''){
-            $payment_type = 3;
-        }else{
-            $payment_type = $request->paymenttype;
-        }
+        // if($request->del_type != ''){
+        //     $payment_type = 3;
+        // }else{
+        //     $payment_type = $request->paymenttype;
+        // }
 
 
         
@@ -631,7 +633,7 @@ return response($request->user()->orders, 200);
                 'status' =>  3,
                 'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
-                'payment_type_id'    =>  $payment_type,
+                //'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
@@ -659,7 +661,7 @@ return response($request->user()->orders, 200);
                 'status' =>  2,
                 'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
-                'payment_type_id'    =>  $payment_type,
+                //'payment_type_id'    =>  $payment_type,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
@@ -687,7 +689,7 @@ return response($request->user()->orders, 200);
                 'status' =>  4,
                 'user_id'    =>  User::find($memberid)->id,
                 'delivery_type' => $delivery_type,
-                'payment_type_id'    =>  $payment_type,
+                'payment_type_id'    =>  $request->paymenttype,
                 'delivery_time'  =>  $delivery_time,
                 'deliverylocation_id'  =>  $del_type,
                 'room_addr'  =>  $del_loc,
@@ -699,7 +701,8 @@ return response($request->user()->orders, 200);
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,
                 'menutype_id'   =>  MenuType::first()->id,
-                'amount'    =>  Order::find(Session::get('token')->id)->total_price
+                'amount'    =>  Order::find(Session::get('token')->id)->total_price,
+                'settlement_id' =>  auth()->user()->biller()->first()->id
             ]);
 
             
@@ -950,12 +953,11 @@ return response($request->user()->orders, 200);
 
     public function getsettlement(){
 
-        $csettle = Settlement::where('owner_id', auth()->user()->id)->where('closed_at', null)->first();
+        $cash_register = auth()->user()->biller()->first();
 
-       $ord = Order::where('reqfrom', auth()->user()->id)
-            ->where('status', 2)
-            ->whereTime('updated_at', '>', $csettle->created_at)
-            ->get();
+       
+
+       $ord = $cash_register->orders;
 
         //total
         $tot_price = [];
@@ -963,43 +965,103 @@ return response($request->user()->orders, 200);
 
             $tot_price[] = number_format($item->total_price, 3);
         });
-        $st = number_format(array_sum($tot_price), 3);
+        $stotal = number_format(array_sum($tot_price), 3);
 
         //cache
         $tot_cash = [];
-        $ord->where('payment_type_id', 1)->each(function($item) use(&$tot_cash){
+        $ord->where('payment_type_id', 2)->each(function($item) use(&$tot_cash){
 
             $tot_cash[] = number_format($item->total_price, 3);
         });
         $cash = number_format(array_sum($tot_cash), 3);
 
-        $tot_credit = [];
-        $ord->where('payment_type_id', 2)->each(function($item) use(&$tot_credit){
+        //card
+        $tot_card = [];
+        $ord->where('payment_type_id', 1)->each(function($item) use(&$tot_card){
 
-            $tot_credit[] = number_format($item->total_price, 3);
+            $tot_card[] = number_format($item->total_price, 3);
         });
-        $credit = number_format(array_sum($tot_credit), 3);
+        $card = number_format(array_sum($tot_card), 3);
+
+        //card
+        $tot_online = [];
+        $ord->where('payment_type_id', 3)->each(function($item) use(&$tot_online){
+
+            $tot_online[] = number_format($item->total_price, 3);
+        });
+        $online = number_format(array_sum($tot_online), 3);
+
+        $drawer = number_format($cash + $cash_register->cash_in_hand, 3);
+
+
+        //sold items
+        $cash_register_id = $cash_register->id;
+        $sold_items = OrderProduct::whereHas('order', function($q) use(&$cash_register_id){
+
+            $q->where('status', 4);
+            $q->where('settlement_id', $cash_register_id);
+        })
+        ->groupBy('product_id')
+        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
+        ->get();
+
+
+        $deli_team = Deliverylocation::where('branch_id', Session::get('branch')->id)->get();
+
+      
+            //cache
+            $tot_cash = [];
+            $ord->where('deliverylocation_id', 1)->each(function($item) use(&$tot_cash){
+
+                $tot_cash[] = number_format($item->total_price, 3);
+            });
+            $talabat = number_format(array_sum($tot_cash), 3);
+
+
+            //cache
+            $tot_cash = [];
+            $ord->where('deliverylocation_id', 2)->each(function($item) use(&$tot_cash){
+
+                $tot_cash[] = number_format($item->total_price, 3);
+            });
+            $akeed = number_format(array_sum($tot_cash), 3);
+
+
+            //cache
+            $tot_cash = [];
+            $ord->where('deliverylocation_id', 3)->each(function($item) use(&$tot_cash){
+
+                $tot_cash[] = number_format($item->total_price, 3);
+            });
+            $other = number_format(array_sum($tot_cash), 3);
+
+    
+
+
+        
+
+    
 
         return response([
-            'st'    =>  $st,
+            'st'    =>  $stotal,
             'cash'    =>  $cash,
-            'credit'    =>  $credit,
-            'drawer'    =>  $cash,
+            'card'    =>  $card,
+            'online'    =>  $online,
+            'drawer'    =>  $drawer,
+            'items' =>  $sold_items,
+            'talabat' => $talabat,
+            'akeed' => $akeed,
+            'other' => $other
 
         ], 200);
     }
 
     public function donesettlement(){
 
-        Settlement::where('owner_id', auth()->user()->id)
-            ->where('closed_at', null)
-            ->first()
-            ->update(['closed_at' => Carbon::now()]);
-
-        //Auth::logout();
-        Session::flush();
-
-        return response('done' , 200);
+        auth()->user()->biller()->first()->update([
+            'status' => false
+        ]);
+        return back();
     }
 
 

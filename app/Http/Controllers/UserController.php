@@ -18,7 +18,9 @@ use App\Order;
 use App\PaymentType;
 use App\Providers\RouteServiceProvider;
 use App\Rank;
+use App\Settlement;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -476,6 +478,18 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('user.index');
+    }
+
+    
+
+    public function cashregister(Request $request){
+
+        auth()->user()->settlements()->create([
+            'branch_id' => $request->branch_id,
+            'cash_in_hand' => $request->cash_in_hand
+        ]);
+
+        return back();
     }
 
     public function userupdateweb(Request $request){

@@ -65,6 +65,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::patch('user', 'UserController@userupdateweb')->name('user.update');
     Route::post('member/debit', 'UserController@memberDebit')->name('member.debit');
     Route::get('user/create', 'UserController@usercreate')->name('user.create');
+    Route::post('admin/cashregister', 'UserController@cashregister')->name('user.cashregister');
+
 
 
     //ranks
