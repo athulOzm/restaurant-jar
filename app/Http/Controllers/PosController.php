@@ -1008,39 +1008,19 @@ return response($request->user()->orders, 200);
 
         $deli_team = Deliverylocation::where('branch_id', Session::get('branch')->id)->get();
 
-      
-            //cache
-            $tot_cash = [];
-            $ord->where('deliverylocation_id', 1)->each(function($item) use(&$tot_cash){
-
-                $tot_cash[] = number_format($item->total_price, 3);
-            });
-            $talabat = number_format(array_sum($tot_cash), 3);
-
+        $onlines = [];
+        foreach($deli_team as $deli_tea){
 
             //cache
             $tot_cash = [];
-            $ord->where('deliverylocation_id', 2)->each(function($item) use(&$tot_cash){
+            $ord->where('deliverylocation_id', $deli_tea->id)->each(function($item) use(&$tot_cash){
 
                 $tot_cash[] = number_format($item->total_price, 3);
             });
-            $akeed = number_format(array_sum($tot_cash), 3);
+            $onlines[] = [$deli_tea->name, number_format(array_sum($tot_cash), 3)];
 
+        }
 
-            //cache
-            $tot_cash = [];
-            $ord->where('deliverylocation_id', 3)->each(function($item) use(&$tot_cash){
-
-                $tot_cash[] = number_format($item->total_price, 3);
-            });
-            $other = number_format(array_sum($tot_cash), 3);
-
-    
-
-
-        
-
-    
 
         return response([
             'st'    =>  $stotal,
@@ -1049,9 +1029,7 @@ return response($request->user()->orders, 200);
             'online'    =>  $online,
             'drawer'    =>  $drawer,
             'items' =>  $sold_items,
-            'talabat' => $talabat,
-            'akeed' => $akeed,
-            'other' => $other
+            'online_order' => $onlines
 
         ], 200);
     }

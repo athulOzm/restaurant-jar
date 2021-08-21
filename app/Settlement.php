@@ -13,4 +13,14 @@ class Settlement extends Model
 
         return $this->hasMany(Order::class);
     }
+
+    public function user(){
+
+        return $this->belongsTo(User::class);
+    }
+
+    public function branch(){
+
+        return $this->belongsTo(Branch::class);
+    }
 }

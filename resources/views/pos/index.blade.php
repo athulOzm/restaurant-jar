@@ -452,9 +452,10 @@ label {
 
       
 
-      <div class="boxsett3 scro3 " style="max-height: 90vh; overflow-x:hidden">
+      <div class="boxsett3 scro3 " id="printsettlement" style="max-height: 90vh; overflow-x:hidden">
         <div class="row">
-          <div class="bgh2 setle" style="background: #2196F3">Settlement</div>
+          <div class="bgh2 setle" style="background: #2196F3; color:white">Settlement</div>
+
         </div>
 
         
@@ -485,7 +486,7 @@ label {
         </div>
 
         <div class="row">
-          <div class="bgh2 setle" style="background: #515151;padding: 3px;">Soled Items</div>
+          <div class="bgh2 setle" style="background: #515151;padding: 3px; color:white">Soled Items</div>
         </div>
 
         <div class="row">
@@ -496,26 +497,31 @@ label {
         </div>
 
         <div class="row">
-          <div class="bgh2 setle" style="background: #515151;padding: 3px;">Online Order</div>
+          <div class="bgh2 setle" style="background: #515151;padding: 3px; color:white">Online Order</div>
         </div>
 
-        <div class="row sitem">
-          <div class="col-md-8">Talabat</div>
-          <div class="col-md-4">RO: <b id="settle_t"></b></div>
+        <div class="row">
+          <div class="container " id="settle_t">
+
+
+          </div>
         </div>
 
-        <div class="row sitem">
-          <div class="col-md-8">Akeed</div>
-          <div class="col-md-4">RO: <b id="settle_a"></b></div>
+        <hr>
+        <div class="row">
+          <div class="container" style="font-size: 13px; color:black">
+            @if(auth()->user()->biller()->first())
+            Time : {{auth()->user()->biller()->first()->created_at}} - {{Carbon\Carbon::now()}} <br>
+            Biller : {{auth()->user()->biller()->first()->user->email}} <br>
+            Branch : {{auth()->user()->biller()->first()->branch->name}} 
+
+            @endif
+          </div>
+          
         </div>
 
-        <div class="row sitem">
-          <div class="col-md-8">Other</div>
-          <div class="col-md-4">RO: <b id="settle_o"></b></div>
-        </div>
-
-        <div class="row sitem">
-          <div class="col-md-8"><button class="btn btn-secondary w-full" onclick="donsettlement()" type="button" ><i class="fas fa-print"></i> Print </button></div>
+        <div class="row sitem printbtn" >
+          <div class="col-md-8"><button class="btn btn-secondary w-full" onclick="printsettle()" type="button" ><i class="fas fa-print"></i> Print </button></div>
           <div class="col-md-4"><button class="btn btn-primary w-full"  onclick="donsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
         </div>
 
@@ -813,6 +819,32 @@ color: #111;
  
 <script type="text/javascript">
 
+
+
+const printsettle = () => {
+
+ 
+  var divToPrint=document.getElementById('printsettlement');
+
+  var newWin=window.open('','Print-Window');
+
+  newWin.document.open();
+
+  newWin.document.write(`<html><link href="http://jar.link/dashboard/css/sb-admin-2.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"><body style="padding:80px" onload="window.print()"><style>
+  @media print {
+  .printbtn {
+    display: none;
+  }
+}
+</style>`+divToPrint.innerHTML+`</body></html>`);
+
+  newWin.document.close();
+
+  setTimeout(function(){newWin.close();},10);
+
+ 
+}
+
  //swich branch
  const switchBranch = () => {
 
@@ -1063,7 +1095,7 @@ $(document).ready(() => {
         type: 'GET',
         url: `/pos/getsettlement`,
         success: function(res){
-          console.log(res);
+         // console.log(res);
           $('#settle_total').empty();
           $('#settle_total_cash').empty();
           $('#settle_total_card').empty();
@@ -1082,10 +1114,7 @@ $(document).ready(() => {
           $('#settle_total_online').append(res.online);
           $('#settle_total_drawer').append(res.drawer);
 
-          $('#settle_t').append(res.talabat);
-          $('#settle_a').append(res.akeed);
-          $('#settle_o').append(res.other);
-
+      
 
           res.items.map(item => {
 
@@ -1095,6 +1124,19 @@ $(document).ready(() => {
               <div class="col-sm-4">${item.product.name}</div>
               <div class="col-sm-4">${item.quantity_sum}</div>
               <div class="col-sm-4">RO: ${item.price_sum}</div>
+            </div>
+            `);
+          })
+
+
+          res.online_order.map(item => {
+
+
+            $('#settle_t').append(`
+            <div class="row sitem">
+              <div class="col-sm-8">${item[0]}</div>
+      
+              <div class="col-sm-4">RO: ${item[1]}</div>
             </div>
             `);
           })
