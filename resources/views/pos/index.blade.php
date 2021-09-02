@@ -781,12 +781,19 @@ color: #111;
   
   <select  required class="form-control w-full border-gray-400" name="branch_id">
 
- 
+    @if (auth()->user()->type == 1)
       @foreach ($branches as $item)
-      <option @if (Session::get('branch')->id == $item->id)
+      <option  @if (Session::get('branch')->id == $item->id)
           selected
       @endif value="{{$item->id}}">{{$item->name}}</option>
       @endforeach
+
+    @else
+
+    <option value="{{auth()->user()->branch->id}}">{{auth()->user()->branch->name}}</option>
+    @endif
+
+
   </select>
 
 </div><div class="form-group">

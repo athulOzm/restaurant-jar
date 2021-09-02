@@ -489,6 +489,9 @@ class UserController extends Controller
             'cash_in_hand' => $request->cash_in_hand
         ]);
 
+        Session::forget('branch');
+        Session::put('branch', Branch::find($request->branch_id));
+
         return back();
     }
 

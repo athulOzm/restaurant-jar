@@ -61,7 +61,7 @@
          <span class="mr-2 d-none d-lg-inline">Sales Log</span>
        </button>
 
-       @if (auth()->user()->type == 1)
+      
 
        <div class=" p5">
         <button class="nav-link btn btn-primary btnc2 btnn1"   onclick="showsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i>  <span class="mr-2 d-none d-lg-inline">Settlement</span></button>
@@ -72,7 +72,7 @@
        
     
        
-
+      @if (auth()->user()->type == 1)
  
        <li class="nav-item">
          <a href="/">
