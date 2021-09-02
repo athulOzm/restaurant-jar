@@ -954,7 +954,7 @@ const pcard = () =>  {
 const pcash = () =>  {
 
 $('#paymenttype').val(2);
-//$('#mform').submit();
+$('#mform').submit();
 }
 
 const ponline = () =>  {
