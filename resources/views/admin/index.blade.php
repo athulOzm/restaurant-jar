@@ -69,6 +69,34 @@
                 {{-- <h5 style="width: 100%">Source</h5> --}}
     
                 <canvas id="cer1a" style="width: 600px"></canvas>
+
+                <div class="card" style="width:100%">
+                    
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dtable" width="100%" cellspacing="0">
+                               
+        
+                                <tbody>
+                               
+                                    <tr>
+                                        <th width="30">Take Away</th>
+                                        <th width="30">{{$ta0}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th width="30">Dinein</th>
+                                        <th width="30">{{$di0}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th width="30">Delivery</th>
+                                        <th width="30">{{$de0}}</th>
+                                    </tr>
+                          
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     
