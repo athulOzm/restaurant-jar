@@ -79,7 +79,8 @@ class HomeController extends Controller
         
         ->groupBy('product_id')
         ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
-        ->get();
+        ->orderBy('price_sum')
+        ->take(10);
 
         //-----------------------
 
