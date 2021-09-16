@@ -28,9 +28,42 @@
     
         <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
             
-            {{-- <div class="col-md-8">
-                <canvas id="barChartmonth" style="width: 100%"></canvas>
-            </div> --}}
+        
+
+            <div class="col-md-8">
+                <div class="card mb-12" style="width:100%">
+                    <div class="card-header py-3">Top Sale Items</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dtable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                    <th width="30">Item</th>
+                                    <th width="30">Sold Qty</th>
+                                    <th width="30">Sold Amount</th>
+                                    {{-- <th width="30">In Stock</th> --}}
+                                    </tr>
+                                </thead>
+        
+                                <tbody>
+                                @foreach($topitem as $item)
+                                    <tr>
+                                        <th width="30">{{$item->product->name}}<p style="float: right; margin-bottom:0">{{$item->product->name_ar}}</p></th>
+                                        <th width="30">{{$item->quantity_sum}}</th>
+                                        <th width="30">{{$item->price_sum}}</th>
+                                      
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+          
+            </div>
+
+          
         
             <div class="col-md-4">
                 {{-- <h5 style="width: 100%">Source</h5> --}}

@@ -59,7 +59,29 @@ class HomeController extends Controller
         });
         $de0 = number_format(array_sum($days_tot), 3);
 
-        //dd($daytot);
+        //fast movient day -----------------
+
+        $topitem = OrderProduct::whereHas('order', function($q){
+
+            $q->where('status', 4);
+
+           
+            
+           
+        })
+        ->whereHas('categories', function($q){
+            // if(isset($_GET['menucat_id']) and $_GET['menucat_id'] != 'All'){
+
+            //     $q->where('categories.id', $_GET['menucat_id']);
+            // }
+        })
+        ->where('updated_at', '>=', '2021-09-16')
+        
+        ->groupBy('product_id')
+        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
+        ->get();
+
+        //-----------------------
 
 
 
@@ -140,6 +162,6 @@ class HomeController extends Controller
         $tot2 = number_format(array_sum($days_total2), 3);
         $tord2 = array_sum($month_order);
 
-        return view('admin.index', compact('days', 'daytot', 'tot', 'tord', 'tot2', 'tord2', 'days_order', 'days_total', 'month', 'month_order', 'days_total2', 'ta0', 'ta1', 'ta2', 'de1', 'de0', 'di0', 'de2', 'di1', 'di2'));
+        return view('admin.index', compact('days', 'daytot', 'tot', 'tord', 'tot2', 'tord2', 'days_order', 'days_total', 'month', 'month_order', 'days_total2', 'ta0', 'topitem', 'ta1', 'ta2', 'de1', 'de0', 'di0', 'de2', 'di1', 'di2'));
     }
 }
