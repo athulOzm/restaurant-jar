@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $period = CarbonPeriod::create('2021-06-5', '2021-07-5');
+        $period = CarbonPeriod::create('2021-08-15', '2021-9-15');
         $days=[];
         $days_order=[];
         foreach ($period as $date) {
@@ -47,35 +47,35 @@ class HomeController extends Controller
         //take away
         $ta1 = Order::where('status', 4)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2021-06-5','2021-07-5'])
+            ->whereBetween('delivery_time', ['2021-08-15','2021-9-15'])
             ->count();
         $ta2 = Order::where('status', 4)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-07-5'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-9-15'])
             ->count();
 
         //dine in
         $di1 = Order::where('status', 4)
             ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', ['2021-06-5','2021-07-5'])
+            ->whereBetween('delivery_time', ['2021-08-15','2021-9-15'])
             ->count();
         $di2 = Order::where('status', 4)
             ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-07-5'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-9-15'])
             ->count();
 
         //dine in
         $de1 = Order::where('status', 4)
             ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', ['2021-06-5','2021-07-5'])
+            ->whereBetween('delivery_time', ['2021-08-15','2021-9-15'])
             ->count();
         $de2 = Order::where('status', 4)
             ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-07-5'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-9-15'])
             ->count();
 
 
-        $period = CarbonPeriod::create('2020-05-30', '1 month', '2021-07-5');
+        $period = CarbonPeriod::create('2020-05-30', '1 month', '2021-9-15');
         $month=[];
         $month_order=[];
         foreach ($period as $date) {

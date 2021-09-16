@@ -1614,7 +1614,7 @@ $('#dtawrap').css({display : 'none'});
                     break;
                 }
 
- 
+        
 
                   $('#cart').append(
                     `<div class="item">
@@ -1624,8 +1624,10 @@ $('#dtawrap').css({display : 'none'});
             <div class="col-sm-2 p0">
 
               <div style="display: flex">
+
+              
                           
-                          <button type="button" onclick="addtocart('${item.product.id}');" class="btn btn-circle btn-sm">
+                          <button type="button" onclick="addtocart('${item.product.id}', '${item.product.price}', '${item.product.vat}', '${item.product.promotion_price}');" class="btn btn-circle btn-sm">
                             <i class="fas fa-plus btnc"></i>
                           </button>
 
