@@ -15,13 +15,43 @@
 
 <div class="container">
    <div class="col-md-12">
+
+
+
+    <div class="row" style="background: #fff; padding:20px">
+        <h5 style="width: 100%;  " > Todays Sales </h5>
+        <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
+            
+            <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$daytot}}</b>  </span> </h5>
+    </div>
+    
+    
+        <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
+            
+            {{-- <div class="col-md-8">
+                <canvas id="barChartmonth" style="width: 100%"></canvas>
+            </div> --}}
+        
+            <div class="col-md-4">
+                {{-- <h5 style="width: 100%">Source</h5> --}}
+    
+                <canvas id="cer1a" style="width: 600px"></canvas>
+            </div>
+        </div>
+    
+        <br> <br>
+
+
+
+
+
+
     
 <div class="row" style="background: #fff; padding:20px">
-  
+    <h5 style="width: 100%;  " > Last 30 Days Sales </h5>
     <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
         
-        <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot}}</b> & 
-            <b style="color: blue">{{$tord}}</b> Token used </span> </h5>
+        <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot}}</b>  </span> </h5>
 </div>
 
 
@@ -40,13 +70,22 @@
 
     <br> <br>
 
+
+
+
+
+
+
+
+
+
+
     <div class="row" style="background: #fff; padding:20px">
         <h5 style="width: 100%">Sales Current Financial Year</h5>
     
         <h5 style="width: 100%; font-size:13px; border-bottom:20px; color:#111" >
             
-            <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot2}}</b> & 
-                <b style="color: blue">{{$tord2}}</b> Token used </span> </h5>
+            <span style="color: #888; font-size:15px">Total Sale <b style="color: blue">RO {{$tot2}}</b> </span> </h5>
     </div>
     <div class="row" style="background: #fff; padding:20px; border-radius: 3px">
         
@@ -174,7 +213,24 @@ var	myNewChartB = new Chart(ctx, {
 
 
 
-
+const data0 = {
+  labels: [
+    'Take Away',
+    'Dinein',
+    'Delivery'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [{{$ta0}}, {{$di0}}, {{$de0}}],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ]
+  }]
+};
 
 
 const data = {
@@ -214,6 +270,14 @@ const data2 = {
     ]
   }]
 };
+
+var index = 11;
+var ctx = document.getElementById("cer1a").getContext("2d");
+var	myNewChartB = new Chart(ctx, {
+    type: 'polarArea',
+  data: data0,
+  options: {}
+});
 
 var index = 11;
 var ctx = document.getElementById("cer1").getContext("2d");
