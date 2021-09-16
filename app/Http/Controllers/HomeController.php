@@ -51,7 +51,7 @@ class HomeController extends Controller
             ->count();
         $ta2 = Order::where('status', 4)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-9-15'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-9-16'])
             ->count();
 
         //dine in
