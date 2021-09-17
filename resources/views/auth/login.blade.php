@@ -33,7 +33,7 @@ form.user .form-control-user {
 @endif
   <div class="container">
 
-    <div style="text-align:center;margin: auto;margin-top: 50px; max-width: 140px;"><img style="max-width: 170px;"  src="{{asset('img/cooking.png')}}"></div>
+    <div style="text-align:center;margin: auto;margin-top: 50px; max-width: 140px;"><img style="max-width: 170px;"  src="{{asset('img/marsa.png')}}"></div>
     
   
     <!-- Outer Row -->
