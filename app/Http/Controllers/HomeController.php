@@ -30,14 +30,14 @@ class HomeController extends Controller
     public function index()
     {
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-16')->get();
+        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-17')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
         });
         $daytot = number_format(array_sum($days_tot), 3);
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-16')->where('delivery_type', 'Take away')->get();
+        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-17')->where('delivery_type', 'Take away')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
@@ -45,14 +45,14 @@ class HomeController extends Controller
         $ta0 = number_format(array_sum($days_tot), 3);
 
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-16')->where('delivery_type', 'Dinein')->get();
+        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-17')->where('delivery_type', 'Dinein')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
         });
         $di0 = number_format(array_sum($days_tot), 3);
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-16')->where('delivery_type', 'Delivery')->get();
+        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-17')->where('delivery_type', 'Delivery')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
@@ -75,7 +75,7 @@ class HomeController extends Controller
             //     $q->where('categories.id', $_GET['menucat_id']);
             // }
         })
-        ->where('updated_at', '>=', '2021-09-16')
+        ->where('updated_at', '>=', '2021-09-17')
         
         ->groupBy('product_id')
         ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
