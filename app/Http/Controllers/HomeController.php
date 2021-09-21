@@ -95,8 +95,8 @@ class HomeController extends Controller
         foreach ($period as $date) {
 
             $days[] =  $date->format('Y-m-d');
-            $days_order[] = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
-            $tot = Order::where('status', 4)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
+            $days_order[] = Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->count();
+            $tot = Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->whereDate('delivery_time', '=', $date->format('Y-m-d'))->get();
             $days_tot=[];
             $tot->each(function($ord) use(&$days_tot){
                 $days_tot[] = $ord->total_price;
