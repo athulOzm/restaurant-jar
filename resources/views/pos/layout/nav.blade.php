@@ -5,7 +5,7 @@
     </button>
 
     @if (auth()->user()->type == 1)
-    <a href="/"> <img src="{{asset('img/cooking.png')}}" width="30" alt=""> </a>
+    <a href="/"> <img src="{{asset('img/marsa.png')}}" width="30" alt=""> </a>
 
 @endif
  

@@ -9,6 +9,7 @@ use App\Settlement;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -30,14 +31,14 @@ class HomeController extends Controller
     public function index()
     {
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-21')->get();
+        $totdd = Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->whereDate('delivery_time', '=', '2021-09-23')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
         });
         $daytot = number_format(array_sum($days_tot), 3);
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-21')->where('delivery_type', 'Take away')->get();
+        $totdd = Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->whereDate('delivery_time', '=', '2021-09-23')->where('delivery_type', 'Take away')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
@@ -45,14 +46,14 @@ class HomeController extends Controller
         $ta0 = number_format(array_sum($days_tot), 3);
 
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-21')->where('delivery_type', 'Dinein')->get();
+        $totdd = Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->whereDate('delivery_time', '=', '2021-09-23')->where('delivery_type', 'Dinein')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
         });
         $di0 = number_format(array_sum($days_tot), 3);
 
-        $totdd = Order::where('status', 4)->whereDate('delivery_time', '=', '2021-09-21')->where('delivery_type', 'Delivery')->get();
+        $totdd = Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->whereDate('delivery_time', '=', '2021-09-23')->where('delivery_type', 'Delivery')->get();
         $days_tot=[];
         $totdd->each(function($ord) use(&$days_tot){
             $days_tot[] = $ord->total_price;
@@ -64,8 +65,8 @@ class HomeController extends Controller
         $topitem = OrderProduct::whereHas('order', function($q){
 
             $q->where('status', 4);
-
-           
+            
+            $q->where('branch_id', Session::get('branch')->id);
             
            
         })
@@ -75,7 +76,7 @@ class HomeController extends Controller
             //     $q->where('categories.id', $_GET['menucat_id']);
             // }
         })
-        ->where('updated_at', '>=', '2021-09-21')
+        ->where('updated_at', '>=', '2021-09-23')
         
         ->groupBy('product_id')
         ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
@@ -88,7 +89,7 @@ class HomeController extends Controller
 
 
 
-        $period = CarbonPeriod::create('2021-08-15', '2021-09-21');
+        $period = CarbonPeriod::create('2021-08-15', '2021-09-23');
         $days=[];
         $days_order=[];
         foreach ($period as $date) {
@@ -106,49 +107,57 @@ class HomeController extends Controller
        
 
         $ta1 = Order::where('status', 4)
+        ->where('branch_id', Session::get('branch')->id)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2021-08-15','2021-09-21'])
+            ->whereBetween('delivery_time', ['2021-08-15','2021-09-23'])
             ->count();
         $ta2 = Order::where('status', 4)
+        ->where('branch_id', Session::get('branch')->id)
             ->where('delivery_type', 'Take away')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-09-21'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-09-23'])
             ->count();
 
         //dine in
        
         $di1 = Order::where('status', 4)
+        ->where('branch_id', Session::get('branch')->id)
             ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', ['2021-08-15','2021-09-21'])
+            ->whereBetween('delivery_time', ['2021-08-15','2021-09-23'])
             ->count();
         $di2 = Order::where('status', 4)
+        ->where('branch_id', Session::get('branch')->id)
             ->where('delivery_type', 'Dinein')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-09-21'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-09-23'])
             ->count();
 
         //dine in
        
         $de1 = Order::where('status', 4)
+        ->where('branch_id', Session::get('branch')->id)
             ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', ['2021-08-15','2021-09-21'])
+            ->whereBetween('delivery_time', ['2021-08-15','2021-09-23'])
             ->count();
         $de2 = Order::where('status', 4)
+        ->where('branch_id', Session::get('branch')->id)
             ->where('delivery_type', 'Delivery')
-            ->whereBetween('delivery_time', ['2020-04-30','2021-09-21'])
+            ->whereBetween('delivery_time', ['2020-04-30','2021-09-23'])
             ->count();
 
 
-        $period = CarbonPeriod::create('2020-05-30', '1 month', '2021-09-21');
+        $period = CarbonPeriod::create('2020-05-30', '1 month', '2021-09-23');
         $month=[];
         $month_order=[];
         foreach ($period as $date) {
 
             $month[] =  $date->format('Y-M');
             $month_order[] = Order::where('status', 4)
+            ->where('branch_id', Session::get('branch')->id)
                 ->whereYear('delivery_time', '=', $date->format('Y'))
                 ->whereMonth('delivery_time', '=', $date->format('m'))
                 ->count();
 
             $tot = Order::where('status', 4)
+            ->where('branch_id', Session::get('branch')->id)
                 ->whereYear('delivery_time', '=', $date->format('Y'))
                 ->whereMonth('delivery_time', '=', $date->format('m'))
                 ->get();

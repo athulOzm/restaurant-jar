@@ -12,6 +12,7 @@
 
   <!-- Custom fonts for this template-->
   <link rel="stylesheet" href="{{asset('dashboard/vendor/fontawesome/css/all.css')}}"   />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet"> --}}
 

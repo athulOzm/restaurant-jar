@@ -1,3 +1,6 @@
+<?php 
+$branches = resolve('branches');
+?>
 @extends('admin.layouts.master')
 
 
@@ -13,7 +16,26 @@
  </style>
    
 
+
+
+   @if (auth()->user()->type == 1)
+   <div class="form-group bpic" style="width: 400px; float: right; margin-left:15px">
+     
+     <select onchange="switchBranch()" id="branch_id" class="form-control w-full border-gray-400" name="branch_id">
+         <option value="{{ Session::get('branch')->id}}" selected> {{ Session::get('branch')->name}}</option>
+         @foreach ($branches as $item)
+         <option value="{{$item->id}}">{{$item->name}}</option>
+         @endforeach
+     </select>
+   </div>
+   @endif
+
 <div class="container">
+
+    
+
+
+
    <div class="col-md-12">
 
 
@@ -356,6 +378,26 @@ var	myNewChartB = new Chart(ctx, {
   data: data2,
   options: {}
 });
+
+
+ //swich branch
+ const switchBranch = () => {
+
+var token = $("meta[name='csrf-token']").attr("content");
+$.ajax({
+    type: 'POST',
+    url: `/switchbranch`,
+    data: {
+        "branch_id": $('#branch_id').val(),
+        "_token": token,
+    },
+    success: function(res){
+    location.reload();  
+    }
+});
+}
+
+
 </script>
 
  
