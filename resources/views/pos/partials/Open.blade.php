@@ -32,6 +32,7 @@ $saleslog = resolve('saleslog2');
                     <tbody>
                     @foreach($saleslog as $sale)
                         <tr>
+                            <td>{{$sale->updated_at}}</td>
                             <td>{{$sale->id}}</td>
                             <td>{{$sale->branch->code}}{{$sale->id}}</td>
                             <td>{{$sale->vn}}</td>
@@ -39,7 +40,7 @@ $saleslog = resolve('saleslog2');
                                 {{$sale->table->name}} ({{$sale->table->chair}})
                             @endif </td>
 
-                            <td>{{$sale->updated_at}}</td>
+                            
                       
                             
                             <td>{{$sale->gettotalprice()['subtotal']}}</td>
