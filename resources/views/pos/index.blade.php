@@ -74,7 +74,7 @@ label {
   
 
  
-        <div style="
+        {{-- <div style="
         
         
         position: absolute;
@@ -113,7 +113,7 @@ label {
     </div>
            
   </div>
- 
+  --}}
 
 
 
@@ -847,7 +847,7 @@ const printsettle = () => {
 
   newWin.document.close();
 
-  setTimeout(function(){newWin.close();},10);
+  //setTimeout(function(){newWin.close();},10);
 
  
 }
