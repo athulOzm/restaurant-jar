@@ -17,15 +17,13 @@
        padding-top: 3px;
        "> POS</h3>
 
+
+
  
 @if (auth()->user()->type == 1)
 <div class="form-group bpic" style="width: 400px; float: right; margin-left:15px">
-     
   <select onchange="switchBranch()" id="branch_id" class="form-control w-full border-gray-400" name="branch_id">
-       
       @foreach ($branches as $item)
-
-
       <option value="{{$item->id}}" @if(Session::get('branch')->id == $item->id) selected @endif>{{$item->name}}</option>
       @endforeach
   </select>
