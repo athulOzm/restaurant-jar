@@ -1002,10 +1002,12 @@ return response($request->user()->orders, 200);
             $q->where('settlement_id', $cash_register_id);
         })
         ->groupBy('product_id')
-        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion) as price_sum'))
+        ->select('*', DB::raw('sum(quantity) as quantity_sum, sum(promotion) as promotion_sum, sum(price * quantity + container - promotion + price * quantity * vat / 100) as price_sum'))
         ->get();
 
 
+
+        //------------
         $deli_team = Deliverylocation::where('branch_id', Session::get('branch')->id)->get();
 
         $onlines = [];

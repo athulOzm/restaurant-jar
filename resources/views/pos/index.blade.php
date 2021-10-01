@@ -1130,7 +1130,7 @@ $(document).ready(() => {
             <div class="row sitem">
               <div class="col-sm-4">${item.product.name}</div>
               <div class="col-sm-4">${item.quantity_sum}</div>
-              <div class="col-sm-4">RO: ${item.price_sum}</div>
+              <div class="col-sm-4">RO: ${parseInt(item.price_sum).toFixed(3)}</div>
             </div>
             `);
           })
