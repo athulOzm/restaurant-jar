@@ -1627,7 +1627,7 @@ $('#dtawrap').css({display : 'none'});
 
               
                           
-                          <button type="button" onclick="addtocart('${item.product.id}', '${item.product.price}', '${item.product.vat}', '${item.product.promotion_price}');" class="btn btn-circle btn-sm">
+                          <button type="button" onclick="addtocart('${item.product.id}', '${item.variant}', '${item.product.price}', '${item.product.vat}', '${item.product.promotion_price}');" class="btn btn-circle btn-sm">
                             <i class="fas fa-plus btnc"></i>
                           </button>
 
