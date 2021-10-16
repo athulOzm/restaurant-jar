@@ -697,6 +697,8 @@ return response($request->user()->orders, 200);
                 'table_id'  =>  $table,
                 'vn'  =>  $vn,
                 'sn' =>  $request->sn,
+                'paying_amount' =>  $request->paying_amount,
+                'balance_amount' =>  $request->balance_amount,
                 'waiter_id'  => $request->waiter,
                 'branch_id'  => $request->branch_id,
                 'reqfrom'    =>  auth()->user()->id,

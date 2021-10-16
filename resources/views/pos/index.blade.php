@@ -305,37 +305,28 @@ label {
       <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:150px; position: absolute; bottom:0; width:100% ">
         <div class="row">
           <div class="col-md-6 " style="padding-right: 0">
+
+            <input type="hidden" name="sn" value="">
         
-              <div class="bgh p0" style="text-align: left">
+              {{-- <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
                 <div class="flex">
-                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; "></textarea>
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:30px; "></textarea>
+                </div>
+              </div> --}}
 
-                
+              <div class="bgh p0 " style="text-align: left; display:flex">
+                <div>
+                  <b class="lab1a">Paying Amount</b>
+                  <input type="text" value="" id="payingamount"  style="font-size: 20px; font-weight:600; height:38px; background:#e7e7e7" class="form-control w-full txtb" name="paying_amount">
+                </div>
 
-                {{-- <div class="input-group " style="width: 70px;margin-left:3px;background: #2c3346;border-radius: 3px;">
-                  <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input form-control w-full txtb" id="inputGroupFile01">
-                    <label class="custom-file-label" for="inputGroupFile01" style="
-                        
-                        
-                        
-                        width: auto;
-                        font-size: 10px;
-                        line-height: 90px;
-                        border:0;
-                        margin-top: 29px;
-                        background: #2c3346
-                 
-                    
-                    
-                    
-                    "></label>
-                  </div>
-                </div> --}}
-
-              </div>
-
+                <div>
+                  <b class="lab1a" style="padding-left: 10px">Balance</b>
+                  
+                    <input type="text" value="" id="balancepay" class="form-control w-full txtb" style="background: #1a1f32; height:38px; color: #e65776;font-weight: 900;font-size: 22px;" name="balance_amount">
+                  
+                </div>
 
               </div>
 
@@ -891,6 +882,19 @@ $('#sbc').keyup(function(){
     
     window.location.href = "/pos/update/"+sid.replace('RE-', '');
   }
+});
+
+//balance
+$('#payingamount').on('keyup', function() {
+  var pay = this.value
+  var st = $('#subtotal2').val();
+
+  var balance = parseFloat(pay - st).toFixed(3);
+
+  console.log(st);
+
+  $('#balancepay').val(balance);
+
 });
 
 

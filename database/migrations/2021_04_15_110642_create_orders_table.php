@@ -61,6 +61,8 @@ class CreateOrdersTable extends Migration
 
             $table->boolean('payment_status')->default(false);
             $table->decimal('amount', 8, 3)->nullable();
+            $table->decimal('paying_amount', 8, 3)->nullable();
+            $table->decimal('balance_amount', 8, 3)->nullable();
 
             $table->text('sn')->nullable();
             $table->integer('made')->default(0);

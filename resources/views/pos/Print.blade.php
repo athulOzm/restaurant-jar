@@ -329,6 +329,18 @@
                                   <td class="Rate tar" colspan="2" ><h2>اجمالي المبلغ بعد الضريبة </h2></td>
                                 </tr>
                                 @endif
+
+                                <tr class="tabletitle">
+                                  <td class="Rate"  colspan="3"><h2>Paid Amount :</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center">{{$order->paying_amount}}</h2></td>
+                                  <td class="Rate tar" colspan="2" ><h2> </h2></td>
+                                </tr>
+
+                                <tr class="tabletitle">
+                                  <td class="Rate"  colspan="3"><h2>Balance Amount :</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center"> {{$order->balance_amount}}</h2></td>
+                                  <td class="Rate tar" colspan="2" ><h2> </h2></td>
+                                </tr>
     
                             </table>
                         </div><!--End Table--> 
@@ -349,6 +361,7 @@
 
                       <div style="text-align: center; margin:0; font-size:14px; text-align:left">
                        
+                          
                         Payment Type : {{$order->paymenttypef->name}} <BR>
                         Date and Time : {{Carbon\Carbon::now() }}<BR>
                         
