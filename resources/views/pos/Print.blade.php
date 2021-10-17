@@ -330,6 +330,23 @@
                                 </tr>
                                 @endif
 
+                                @if ($order->gettotalprice()['ordpromotion'] != 0)
+                                  <tr class="tabletitle">
+                                    <td class="Rate" colspan="3"><h2>Promotion</h2></td>
+                                    <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['ordpromotion']}}</h2></td>
+                                    <td class="Rate tar" colspan="2"  ><h2></h2></td>
+                                  </tr>
+                              
+    
+                              
+                                @endif
+
+                                <tr class="tabletitle">
+                                  <td class="Rate"  colspan="3"><h2>Sub Total :</h2></td>
+                                  <td class="payment tar"><h2 style="text-align: center">{{$order->gettotalprice()['subtotal']}}</h2></td>
+                                  <td class="Rate tar" colspan="2" ><h2> </h2></td>
+                                </tr>
+
                                 <tr class="tabletitle">
                                   <td class="Rate"  colspan="3"><h2>Paid Amount :</h2></td>
                                   <td class="payment tar"><h2 style="text-align: center">{{$order->paying_amount}}</h2></td>

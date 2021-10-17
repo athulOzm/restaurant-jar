@@ -338,6 +338,14 @@ class PosController extends Controller
         DB::update('update order_product set discount = '.$request->dis.' where id = ?', [$request->id]);
     }
 
+    //add promo
+    public function ordpromo(Request $request){
+
+        
+
+        Order::find(Session::get('token')->id)->update(['order_promotion' => $request->dis]);
+    }
+
     //add container
     public function container(Request $request){
 

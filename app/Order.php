@@ -120,6 +120,9 @@ class Order extends Model
 
         });
 
+        //orderpromotion
+
+
         //container
         $cont = [];
         $cartitems->each(function($item) use(&$cont){
@@ -136,6 +139,18 @@ class Order extends Model
         $st = number_format($price + $tax + $cont, 3);
         $reduce = number_format($dis + $promotion ,3);
 
+
+        //orderpromotion
+
+        $subtt = number_format($st - $reduce, 3);
+        $subttv = number_format($subtt * $this->order_promotion / 100, 3);
+
+        $subtt = number_format($subtt - $subttv, 3);
+        
+
+
+
+
          
 
         return [
@@ -143,8 +158,9 @@ class Order extends Model
             'tax' => $tax,
             'discount' => $dis,
             'container' => $cont,
+            'ordpromotion' => $subttv,
             'promotion' => $promotion,
-            'subtotal' => number_format($st - $reduce, 3),
+            'subtotal' => $subtt,
         ];
 
     }

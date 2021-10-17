@@ -195,6 +195,22 @@ label {
                   <option @if ($loop->first) selected @endif value="{{$member->id}}">{{$member->name}}</option>
                   @endforeach                        
               </select>
+
+              <p class="lab1b">Promotions</p>
+              <br>
+
+           
+              
+              <label>
+                <input type="checkbox" @if($cur_token->order_promotion == '30.000') checked @endif name="order_promotion" id="order_promotion" value="30"> 
+                <b class="lab1a">Women's day (30%)</b>
+              </label>
+ 
+            
+
+
+              
+
           </div>
 
        
@@ -315,7 +331,17 @@ label {
                 </div>
               </div> --}}
 
+              {{-- <div class="bgh p0 " style="text-align: left; display:flex">
+                <div>
+                  <b class="lab1a">Discount</b>
+                  <input type="text" value="" id="ord_discount"  style="font-size: 20px; font-weight:600; height:38px; background:#e7e7e7" class="form-control w-full txtb" name="ord_discount">
+                </div>
+
+              </div> --}}
+
               <div class="bgh p0 " style="text-align: left; display:flex">
+                 
+
                 <div>
                   <b class="lab1a">Paying Amount</b>
                   <input type="text" value="" id="payingamount"  style="font-size: 20px; font-weight:600; height:38px; background:#e7e7e7" class="form-control w-full txtb" name="paying_amount">
@@ -346,6 +372,7 @@ label {
                 <div class="row" id="discount"></div>
                 <div class="row" id="container"></div>
                 <div class="row" id="promotion"></div>
+                <div class="row" id="ordpromotion"></div>
 
                 <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
                   <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
@@ -888,14 +915,33 @@ $('#sbc').keyup(function(){
 $('#payingamount').on('keyup', function() {
   var pay = this.value
   var st = $('#subtotal2').val();
+  var dd = $('#ord_discount').val();
+
 
   var balance = parseFloat(pay - st).toFixed(3);
 
-  console.log(st);
+ // balance = parseFloat(balance + dd).toFixed(3);
+
+  //console.log(st);
 
   $('#balancepay').val(balance);
 
 });
+
+//order discount
+// $('#ord_discount').on('keyup', function() {
+//   var dis = this.value
+//   var st = $('#subtotal2').val();
+
+//   var balance = parseFloat(st - dis).toFixed(3);
+
+//   //console.log(balan);
+
+  
+//   $('#subtotal').empty();
+//   $('#subtotal').append(balance);
+
+// });
 
 
 //add cart from barcode
@@ -1698,6 +1744,7 @@ $('#dtawrap').css({display : 'none'});
           $('#subtotal').empty();
           $('#discount').empty();
           $('#promotion').empty();
+          $('#ordpromotion').empty();
           $('#container').empty();
           $('#subtotal2').val(null);
 
@@ -1717,6 +1764,10 @@ $('#dtawrap').css({display : 'none'});
 
           if(res.promotion != '0.000'){
             $('#promotion').append(`<div class="col-sm-6">Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.promotion}</label></div>`);
+          }
+
+          if(res.ordpromotion != '0.000'){
+            $('#ordpromotion').append(`<div class="col-sm-6">Women's day Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.ordpromotion}</label></div>`);
           }
 
           if(res.container != '0.000'){
@@ -1943,6 +1994,36 @@ var dis = $(`#itemd${id}`).val();
   });
 }
 
+//getPromo
+
+$('#order_promotion').change(function() {
+
+  if(this.checked) {
+      var val = 1;
+      var dis = 30;
+  } else{
+      var val = 0;
+      var dis = 0;
+  }
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/pos/addpromo`,
+      data: {
+          "val": val,
+          "dis": dis,
+          "_token": token,
+      },
+      success: function(){
+        getOrders();
+      }
+  });
+
+       
+              
+});
+ 
 
 //container
 const addcontainer = (item, id) => {
