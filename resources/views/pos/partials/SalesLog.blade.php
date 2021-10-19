@@ -45,30 +45,38 @@ input[type=search]{
 
 <div id="exTabsale"  style="color: #222">	
     <ul  class="nav nav-pills pill2">
-      {{-- <li class="active">
-        <a  href="#1a" data-toggle="tab">Sales Log</a>
-      </li> --}}
       <li class="active"><a href="#3a" data-toggle="tab">Open Bills</a></li>
-      <li><a href="#2a" data-toggle="tab">Hold Bills</a></li>
+      <li><a  href="#1a" data-toggle="tab">Sales Log</a></li>
+
+      {{-- <li><a href="#2a" data-toggle="tab">Hold Bills</a></li> --}}
       
       {{-- <li><a href="#4a" data-toggle="tab">Kitchen Log</a></li> --}}
         
     </ul>
 
     <div class="tab-content clearfix">
-      {{-- <div class="tab-pane active" id="1a">
+      <div class="tab-pane" id="1a">
         @include('pos.partials.Sales')
-      </div> --}}
+      </div>
       <div class="tab-pane  active" id="3a">
         @include('pos.partials.Open')
       </div>
-      <div class="tab-pane" id="2a">
+      {{-- <div class="tab-pane" id="2a">
         @include('pos.partials.Hold')
       </div>
       
       <div class="tab-pane" id="4a">
         @include('pos.partials.KitchenLog')
-      </div>
+      </div> --}}
         
     </div>
    </div>
+
+   <script>
+     function deleteCon($frm, $msg = "Are you sure?"){
+    if(confirm($msg)) {
+        event.preventDefault();
+        document.getElementById($frm).submit();
+    } 
+}
+   </script>

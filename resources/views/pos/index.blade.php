@@ -196,7 +196,7 @@ label {
                   @endforeach                        
               </select>
 
-              <p class="lab1b">Promotions</p>
+              {{-- <p class="lab1b">Promotions</p>
               <br>
 
            
@@ -204,7 +204,9 @@ label {
               <label>
                 <input type="checkbox" @if($cur_token->order_promotion == '30.000') checked @endif name="order_promotion" id="order_promotion" value="30"> 
                 <b class="lab1a">Women's day (30%)</b>
-              </label>
+              </label> --}}
+
+              <input type="hidden" name="order_promotion">
  
             
 

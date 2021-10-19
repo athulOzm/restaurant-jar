@@ -144,6 +144,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('orders/delivered', 'OrderController@delivered')->name('order.delivered');
     Route::get('orders/all', 'OrderController@all')->name('order.all');
     Route::delete('order', 'OrderController@destroy')->name('order.destroy');
+    //Route::delete('pos/orderdel', 'OrderController@destroy2')->name('order.destroy2');
 
     Route::get('orders/history', 'OrderController@history')->name('order.history');
     Route::get('orders/list', 'OrderController@list')->name('order.list');

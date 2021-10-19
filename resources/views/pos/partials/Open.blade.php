@@ -56,12 +56,12 @@ $saleslog = resolve('saleslog2');
                         <a href="" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a>
                         <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit & Pay</a>
 
-                        {{-- <a onclick="deleteCon('delfrm{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
-                        <form id="delfrm{{$sale->id}}" action="" method="post">
+                        <a onclick="deleteCon('delord{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                        <form id="delord{{$sale->id}}" action="{{route('order.destroy')}}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="id" value="{{$sale->id}}">
-                        </form> --}}
+                        </form>
 
                     </td>
                         

@@ -101,7 +101,12 @@ class AppServiceProvider extends ServiceProvider
 
         app()->bind('saleslog2', function(){
 
-            return Order::where('status', 3)->where('branch_id', Session::get('branch')->id)->take(50)->get();
+            return Order::where('status', 3)->where('branch_id', Session::get('branch')->id)->latest()->take(50)->get();
+        });
+
+        app()->bind('saleslog4', function(){
+
+            return Order::where('status', 4)->where('branch_id', Session::get('branch')->id)->latest()->take(50)->get();
         });
 
         app()->bind('members', function(){
