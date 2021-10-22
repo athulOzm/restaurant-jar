@@ -749,7 +749,7 @@ return response($request->user()->orders, 200);
            // Auth::guard('waiter')->logout();
             //Auth::logout();
             //Session::flush();
-            return redirect()->back();
+            return redirect()->route('waiter');
         }
 
             //Checkout::dispatch($tid);

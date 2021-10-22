@@ -20,12 +20,13 @@ $saleslog = resolve('saleslog2');
                     <thead>
                         <tr>
                             <th>Date</th>
-                        
+                            <th>Order From</th>
                             <th>Vehicle No</th>
                             <th>Table</th>
+                            
                            
                             <th>TOTAL</th>
-                            <th style="width: 300px">Action</th>
+                            <th style="width: 40%">Action</th>
                         </tr>
                     </thead>
 
@@ -33,6 +34,7 @@ $saleslog = resolve('saleslog2');
                     @foreach($saleslog as $sale)
                         <tr>
                             <td>{{$sale->updated_at}}</td>
+                            <td>{{$sale->reqFrom->name}}</td>
                     
                            
                             <td>{{$sale->vn}}</td>
