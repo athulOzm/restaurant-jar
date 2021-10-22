@@ -19,13 +19,13 @@ $saleslog = resolve('saleslog2');
                 <table class="table table-bsaleed" id="dataTable3" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Receipt No</th>
+                            <th>Date</th>
+                        
                             <th>Vehicle No</th>
                             <th>Table</th>
-                            <th>Date</th>
+                           
                             <th>TOTAL</th>
-                            <th>Action</th>
+                            <th style="width: 300px">Action</th>
                         </tr>
                     </thead>
 
@@ -33,8 +33,8 @@ $saleslog = resolve('saleslog2');
                     @foreach($saleslog as $sale)
                         <tr>
                             <td>{{$sale->updated_at}}</td>
-                            <td>{{$sale->id}}</td>
-                            <td>{{$sale->branch->code}}{{$sale->id}}</td>
+                    
+                           
                             <td>{{$sale->vn}}</td>
                             <td> @if ($sale->table)
                                 {{$sale->table->name}} ({{$sale->table->chair}})
@@ -46,14 +46,13 @@ $saleslog = resolve('saleslog2');
                             <td>{{$sale->gettotalprice()['subtotal']}}</td>
                            
                            
-                            
-
+                           
                             
                     <td>
                         <a target="_blank" href="{{route('pos.view', $sale->id)}}" class="btn btn-info"> <i class="fas fa-eye"></i> View</a>
 
-                        <a target="_blank" href="{{route('pos.print', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
-                        <a href="" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a>
+                        <a   href="{{route('pos.print.order', $sale->id)}}" class="btn btn-info"> <i class="fas fa-print"></i> Reprint</a>
+                        {{-- <a href="" class="btn btn-info"> <i class="fas fa-clone"></i> Clone</a> --}}
                         <a href="{{route('pos.update', $sale->id)}}" class="btn btn-info"> <i class="fas fa-pen-square"></i> Edit & Pay</a>
 
                         <a onclick="deleteCon('delord{{$sale->id}}');" class="btn btn-danger "><i class="fas fa-trash"></i></a>

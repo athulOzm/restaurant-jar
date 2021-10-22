@@ -53,7 +53,8 @@
                                     
                                 
                                     <option value="5">Staff</option>
-                                    <option value="5">Admin</option>
+                                    <option value="1">Admin</option>
+                                    {{-- <option value="4">Waiter</option> --}}
                                 
                                 </select>
                         </div>

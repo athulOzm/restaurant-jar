@@ -627,6 +627,9 @@ return response($request->user()->orders, 200);
         }
 
 
+        //dd($request);
+
+
 
         if($request->reqtype == 'kot'){
 
@@ -731,29 +734,7 @@ return response($request->user()->orders, 200);
 
        $tid = Session::get('token')->id;
 
-
-    //    if($request->hasfile('file')):
-
-    //         $fpath = Storage::putFile('pospdf', $request->file('file'));
-
-    //         $id = Order::find(Session::get('token')->id)->update(['attachment' => $fpath]);
-
-    //     endif;
-
-
-        //manage stock
-        // Order::find(Session::get('token')->id)->orderproducts()->each(function($product){
-
-        //     $mnustock = Product::find($product->product_id)->getmenustocks()->first()->qty_total;
-
-        //     $tot = number_format($mnustock - $product->quantity, 1);
-        //     Product::find($product->product_id)->getmenustocks()->first()->update([
-        //         'qty_total' => $tot
-        //     ]);
-
-
-        // });
-
+ 
 
 
        Session::forget('token');
@@ -765,10 +746,10 @@ return response($request->user()->orders, 200);
        } else if($request->reqtype == 'kot'){
 
         if(auth()->user()->type == 4){
-            Auth::guard('waiter')->logout();
-            Auth::logout();
-            Session::flush();
-            return redirect()->route('waiter.login');
+           // Auth::guard('waiter')->logout();
+            //Auth::logout();
+            //Session::flush();
+            return redirect()->back();
         }
 
             //Checkout::dispatch($tid);

@@ -2,13 +2,19 @@
 
 <?php 
 $menutypes = resolve('menutypesforpos');
-$waiter = resolve('waiter');
+$tables = resolve('tables');
+$deltypes = resolve('locations');
+$members = resolve('members');
 $allmenus = resolve('allmenus');
 $mcategories = resolve('mcategories'); 
 $daten =  str_replace(' ', 'T', Carbon\Carbon::now());
+$branches = resolve('branches');
+
 ?>
 
  
+ 
+
 
 @section('content')
 
@@ -35,10 +41,11 @@ label {
 }
 </style>
 
-<form action="{{route('waiter.pos.checkout')}}" method="POST" id="mform" autocomplete="off" enctype="multipart/form-data">
+<form action="{{route('pos.checkout.waiter')}}" method="POST" id="mform" autocomplete="off" enctype="multipart/form-data">
   @csrf
 
- <input type="hidden" name="reqtype" value="kot" id="reqtype">
+<input type="hidden" name="reqtype" value="pos" id="reqtype">
+<input type="hidden" name="paymenttype" value="" id="paymenttype">
 <input type="hidden" name="subtt2" id="totcre" value="">
 <input type="hidden" name="subtt2" id="subtotal2" value="">
 <input type="hidden" name="branch_id" value="{{ Session::get('branch')->id}}">
@@ -49,7 +56,7 @@ label {
 
 
 
-  <div class="col-sm-6 p0" style="background: #2c3346;">
+  <div class="col-sm-5 p0" style="background: #2c3346;">
     
 
 
@@ -66,7 +73,7 @@ label {
   
 
  
-        <div style="
+        {{-- <div style="
         
         
         position: absolute;
@@ -105,7 +112,7 @@ label {
     </div>
            
   </div>
- 
+  --}}
 
 
 
@@ -119,79 +126,120 @@ label {
 ">
 
           <div class="col-md-6">
-            <p class="lab1b" >Order Code: <b style="font-size: 18px; color:#e65776">{{ Session::get('token')->id}}</b></p>
+            <p class="lab1b" >Order Code: <b style="font-size: 15px; color:#e65776">{{ Session::get('token')->id}}</b></p>
           </div>
 
           <div class="col-md-6">
             <p class="lab1b">Date:  <b>{{Carbon\Carbon::now()->isoFormat('LLLL') }}</b></p>
           </div>
-          
-        
-          <div class="col-md-6">
-            <p class="lab1b">MESS ID</p>
-            <input type="text" name="memberid" value="" autocomplete="false" required id="autocomplete" class="form-control w-full txtb">
-          </div>
+           
     
-          <div class="col-md-6">
-            <p class="lab1b">Member Name</p>
-            <input type="text" value="" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb" >
-          </div>
-
-          <div class="col-md-6">
-            <p class="lab1b">Member Balance</p>
-            <input type="text" id="totcre2" readonly value="" style="background: #424961" class="form-control w-full txtb">
-          </div>
-    
-          <div class="col-md-6">
-            <p class="lab1b">Payment Type</p>
-            <div id="pt">
-              <div class="bgh p0">
-              <div class="flex">
-              <label class="box3"><input type="radio"  required=""   name="pt" value="1"> <b class="lab1a">Card</b></label>
-              <label class="box3"  style="margin-right: 0"><input type="radio"  id="crepay"   required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
-              </div></div>
-            </div>
-
-          </div>
-
-          <div class="col-md-6">
-            <div id="dtime">
-              <p class="lab1b">Delivery Time</p>
-              <input name="dtime" id="dtimee" step="any" type="datetime-local" onchange="getlimitbydate()" class="form-control border-gray-400 txtb">
-            </div>
-          </div>
-    
-          <div class="col-md-6">
-            <p class="lab1b">Delivery Type</p>
+          <div class="col-md-6 ">
+         
          
               <div id="delivery">
                 <div class=" flex">
-                <label class="box3"><input   type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
-                <label class="box3"><input     type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
-                <label class="box3" style="margin-right: 0"><input  type="radio" required="" name="del" value="Delivery" onclick="ShowDelType()"> <b class="lab1a">Delivery</b></label>
+                  <label class="box3"><input   checked type="radio" required="" name="del" value="Dinein" onclick="getTables('9')"> <b class="lab1a">Dinein</b></label>
+
+                <label class="box3"><input  type="radio" required="" name="del" value="Take away" onclick="takeaway()"> <b class="lab1a">Take away</b></label>
+                
+                <label class="box3" style="margin-right: 0"><input  type="radio" required="" name="del" value="Delivery" onclick="ShowDelType('')"> <b class="lab1a">Delivery</b></label>
                 </div>
               </div>
-          
+
+              <p class="lab1b">Customer</p>
+
+
+              <select data-live-search="true" name="customer" class="form-control mb-1 mt-1" name="rank_id"  style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+            
+                  @foreach ($members as $member)
+                  <option @if ($loop->first) selected @endif value="{{$member->id}}">{{$member->name}}</option>
+                  @endforeach                        
+              </select>
+
+            
+
+              <input type="hidden" name="order_promotion">
+ 
+            
+
+
+              
+
           </div>
 
        
 
-          <div class="col-md-12">
-            <div id="tables"></div>
-            <div class="row">
-              <div class="col-md-6">
-            <div id="dt"></div>
+          <div class="col-md-6">
 
-              </div>
-              <div class="col-md-6">
-            <div id="locations"></div>
+          
 
-              </div>
+
+          
+            <div class="flex" style="flex-direction: column" id="dineinwrap">
+              <input type="hidden" name="dine_waiter" value="{{auth()->user()->id}}">
+
+              <p class="lab1b">Select Table</p>
+              <select data-live-search="true" required name="dine_table" class="form-control mb-1"  style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+               
+ 
+
+                
+                  @foreach  ($tables as $table)
+
+                  @if ($table->status == 1)
+                  <option value="{{$table->id}}">{{$table->name}} - {{$table->chair}} Chair</option>
+                  @endif
+
+                  
+                  @endforeach                        
+              </select>
             </div>
-            <div id="vallimit" style="
+
+
+            <div class="row" id="deliverywrap" style="display: none">
+              <p class="lab1b">Delivery Type</p>
+              <select  data-live-search="true"  name="del_type" class="form-control mb-1"  style="
+                background: #424961;
+                color: #fff;
+                font-size: 13px;border:1px solid #424961
+                ">
+                  @foreach  ($deltypes as $deltype)
+                 
+                  <option  value="{{$deltype->id}}">{{$deltype->name}}</option>
+                  @endforeach                        
+              </select>
+
+              {{-- <p class="lab1b">Delivery Location</p> --}}
+              <input type="hidden" name="del_loc"   class="form-control">
+
+              {{-- <p class="lab1b">Delivery Time</p> --}}
+              <input name="dtime" id="dtimee" step="any" type="hidden"  class="form-control  ">
+           
+               
+            </div>
+
+
+            <div class="row" id="dtawrap" style="display: none">
+            
+              <p class="lab1b">Vehicle Number</p>
+              <input name="vn"   step="any" type="text"   class="form-control  ">
+           
+               
+            </div>
+
+            {{-- <div id="vallimit" style="
             font-size: 13px;
             color: #e65776;
-        "></div>
+        "></div> --}}
           </div>
 
           
@@ -218,37 +266,38 @@ label {
       <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:150px; position: absolute; bottom:0; width:100% ">
         <div class="row">
           <div class="col-md-6 " style="padding-right: 0">
+
+            <input type="hidden" name="sn" value="">
         
-              <div class="bgh p0" style="text-align: left">
+              {{-- <div class="bgh p0" style="text-align: left">
                 <b class="lab1a">Special Note</b>
                 <div class="flex">
-                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:80px; "></textarea>
+                  <textarea class="form-control w-full txtb" name="sn" style="background: #424a63; color:#fff; height:30px; "></textarea>
+                </div>
+              </div> --}}
 
-                
-
-                <div class="input-group " style="width: 70px;margin-left:3px;background: #2c3346;border-radius: 3px;">
-                  <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input form-control w-full txtb" id="inputGroupFile01">
-                    <label class="custom-file-label" for="inputGroupFile01" style="
-                        
-                        
-                        
-                        width: auto;
-                        font-size: 10px;
-                        line-height: 90px;
-                        border:0;
-                        margin-top: 29px;
-                        background: #2c3346
-                 
-                    
-                    
-                    
-                    "></label>
-                  </div>
+              {{-- <div class="bgh p0 " style="text-align: left; display:flex">
+                <div>
+                  <b class="lab1a">Discount</b>
+                  <input type="text" value="" id="ord_discount"  style="font-size: 20px; font-weight:600; height:38px; background:#e7e7e7" class="form-control w-full txtb" name="ord_discount">
                 </div>
 
-              </div>
+              </div> --}}
 
+              <div class="bgh p0 " style="text-align: left; display:flex">
+                 
+
+                <div>
+                  <b class="lab1a">Paying Amount</b>
+                  <input type="text" value="" id="payingamount"  style="font-size: 20px; font-weight:600; height:38px; background:#e7e7e7" class="form-control w-full txtb" name="paying_amount">
+                </div>
+
+                <div>
+                  <b class="lab1a" style="padding-left: 10px">Balance</b>
+                  
+                    <input type="text" value="" id="balancepay" class="form-control w-full txtb" style="background: #1a1f32; height:38px; color: #e65776;font-weight: 900;font-size: 22px;" name="balance_amount">
+                  
+                </div>
 
               </div>
 
@@ -268,6 +317,7 @@ label {
                 <div class="row" id="discount"></div>
                 <div class="row" id="container"></div>
                 <div class="row" id="promotion"></div>
+                <div class="row" id="ordpromotion"></div>
 
                 <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
                   <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
@@ -287,36 +337,34 @@ label {
 
         <div class="row">
 
-          <div class="col-sm-6 p5">
-            <a class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  href="/waiter/logout" type="button" ><i class="fas fa-sign-out-alt"></i> Logout</a>
-            
-          </div>
+          
 
-          {{-- <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  id="salesreturn" type="button" ><i class="fas fa-retweet"></i> Sales Return</button>
-          </div>
+         
 
           <div class="col-sm-2 p5">
-            <button class="btn btn-primary btnc2" style="background: #7594f1; border-color:#7594f1"  onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
+            <button class="btn btn-primary btnc22"    onclick="actcancel({{ Session::get('token')->id}})" type="button" ><i class="fas fa-retweet"></i> Cancel</button>
           </div>
+
+
+          <div class="col-sm-2 p5">
+            <a href="/waiter/logout"  class="btn btn-primary btnc22" type="button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div> 
 
   
           
 
           <div class="col-sm-2 p5">
-            <button onclick="hold()" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Hold</button>
-          </div>--}}
+            <button onclick="hold()" class="btn btn-primary btnc22" type="button"><i class="fas fa-pause-circle"></i> Hold</button>
+          </div> 
 
           <div class="col-sm-6 p5">
-            <button onclick="kot()" style="background: #f39631; border-color:#f39631" class="btn btn-primary btnc2" type="button"><i class="fas fa-fw fa-utensils"></i> Print & Save</button>
-          </div> 
+            <button onclick="kot()"  class="btn btn-primary btnc22" type="button" style="width:100%; background:#2196F3; border:1px solid #2196F3"><i class="fas fa-fw fa-print"></i> Order</button>
+          </div>
 
 
           
+ 
 
-          {{-- <div class="col-sm-6 p5">
-            <button class="btn btn-primary btnc2" id="pay2" type="submit" style="width:100%; background:#e65776; border:1px solid #e65776">Confirm & Pay </button>
-          </div> --}}
         </div>
       </div>
 
@@ -359,9 +407,27 @@ label {
 
       
 
-      <div class="boxsett3 scro " style="max-height: 90vh; overflow-x:hidden">
+      <div class="boxsett3 scro3 " id="printsettlement" style="max-height: 90vh; overflow-x:hidden">
         <div class="row">
-          <div class="bgh2 setle" style="background: #4dbdd5">Settlement</div>
+          <div class="bgh2 setle" style="background: #2196F3; color:white">Settlement</div>
+
+        </div>
+
+        
+
+        <div class="row sitem">
+          <div class="col-md-8">Cash Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_cash"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Card Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_card"></b></div>
+        </div>
+
+        <div class="row sitem">
+          <div class="col-md-8">Online Payment</div>
+          <div class="col-md-4">RO: <b id="settle_total_online"></b></div>
         </div>
 
         <div class="row sitem">
@@ -370,23 +436,57 @@ label {
         </div>
 
         <div class="row sitem">
-          <div class="col-md-8">Cash Payment</div>
-          <div class="col-md-4">RO: <b id="settle_total_cash"></b></div>
+          <div class="col-md-8">Cash in Drawer</div>
+          <div class="col-md-4">RO: <b id="settle_total_drawer"></b></div>
         </div>
-
-        <div class="row sitem">
-          <div class="col-md-8">Credit Payment</div>
-          <div class="col-md-4">RO: <b id="settle_total_credit"></b></div>
-        </div>
-
-    
 
         <div class="row">
-          
-          <div class="col-md-12" style="text-align: center"><button class="btn btn-primary btnc2" style="
-            background: #00BCD4;
-    border: 1px solid #03A9F4;margin: 25px 2% 10px; width:96%; color:white" onclick="donsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
+          <div class="bgh2 setle" style="background: #515151;padding: 3px; color:white">Soled Items</div>
         </div>
+
+        <div class="row">
+          <div class="container " id="sold_items">
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="bgh2 setle" style="background: #515151;padding: 3px; color:white">Online Order</div>
+        </div>
+
+        <div class="row">
+          <div class="container " id="settle_t">
+
+
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="container" style="font-size: 13px; color:black">
+            @if(auth()->user()->biller()->first())
+            Time : {{auth()->user()->biller()->first()->created_at}} - {{Carbon\Carbon::now()}} <br>
+            Biller : {{auth()->user()->biller()->first()->user->email}} <br>
+            Branch : {{auth()->user()->biller()->first()->branch->name}} 
+
+            @endif
+          </div>
+          
+        </div>
+
+        <div class="row sitem printbtn" >
+          <div class="col-md-8"><button class="btn btn-secondary w-full" onclick="printsettle()" type="button" ><i class="fas fa-print"></i> Print </button></div>
+          <div class="col-md-4"><button class="btn btn-primary w-full"  onclick="donsettlement()" type="button" ><i class="fas fa-sign-out-alt"></i> Submit Settlement</button></div>
+        </div>
+
+       
+
+
+        
+
+    
+ 
 
 
       </div>
@@ -396,7 +496,7 @@ label {
 
 
 
-  <div class="col-sm-6 mt-4">
+  <div class="col-sm-7 mt-4">
     <div class="card  shadow-xs mt-1" >
 
       
@@ -409,22 +509,16 @@ label {
       <div id="exTab2">
         
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
-          <li class="nav-item" style="width: 40%">
+          <li class="nav-item" style="width: 100%">
             <input type="text" class="form-control orderser" id="sermenus" placeholder="Search Items/ Add by Barcode" style="margin: 7px 3px;
-            width: 96%;
+            width: 99%;
             font-size: 14px;
             padding: 20px 15px;">
           </li>
  
-          @foreach ($menutypes as $menutype)
-          <?php $nub = 1; ?>
-            <li class="nav-item">
-              <a class="nav-link @if($loop->first) active @endif" id="{{$menutype->id}}" data-toggle="pill" href="#p{{$menutype->id}}" role="tab" aria-controls="{{$menutype->id}}" aria-selected="true">{{$menutype->name}}</a>
-            </li>
-            <?php 
-            $nub = 2;
-            ?>
-          @endforeach
+          {{-- menutype here --}}
+          
+          
         </ul>
 
 <style>
@@ -454,17 +548,37 @@ label {
                       <div style="display: flex;flex-wrap: wrap;">
                         @forelse ($menutype->products as $product)
 
+                        <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
+
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+
+                          @if ($product->v1_price != '')
+                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                          @endif
+
+                          @if ($product->v2_price != '')
+                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                          @endif
+
+                          @if ($product->v3_price != '')
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          @endif
+                           
+                        </div>
+
 
                           <div 
-                            @if ($product->stock_available != '0.0') onclick="addtocart({{$product->id}});" class="card itembox"   
-                            @else 
-                            class="card itembox phidden" onClick="alert('This item is currently out of stock, Add stock and continue.')"
-                            @endif 
+                          @if ($product->variant)
+                            onclick="showvariant({{$product->id}});"  
+                          @else
+                            onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                          @endif
 
-                            style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
+                          class="card itembox"
+                          style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}} ({{$product->stock_available}})</h6>
+                              <h6 class="itemtitle">{{$product->name}} </h6>
                           </div>
 
 
@@ -482,7 +596,36 @@ label {
                         @forelse ($cat->productsbytype($menutype->id) as $product)
 
                         
-                          <div class="card itembox" onclick="addtocart({{$product->id}});" 
+                        <div id="variants{{$product->id}}aa{{$cat->id}}" class="variant" style="border-radius:6px">
+
+                   
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+                         
+
+                          @if ($product->v1_price != '')
+                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                          @endif
+
+                          @if ($product->v2_price != '')
+                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                          @endif
+
+                          @if ($product->v3_price != '')
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          @endif
+                           
+                        </div>
+
+
+                          <div 
+                          @if ($product->variant)
+                            onclick="showvariant2({{$product->id}}, {{$cat->id}});"  
+                          @else
+                            onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                          @endif
+                          
+                          class="card itembox" 
+                          
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
@@ -575,6 +718,12 @@ label {
   </div>
 </div>
 
+
+
+
+ 
+
+
  
 @endsection
 
@@ -584,6 +733,32 @@ label {
 @section('script')
  
 <script type="text/javascript">
+
+
+
+const printsettle = () => {
+
+ 
+  var divToPrint=document.getElementById('printsettlement');
+
+  var newWin=window.open('','Print-Window');
+
+  newWin.document.open();
+
+  newWin.document.write(`<html><link href="http://jar.link/dashboard/css/sb-admin-2.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"><body style="padding:80px" onload="window.print()"><style>
+  @media print {
+  .printbtn {
+    display: none;
+  }
+}
+</style>`+divToPrint.innerHTML+`</body></html>`);
+
+  newWin.document.close();
+
+  //setTimeout(function(){newWin.close();},10);
+
+ 
+}
 
  //swich branch
  const switchBranch = () => {
@@ -608,7 +783,7 @@ const roomservices = (memberid) => {
   hideloc();
   $.ajax({
     type: 'GET',
-    url: `/waiter/get/members/${memberid}`,
+    url: `/get/members/${memberid}`,
     success: function(res){
       //console.log(res);
       $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" class="form-control w-full txtb mt-2">`);
@@ -625,6 +800,38 @@ $('#sbc').keyup(function(){
     window.location.href = "/waiter/pos/update/"+sid.replace('RE-', '');
   }
 });
+
+//balance
+$('#payingamount').on('keyup', function() {
+  var pay = this.value
+  var st = $('#subtotal2').val();
+  var dd = $('#ord_discount').val();
+
+
+  var balance = parseFloat(pay - st).toFixed(3);
+
+ // balance = parseFloat(balance + dd).toFixed(3);
+
+  //console.log(st);
+
+  $('#balancepay').val(balance);
+
+});
+
+//order discount
+// $('#ord_discount').on('keyup', function() {
+//   var dis = this.value
+//   var st = $('#subtotal2').val();
+
+//   var balance = parseFloat(st - dis).toFixed(3);
+
+//   //console.log(balan);
+
+  
+//   $('#subtotal').empty();
+//   $('#subtotal').append(balance);
+
+// });
 
 
 //add cart from barcode
@@ -684,16 +891,33 @@ if($('#autocomplete').val() == ''){
 }
 
 
+//open and submit kot
+const pcard = () =>  {
+
+  $('#paymenttype').val(1);
+  $('#mform').submit();
+}
+
+const pcash = () =>  {
+
+$('#paymenttype').val(2);
+$('#mform').submit();
+}
+
+const ponline = () =>  {
+
+$('#paymenttype').val(3);
+$('#mform').submit();
+}
+
+
 //open and submit hold
 const hold = () =>  {
 
-if($('#autocomplete').val() == ''){
-
-    alert('Please Choose Member');
-  } else{
+ 
     $('#reqtype').val('hold');
     $('#mform').submit();
-  }
+ 
 
 }
 
@@ -711,211 +935,44 @@ const paynow = () => {
 
 }
 
-function printDiv() 
-{
+// function printDiv() 
+// {
 
-  var divToPrint=document.getElementById('printarea');
+//   var divToPrint=document.getElementById('printarea');
 
-  var newWin=window.open('','Print-Window');
+//   var newWin=window.open('','Print-Window');
 
-  newWin.document.open();
+//   newWin.document.open();
+//   newWin.document.close();
 
-  
+//   setTimeout(function(){newWin.close();},10);
 
-  newWin.document.write(`<!DOCTYPE html><html>
-    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       
-      <meta name="description" content="">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="robots" content="all,follow">
-  
-      <style type="text/css">
-          #invoice-POS{
- 
-  padding:2mm;
-  margin: 0 auto;
-  width: 88mm;
-  background: #FFF;
-  
-  
-::selection {background: #f31544; color: #FFF;}
-::moz-selection {background: #f31544; color: #FFF;}
-h1{
-  font-size: 1.5em;
-  color: #222;
-}
-h2{font-size: .9em;}
-h3{
-  font-size: 1.2em;
-  font-weight: 300;
-  line-height: 2em;
-}
-p{
-  font-size: .7em;
-  color: #666;
-  line-height: 1.2em;
-}
- 
-#top, #mid,#bot{ /* Targets all id with 'col-' */
-  border-bottom: 1px solid #EEE;
-}
+// }
 
-#top{min-height: 100px;}
-#mid{min-height: 80px;} 
-#bot{ min-height: 50px;}
 
-#top .logo{
-  //float: left;
-	height: 60px;
-	width: 60px;
-	background: url(http://restoapp.link/img/cooking.png) no-repeat;
-	background-size: 60px 60px;
-}
-.clientlogo{
-  float: left;
-	height: 60px;
-	width: 60px;
-	background: url(http://restoapp.link/img/cooking.png) no-repeat;
-	background-size: 60px 60px;
-  border-radius: 50px;
-}
-.info{
-  display: block;
-  //float:left;
-  margin-left: 0;
-}
-.title{
-  float: right;
-}
-.title p{text-align: right;} 
-table{
-  width: 100%;
-  border-collapse: collapse;
-}
-td{
-  //padding: 5px 0 5px 15px;
-  //border: 1px solid #EEE
-}
-.tabletitle{
-  //padding: 5px;
-  font-size: .5em;
-  background: #EEE;
-}
-.service{border-bottom: 1px solid #EEE;}
-.item{width: 24mm;}
-.itemtext{font-size: .5em;}
+const showvariant = (id) => {
 
-#legalcopy{
-  margin-top: 5mm;
-}
-
-  
-  
-}
-      </style>
-    </head>
-  <body onload="window.print()">
-  
-  
-    <div id="invoice-POS">
-    
-      <center id="top">
-        <div class="logo"></div>
-        <div class="info"> 
-          <h2>SBISTechs Inc</h2>
-        </div><!--End Info-->
-      </center><!--End InvoiceTop-->
-      
-      <div id="mid">
-        <div class="info">
-          <h2>Contact Info</h2>
-          <p> 
-              Address : street city, state 0000</br>
-              Email   : JohnDoe@gmail.com</br>
-              Phone   : 555-555-5555</br>
-          </p>
-        </div>
-      </div><!--End Invoice Mid-->
-      
-      <div id="bot">
-  
-            <div id="table">
-              <table>
-                <tr class="tabletitle">
-                  <td class="item"><h2>Item</h2></td>
-                  <td class="Hours"><h2>Qty</h2></td>
-                  <td class="Rate"><h2>Sub Total</h2></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Communication</p></td>
-                  <td class="tableitem"><p class="itemtext">5</p></td>
-                  <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Asset Gathering</p></td>
-                  <td class="tableitem"><p class="itemtext">3</p></td>
-                  <td class="tableitem"><p class="itemtext">$225.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Design Development</p></td>
-                  <td class="tableitem"><p class="itemtext">5</p></td>
-                  <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Animation</p></td>
-                  <td class="tableitem"><p class="itemtext">20</p></td>
-                  <td class="tableitem"><p class="itemtext">$1500.00</p></td>
-                </tr>
-  
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">Animation Revisions</p></td>
-                  <td class="tableitem"><p class="itemtext">10</p></td>
-                  <td class="tableitem"><p class="itemtext">$750.00</p></td>
-                </tr>
-  
-  
-                <tr class="tabletitle">
-                  <td></td>
-                  <td class="Rate"><h2>tax</h2></td>
-                  <td class="payment"><h2>$419.25</h2></td>
-                </tr>
-  
-                <tr class="tabletitle">
-                  <td></td>
-                  <td class="Rate"><h2>Total</h2></td>
-                  <td class="payment"><h2>$3,644.25</h2></td>
-                </tr>
-  
-              </table>
-            </div><!--End Table-->
-  
-            <div id="legalcopy">
-              <p class="legal"><strong>Thank you for your business!</strong>  Payment is expected within 31 days; please process this invoice within that time. There will be a 5% interest charge per month on late invoices. 
-              </p>
-            </div>
-  
-          </div><!--End InvoiceBot-->
-    </div><!--End Invoice-->
-  
- 
-  </body>
-  </html>`);
-
-  newWin.document.close();
-
-  setTimeout(function(){newWin.close();},10);
+$(".backDrop").animate({"opacity": ".80"}, 300);
+$(`#variants${id}`).animate({"opacity": "1.0"}, 300);
+$(`#variants${id}`).css("display", "block");
+$(".backDrop").css("display", "block");
 
 }
 
+const showvariant2 = (id, cat) => {
+
+$(".backDrop").animate({"opacity": ".80"}, 300);
+$(`#variants${id}aa${cat}`).animate({"opacity": "1.0"}, 300);
+$(`#variants${id}aa${cat}`).css("display", "block");
+$(".backDrop").css("display", "block");
+
+}
  
 
 $(document).ready(() => {
+
+
+
 
   //set time
   var dtimee = $('#dtimee').val();
@@ -947,8 +1004,8 @@ $(document).ready(() => {
   });
 
   function closeBox(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").animate({"opacity": "0"}, 300, function(){
-    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource").css("display", "none");
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
     });
   }
 
@@ -958,6 +1015,9 @@ $(document).ready(() => {
     $(".sales_return").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .sales_return").css("display", "block");
   });
+
+ 
+ 
 
 
 
@@ -982,16 +1042,56 @@ $(document).ready(() => {
         type: 'GET',
         url: `/waiter/pos/getsettlement`,
         success: function(res){
-          //console.log(res);
+         // console.log(res);
           $('#settle_total').empty();
           $('#settle_total_cash').empty();
-          $('#settle_total_credit').empty();
-          //$('#settle_total_cashindrower').empty();
+          $('#settle_total_card').empty();
+          $('#settle_total_online').empty();
+          $('#settle_total_cash').empty();
+          $('#settle_total_drawer').empty();
+          $('#settle_t').empty();
+          $('#settle_a').empty();
+          $('#settle_o').empty();
+          $('#sold_items').empty();
+       
 
           $('#settle_total').append(res.st);
           $('#settle_total_cash').append(res.cash);
-          $('#settle_total_credit').append(res.credit);
-          //$('#settle_total_cashindrower').append(res.drawer);
+          $('#settle_total_card').append(res.card);
+          $('#settle_total_online').append(res.online);
+          $('#settle_total_drawer').append(res.drawer);
+
+      
+
+          res.items.map(item => {
+
+
+            $('#sold_items').append(`
+            <div class="row sitem">
+              <div class="col-sm-4">${item.product.name}</div>
+              <div class="col-sm-4">${item.quantity_sum}</div>
+              <div class="col-sm-4">RO: ${ parseFloat(
+        item.price_sum.replace(/,/g, ".")
+    ).toFixed(3)}</div>
+            </div>
+            `);
+          })
+
+
+          res.online_order.map(item => {
+
+
+            $('#settle_t').append(`
+            <div class="row sitem">
+              <div class="col-sm-8">${item[0]}</div>
+      
+              <div class="col-sm-4">RO: ${item[1]}</div>
+            </div>
+            `);
+          })
+
+
+ 
         }
     });
    
@@ -1112,7 +1212,7 @@ $(document).ready(() => {
 	var members = [];
 	$.ajax({
 		url: "/waiter/pos/getmembers",
-   // /pos/getmember
+   // /waiter/pos/getmember
 		async: true,
 		dataType: 'json',
 		success: function (data) {
@@ -1278,7 +1378,7 @@ const getlimitbydate = () => {
           }
           else{
 
-          //  $('#delivery').empty();
+            $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
             //$('#pt').empty();
@@ -1314,7 +1414,7 @@ const getlimitbydate = () => {
           }
           else{
 
-         //   $('#delivery').empty();
+            $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
            // $('#pt').empty();
@@ -1329,27 +1429,25 @@ const getlimitbydate = () => {
   }
 
   const takeaway = () => {
-    $('#tables').empty();
-    //$('#dtime').empty();
-    $('#locations').empty();
-    $('#dt').empty();
+    $('#dineinwrap').css({display : 'none'});
+$('#deliverywrap').css({display : 'none'});
+$('#dtawrap').css({display : 'block'});
   }
+
+ 
+  
+
 
   const hideloc = () =>  {
     $('#locations').empty();
   }
 
   const ShowDelType = (memberid) =>  {
+    $('#dineinwrap').css({display : 'none'});
+$('#deliverywrap').css({display : 'block'});
+$('#dtawrap').css({display : 'none'});
 
-    $('#dt').empty();
-    $('#tables').empty();
-    //$('#pt').empty();
-    /////$('#dtime').empty();
-
-    $('#dt').append(`<div class="bgh flex p0" style="margin-top:8px">
-    <label class="box3"><input type="radio"  required onClick="roomservices('${memberid}')" name="dl" value="1"> <b class="lab1a">Room Services</b></label>
-    <label class="box3" style="margin-right:0"><input type="radio" required name="dl" value="2" onClick="getDeliverylocations('${memberid}')"> <b class="lab1a">Locations</b></label>
-                     </div>`);
+    
   }
 
 
@@ -1393,85 +1491,10 @@ const getlimitbydate = () => {
 
 const getTables = (memberid) => {
 
-  //$('#pt').empty();
-  //$('#dtime').empty();
-  $('#dt').empty();
+  $('#dineinwrap').css({display : 'block'});
+  $('#deliverywrap').css({display : 'none'});
+$('#dtawrap').css({display : 'none'});
 
-  $.ajax({
-      type: 'GET',
-      url: `/waiter/pos/gettables`,
-      success: function(res){
-        $('#tables').empty();
-        $('#locations').empty();
-
-        $('#tables').append(`<div>
-                    <div class="bgh p0">
-                      <b class="lab1b">Waiter</b>
-                      <div class="flex">
-                        <select required="" name="waiter" class="form-control mb-1" name="rank_id" id="rank_id" style="
-    background: #424961;
-    color: #fff;
-    font-size: 13px;border:1px solid #424961
-">
-                            <option value="">Select Waiter</option>
-
-                            @foreach ($waiter as $waiter)
-                            <option value="{{$waiter->id}}">{{$waiter->name}}</option>
-                            @endforeach
-
-                
-                                                    
-                          </select>
-
-
-                      </div>
-                    </div>
-                    
-                  </div>
-                  
-                  <b class="lab1b">Tables</b>
-                  `)
-
-
-
-        $('#tables').append(`<div class="bgh flex p0" style="flex-wrap: wrap;" id="tdd">`)
-
-        res.map(item => {
-          if(item.status == 1){
-          
-            $('#tdd').append(`
-              <div class="col-md-1" style="padding:2px;"  >
-
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" value="${item.id}" name="table" required id="flexRadioDefault2">
-                </div>
-
-                <div class="tablepic" style="background:#216d40">
-                <h5>${item.name}</h5>
-                <p>Seat: ${item.chair}</p>
-                
-                </div>
-              </div>`);
-          } else{ 
-            $('#tdd').append(`
-                <div class="col-md-1" style="padding:2px;">
-                  <div class="tablepic" style="background:#9a291e">
-                  <h5>${item.name}</h5>
-                  <p>Seat: ${item.chair}</p>
-                  </div>
-                </div>`)
-          }
-
-        })
-
-      
-
-      }
-
-      
-
-
-  });
 }
   
   
@@ -1489,11 +1512,11 @@ const getTables = (memberid) => {
                 <div class="col-sm-2 p0">Item Name</div>
                 <div class="col-sm-2 ">Quantity</div>
                 <div class="col-sm-1 p0">Unit Price</div>
-                <div class="col-sm-1 ">Discount</div>
-                <div class="col-sm-1 ">VAT</div>
-                <div class="col-sm-1 ">Container</div>
+                <div class="col-sm-2 ">Discount</div>
+             
+               
                 <div class="col-sm-2 ">Total</div>
-                <div class="col-sm-1" style="font-size:9px">Addon</div>
+                <div class="col-sm-2" style="font-size:9px">Addon</div>
               </div>
               `)
 
@@ -1512,16 +1535,41 @@ const getTables = (memberid) => {
                 var btn = ''
               }
 
+      
+
+            
+                switch (item.variant) {
+                  case 1:
+                    var vv = '('+item.product.v1_name+')';
+                    break;
+                  
+                  case 2:
+                    var vv = '('+item.product.v2_name+')';;
+                    break;
+
+                  case 3:
+                    var vv = '('+item.product.v3_name+')';;
+                    break;
+                
+                  default:
+                    var vv = '';
+                    break;
+                }
+
+        
+
                   $('#cart').append(
                     `<div class="item">
           <div class="row">
             <div class="col-sm-1 price " style="padding-left:25px">${n}</div>
-            <div class="col-sm-2 price p0">${item.product.name} </div>
+            <div class="col-sm-2 price p0">${item.product.name} ${vv} </div>
             <div class="col-sm-2 p0">
 
               <div style="display: flex">
+
+              
                           
-                          <button type="button" onclick="addtocart('${item.product.id}');" class="btn btn-circle btn-sm">
+                          <button type="button" onclick="addtocart('${item.product.id}', '${item.variant}', '${item.product.price}', '${item.product.vat}', '${item.product.promotion_price}');" class="btn btn-circle btn-sm">
                             <i class="fas fa-plus btnc"></i>
                           </button>
 
@@ -1537,23 +1585,20 @@ const getTables = (memberid) => {
             
             </div>
             <div class="col-sm-1 price p0">${item.unit_price_with_promotion}</div>
-            <div class="col-sm-1 p0">
-              <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}');" 
-              id="itemd${item.product.id}" class="itemdis" type="text">
+            <div class="col-sm-2 p0">
+              <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}${item.variant}');" 
+              id="itemd${item.product.id}${item.variant}" class="itemdis" type="text">
             </div>
 
-            <div class="col-sm-1 ttl p0" >${item.tax}</div>
+        
 
 
-            <div class="col-sm-1 p0">
-              <input value="${item.container}" style="font-size:14px" onChange="addcontainer('${item.id}', '${item.product.id}');" 
-              id="itemc${item.product.id}" class="itemdis" type="text">
-            </div>
+          
 
 
             <div class="col-sm-2 ttl p0" >${item.sub_price}</div>
             
-            <div class="col-sm-1 act p0">
+            <div class="col-sm-2 act p0">
               <div style="display: flex">
    
                 ${btn}
@@ -1589,6 +1634,7 @@ const getTables = (memberid) => {
           $('#subtotal').empty();
           $('#discount').empty();
           $('#promotion').empty();
+          $('#ordpromotion').empty();
           $('#container').empty();
           $('#subtotal2').val(null);
 
@@ -1608,6 +1654,10 @@ const getTables = (memberid) => {
 
           if(res.promotion != '0.000'){
             $('#promotion').append(`<div class="col-sm-6">Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.promotion}</label></div>`);
+          }
+
+          if(res.ordpromotion != '0.000'){
+            $('#ordpromotion').append(`<div class="col-sm-6">Women's day Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.ordpromotion}</label></div>`);
           }
 
           if(res.container != '0.000'){
@@ -1644,7 +1694,7 @@ const updqty = (cart_item) =>  {
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/updqty`,
+      url: `/waiter/pos/updqty`,
       data: {
           "_token": token,
           "cart_item": cart_item,
@@ -1658,31 +1708,56 @@ const updqty = (cart_item) =>  {
 }
 
 
-
+ 
 
   // addtocart main items
-  const addtocart = (item) => {
-  
+  const addtocart = (item, va, price, vat, promotion_price) => {
+   
+   
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
+    $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
+    });
+
       var token = $("meta[name='csrf-token']").attr("content");
       $.ajax({
           type: 'POST',
           url: `/waiter/pos/addtocart`,
           data: {
               "id": item,
+              "va": va,
+              "price": price,
+              "vat": vat,
+              "promotion_price": promotion_price,
               "_token": token,
           },
-          success: function(res){
-
+            success: function(res){
             
-            // var res = $('#autocomplete').val().split(" - ");
-            // if(res[0] != ''){
-            //   cartcontinuebymid(res[0]);
-            // }
-           // $('#crepay').prop('checked', false);
             getOrders();
           }
       });
   }
+
+
+// addtocart main items
+const addtocartvariant = (item, va) => {
+  
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/waiter/pos/addtocartvariant`,
+      data: {
+          "id": item,
+          "v": va,
+          "_token": token,
+      },
+      success: function(res){
+
+        getOrders();
+      }
+  });
+}
+
+
 
 
   // addtocart addon items
@@ -1712,7 +1787,7 @@ const removecart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/removecart`,
+      url: `/waiter/pos/removecart`,
       data: {
           "id": item,
           "_token": token,
@@ -1752,7 +1827,7 @@ const downcart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/downcart`,
+      url: `/waiter/pos/downcart`,
       data: {
           "id": item,
           "_token": token,
@@ -1809,6 +1884,36 @@ var dis = $(`#itemd${id}`).val();
   });
 }
 
+//getPromo
+
+$('#order_promotion').change(function() {
+
+  if(this.checked) {
+      var val = 1;
+      var dis = 30;
+  } else{
+      var val = 0;
+      var dis = 0;
+  }
+
+  var token = $("meta[name='csrf-token']").attr("content");
+  $.ajax({
+      type: 'POST',
+      url: `/waiter/pos/addpromo`,
+      data: {
+          "val": val,
+          "dis": dis,
+          "_token": token,
+      },
+      success: function(){
+        getOrders();
+      }
+  });
+
+       
+              
+});
+ 
 
 //container
 const addcontainer = (item, id) => {
@@ -1819,7 +1924,7 @@ var dis = $(`#itemc${id}`).val();
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
-      url: `/pos/addcontainer`,
+      url: `/waiter/pos/addcontainer`,
       data: {
           "id": item,
           "dis": dis,
@@ -1879,22 +1984,22 @@ $('#mform').on('submit', function() {
   //console.log(ccre);
 
 
-  ccre = ccre.replace(/\,/g,'');
-  ccre = ccre.replace(',', '');
-  ccre = Number(ccre);
-  avcre = Number(avcre);
+  // ccre = ccre.replace(/\,/g,'');
+  // ccre = ccre.replace(',', '');
+  // ccre = Number(ccre);
+  // avcre = Number(avcre);
 
   //console.log(ccre);
 
-  if(Math.floor(avcre) < Math.floor(ccre)){
+  //if(Math.floor(avcre) < Math.floor(ccre)){
     return true;
   
-  } else{
-   // $('#crepay').prop('checked', false);
-    $('#vallimit').append('Credit Limit Exced!');
-    alert('Credit Limit Exced');
-    return false;
-  }
+  // } else{
+  //  // $('#crepay').prop('checked', false);
+  //   $('#vallimit').append('Credit Limit Exced!');
+  //   alert('Credit Limit Exced');
+  //   return false;
+  // }
 
 
 });
@@ -1928,7 +2033,7 @@ $('#mform').on('submit', function() {
 
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script>
+<script src="{{asset('dashboard/js/jquery.autocomplete.min.js')}}"></script>
 
 @endsection
 

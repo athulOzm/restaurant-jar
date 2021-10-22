@@ -1,3 +1,4 @@
+<?php $branches = resolve('branches');?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -9,15 +10,19 @@
       <title>POS</title>
       <link rel="icon" id="favicon" href="{{asset('img/logo.png')}}" sizes="16x16">
       <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{{asset('dashboard/js/bootstrap-select.min.css')}}">
+
       <!-- Custom fonts for this template-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"   />
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{{asset('dashboard/vendor/fontawesome/css/all.css')}}"   />
+  
+{{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet"> --}}
       <!-- Custom styles for this template-->
       <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
       
       <style>
+
+.navbar{padding: 2px 1em}
           body{flex:1; background: #f4f5fa; overflow: hidden;}
        
          .topbar .nav-item .nav-link {
@@ -25,7 +30,7 @@
          padding: 0 .75rem;
          }
          .topbar {
-         height: 50px;
+         height: 45px;
          }
          .text-gray-600 {
          color: #242425!important;
@@ -43,7 +48,7 @@
 }
 .nav-pills .nav-link {
     border-radius: 3px;
-    font-size: 13px;color: #1b1f32
+    font-size: 14px;color: #1b1f32; padding: .8em; font-weight: 600; border-bottom: 1px solid #fff
 }
          .cart {
           font-family: Arial, Helvetica, sans-serif;
@@ -80,7 +85,6 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .nav-pills{
     border-bottom: 0px solid #e7e7e7;
- 
     border-radius: 6px; background: #e5e9f1
 }
 
@@ -98,14 +102,54 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .tab-content>.active{border-left: 0px solid #e7e7e7; padding: 10px}
 
 #exTab2 ul li {
-      border-radius: 3px; padding: 3px
-  
-    
+      border-radius: 3px; padding: 0px 
 }
 #exTab2 ul li.active {
-    background: #ffffff;box-shadow: 0 .10rem 0.45rem 0 rgba(58,59,69,.15)!important
-  
-    
+    background: #ffffff;box-shadow: 0 .10rem 0.45rem 0 rgba(58,59,69,.15)!important 
+}
+
+
+#exTabsale ul li a {
+    padding: 10px 13px;
+    line-height: 35px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    color: #404040;
+}
+#exTabsale ul li.active a {
+    color: #000;
+}
+
+.tab-content>.active{border-left: 0px solid #fff; padding: 10px}
+
+#exTabsale ul li {
+      border-radius: 0px; padding: 3px 
+}
+#exTabsale ul li.active {
+    background: #ffffff;
+}
+
+ 
+#exTabsale2 ul li a {
+    padding: 10px 13px;
+    line-height: 35px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    color: #404040;
+}
+#exTabsale2 ul li.active a {
+    color: #000;
+}
+
+.tab-content>.active{border-left: 0px solid #fff; padding: 10px}
+
+#exTabsale2 ul li {
+      border-radius: 0px; padding: 3px 
+}
+#exTabsale2 ul li.active {
+    background: #ffffff;
 }
 
 /* remove border radius for the tab */
@@ -158,7 +202,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: transparent;
     border: 0;
     text-align: center;
-    color: white;
+    color: white; line-height: 25px
 }
 .itembox h4 {
     font-size: 13px;
@@ -189,26 +233,34 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 } */
 
 .box3 {
-    padding: 3px 0px;
-    background: #2c3346;
+    padding: 11px 0px;
+    background: #424962;
     margin-right: 5px;
-    margin-top: 2px;
+    margin-top: 0px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 0;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
-    border-radius: 3px; cursor: pointer; margin-bottom: 0
+    align-items: center;
 }
-.box3 input {opacity: .5; margin-left: 15px}
+.box3 input {opacity: 0;  }
+.box3 input:checked {opacity: 1;  }
+
 .box1 input[type=radio]{ margin-right: 10px}
 
 .flex{display: flex}
 .lab1 {
-    font-size: 20px;
+    font-size: 16px;
     color: #f4f5fa;
     font-weight: 200; 
 }
 .lab1a {
-    font-size: 12px;
-    color: #acb5ca;
-    font-weight: 600;
+    font-size: 14px;
+    color: #f8f9fc;
+    font-weight: 300;
     display: inline-block;
     margin-left: 0;
     margin-bottom: 1px;
@@ -220,7 +272,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     font-weight: 400;
     display: inline-block;
     margin-left: 0;
-    margin-bottom: 1px;
+    margin-bottom: 0px;
 }
  
 .lab1a b{
@@ -238,10 +290,10 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     color: #6f788e;
 }
 .item {
-    line-height: 25px;
+    line-height: 20px;
     margin: 0px 0;
     padding-right: 15px;
-    padding: 8px 0 ;
+    padding: 4px 0 ;
     border: 1px solid #343c52; border-top: none; background: #2a3042
 }
 .item label{margin-bottom: 0}
@@ -257,34 +309,42 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 }
 .item .price {
     font-size: 13px;
-    color: #bac2d6;
+    color: #bac2d6; line-height: 26px
 }
 .item .qty {
     font-size: 15px;
     color: #abb6c7;
     background: #1b1f32;
-    padding: 0px 10px;
-    border-radius: 6px;
-    line-height: 28px;
+    padding: 0px 2px;
+    border-radius: 3px; line-height: 20px;
+ 
     margin: 0 3px;
 }
+
+
 .itemdis {
-    max-width: 100%;
+    max-width: 48px;
     margin-right: 5px;
     background: #8790a5;
     border: none;
     border-radius: 3px;
-    height: 26px;
+    height: 23px;
 }
 .item .ttl {
     font-size: 13px;
-    color: #e6ebf3; font-weight: 600
+    color: #e6ebf3; font-weight: 600; line-height: 26px
+}
+.btn-light {
+    color: #3a3b45;
+    background-color: #e5e9f1;
+    border-color: #e5e9f1;
+    padding: 3px 15px;
 }
 .txtb {
     background: #424962;
     border: 0;
     border-radius: 3px;
-    color:#e65776; font-size: 14px; height: 31px;
+    color:#e65776; font-size: 13px; height: 27px;
 }
 .itembox img {
     width: 100%;
@@ -302,11 +362,30 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     height: auto;
     background: #b6bece;
     border-color: #b6bece;
-    margin: 10px 0;
-    padding: 8px 0px;
+    margin: 6px 0;
+    padding: 5px 0px;
     color: #1b1f32;
-    width: 100%;font-size: 14px
+    width: 100%;font-size: 14px; border-radius: 3px
 }
+
+.btnc22 {
+    height: auto;
+    background: #424962;
+    border-color: #424962;
+    margin: 6px 0;
+    padding: 12px 0px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.btnc22 i {font-size: 23px; color: white}
+
+.p5{padding-left: 5px; padding-right: 5px}
 .tar{text-align: right}
 .p10{padding: 3px 10px}
 #pt input{font-size: 22px}
@@ -315,9 +394,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #fff;
     overflow: auto;
     color: #111;
-    font-size: 14px;
+    font-size: 14px;width: 500px!important
 }
-	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden;font-size: 12px }
 	.autocomplete-selected { background: #F0F0F0; }
 	.autocomplete-suggestions strong { font-weight: normal; color: #e65776; }
 	.autocomplete-group { padding: 2px 5px; }
@@ -340,7 +419,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 .cart tr:nth-child(even){background: none}  
 .bgh {
     background: #1a1f32;
-    padding: 15px 30px;
+    padding: 15px 15px 0 25px
 }
 
 .bgh2 {
@@ -394,13 +473,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .scro::-webkit-scrollbar
 {
-  width: 1px;
+  width: 13px;
   background-color: #2c3346;
 }
 
 .scro::-webkit-scrollbar-thumb
 {
-  background-color: #000000;
+  background-color: #4e72df;
   border: 0px solid #555555;
 }
 
@@ -448,7 +527,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 
 
-.backDrop{
+    .backDrop{
   background-color: #000;
   display: none;
   filter: alpha(opacity=0);
@@ -461,21 +540,47 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   z-index: 50;
 }
 
-.box{
- border: 2px solid #e7e7e7;
-  
+.backDrop2{
+  background-color: #fff;
   display: none;
-  min-height: 400px;
-  left: 50%;
-  margin-left: -400px;
-  opacity: 0;
+  filter: alpha(opacity=0);
+  height: 100%;
+  left: 0px;
+  opacity: .0;
   position: fixed;
-  top: 4%;
-  z-index: 51; width: 800px;
-  
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px; background: #1a1f32; padding-bottom: 20px;overflow-y: scroll;
+  top: 0px;
+  width: 100%;
+  z-index: 50;
+}
+
+.box{
+ 
+ display: none;
+ min-height: 600px;
+ left: 5%;
+ opacity: 0;
+ position: fixed;
+ top: 4%;
+ z-index: 51; width: 90%; overflow: hidden;
+ 
+ -moz-border-radius: 6px;
+ -webkit-border-radius: 6px;
+ border-radius: 6px; background: #fff; padding-bottom: 20px;overflow-y: scroll; 
+}
+
+.boxordersource{
+ 
+ display: none;
+ min-height: 600px;
+ left: 5%;
+ opacity: 0;
+ position: fixed;
+ top: 4%;
+ z-index: 51; width: 90%; overflow: hidden;
+ 
+ -moz-border-radius: 6px;
+ -webkit-border-radius: 6px;
+ border-radius: 6px; background: #fff; padding-bottom: 20px;overflow-y: scroll; 
 }
 
 .box2{
@@ -504,24 +609,39 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   opacity: 0;
   position: fixed;
   top: 50%;
-  z-index: 51; width: 350px; margin-top: -150px;
+  z-index: 51; width: 350px; margin-top: -175px;
   
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; background: #fff; overflow-y: scroll; padding-bottom: 20px
 }
-
+.variant{
+ border:1px solid #424962;
+  padding: 20px;
+  display: none;
+   
+  left: 50%;
+  margin-left: -170px;
+  opacity: 0;
+  position: fixed;
+  top: 50%;
+  z-index: 51; width: 450px; margin-top: -150px;
+  
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; background: #fff; overflow-y: scroll; padding-bottom: 20px
+}
 .boxsett3{
- border: 1px solid #656f9e;
+ border: 5px solid #fff;
   padding: 0;
   display: none;
    
   left: 50%;
-  margin-left: -260px;
+  margin-left: -430px;
   opacity: 0;
   position: fixed;
   top: 4%;
-  z-index: 51; width: 500px;
+  z-index: 51; width: 860px;
   
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -557,22 +677,22 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     margin: 6px;
     margin-top: 90px;
     color: black!important;
-    font-size: 12px!important;
+    font-size: 14px!important;
 }
 
 .clear{
   clear: both;
 }
-.cf{padding-left:0; padding-right:15px; height:calc(100vh - 0px)}
+.cf{padding-left:0; padding-right:15px; height:calc(100vh - 40px)}
 .totalamd{border-top:1px solid #2c3346;padding: 15px 0px 10px 0;border-bottom: 1px solid #2c3346;}
 .itemtitlebar {
     color: #4e72df;
-    font-size: 12px;
+    font-size: 11px;
     text-align: left;
     font-weight: 400;
     background: #1a1f32;
     padding: 5px 0;
-    border-top: 1px solid #363e54;
+    border-top: 1px solid #363e54; white-space: nowrap
 }
 
 .btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {
@@ -599,6 +719,60 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #ffffff;
     margin: 10px 0;
 } */
+
+.pill2 {
+    border-bottom: 0px solid #e7e7e7;
+    background: #FFC107;
+    border-radius: 0;
+}
+
+
+.btnn1 {
+    background: #fff;
+    margin-right: 10px;
+    width: 130px;
+    border-radius: 19px;
+    height: 35px;
+    border: 1px solid #2196F3;
+    color: #2196F3!important;
+}
+
+.btnn1v {
+    background: #fff;
+    margin-right: 10px;
+    width: 100%;
+    border-radius: 19px; line-height: 30px;
+    height: 45px;
+    border: 1px solid #2196F3;
+    color: #2196F3!important; font-size: 16px
+}
+.btnn1v:hover {color: white!important}
+.navbar-expand .navbar-nav {
+    flex-direction: row;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.bpic {
+    max-width: 150px;
+    margin-top: 14px;
+    margin-left: 30px; height: 33px;
+}
+.bpic select {
+    background: #ffffff;
+    font-size: 13px;
+    color: #2196F3;
+    height: 35px;
+    border: 1px solid;
+    border-radius: 20px; font-weight: 400
+}
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #d1d3e2;
+    background: #e5e9f1;
+    border-radius: 50%;
+    width: 40px;
+    padding: 3px;
+}
       </style>
    </head>
    <body id="page-top">
