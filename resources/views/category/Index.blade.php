@@ -39,7 +39,7 @@ $categories = resolve('allCategories');
                                         <th style="width: 65px">image</th>
                                             <th class="text-left text-blue-900">Name</th>
                                             <th class="text-left text-blue-900">Parant</th>
-                                            <th class="text-left text-blue-900" width="60">Action</th>
+                                            <th class="text-left text-blue-900" width="160">Action</th>
                                             
     
                                         </tr>
