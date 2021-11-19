@@ -152,7 +152,7 @@
         <div id="collapsePages1p" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
-            <a class="collapse-item" href="{{route('product.index')}}">Products</a>
+            <a class="collapse-item" href="{{route('material.index')}}">Products</a>
             {{-- <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a>
             <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a> --}}
             

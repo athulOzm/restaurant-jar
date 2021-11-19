@@ -13,6 +13,7 @@ use App\Product;
 use App\Promotion;
 use App\Setting;
 use App\Table;
+use App\Unit;
 use App\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
@@ -74,6 +75,15 @@ class AppServiceProvider extends ServiceProvider
         app()->bind('mcategories', function(){
 
             return Category::where('parant_id', null)->get();
+        });
+        app()->bind('pmcategories', function(){
+
+            return Pcategory::where('parant_id', null)->where('is_active', true)->get();
+        });
+
+        app()->bind('units', function(){
+
+            return Unit::where('is_active', true)->get();
         });
         
         app()->bind('promotions', function(){

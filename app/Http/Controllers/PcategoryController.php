@@ -83,8 +83,8 @@ class PcategoryController extends Controller
         return redirect()->route('pcategory.index');
     }
 
-    public function getSubCategory(Pcategory $category){
+    public function getSubCategory(Pcategory $pcategory){
 
-        return response($category->childs, 201);
+        return response($pcategory->childs, 201);
     }
 }

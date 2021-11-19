@@ -41,6 +41,16 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::patch('pcategory', 'PcategoryController@update')->name('pcategory.update');
     Route::get('pgetsubcategory/{pcategory}', 'PcategoryController@getSubCategory');
 
+    //material
+    Route::get('material/images/{material}', 'MaterialController@productImages');
+    Route::delete('material/images/{image}', 'MaterialController@imageDelete');
+    Route::get('material', 'MaterialController@index')->name('material.index');
+    Route::get('material/create', 'MaterialController@create')->name('material.create');
+    Route::post('material', 'MaterialController@store')->name('material.store');
+    Route::get('material/{material}', 'MaterialController@edit')->name('material.edit');
+    Route::patch('material', 'MaterialController@update')->name('material.update');
+    Route::delete('material', 'MaterialController@destroy')->name('material.destroy');
+
     
 
     //members
