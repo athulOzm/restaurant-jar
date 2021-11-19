@@ -71,8 +71,8 @@
     <ul class="navbar-nav sidebar sidebar-light accordion"  id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex " href="{{ route('home')}}">
-         RESTAURANT
+      <a class="sidebar-brand d-flex " href="{{ route('home')}}" style="color: #4e72df">
+         MARSA<b style=" font-weight:700">POS</b>
       </a>
 
       <!-- Divider -->
@@ -243,17 +243,17 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('settings.vat')}}">Tax</a>
-            <a class="collapse-item" href="{{route('pos.paymenttype.index')}}">Payment Type</a>
+            {{-- <a class="collapse-item" href="{{route('pos.paymenttype.index')}}">Payment Type</a> --}}
             <a class="collapse-item" href="{{route('pos.table.index')}}">Tables</a>
+            <a class="collapse-item" href="{{route('pos.unit.index')}}">Units</a>
             <a class="collapse-item" href="{{route('pos.deliverylocation.index')}}">Delivery Type</a>
-            <a class="collapse-item" href="">Language</a>
+            {{-- <a class="collapse-item" href="">Language</a> --}}
          
-
-            <hr>
+ 
             <a class="collapse-item" href="{{route('user.index')}}">Users</a>
             <a class="collapse-item" href="{{route('waiter.index')}}">Waiters</a>
             <a class="collapse-item" href="{{route('member.index')}}">Members</a>
-            <a class="collapse-item" href="{{route('member.index')}}">Devices</a>
+            {{-- <a class="collapse-item" href="{{route('member.index')}}">Devices</a> --}}
     
           </div>
         </div>
@@ -278,27 +278,6 @@
         </div>
       </li>  --}}
    
- 
-      
-      
-
-  
-
-      
-
-
-
-
-  
-    
-    
-   
- 
-
-
-
- 
-
  
 
       <!-- Divider -->

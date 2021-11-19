@@ -33,6 +33,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::patch('category', 'CategoryController@update')->name('category.update');
     Route::get('getsubcategory/{category}', 'CategoryController@getSubCategory');
 
+    
+
     //members
     Route::get('/members', 'UserController@index')->name('member.index');
     Route::post('/member', 'UserController@storeWeb')->name('member.store');
@@ -98,6 +100,13 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::delete('pos/table/drop', 'TableController@destroy')->name('pos.table.delete');
     Route::get('pos/table/{table}', 'TableController@edit')->name('pos.table.edit');
     Route::patch('pos/table', 'TableController@update')->name('pos.table.update');
+
+    //unit
+    Route::get('pos/units', 'UnitController@index')->name('pos.unit.index');
+    Route::post('pos/unit', 'UnitController@store')->name('pos.unit.store');
+    Route::delete('pos/unit/drop', 'UnitController@destroy')->name('pos.unit.delete');
+    Route::get('pos/unit/{unit}', 'UnitController@edit')->name('pos.unit.edit');
+    Route::patch('pos/unit', 'UnitController@update')->name('pos.unit.update');
 
 
     //delivery locations
