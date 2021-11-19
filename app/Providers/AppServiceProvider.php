@@ -8,6 +8,7 @@ use App\Category;
 use App\Deliverylocation;
 use App\Menutype;
 use App\Order;
+use App\Pcategory;
 use App\Product;
 use App\Promotion;
 use App\Setting;
@@ -31,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
 
             return Category::all();
         });
+
+        app()->bind('allPcategories', function(){
+
+            return Pcategory::where('is_active', true)->get();
+        });
+        
         app()->bind('menutypes', function(){
 
             return Menutype::all();

@@ -143,6 +143,27 @@
         </div>
       </li>
 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1p" aria-expanded="true" aria-controls="collapsePages33">
+          <i class="fas fa-fw fa-calendar-minus"></i>
+          <span>Inventory</span>
+        </a>
+        <div id="collapsePages1p" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner ">
+       
+            <a class="collapse-item" href="{{route('product.index')}}">Products</a>
+            {{-- <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a>
+            <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a> --}}
+            
+            <a class="collapse-item" href="{{route('pcategory.index')}}">Categories</a>
+            
+       
+    
+          </div>
+        </div>
+      </li>
+
       
  
 

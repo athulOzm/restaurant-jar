@@ -33,6 +33,14 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::patch('category', 'CategoryController@update')->name('category.update');
     Route::get('getsubcategory/{category}', 'CategoryController@getSubCategory');
 
+    //categoryproduct
+    Route::get('/pcategories', 'PcategoryController@index')->name('pcategory.index');
+    Route::post('/pcategory', 'PcategoryController@store')->name('pcategory.store');
+    Route::delete('/pcategory/drop', 'PcategoryController@delete')->name('pcategory.delete');
+    Route::get('pcategory/{pcategory}', 'PcategoryController@edit')->name('pcategory.edit');
+    Route::patch('pcategory', 'PcategoryController@update')->name('pcategory.update');
+    Route::get('pgetsubcategory/{pcategory}', 'PcategoryController@getSubCategory');
+
     
 
     //members
