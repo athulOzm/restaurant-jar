@@ -103,6 +103,8 @@ class MaterialController extends Controller
        return view('material.product.update', ['product' => $product]);
     }
 
+    
+
     /**
      * Update the specified resource in storage.
      *
@@ -110,7 +112,7 @@ class MaterialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Material $material)
     {
         $this->validateReq($request);
 
@@ -126,32 +128,17 @@ class MaterialController extends Controller
 
             'name' => $request->name,
             'price' =>  $request->price,
-            'qty' =>  $request->qty,
             'body'  =>  $request->body,
             'cover' =>  @$fname ? $fname : $request->curimage,
             'category_id'   =>  $request->cat,
             'subcategory_id'    =>  @$request->subcat ? $request->subcat :null,
-            'status'    => $request->status
+            'vat'    => $request->vat,
+            'unit_id'    => $request->unit_id,
+            'punit_id'    => $request->punit_id
 
         ]);
 
-  
-
-        //Material::find($request->id)->types()->sync($request->type);
-
-
-        if($request->hasfile('images')){
-            foreach($request->file('images') as $image){
-                $imgName2 = Str::slug($request->name, '-').rand(1, 1000).'.'.$image->extension();
-                $img = Image::make($image->path());
-                $img->resize(600, null, function ($constraint) {$constraint->aspectRatio();})->save(storage_path('app/public/cover').'/'.$imgName2);
-
-                Media::create([
-                    'product_id'    => $request->id,
-                    'name'  =>  $imgName2
-                ]);
-            }
-        }
+   
 
         return redirect()->route('material.index');
     }

@@ -152,14 +152,13 @@
         <div id="collapsePages1p" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-primary py-2 collapse-inner ">
        
+            <a class="collapse-item" href="">Purchase</a>
+            <a class="collapse-item" href="">Stocks</a>
+            <a class="collapse-item" href="">Stock Adjust</a>
+
+            <a class="collapse-item" href="{{route('supplier.index')}}">Suppliers</a>
             <a class="collapse-item" href="{{route('material.index')}}">Products</a>
-            {{-- <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a>
-            <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a> --}}
-            
             <a class="collapse-item" href="{{route('pcategory.index')}}">Categories</a>
-            
-       
-    
           </div>
         </div>
       </li>

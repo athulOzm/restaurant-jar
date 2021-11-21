@@ -1,10 +1,7 @@
 
 <?php
-$mcategories = resolve('mcategories');
-$menutypes = resolve('menutypes');
-$addons = resolve('addons');
-$promotions = resolve('promotions');
-$branches = resolve('branches');
+$mcategories = resolve('pmcategories');
+$units = resolve('units');
 
 ?>
 @extends('admin.layouts.master')
@@ -263,7 +260,7 @@ $branches = resolve('branches');
             <div class="col-md-12">
                 <div class="card shadow mb-12" style="width:100%">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Update Menu</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Update Product</h6>
  
                     </div>
                     <div class="card-body">
@@ -272,7 +269,7 @@ $branches = resolve('branches');
 
 
 
-                        <form action="{{ route('product.update') }}" method="post" enctype='multipart/form-data'>
+                        <form action="{{ route('material.update', $product->id) }}" method="post" enctype='multipart/form-data'>
                             @csrf
                             @method('PATCH')
 
@@ -281,14 +278,9 @@ $branches = resolve('branches');
                       
 
 
-                         
-                         
-
+                          
 
                             <div class="row">
-
-                        
-
 
                                 <div class="form-group col-md-4">
                                     <label for="inputCity">Product Name *</label>
@@ -301,57 +293,29 @@ $branches = resolve('branches');
                                     @enderror
                                 </div>
 
-                                <div class="form-group col-md-4">
-                                    <label for="inputCity">Product Name Arabic</label>
-                                    <input style="text-align: right" type="text" value="{{$product->name_ar}}"
-                                        class="form-control @error('name_ar') is-invalid @enderror" name="name_ar">
-                                    @error('name_ar')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+
+                               
+
 
                                 
-
-                                <input type="hidden" name="subcat" value="">
-                                {{-- <div class="form-group col-md-4">
-                                    <label for="inputCity">
-                                        Sub Category
-                                    </label>
-                                    <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
-
-                                        @if ($product->subcategory_id != '')
-                                            <option value="{{$product->subcategory->id}}" selected>{{$product->subcategory->name}}</option>
-                                        @endif
-
-
-                                        @if ($product->subcategory_id != null)
-                                            <option value="{{$product->subcategory_id}}">Sub Category </option>
-                                            
-                                        @endif 
-                                    </select>
-                                </div> --}}
-
-
                                 <div class="form-group col-md-4">
-                                    <label for="inputCity">Price (<a style="font-weight: 600" id="pricelog" href="#" class="">View Price Log</a>) </label>
+                                    <label for="inputCity">Price (RO)</label>
                                     <input type="text" class="form-control @error('price') is-invalid @enderror"
                                         value="{{$product->price}}" name="price">
                                     @error('price')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Enter Price eg(55.60)</strong>
+                                        <strong>Enter Price eg(5.600)</strong>
                                     </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group  col-md-4">
                                     <label for="inputCity">
-                                        VAT (%):
+                                        VAT (%)
                                     </label>
-                                    <input id="vat" type="text" value="{{$product->vat}}"
+                                    <input id="vat" type="text"
                                         class="form-control w-full border-gray-400 @error('vat') border-red-500 @enderror" name="vat"
-                                        value="{{ old('vat') }}" required  autofocus>
+                                        value="{{$product->vat}}" required  autofocus>
             
                                         @error('vat')
                                         <p class="text-red-500 text-xs italic mt-4">
@@ -363,37 +327,37 @@ $branches = resolve('branches');
                                 {{-- <div class="form-group col-md-4">
                                     <label for="inputCity">Stock Available </label>
                                     <input type="text" class="form-control @error('qty') is-invalid @enderror"
-                                        value="{{$product->getAvailableQty()}}" name="qty">
+                                        value="{{@old('qty')}}" name="qty">
                                     @error('qty')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Enter Price eg(55.60)</strong>
+                                        <strong>Enter Stock Available</strong>
                                     </span>
                                     @enderror
                                 </div> --}}
+  
 
-                                <input type="hidden" name="qty" value="0">
-
+                            
 
                                 <div class="form-group col-md-4">
-                                  <label for="promotion">
-                                      Promotion
+                                  <label for="parant" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                      Category
                                   </label>
                                   <select  
-                                      
+                                      required 
                                       class="form-control w-full border-gray-400" 
-                                      name="promotion"
-                                      id="promotion"
+                                      name="cat"
+                                      id="category"
                                   >
-  
-                                  <option value="">Select Promotion</option>
+
+                                  <option value="">Select Category</option>
+
                              
-                                      @foreach ($promotions as $item)
+                                      @foreach ($mcategories as $item)
                                       <option 
-  
-                                      @if ($product->promotion_id == $item->id)
+                                      
+                                      @if ($product->category_id == $item->id)
                                           selected
                                       @endif
-                                      
                                       
                                       value="{{$item->id}}">{{$item->name}}</option>
                                       @endforeach
@@ -401,265 +365,128 @@ $branches = resolve('branches');
                                   </select>
                               </div>
 
+                              <div class="form-group col-md-4">
+                                  <label for="parant" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                      Sub Category
+                                  </label>
+                                  <select id="subcat" class="form-control w-full border-gray-400" name="subcat">
+                             
+                                     
+                                      <option value="{{$product->subcategory_id}}">{{$product->subcategory->name}} </option>
+                                    
+                                      
+                                  </select>
+                              </div>
+
+                              <div class="form-group col-md-4">
+                                <label for="inputCity">Image</label>
+                                <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
+                                    id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
+                                @error('cover')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
 
                                 
                             </div>
 
-                          
 
                             <div class="row">
-
                               
 
-                              <div class="form-group col-md-6">
-                                <label for="inputCity">Categories</label>
-                                <select multiple data-multi-select-plugin name="cat[]" class="form-control w-full border-gray-400">
-                                    @foreach ($product->categories as $addo)
-                                        <option value="{{$addo['name']}}" selected>jjj</option>
-                                    @endforeach
+                             
 
-                                    @foreach ($mcategories as $addon)
-                                        <option value="{{$addon['name']}}">jjj</option>
-                                    @endforeach
-                                </select>
-                              </div>
+                            <div class="form-group col-md-4">
+                                  <label for="unit" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                      Unit
+                                  </label>
+                                  <select  
+                                      required 
+                                      class="form-control w-full border-gray-400" 
+                                      name="unit_id"
+                                      id="unit_id"
+                                  >
 
-                              <div class="form-group col-md-6">
-                                <label for="inputCity">Addon</label>
-                                <select multiple data-multi-select-plugin name="addon[]" class="form-control w-full border-gray-400">
-                                    @foreach ($product->addons as $addo)
-                                        <option value="{{$addo['name']}}" selected>jjj</option>
-                                    @endforeach
-
-                                    @foreach ($addons as $addon)
-                                        <option value="{{$addon['name']}}">jjj</option>
-                                    @endforeach
-                                </select>
-                              </div>
-
-                              {{-- <div class="form-group col-md-4">
-                                <label for="branches">Branches</label>
-                                <select multiple data-multi-select-plugin name="branch[]" class="form-control w-full border-gray-400">
-                                    @foreach ($product->branches as $addo)
-                                        <option value="{{$addo['name']}}" selected>jjj</option>
-                                    @endforeach
-
-                                    @foreach ($branches as $addon)
-                                        <option value="{{$addon['name']}}">jjj</option>
-                                    @endforeach
-                                </select>
-                              </div> --}}
-
-                              <input type="hidden" name="branch[]" value="1">
-
-
-                            </div>
-
-                       
-
-
-                            <div class="row">
-
-                                
-
-                                {{-- <div class="form-group col-md-3">
-                                    <label for="inputCity">Menu Type  </label>
-                                     
-                                    <label class="flex flex-col items-center mt-3">
-
-                                        @foreach($menutypes as $type)
-                                        <div>
-                                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"
-                                            
-                                            @if ($product->types()->where('name', $type->name)->exists())
-                                                checked 
-                                            @endif
-                                            
-                                            value="{{$type->id}}" name="type[]">
-                                            <span class="ml-2 text-gray-700">{{$type->name}}</span>
-                                        </div>
-                                        @endforeach
-                                    </label>
-                                </div> --}}
-                                <input type="hidden" name="type[]" value="1">
-                                <div class="form-group col-md-3">
-                                    <label for="inputCity">Status  </label>
-                                     
-                                    <label class="flex flex-row items-center mt-3">
-
-                                     
-                                        <div>
-                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="1" @if($product->status) checked @endif  name="status">
-                                            <span class="ml-2 text-gray-700">Enabled</span>
-                                        </div>
-
-                                        <div>
-                                            <input type="radio" class="form-checkbox h-5 w-5 text-gray-600" value="0" @if(!$product->status) checked @endif name="status">
-                                            <span class="ml-2 text-gray-700">Desabled</span>
-                                        </div>
                                   
 
-                                        
-                                    </label>
-                                </div>
-
-                                <div class="form-group col-md-4">
-
-                                  <div class="row">
-
-                                    <div class="col-md-3">
-                                      @if ($product->cover != null)
-                                        <img class="img-thumbnail " width="90" src="{{env('IMAGE_PATH')}}{{ $product->cover}}"  style="float: left"/>
+                             
+                                      @foreach ($units as $item)
+                                      <option 
+                                      
+                                      @if ($product->unit_id == $item->id)
+                                          selected
                                       @endif
-                                    </div>
-                                    <div class="col-md-9">
-
-                                      <label for="inputCity">Image</label>
-                                      <input type="file" class="form-control-file  @error('cover') is-invalid @enderror"
-                                          id="exampleFormControlFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="cover" value="{{@old('cover')}}">
-                                      @error('cover')
-                                      <span class="invalid-feedback" role="alert">
-                                          <strong>{{$message}}</strong>
-                                      </span>
-                                      @enderror
-
-                                    </div>
-                                  </div>
-                                </div>
-
-
-                            </div>
-
-                            <hr>
-
-                            <div class="row"> 
-
-
-                                <div class="form-group col-md-4">
-                                  <label for="inputCity">Product Variant</label>
-
- 
-                                  <select class="form-control" name="variant" id="variantc">
-                                    <option  @if ($product->variant == 0)
-                                      selected
-                                    @endif value="0">No</option>
-                                    <option @if ($product->variant == true)
-                                      selected
-                                    @endif value="1">Yes</option>
+                                      
+                                      value="{{$item->id}}">{{$item->unit_name}}</option>
+                                      @endforeach
+                                      
                                   </select>
-
-                                  @error('cover')
-                                  <span class="invalid-feedback" role="alert">
-                                      <strong>{{$message}}</strong>
-                                  </span>
-                                  @enderror
                               </div>
-                              
-                              <div class="form-group  col-md-8">
-                                <div class="container" id="pass" 
-                                @if ($product->variant == true)
-                                style="background: #e7e7e7; border-radius:6px;display:block"
-                                @else
-                                style="background: #e7e7e7; border-radius:6px;display:none"
-                                @endif
+
+
+                              <div class="form-group col-md-4">
+                                <label for="punit_id" class="block  text-sm font-bold mb-2 sm:mb-4 ">
+                                    Purchase Unit
+                                </label>
+                                <select  
+                                    required 
+                                    class="form-control w-full border-gray-400" 
+                                    name="punit_id"
+                                    id="punit_id"
                                 >
 
-                                  <div class="row">
-                                    <div class="form-group col-md-8">
-                                      <label for="inputCity">Variant Name</label>
-                                      <input type="text" value="{{$product->v1_name}}"
-                                          class="form-control @error('v1_name') is-invalid @enderror" name="v1_name">
-                                    </div>
+                                <option value="">Choose Purchase Unit</option>
 
-                                    <div class="form-group col-md-4">
-                                      <label for="inputCity">Price</label>
-                                      <input type="text" class="form-control @error('v1_price') is-invalid @enderror"
-                                        value="{{$product->v1_price}}" name="v1_price">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-8">
-                                      <label for="inputCity">Variant Name</label>
-                                      <input type="text" value="{{$product->v2_name}}"
-                                          class="form-control @error('v2_name') is-invalid @enderror" name="v2_name">
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-                                      <label for="inputCity">Price</label>
-                                      <input type="text" class="form-control @error('v2_price') is-invalid @enderror"
-                                        value="{{$product->v2_price}}" name="v2_price">
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="form-group col-md-8">
-                                      <label for="inputCity">Variant Name</label>
-                                      <input type="text" value="{{$product->v3_name}}"
-                                          class="form-control @error('v3_name') is-invalid @enderror" name="v3_name">
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-                                      <label for="inputCity">Price</label>
-                                      <input type="text" class="form-control @error('v3_price') is-invalid @enderror"
-                                        value="{{$product->v3_price}}" name="v3_price">
-                                    </div>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-
-
-                                {{-- <div class="form-group col-md-4">
-                                    <label for="inputCity">Gallery Images</label>
-                                    <input type="file" class="form-control-file  @error('images') is-invalid @enderror"
-                                        id="exampleFormControlFile1" multiple  accept="image/x-png,image/gif,image/jpeg,image/jpg"  name="images[]" value="{{@old('images')}}">
-                                    @error('images')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div> --}}
-                                <input type="hidden" name="images">
-
+                           
+                                    @foreach ($units as $item)
+                                    <option 
+                                    
+                                    @if ($product->punit_id == $item->id)
+                                        selected
+                                    @endif
+                                    
+                                    value="{{$item->id}}">{{$item->unit_name}}</option>
+                                    @endforeach
+                                    
+                                </select>
                             </div>
  
+
+                                
+
+
+                                
+
+                           
+
+                             
+                     
+                                
+
+
+                          
+ 
+                            </div>
 
 
                             
 
 
-                            {{-- <div class="form-group col-md-5">
-                              <div class="row">
-
-                              <label for="inputCity">
-                                  Category
-                              </label>
-                              <select  
-                                  required 
-                                  class="form-control w-full border-gray-400" 
-                                  name="cat"
-                                  id="category"
-                              >
-                         
-                                  @foreach ($mcategories as $item)
-                                  <option  @if ($product->category_id == $item->id) selected @endif value="{{$item->id}}">{{$item->name}}</option>
-                                  @endforeach
-                                  
-                              </select>
-                            </div>
-
-                          </div> --}}
-
-
+ 
+ 
                       
                          
 
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Description</label>
-
-                                <textarea class="summernote" name="body" rows="3">{{@old('body')}}</textarea>
+                                <textarea class="summernote" name="body" rows="3">{{$product->body}}</textarea>
                             </div>
+
+                            
+ 
  
 
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -701,17 +528,7 @@ $branches = resolve('branches');
                 </thead>
 
                 <tbody>
-                    @forelse ($product->menuprices as $price)
-                    <tr>
-                        <td>{{$price->created_at}}</td>
-                       
-                        <td>{{$price->price}}</td>
-                         
-
-                    </tr>
-                    @empty
-                        <tr><td>Price not updated</td></tr>
-                    @endforelse
+                     
 
                     
                  

@@ -17,6 +17,14 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('getsubbranch/{branch}', 'BranchController@getSubbranch');
 
 
+    //suppliers
+    Route::get('/suppliers', 'SupplierController@index')->name('supplier.index');
+    Route::post('/supplier', 'SupplierController@store')->name('supplier.store');
+    Route::delete('/supplier/drop', 'SupplierController@delete')->name('supplier.delete');
+    Route::get('supplier/{supplier}', 'SupplierController@edit')->name('supplier.edit');
+    Route::patch('supplier', 'SupplierController@update')->name('supplier.update');
+
+
 
     //menutype
     Route::get('menutypes', 'MenutypeController@index')->name('menutype.index');
@@ -48,7 +56,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('material/create', 'MaterialController@create')->name('material.create');
     Route::post('material', 'MaterialController@store')->name('material.store');
     Route::get('material/{material}', 'MaterialController@edit')->name('material.edit');
-    Route::patch('material', 'MaterialController@update')->name('material.update');
+    Route::patch('material/{material}', 'MaterialController@update')->name('material.update');
     Route::delete('material', 'MaterialController@destroy')->name('material.destroy');
 
     
