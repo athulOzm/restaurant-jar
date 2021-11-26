@@ -127,6 +127,21 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('pos/table/{table}', 'TableController@edit')->name('pos.table.edit');
     Route::patch('pos/table', 'TableController@update')->name('pos.table.update');
 
+
+    //purchase
+    Route::get('purchases', 'PurchaseController@index')->name('purchase.index');
+    Route::get('purchase/create', 'PurchaseController@create')->name('purchase.create');
+    Route::post('purchase', 'PurchaseController@store')->name('purchase.store');
+    Route::delete('purchase/drop', 'PurchaseController@destroy')->name('purchase.delete');
+    Route::get('purchase/{table}', 'PurchaseController@edit')->name('purchase.edit');
+    Route::patch('purchase', 'PurchaseController@update')->name('purchase.update');
+
+
+    //stock
+    Route::get('stocks', 'PurchaseStockController@index')->name('stock.index');
+
+
+
     //unit
     Route::get('pos/units', 'UnitController@index')->name('pos.unit.index');
     Route::post('pos/unit', 'UnitController@store')->name('pos.unit.store');
@@ -191,6 +206,21 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('kitchen', 'KitchenController@index')->name('kitchen');
     Route::get('kitchen/getorders', 'KitchenController@getOrders')->name('kitchen.orders');
     Route::patch('kitchen/orderready/{order}', 'KitchenController@orderReady')->name('kitchen.ready');
+
+
+    //purchase
+    Route::post('pos/addtopurchase', 'PurchaseController@addtocart');
+    Route::get('pos/getmaterials', 'MaterialController@getAll');
+    Route::get('/pur/getcart', 'PurchaseController@getproducts');
+    Route::post('pur/removecart', 'PurchaseController@removecart');
+    Route::post('pur/updqty', 'PurchaseController@updqty');
+    Route::post('pur/updqtyrec', 'PurchaseController@updqtyrec');
+    Route::post('pur/updprice', 'PurchaseController@updprice');
+    Route::post('/purc/adddiscount', 'PurchaseController@discount');
+    Route::post('/purc/addtax', 'PurchaseController@tax');
+    Route::get('purc/totalprice', 'PurchaseController@totalprice');
+    Route::get('pur/totalprice', 'PurhaseController@totalprice');
+    Route::post('/purc/store', 'PurchaseController@store')->name('pur.store');
 
 
     //pos pos/

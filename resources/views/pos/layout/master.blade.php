@@ -18,7 +18,7 @@
   
 {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap" rel="stylesheet"> --}}
       <!-- Custom styles for this template-->
-      <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
+      <link href="{{asset('dashboard/css/admin-2.css')}}" rel="stylesheet">
       
       <style>
 

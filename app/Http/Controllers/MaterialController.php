@@ -103,6 +103,11 @@ class MaterialController extends Controller
        return view('material.product.update', ['product' => $product]);
     }
 
+    public function getAll(){
+
+        return response(Material::where('is_active', true)->get(), 200);
+    }
+
     
 
     /**
