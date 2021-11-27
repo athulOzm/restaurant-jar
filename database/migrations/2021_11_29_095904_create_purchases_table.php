@@ -51,7 +51,7 @@ class CreatePurchasesTable extends Migration
             
             $table->boolean('status')->default(1);
             $table->text('note')->nullable();
-            $table->dateTime()->nullable();
+            $table->time('date')->nullable();
 
 
             $table->timestamps();
