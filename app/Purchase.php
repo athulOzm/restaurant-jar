@@ -66,7 +66,7 @@ class Purchase extends Model
         $tax = [];
         $cartitems->each(function($item) use(&$tax){
 
-            $tax[] = str_replace(',', '', $item->tax,);
+            $tax[] = str_replace(',', '', $item->tax);
         });
 
         //discount
