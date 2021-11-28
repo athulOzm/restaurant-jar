@@ -615,18 +615,18 @@ label {
 
                         <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
 
-                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->name}} {{$product->name_ar}})</a>
 
                           @if ($product->v1_price != '')
-                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
                           @endif
 
                           @if ($product->v2_price != '')
-                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
                           @endif
 
                           @if ($product->v3_price != '')
-                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
                           @endif
                            
                         </div>
@@ -643,7 +643,7 @@ label {
                           style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}} </h6>
+                              <h6 class="itemtitle">{{$product->name}} {{$product->name_ar}} </h6>
                           </div>
 
 
@@ -664,19 +664,19 @@ label {
                         <div id="variants{{$product->id}}aa{{$cat->id}}" class="variant" style="border-radius:6px">
 
                    
-                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->name}})</a>
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->name}} {{$product->name_ar}})</a>
                          
 
                           @if ($product->v1_price != '')
-                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
+                          <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
                           @endif
 
                           @if ($product->v2_price != '')
-                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
+                            <a onclick="addtocart({{$product->id}}, 2, {{$product->v2_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v2_name}}) - {{$product->v2_price}}</a>
                           @endif
 
                           @if ($product->v3_price != '')
-                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
                           @endif
                            
                         </div>
@@ -694,7 +694,7 @@ label {
                             style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}}</h6>
+                              <h6 class="itemtitle">{{$product->name}} {{$product->name_ar}} </h6>
                           </div>
                         @empty
                           No menu found!
