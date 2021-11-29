@@ -227,12 +227,13 @@ h2, h3{margin-block-end:.2em; margin-block-start:.2em}
 
                                 @foreach ($order->orderproducts as $product)
                                 
-                            {{-- @dd($product) --}}
+                        
 
                           
                                 <tr >
                                     <td class="tableitem"><p class="itemtext">
-                                      @switch($product->product->variant)
+
+                                      @switch($product->variant)
                                       @case(1)
                                         {{$product->product->name}} ({{$product->product->v1_name}}) <br>
                                         {{$product->product->name_ar}} 

@@ -238,7 +238,7 @@
                                 <tr >
                                     <td class="tableitem"><p class="itemtext">
 
-                                      @switch($product->product->variant)
+                                      @switch($product->variant)
                                         @case(1)
                                           {{$product->product->name}} ({{$product->product->v1_name}}) <br>
                                           {{$product->product->name_ar}} 

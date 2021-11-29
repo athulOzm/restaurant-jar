@@ -253,9 +253,9 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
 
 .flex{display: flex}
 .lab1 {
-    font-size: 16px;
+    font-size: 14px;
     color: #f4f5fa;
-    font-weight: 200; 
+    font-weight: bold;
 }
 .lab1a {
     font-size: 14px;
@@ -621,11 +621,11 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
   display: none;
    
   left: 50%;
-  margin-left: -170px;
+  margin-left: -260px;
   opacity: 0;
   position: fixed;
   top: 50%;
-  z-index: 51; width: 450px; margin-top: -150px;
+  z-index: 51; width: 600px; margin-top: -150px;
   
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -741,10 +741,13 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue"
     background: #fff;
     margin-right: 10px;
     width: 100%;
-    border-radius: 19px; line-height: 30px;
+    border-radius: 19px;
+    line-height: 30px;
     height: 45px;
     border: 1px solid #2196F3;
-    color: #2196F3!important; font-size: 16px
+    font-size: 14px;
+    font-weight: 500;
+    color: #2196F3;
 }
 .btnn1v:hover {color: white!important}
 .navbar-expand .navbar-nav {

@@ -321,7 +321,7 @@ label {
 </style>
     
       <div class="bgh tar" style="padding-bottom: 3px;padding-top: 5px;min-height:150px; position: absolute; bottom:0; width:100% ">
-        <div class="row">
+        <div class="row py-3" >
           <div class="col-md-6 " style="padding-right: 0">
 
             <input type="hidden" name="sn" value="">
@@ -366,7 +366,7 @@ label {
           <div class="col-md-6" style="font-size: 14px">
             
                 <div class="row">
-                  <div class="col-sm-6">Sub Total:</div>
+                  <div class="col-sm-6" style="color: white">Sub Total:</div>
                   <div class="col-sm-6" ><label id="st"  style="font-weight: 600;color:#fff"></label></div>
                 </div>
                 
@@ -376,9 +376,9 @@ label {
                 <div class="row" id="promotion"></div>
                 <div class="row" id="ordpromotion"></div>
 
-                <div class="row" style="border-top:1px solid #333; width:90%; line-height:33px; margin-left:10%">
+                <div class="row" style="border-top:1px solid #333; width:98%; line-height:33px; margin-left:2%">
                   <div class="col-sm-5 p0" style="text-align: right"><b class="lab1">Total Amount:</b></div>
-                  <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:0px"></label></div>
+                  <div class="col-sm-7 p0" style="color:#e65776">OMR <label class="total" id="subtotal" style="font-weight: 600;font-size: 25px; margin-right:0px;color:#e65776"></label></div>
                 </div>
 
 
@@ -1647,8 +1647,7 @@ $('#dtawrap').css({display : 'none'});
                 var btn = ''
               }
 
-      
-
+       
             
                 switch (item.variant) {
                   case 1:
