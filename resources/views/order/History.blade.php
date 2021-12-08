@@ -179,9 +179,9 @@ $locations = resolve('locations');
 
                                     <th width="30">Total Amount</th>
                                  
+                                    <th width="30">Date Delivered</th>
  
                                     <th width="250">Action</th>
-                                    <th width="30">Date Delivered</th>
                                     </tr>
                                 </thead>
 
@@ -190,7 +190,11 @@ $locations = resolve('locations');
                                     <tr>
                                          
                                        
-                                        <td>{{$order->branch->code}}{{$order->invoice->id}}</td>
+                                        <td> 
+                                            @if ($order->branch)
+                                            {{$order->branch->code}}@endif @if($order->invoice){{$order->invoice->id}}
+                                            @endif
+                                            </td>
                                         <td>@if ($order->vn)
                                             {{$order->vn}}
                                         @endif</td>
@@ -198,7 +202,8 @@ $locations = resolve('locations');
                                             {{$order->user->name}}
                                         @endif</td>
                                         <td>{{$order->getReqByAttribute()}}</td>
-                                        <td>{{$order->gettotalprice()['subtotal']}}</td>
+                                <td>{{$order->delivery_time}}</td>
+                                <td>{{$order->gettotalprice()['subtotal']}}</td>
                                        
  
                                         
@@ -217,7 +222,6 @@ $locations = resolve('locations');
 
                                 </td>
 
-                                <td>{{$order->delivery_time}}</td>
 
                                     
                                     </tr>

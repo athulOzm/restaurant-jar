@@ -26,14 +26,13 @@ class OrderController extends Controller
 
     public function history(){
 
-        $orderlist = Order::where('status', '!=', 1)->where('status', 4)->get();
+        $orderlist = Order::orderByDesc('id')->where('status', 4)->get()->take(100);
 
        
 
         if(isset($_GET['df']) and $_GET['df'] !=''){
             $df = explode('T', $_GET['df']);
             $date_from = $df[0].' '.$df[1].':00';
-
            // dd($date_from);
             $orderlist = $orderlist->where('delivery_time', '>=', $date_from);
         }
