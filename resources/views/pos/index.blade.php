@@ -615,7 +615,8 @@ label {
 
                         <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
 
-                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->name}} {{$product->name_ar}})</a>
+                          <a 
+                          onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->name}} {{$product->name_ar}})</a>
 
                           @if ($product->v1_price != '')
                           <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
@@ -633,11 +634,19 @@ label {
 
 
                           <div 
-                          @if ($product->variant)
-                            onclick="showvariant({{$product->id}});"  
-                          @else
-                            onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
-                          @endif
+
+                          @if ($product->stock_available != '0.0') 
+                              @if ($product->variant)
+                                onclick="showvariant({{$product->id}});"  
+                              @else
+                                onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                              @endif
+                            @else 
+                            class="card itembox phidden" onClick="alert('This item is currently out of stock, Add stock and continue.')"
+                            @endif 
+
+
+                          
 
                           class="card itembox"
                           style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
