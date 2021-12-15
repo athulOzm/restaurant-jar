@@ -652,7 +652,7 @@ label {
                           style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}} {{$product->name_ar}} </h6>
+                              <h6 class="itemtitle">{{$product->name}}{{$product->name_ar}} ({{$product->stock_available}}) </h6>
                           </div>
 
 
