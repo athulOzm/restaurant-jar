@@ -10,7 +10,6 @@ $allmenus = resolve('allmenus');
 $mcategories = resolve('mcategories'); 
 $daten =  str_replace(' ', 'T', Carbon\Carbon::now());
 $branches = resolve('branches');
-
 ?>
 
  
@@ -29,13 +28,11 @@ $branches = resolve('branches');
 }
 .btn-circle.btn-sm, .btn-group-sm>.btn-circle.btn {
     height: 1.6rem;
-
 }
 label {
     display: inline-block;
     margin-bottom: .1rem;
 }
-
 .form-control {
     height: 28px;
     padding: 3px 10px;
@@ -89,10 +86,7 @@ label {
     
     
     ">
-
-
     <div class="row">
-
       <div class="col-sm-2">
         <i class="fas fa-barcode" style="
             color: #717994;
@@ -103,12 +97,9 @@ label {
       </div>
       
       <div class="col-sm-10">
-
         <input type="text" class="form-control w-full txtb nns" id="sbc"  name="asdsssf" 
         style="height: 32px;border-radius: 0;border-top-left-radius: 5px;border-bottom-left-radius: 5px;margin-top: 5px;" 
         placeholder="Scan Bill Barcode">
-
-
       </div>
     </div>
            
@@ -144,7 +135,6 @@ label {
             <p class="lab1b">Member Name</p>
             <input type="text" value="@if($cur_token->user){{$cur_token->user->name}}@endif" name="memberid_name" required id="autocomplete2" class="form-control w-full txtb" >
           </div>
-
           <div class="col-md-6">
             <p class="lab1b">Member Balance</p>
             <input type="text" id="totcre2" readonly value="@if($cur_token->user){{number_format($cur_token->user->limit - $cur_token->user->getCreditAmount(), 3)}}@endif" style="background: #424961" class="form-control w-full txtb">
@@ -159,7 +149,6 @@ label {
               <label class="box3"  style="margin-right: 0"><input type="radio"  id="crepay" @if($cur_token->payment_type_id == 2) checked @endif required="" name="pt" value="2"> <b class="lab1a">Credit</b></label>
               </div></div>
             </div>
-
           </div> --}}
 
           {{-- <div class="col-md-6">
@@ -198,7 +187,6 @@ label {
 
               {{-- <p class="lab1b">Promotions</p>
               <br>
-
            
               
               <label>
@@ -338,7 +326,6 @@ label {
                   <b class="lab1a">Discount</b>
                   <input type="text" value="" id="ord_discount"  style="font-size: 20px; font-weight:600; height:38px; background:#e7e7e7" class="form-control w-full txtb" name="ord_discount">
                 </div>
-
               </div> --}}
 
               <div class="bgh p0 " style="text-align: left; display:flex">
@@ -615,8 +602,7 @@ label {
 
                         <div id="variants{{$product->id}}" class="variant" style="border-radius:6px">
 
-                          <a 
-                          onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->name}} {{$product->name_ar}})</a>
+                          <a onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->name}} {{$product->name_ar}})</a>
 
                           @if ($product->v1_price != '')
                           <a onclick="addtocart({{$product->id}}, 1, {{$product->v1_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#"class="nav-link btn btn-primary btnc2 btnn1v"  style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v1_name}}) - {{$product->v1_price}}</a>
@@ -634,25 +620,17 @@ label {
 
 
                           <div 
-
-                          @if ($product->stock_available != '0.0') 
-                              @if ($product->variant)
-                                onclick="showvariant({{$product->id}});"  
-                              @else
-                                onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
-                              @endif
-                            @else 
-                            class="card itembox phidden" onClick="alert('This item is currently out of stock, Add stock and continue.')"
-                            @endif 
-
-
-                          
+                          @if ($product->variant)
+                            onclick="showvariant({{$product->id}});"  
+                          @else
+                            onclick="addtocart({{$product->id}}, 0, {{$product->price}}, {{$product->vat}}, {{$product->promotion_price}});"
+                          @endif
 
                           class="card itembox"
                           style="background: url('@if($product->cover != null){{env('IMAGE_PATH')}}{{ $product->cover}} @else {{asset('img/dummy_img.jpg')}}@endif');min-height:110px;background-size: 100% 100%;">
                               <h5>{{$product->price}}</h5>
                               @if ($promo = $product->getpromotion()) <h4>{{$promo}}</h4> @endif
-                              <h6 class="itemtitle">{{$product->name}}{{$product->name_ar}} ({{$product->stock_available}}) </h6>
+                              <h6 class="itemtitle">{{$product->name}} {{$product->name_ar}} </h6>
                           </div>
 
 
@@ -854,18 +832,11 @@ color: #111;
 @section('script')
  
 <script type="text/javascript">
-
-
-
 const printsettle = () => {
-
  
   var divToPrint=document.getElementById('printsettlement');
-
   var newWin=window.open('','Print-Window');
-
   newWin.document.open();
-
   newWin.document.write(`<html><link href="http://jar.link/dashboard/css/sb-admin-2.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"><body style="padding:80px" onload="window.print()"><style>
   @media print {
   .printbtn {
@@ -873,17 +844,12 @@ const printsettle = () => {
   }
 }
 </style>`+divToPrint.innerHTML+`</body></html>`);
-
   newWin.document.close();
-
   //setTimeout(function(){newWin.close();},10);
-
  
 }
-
  //swich branch
  const switchBranch = () => {
-
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
@@ -897,8 +863,6 @@ const printsettle = () => {
       }
   });
 }
-
-
 //room services
 const roomservices = (memberid) => {
   hideloc();
@@ -908,7 +872,6 @@ const roomservices = (memberid) => {
     success: function(res){
       //console.log(res);
       $('#locations').append(`<input type="text" value="${res.room_address}" name="room_address" placeholder="Room Number" class="form-control w-full txtb mt-2">`);
-
     }
   });
 }
@@ -921,47 +884,30 @@ $('#sbc').keyup(function(){
     window.location.href = "/pos/update/"+sid.replace('RE-', '');
   }
 });
-
 //balance
 $('#payingamount').on('keyup', function() {
   var pay = this.value
   var st = $('#subtotal2').val();
   var dd = $('#ord_discount').val();
-
-
   var balance = parseFloat(pay - st).toFixed(3);
-
  // balance = parseFloat(balance + dd).toFixed(3);
-
   //console.log(st);
-
   $('#balancepay').val(balance);
-
 });
-
 //order discount
 // $('#ord_discount').on('keyup', function() {
 //   var dis = this.value
 //   var st = $('#subtotal2').val();
-
 //   var balance = parseFloat(st - dis).toFixed(3);
-
 //   //console.log(balan);
-
   
 //   $('#subtotal').empty();
 //   $('#subtotal').append(balance);
-
 // });
-
-
 //add cart from barcode
 $('#sermenus').keyup(function(){
-
   var sid = $('#sermenus').val();
-
   if(sid.includes('ME-')){
-
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
         type: 'POST',
@@ -977,7 +923,6 @@ $('#sermenus').keyup(function(){
         }
     });
   } else if(sid.includes('RE-')){
-
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
         type: 'POST',
@@ -993,170 +938,112 @@ $('#sermenus').keyup(function(){
         }
     });
   }
-
 });
-
-
-
 //open and submit kot
 const kot = () =>  {
-
 if($('#autocomplete').val() == ''){
-
   alert('Please Choose Member');
 } else{
   $('#reqtype').val('kot');
   $('#mform').submit();
 }
-
 }
-
-
 //open and submit kot
 const pcard = () =>  {
-
   $('#paymenttype').val(1);
   $('#mform').submit();
 }
-
 const pcash = () =>  {
-
 $('#paymenttype').val(2);
 $('#mform').submit();
 }
-
 const ponline = () =>  {
-
 $('#paymenttype').val(3);
 $('#mform').submit();
 }
-
-
 //open and submit hold
 const hold = () =>  {
-
  
     $('#reqtype').val('hold');
     $('#mform').submit();
  
-
 }
-
-
 const paynow = () => {
-
   // var isValid = $("#mform").parents('form').isValid();
   // if(!isValid) {
   //   e.preventDefault(); //prevent the default action
   // }
-
   //alert('asdf');
   $("#mform").submit();
   printDiv();
-
 }
-
 // function printDiv() 
 // {
-
 //   var divToPrint=document.getElementById('printarea');
-
 //   var newWin=window.open('','Print-Window');
-
 //   newWin.document.open();
 //   newWin.document.close();
-
 //   setTimeout(function(){newWin.close();},10);
-
 // }
-
-
 const showvariant = (id) => {
-
 $(".backDrop").animate({"opacity": ".80"}, 300);
 $(`#variants${id}`).animate({"opacity": "1.0"}, 300);
 $(`#variants${id}`).css("display", "block");
 $(".backDrop").css("display", "block");
-
 }
-
 const showvariant2 = (id, cat) => {
-
 $(".backDrop").animate({"opacity": ".80"}, 300);
 $(`#variants${id}aa${cat}`).animate({"opacity": "1.0"}, 300);
 $(`#variants${id}aa${cat}`).css("display", "block");
 $(".backDrop").css("display", "block");
-
 }
  
-
 $(document).ready(() => {
-
-
-
-
   //set time
   var dtimee = $('#dtimee').val();
-
   
   if(dtimee == ''){
     $('#dtimee').val(`<?=$daten;?>`)
   }
-
   //items
   getOrders();
-
   //lightbox 
   $("#pay").on("click", function(){
     $(".backDrop").animate({"opacity": ".80"}, 300);
     $(".box").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .box").css("display", "block");
   });
-
   //lightbox 
   // $("#pay2").on("click", function(){
   //   $(".backDrop").animate({"opacity": ".80"}, 300);
   //   $(".boxordersource").animate({"opacity": "1.0"}, 300);
   //   $(".backDrop, .boxordersource").css("display", "block");
   // });
-
   $(".close, .backDrop").on("click", function(){
     closeBox();
   });
-
   function closeBox(){
     $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
     $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
     });
   }
-
   //lightbox sales return 
   $("#salesreturn").on("click", function(){
     $(".backDrop").animate({"opacity": ".80"}, 300);
     $(".sales_return").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .sales_return").css("display", "block");
   });
-
  
  
-
-
-
 });
-
-
   //lightbox addon
   const showaddon = (pitem, pid)=>{
     getaddon(pitem);
     getaddonavailable(pid, pitem);
-
     $(".backDrop").animate({"opacity": ".80"}, 300);
     $(".box2").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .box2").css("display", "block");
   }
-
-
-
   //show settlement
   const showsettlement = ()=>{
     $.ajax({
@@ -1175,18 +1062,13 @@ $(document).ready(() => {
           $('#settle_o').empty();
           $('#sold_items').empty();
        
-
           $('#settle_total').append(res.st);
           $('#settle_total_cash').append(res.cash);
           $('#settle_total_card').append(res.card);
           $('#settle_total_online').append(res.online);
           $('#settle_total_drawer').append(res.drawer);
-
       
-
           res.items.map(item => {
-
-
             $('#sold_items').append(`
             <div class="row sitem">
               <div class="col-sm-4">${item.product.name}</div>
@@ -1197,11 +1079,7 @@ $(document).ready(() => {
             </div>
             `);
           })
-
-
           res.online_order.map(item => {
-
-
             $('#settle_t').append(`
             <div class="row sitem">
               <div class="col-sm-8">${item[0]}</div>
@@ -1210,8 +1088,6 @@ $(document).ready(() => {
             </div>
             `);
           })
-
-
  
         }
     });
@@ -1220,10 +1096,8 @@ $(document).ready(() => {
     $(".boxsett3").animate({"opacity": "1.0"}, 300);
     $(".backDrop, .boxsett3").css("display", "block");
   }
-
   //settlement done
   const donsettlement = () => {
-
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
         type: 'POST',
@@ -1237,10 +1111,6 @@ $(document).ready(() => {
         }
     });
   }
-
-
-
-
     //get addon items
     const getaddonavailable = (id, pitem) => {
     $.ajax({
@@ -1251,8 +1121,6 @@ $(document).ready(() => {
         //console.log(data);
         $('#addonwrap').empty();
         data.map(item => {
-
-
           $('#addonwrap').append(`<div class="col-md-6"  onclick="addtocartaddon('${item.id}', '${pitem}');" >
           <div style="
               color: #fff;
@@ -1265,18 +1133,12 @@ $(document).ready(() => {
           ">
             ${item.name}
           </div></div>`);
-
-
           
         })
         
       }
     });
   }
-
-
-
-
   //get addon items
   const getaddon = (id) => {
     $.ajax({
@@ -1320,16 +1182,10 @@ $(document).ready(() => {
       }
     });
   }
-
  
-
-
   $(document).ready(function(){	
     
     
-
-
-
 	var members = [];
 	$.ajax({
 		url: "/pos/getmembers",
@@ -1351,7 +1207,6 @@ $(document).ready(() => {
 			loadSuggestions(members);
 		}
 	});
-
   var menus = [];
 	$.ajax({
 		url: "/pos/getmenus",
@@ -1364,43 +1219,27 @@ $(document).ready(() => {
     
         if(data[i].name_ar === 'null'){
           menus.push({'value' : data[i].name, 'data' : id});
-
 				
         } else{menus.push({'value' : data[i].name +  ` | ` + data[i].name_ar, 'data' : id});}
-
 			}
 			//send parse data to autocomplete function
 			loadmenuss(menus);
 		}
-
 	});
-
   function loadmenuss(options) {
 		$('#sermenus').autocomplete({
 			lookup: options,
 			onSelect: function (menu) {
-
         //console.log(menu);
         addtocart(menu.data);
         $('#sermenus').val('');
-
       }
   });
-
   }
-
-
-
-
-
-
-
-
 	function loadSuggestions(options) {
 		$('#autocomplete').autocomplete({
 			lookup: options,
 			onSelect: function (member) {
-
         //console.log(member);
         //console.log();
         $('#totcre').val(null);
@@ -1409,16 +1248,12 @@ $(document).ready(() => {
         $('#totcrename').empty();
         $('#totcre').val(member.credit);
         $('#totcrename').append(member.name);
-
         getPaymenttype(member.data);
-
         var res2 = member.value.split(" | ");
-
         // switch (member.pty) {
         //   case 1:
         //     var pty = 'Cash';
         //     break;
-
         //   case 2:
         //     var pty = 'Credit';
         //     break;
@@ -1427,11 +1262,8 @@ $(document).ready(() => {
         //     var pty = 'Cash / Credit';
         //     break;
         // }
-
         $('#autocomplete2').val(res2[2]);
-
         var dtimee = $('#dtimee').val();
-
         if(dtimee != ''){
           cartcontinue(member.data, dtimee, 'withid');
         }
@@ -1439,41 +1271,19 @@ $(document).ready(() => {
 		});
 	}
   });
-
-
-
 const getlimitbydate = () => {
-
-
     var dtimee = $('#dtimee').val();
     
     var res = $('#autocomplete').val().split(" | ");
-
     if(dtimee != '' & res[0] != ''){
       cartcontinue(res[0], dtimee, 'withmid');
     }
-
 }
-
-
-
-
-
-
   
  
-
-
-
-
-
-
-
   //member selected to continue
   const cartcontinue = (data, delitime, pa) => {
-
     var token = $("meta[name='csrf-token']").attr("content");
-
     $.ajax({
         type: 'POST',
         url: `/pos/creditstatus`,
@@ -1485,7 +1295,6 @@ const getlimitbydate = () => {
         },
         success: function(res){
           //console.log(res.msg);
-
           if(res.msg == 'ok'){
             $('#delivery').empty();
             $('#alert').empty();
@@ -1498,7 +1307,6 @@ const getlimitbydate = () => {
             </div>`);
           }
           else{
-
             $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
@@ -1508,20 +1316,16 @@ const getlimitbydate = () => {
             $('#pay').prop('disabled', true);
             //alert(res.msg);
           }
-
         }
     });
   }
-
   //continue with military id
   const cartcontinuebymid = (data) => {
-
     $.ajax({
         type: 'GET',
         url: `/pos/creditstatus2/${data}`,
         success: function(res){
           //console.log(res.msg);
-
           if(res.msg == 'ok'){
             $('#delivery').empty();
             $('#alert').empty();
@@ -1534,7 +1338,6 @@ const getlimitbydate = () => {
             </div>`);
           }
           else{
-
             $('#delivery').empty();
             $('#dt').empty();
             $('#tables').empty();
@@ -1544,37 +1347,27 @@ const getlimitbydate = () => {
             $('#pay').prop('disabled', true);
             //alert(res.msg);
           }
-
         }
     });
   }
-
   const takeaway = () => {
     $('#dineinwrap').css({display : 'none'});
 $('#deliverywrap').css({display : 'none'});
 $('#dtawrap').css({display : 'block'});
   }
-
  
   
-
-
   const hideloc = () =>  {
     $('#locations').empty();
   }
-
   const ShowDelType = (memberid) =>  {
     $('#dineinwrap').css({display : 'none'});
 $('#deliverywrap').css({display : 'block'});
 $('#dtawrap').css({display : 'none'});
-
     
   }
-
-
   const getPaymenttype = (memberid) => {
     $('#pt').empty();
-
         $.ajax({
             type: 'GET',
             url: `/pos/${memberid}/getpaymenttype`,
@@ -1588,7 +1381,6 @@ $('#dtawrap').css({display : 'none'});
                   <div class="flex"><label class="box3"  style="margin-right: 0"><input  type="radio"  required name="pt" value="1"> <b class="lab1a">Card</b></label></div>
                 </div>`);
                  break;
-
               case 2:
                 $('#pt').empty();
                 $('#pt').append(`<div class="bgh p0">
@@ -1604,18 +1396,13 @@ $('#dtawrap').css({display : 'none'});
                   </label></div>`);
                  break;
              }
-
             }
         });
   }
-
-
 const getTables = (memberid) => {
-
   $('#dineinwrap').css({display : 'block'});
   $('#deliverywrap').css({display : 'none'});
 $('#dtawrap').css({display : 'none'});
-
 }
   
   
@@ -1624,10 +1411,8 @@ $('#dtawrap').css({display : 'none'});
           type: 'GET',
           url: '/pos/getcart',
           success: function(res){
-
             //console.log(res);
               $('#cart').empty();
-
               $('#cart').append(`<div class="row itemtitlebar" style="width:calc(100% + 12px)">
                 <div class="col-sm-1 " style="padding-left:25px">No</div>
                 <div class="col-sm-2 p0">Item Name</div>
@@ -1640,11 +1425,9 @@ $('#dtawrap').css({display : 'none'});
                 <div class="col-sm-2" style="font-size:9px">Addon</div>
               </div>
               `)
-
               var subt = [];
               var n =1;
               res.orderproducts.map(item => {
-
                 //console.log(item);
                 
               if(item.available_addons != ''){
@@ -1655,7 +1438,6 @@ $('#dtawrap').css({display : 'none'});
               else {
                 var btn = ''
               }
-
        
             
                 switch (item.variant) {
@@ -1666,7 +1448,6 @@ $('#dtawrap').css({display : 'none'});
                   case 2:
                     var vv = '('+item.product.v2_name+')';;
                     break;
-
                   case 3:
                     var vv = '('+item.product.v3_name+')';;
                     break;
@@ -1675,30 +1456,24 @@ $('#dtawrap').css({display : 'none'});
                     var vv = '';
                     break;
                 }
-
         
-
                   $('#cart').append(
                     `<div class="item">
           <div class="row">
             <div class="col-sm-1 price " style="padding-left:25px">${n}</div>
             <div class="col-sm-2 price p0">${item.product.name} ${vv} </div>
             <div class="col-sm-2 p0">
-
               <div style="display: flex">
-
               
                           
                           <button type="button" onclick="addtocart('${item.product.id}', '${item.variant}', '${item.product.price}', '${item.product.vat}', '${item.product.promotion_price}');" class="btn btn-circle btn-sm">
                             <i class="fas fa-plus btnc"></i>
                           </button>
-
                           <label class="qty"><input class="smtxt" id="${item.id}" onChange="updqty('${item.id}')" type="text" value="${item.quantity}"></label>
           
                           <button  type="button" onclick="downcart('${item.product.id}');" class="btn  btn-circle btn-sm">
                             <i class="fas fa-minus btnc"></i>
                           </button>
-
                         </div>
             
             
@@ -1709,20 +1484,14 @@ $('#dtawrap').css({display : 'none'});
               <input value="${item.discount}" style="font-size:14px" onChange="adddiscount('${item.id}', '${item.product.id}${item.variant}');" 
               id="itemd${item.product.id}${item.variant}" class="itemdis" type="text">
             </div>
-
         
-
-
           
-
-
             <div class="col-sm-2 ttl p0" >${item.sub_price}</div>
             
             <div class="col-sm-2 act p0">
               <div style="display: flex">
    
                 ${btn}
-
                 
                 
               </div>
@@ -1730,25 +1499,19 @@ $('#dtawrap').css({display : 'none'});
            
           </div>
         </div>`);
-
         n = n+1;
           });
-
-
           //get total price
           gettotprice()
           }
       });
   };
-
   const gettotprice = async () => {
-
     $.ajax({
         type: 'GET',
         url: "/pos/totalprice",
         success: function(res) {
           //console.log(res);
-
           $('#st').empty();
           $('#vat').empty();
           $('#subtotal').empty();
@@ -1757,29 +1520,21 @@ $('#dtawrap').css({display : 'none'});
           $('#ordpromotion').empty();
           $('#container').empty();
           $('#subtotal2').val(null);
-
-
           $('#st').append(res.price);
-
           if(res.tax != '0.000'){
             $('#vat').append(`<div class="col-sm-6">VAT:</div><div class="col-sm-6" ><label  style="font-weight: 600;">${res.tax}</label></div>`);
           }
-
           $('#subtotal').append(res.subtotal);
           $('#subtotal2').val(res.subtotal);
-
           if(res.discount != '0.000'){
             $('#discount').append(`<div class="col-sm-6">Discount:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.discount}</label></div>`);
           }
-
           if(res.promotion != '0.000'){
             $('#promotion').append(`<div class="col-sm-6">Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.promotion}</label></div>`);
           }
-
           if(res.ordpromotion != '0.000'){
             $('#ordpromotion').append(`<div class="col-sm-6">Women's day Promotion:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.ordpromotion}</label></div>`);
           }
-
           if(res.container != '0.000'){
             $('#container').append(`<div class="col-sm-6">Container:</div><div class="col-sm-6" ><label style="font-weight: 600;">${res.container}</label></div>`);
           }
@@ -1787,7 +1542,6 @@ $('#dtawrap').css({display : 'none'});
         }
     })
   }
-
   //cancel
   const actcancel = (id) => {
   
@@ -1804,13 +1558,9 @@ $('#dtawrap').css({display : 'none'});
       }
   });
 }
-
-
 //update quantity 
 const updqty = (cart_item) =>  {
-
   let qty = $(`#${cart_item}`).val();
-
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
@@ -1824,12 +1574,8 @@ const updqty = (cart_item) =>  {
         getOrders();
       }
   });
-
 }
-
-
  
-
   // addtocart main items
   const addtocart = (item, va, price, vat, promotion_price) => {
    
@@ -1837,7 +1583,6 @@ const updqty = (cart_item) =>  {
     $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").animate({"opacity": "0"}, 300, function(){
     $(".backDrop, .box, .box2, .sales_return, .boxsett3, .boxordersource, .variant").css("display", "none");
     });
-
       var token = $("meta[name='csrf-token']").attr("content");
       $.ajax({
           type: 'POST',
@@ -1856,8 +1601,6 @@ const updqty = (cart_item) =>  {
           }
       });
   }
-
-
 // addtocart main items
 const addtocartvariant = (item, va) => {
   
@@ -1871,15 +1614,10 @@ const addtocartvariant = (item, va) => {
           "_token": token,
       },
       success: function(res){
-
         getOrders();
       }
   });
 }
-
-
-
-
   // addtocart addon items
   const addtocartaddon = (item, pitem) => {
   
@@ -1896,12 +1634,9 @@ const addtocartvariant = (item, va) => {
          //console.log(res);
           getaddon(pitem);
           getOrders();
-
         }
     });
   }
-
-
 //remove item from cart
 const removecart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
@@ -1913,15 +1648,11 @@ var token = $("meta[name='csrf-token']").attr("content");
           "_token": token,
       },
       success: function(){
-
         
-
-
         getOrders();
       }
   });
 }
-
 //remove item from addon
 const removecartaddon = (item, pid) => {
 var token = $("meta[name='csrf-token']").attr("content");
@@ -1939,9 +1670,7 @@ var token = $("meta[name='csrf-token']").attr("content");
       }
   });
 }
-
  
-
 //remove item from cart
 const downcart = (item) => {
 var token = $("meta[name='csrf-token']").attr("content");
@@ -1953,7 +1682,6 @@ var token = $("meta[name='csrf-token']").attr("content");
           "_token": token,
       },
       success: function(){
-
         // var res = $('#autocomplete').val().split(" - ");
         // if(res[0] != ''){
         //   cartcontinuebymid(res[0]);
@@ -1962,8 +1690,6 @@ var token = $("meta[name='csrf-token']").attr("content");
       }
   });
 }
-
-
 //remove item from addon
 const downcartaddon = (item, pid) => {
 var token = $("meta[name='csrf-token']").attr("content");
@@ -1981,14 +1707,9 @@ var token = $("meta[name='csrf-token']").attr("content");
       }
   });
 }
-
-
 //discount
 const adddiscount = (item, id) => {
-
 var dis = $(`#itemd${id}`).val();
-
-
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
@@ -2003,11 +1724,8 @@ var dis = $(`#itemd${id}`).val();
       }
   });
 }
-
 //getPromo
-
 $('#order_promotion').change(function() {
-
   if(this.checked) {
       var val = 1;
       var dis = 30;
@@ -2015,7 +1733,6 @@ $('#order_promotion').change(function() {
       var val = 0;
       var dis = 0;
   }
-
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
@@ -2029,18 +1746,13 @@ $('#order_promotion').change(function() {
         getOrders();
       }
   });
-
        
               
 });
  
-
 //container
 const addcontainer = (item, id) => {
-
 var dis = $(`#itemc${id}`).val();
-
-
   var token = $("meta[name='csrf-token']").attr("content");
   $.ajax({
       type: 'POST',
@@ -2065,52 +1777,37 @@ const getDeliverylocations = (memberid) => {
         url: "/pos/locations",
         success: function(res) {
           //console.log(res);
-
           $('#locations').empty();
           $('#locations').append(`<div class="bgh1 mt-2">
           <select onChange="getPaymenttype('${memberid}')" class="form-control w-full txtb" name="location" required><option>Select Locations</option>`)
-
-
           res.map(locations => {
               //console.log(subcat);
               
               $('#locations select').append('<option value="' + locations.id + '">' + locations.name + '</option>')
           })
           $('#locations').append('</select></div>')
-
             
         }
     })
     
 }
-
-
 $('#mform').on('submit', function() {
-
   if($('#reqtype').val() == 'hold'){
   return true;
   }
-
   if($("input[name='pt']:checked").val() == 1){
   return true;
   }
-
   
-
   var avcre = $('#subtotal2').val();
   var ccre = $('#totcre2').val();
   $('#vallimit').empty();
-
   //console.log(ccre);
-
-
   // ccre = ccre.replace(/\,/g,'');
   // ccre = ccre.replace(',', '');
   // ccre = Number(ccre);
   // avcre = Number(avcre);
-
   //console.log(ccre);
-
   //if(Math.floor(avcre) < Math.floor(ccre)){
     return true;
   
@@ -2120,24 +1817,16 @@ $('#mform').on('submit', function() {
   //   alert('Credit Limit Exced');
   //   return false;
   // }
-
-
 });
-
 // const getDelTime = () => {
-
 //   console.log($('#reqtype').val());
-
  
-
 //   var avcre = $('#subtotal2').val();
 //   var ccre = $('#totcre').val();
 //   $('#vallimit').empty();
-
 //   ccre = ccre.replace(/\,/g,'');
 //   ccre = Number(ccre);
 //   avcre = Number(avcre);
-
 //   if(Math.floor(avcre) < Math.floor(ccre)){
 //     return true;
   
@@ -2148,12 +1837,9 @@ $('#mform').on('submit', function() {
 //   }
 // }
  
-
  
-
 </script>
 
 <script src="{{asset('dashboard/js/jquery.autocomplete.min.js')}}"></script>
 
 @endsection
-
