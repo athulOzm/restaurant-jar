@@ -615,6 +615,10 @@ label {
                           @if ($product->v3_price != '')
                           <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
                           @endif
+
+                          @if ($product->v4_price != '')
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v4_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v4_name}}) - {{$product->v4_price}}</a>
+                          @endif
                            
                         </div>
 
@@ -664,6 +668,10 @@ label {
 
                           @if ($product->v3_price != '')
                           <a onclick="addtocart({{$product->id}}, 3, {{$product->v3_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v3_name}}) - {{$product->v3_price}}</a>
+                          @endif
+
+                          @if ($product->v4_price != '')
+                          <a onclick="addtocart({{$product->id}}, 3, {{$product->v4_price}}, {{$product->vat}}, {{$product->promotion_price}});" href="#" class="nav-link btn btn-primary btnc2 btnn1v" style="width: 100%"> {{$product->name}} {{$product->name_ar}} ({{$product->v4_name}}) - {{$product->v4_price}}</a>
                           @endif
                            
                         </div>
@@ -1450,6 +1458,10 @@ $('#dtawrap').css({display : 'none'});
                     break;
                   case 3:
                     var vv = '('+item.product.v3_name+')';;
+                    break;
+
+                  case 4:
+                    var vv = '('+item.product.v4_name+')';;
                     break;
                 
                   default:

@@ -605,6 +605,20 @@ $branches = resolve('branches');
                                         value="{{$product->v3_price}}" name="v3_price">
                                     </div>
                                   </div>
+
+                                  <div class="row">
+                                    <div class="form-group col-md-8">
+                                      <label for="inputCity">Variant Name</label>
+                                      <input type="text" value="{{$product->v4_name}}"
+                                          class="form-control @error('v4_name') is-invalid @enderror" name="v4_name">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Price</label>
+                                      <input type="text" class="form-control @error('v4_price') is-invalid @enderror"
+                                        value="{{$product->v4_price}}" name="v4_price">
+                                    </div>
+                                  </div>
                                   
                                 </div>
                               </div>

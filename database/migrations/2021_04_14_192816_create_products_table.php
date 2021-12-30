@@ -39,9 +39,11 @@ class CreateProductsTable extends Migration
             $table->string('v1_name');
             $table->string('v2_name');
             $table->string('v3_name');
+            $table->string('v4_name');
             $table->decimal('v1_price', 8, 3)->nullable();
             $table->decimal('v2_price', 8, 3)->nullable();
             $table->decimal('v3_price', 8, 3)->nullable();
+            $table->decimal('v4_price', 8, 3)->nullable();
 
 
             $table->decimal('vat', 8, 2)->default(0);

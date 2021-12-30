@@ -131,7 +131,7 @@
           <div class="bg-primary py-2 collapse-inner ">
        
             <a class="collapse-item" href="{{route('product.index')}}">Menus</a>
-           <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a>
+           {{-- <a class="collapse-item" href="{{route('product.index.stock')}}">Menu Stocks</a> --}}
             {{--  <a class="collapse-item" href="{{route('menutype.index')}}">Menu Types</a> --}}
             <a class="collapse-item" href="{{route('addon.index')}}">Addon</a>
             <a class="collapse-item" href="{{route('category.index')}}">Categories</a>
