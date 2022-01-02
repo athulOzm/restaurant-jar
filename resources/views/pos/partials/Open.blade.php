@@ -34,7 +34,9 @@ $saleslog = resolve('saleslog2');
                     @foreach($saleslog as $sale)
                         <tr>
                             <td>{{$sale->updated_at}}</td>
-                            <td>{{$sale->reqFrom->name}}</td>
+                            <td>@if ($sale->reqFrom)
+                                {{$sale->reqFrom->name}}
+                            @endif</td>
                     
                            
                             <td>{{$sale->vn}}</td>
